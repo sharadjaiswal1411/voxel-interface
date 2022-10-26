@@ -1,0 +1,36 @@
+import { Token } from '@kyberswap/ks-sdk-core';
+import { Pair } from './entities/pair';
+import { ChainId } from '@kyberswap/ks-sdk-core';
+/**
+ * Contains methods for constructing instances of pairs and tokens from on-chain data.
+ */
+export declare abstract class Fetcher {
+    /**
+     * Cannot be constructed.
+     */
+    private constructor();
+    /**
+     * Fetch information for a given token on the given chain, using the given ethers provider.
+     * @param chainId chain of the token
+     * @param address address of the token on the chain
+     * @param provider provider used to fetch the token
+     * @param symbol optional symbol of the token
+     * @param name optional name of the token
+     */
+    static fetchTokenData(chainId: ChainId, address: string, provider?: import("@ethersproject/providers").BaseProvider, symbol?: string, name?: string): Promise<Token>;
+    /**
+     * Fetches information about pairs and constructs pairs array from the given two tokens.
+     * @param tokenA first token
+     * @param tokenB second token
+     * @param factoryAddress address of dmmFactory
+     * @param provider the provider to use to fetch the data
+     */
+    static fetchPairData(tokenA: Token, tokenB: Token, factoryAddress: string, provider?: import("@ethersproject/providers").BaseProvider): Promise<Pair[]>;
+    /**
+     * Fetches information about pair addresses from the given two tokens.
+     * @param tokenA first token
+     * @param tokenB second token
+     * @param provider the provider to use to fetch the data
+     */
+    static fetchPairAddresses(tokenA: Token, tokenB: Token, factoryAddress: string, provider?: import("@ethersproject/providers").BaseProvider): Promise<string[]>;
+}

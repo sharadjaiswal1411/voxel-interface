@@ -1,0 +1,206 @@
+[
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "previousOwner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "OwnershipTransferred",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "VaultInfo",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "nft",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "stakingContract",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "logoURI",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "rewardPerDay",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "openedAt",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "openedTill",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "contract IERC721",
+						"name": "_nft",
+						"type": "address"
+					},
+					{
+						"internalType": "contract IRewardToken",
+						"name": "_token",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "_name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_logoURI",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_rewardPerDay",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_openedAt",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_openedTill",
+						"type": "uint256"
+					}
+				],
+				"name": "addVault",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "listVaults",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "nft",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "token",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "stakingContract",
+								"type": "address"
+							},
+							{
+								"internalType": "string",
+								"name": "name",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "logoURI",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "rewardPerDay",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "openedAt",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "openedTill",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct StakingFactory.vaultInfo[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "renounceOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		]

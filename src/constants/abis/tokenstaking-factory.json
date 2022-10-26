@@ -1,0 +1,174 @@
+[
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "previousOwner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "OwnershipTransferred",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "VaultInfo",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "stakedToken",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "rewardToken",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "stakingContract",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "poolId",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_stakedToken",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_rewardToken",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_lockPeriod",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_minStakeRequired",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_apy",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_closingIn",
+						"type": "uint256"
+					}
+				],
+				"name": "addVault",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "listVaults",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "stakedToken",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "rewardToken",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "stakingContract",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "poolId",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct ERC20StakingFactory.vaultInfo[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_poolId",
+						"type": "uint256"
+					}
+				],
+				"name": "removeVault",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "renounceOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		]
