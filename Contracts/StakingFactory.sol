@@ -1,20 +1,18 @@
 // SPDX-License-Identifier: MIT LICENSE
 
-pragma solidity 0.8.4;
+pragma solidity 0.8.10;
 
 import "./NftStaking.sol";
 
-contract StakingFactory is Ownable {
+contract NftStakingFactory is Ownable {
 
   struct vaultInfo {
-        address nft;
-        address token;
+        address  nft;
+        address rewardToken;
         address stakingContract;
+        uint256  poolId;
         string  name;
         string logoURI;
-        uint256 rewardPerDay;
-        uint256 openedAt;
-        uint256 openedTill; 
   }
 
   vaultInfo[] public VaultInfo;
@@ -24,25 +22,23 @@ contract StakingFactory is Ownable {
  function addVault(
         IERC721 _nft,
         IRewardToken _token,
-        string calldata _name,
-        string calldata _logoURI,
         uint256 _rewardPerDay,
-        uint256 _openedAt,
-        uint256 _openedTill
+        uint256 _lockTime,
+        string calldata _name,
+        string calldata _logoURI
+
     ) public onlyOwner{
 
-        stakingContract = new NftStaking(_nft,_token,_openedAt,_openedTill,_rewardPerDay);
+        stakingContract = new NftStaking(_nft,_token,_rewardPerDay,_lockTime);
       
         VaultInfo.push(
             vaultInfo({
                 nft: address(_nft),
                 stakingContract:address(stakingContract),
-                token: address(_token),
-                name: _name,
-                logoURI:_logoURI,
-                rewardPerDay:_rewardPerDay,
-                openedAt:_openedAt,
-                openedTill:_openedTill
+                rewardToken: address(_token),
+                poolId:VaultInfo.length,
+                name:_name,
+                logoURI:_logoURI        
             })
         );
 
@@ -50,8 +46,18 @@ contract StakingFactory is Ownable {
 
 
     }
-  function listVaults() public view returns ( vaultInfo[] memory) {
+ function listVaults() public view returns ( vaultInfo[] memory) {
             return VaultInfo;   
+  }
+
+  function removeVault(uint256 index) public onlyOwner{
+       if (index >= VaultInfo.length) return;
+        for (uint i = index; i<VaultInfo.length-1; i++){
+            VaultInfo[i] = VaultInfo[i+1];
+            
+        }
+        delete VaultInfo[VaultInfo.length-1];
+       
   }
   
 }

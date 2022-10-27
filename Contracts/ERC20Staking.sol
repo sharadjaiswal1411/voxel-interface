@@ -16,6 +16,8 @@ contract ERC20Staking is Ownable, Pausable {
 
   uint256 constant SECONDS_IN_YEAR = 31536000;
 
+  uint256 public feeCollected=0;
+
   struct poolInfo {
         address stakedToken;
         address rewardToken;
@@ -24,15 +26,17 @@ contract ERC20Staking is Ownable, Pausable {
         uint256 apy;
         uint256 closingIn;
         uint256 totalStaked;
-
+        uint256 unstakeFee;
   }
 
   poolInfo public PoolInfo;
+
   mapping(address => Stake) public stakeOf;
   mapping(address => uint256) public minStakeRequiredOf; //  stake made by address
   event StakeMade(address indexed _from);
   event UnstakeMade(address indexed _from);
   event RewardWithdrawn(address indexed _to, uint256 indexed _amount);
+  event FeesCollected(address indexed _to, uint256 indexed _amount);
 
 
   /***
@@ -49,7 +53,8 @@ contract ERC20Staking is Ownable, Pausable {
       minStakeRequired:_minStakeRequired,
       apy:_apy,
       closingIn:_closingIn+block.timestamp,
-      totalStaked:0
+      totalStaked:0,
+      unstakeFee:0
     });
 
   }
@@ -62,7 +67,22 @@ contract ERC20Staking is Ownable, Pausable {
     PoolInfo.apy = _apy;
   }
 
-  
+  /***
+   * @dev Updates emergency unstake fee.
+   * @param status  value.
+   */
+  function updateUnStakeBefore(uint256 _fee) external onlyOwner {
+    PoolInfo.unstakeFee = _fee;
+  }
+
+  /***
+   * @dev Updates APY.
+   * @param _apy APY value.
+   */
+  function closingIn(uint256 _closingIn) external onlyOwner {
+    PoolInfo.closingIn = _closingIn+block.timestamp;
+  }
+
   /***
    * @dev Updates minStakeRequired.
    * @param _minStakeRequired Stake amount to be updated to.
@@ -77,6 +97,18 @@ contract ERC20Staking is Ownable, Pausable {
    */
   function updateLockPeriod(uint256 _lockPeriod) external onlyOwner {
     PoolInfo.lockPeriod = _lockPeriod;
+  }
+
+
+ /***
+   * @dev Updates lockPeriod in seconds.
+   * @param _lockPeriod Lock period in seconds.
+   */
+  function withdrawFees() external onlyOwner {
+  
+    IERC20(PoolInfo.rewardToken).transferFrom(address(this), owner(), feeCollected);
+
+    emit FeesCollected(msg.sender,feeCollected);
   }
 
   /***
@@ -97,7 +129,7 @@ contract ERC20Staking is Ownable, Pausable {
     uint256 rewards = calculateAvailableReward();
     
     if(rewards>0)
-     withdrawAvailableReward();
+    withdrawAvailableReward();
     stakeOf[msg.sender] = Stake(block.timestamp, block.timestamp + PoolInfo.lockPeriod);
     minStakeRequiredOf[msg.sender] = minStakeRequiredOf[msg.sender]+_amount;
     PoolInfo.totalStaked=PoolInfo.totalStaked+_amount;
@@ -160,12 +192,30 @@ contract ERC20Staking is Ownable, Pausable {
     emit RewardWithdrawn(msg.sender, rewards);
   }
 
+function emergencyUnstake() external {
+    delete stakeOf[msg.sender];
+    uint256 availableTokens=minStakeRequiredOf[msg.sender];
+     if(PoolInfo.unstakeFee>0){
+       uint256 fees=(availableTokens * (PoolInfo.unstakeFee/10000));
+       availableTokens=availableTokens-fees;
+       feeCollected=feeCollected+fees;
+     }
+    IERC20(PoolInfo.stakedToken).transfer(msg.sender, availableTokens);
+
+    PoolInfo.totalStaked=PoolInfo.totalStaked-availableTokens;
+    delete minStakeRequiredOf[msg.sender] ;
+    emit UnstakeMade(msg.sender);
+
+}
+
   /**
    * @dev Makes unstake.
    */
   function unstake() external whenNotPaused {
     require(stakeOf[msg.sender].timeAt > 0, "no stake");
+   
     require(stakeOf[msg.sender].lockPeriodUntil < block.timestamp, "too early");
+ 
 
     if (calculateAvailableReward() > 0) {
       withdrawAvailableReward();
@@ -175,6 +225,7 @@ contract ERC20Staking is Ownable, Pausable {
     IERC20(PoolInfo.stakedToken).transfer(msg.sender, minStakeRequiredOf[msg.sender]);
 
     PoolInfo.totalStaked=PoolInfo.totalStaked-minStakeRequiredOf[msg.sender];
+    delete minStakeRequiredOf[msg.sender] ;
     
     emit UnstakeMade(msg.sender);
   }
@@ -190,4 +241,7 @@ contract ERC20Staking is Ownable, Pausable {
   function pause(bool _isPause) external onlyOwner {
     _isPause ? _pause() : _unpause();
   }
+
+
+
 }
