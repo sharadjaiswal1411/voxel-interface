@@ -243,7 +243,6 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: src/pages/NftStaking/index.tsx
 #: src/pages/Yield/index.tsx
 msgid "Active"
 msgstr "가동"
@@ -1292,7 +1291,6 @@ msgid "Enables high slippage trades. Use at your own risk"
 msgstr ""
 
 #: src/pages/Campaign/CampaignItem.tsx
-#: src/pages/NftStaking/index.tsx
 #: src/pages/Yield/index.tsx
 msgid "Ended"
 msgstr "끝남"

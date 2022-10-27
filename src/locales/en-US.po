@@ -235,7 +235,6 @@ msgstr "Acknowledge"
 msgid "Actions"
 msgstr "Actions"
 
-#: src/pages/NftStaking/index.tsx
 #: src/pages/Yield/index.tsx
 msgid "Active"
 msgstr "Active"
@@ -1251,7 +1250,6 @@ msgid "Enables high slippage trades. Use at your own risk"
 msgstr "Enables high slippage trades. Use at your own risk"
 
 #: src/pages/Campaign/CampaignItem.tsx
-#: src/pages/NftStaking/index.tsx
 #: src/pages/Yield/index.tsx
 msgid "Ended"
 msgstr "Ended"

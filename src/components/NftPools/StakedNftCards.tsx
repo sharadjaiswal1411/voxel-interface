@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Flex, Text } from 'rebass'
+import { Text } from 'rebass'
 import useTheme from 'hooks/useTheme'
 import { useBlockNumber } from 'state/application/hooks'
 import { useFarmAction } from 'state/nfts/promm/hooks'

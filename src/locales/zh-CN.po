@@ -257,7 +257,6 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: src/pages/NftStaking/index.tsx
 #: src/pages/Yield/index.tsx
 msgid "Active"
 msgstr "活跃"
@@ -1307,7 +1306,6 @@ msgstr ""
 #~ msgstr "允许高滑点交易。使用的风险自负。"
 
 #: src/pages/Campaign/CampaignItem.tsx
-#: src/pages/NftStaking/index.tsx
 #: src/pages/Yield/index.tsx
 msgid "Ended"
 msgstr "已结束"

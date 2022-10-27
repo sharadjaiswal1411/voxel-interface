@@ -5,7 +5,6 @@ import NftStakingGuide from 'components/NftPools/NftStakingGuide'
 
 import {
   PageWrapper,
-  PoolTitleContainer,
   TopBar,
 } from 'components/NftPools/styleds'
 
@@ -19,11 +18,8 @@ const NftStaking = () => {
           <ClassicElasticTab />          
        </TopBar>
         <NftStakingGuide />
-
-        <div>
-
-
-          <ProMMFarms active  />
+         <div>
+         <ProMMFarms active  />
         </div>
       </PageWrapper>
       <SwitchLocaleLink />
