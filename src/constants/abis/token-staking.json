@@ -41,6 +41,25 @@
 					{
 						"indexed": true,
 						"internalType": "address",
+						"name": "_to",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "_amount",
+						"type": "uint256"
+					}
+				],
+				"name": "FeesCollected",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
 						"name": "previousOwner",
 						"type": "address"
 					},
@@ -163,6 +182,11 @@
 						"internalType": "uint256",
 						"name": "totalStaked",
 						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "unstakeFee",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -192,6 +216,26 @@
 				"name": "closingIn",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "emergencyUnstake",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "feeCollected",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -233,6 +277,11 @@
 							{
 								"internalType": "uint256",
 								"name": "totalStaked",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "unstakeFee",
 								"type": "uint256"
 							}
 						],
@@ -414,6 +463,19 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
+						"name": "_fee",
+						"type": "uint256"
+					}
+				],
+				"name": "updateUnStakeBefore",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
 						"name": "_minStakeRequired",
 						"type": "uint256"
 					}
@@ -426,6 +488,13 @@
 			{
 				"inputs": [],
 				"name": "withdrawAvailableReward",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "withdrawFees",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"

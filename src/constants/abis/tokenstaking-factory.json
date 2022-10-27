@@ -142,7 +142,7 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "_poolId",
+						"name": "index",
 						"type": "uint256"
 					}
 				],

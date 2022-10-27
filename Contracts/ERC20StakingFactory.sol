@@ -10,6 +10,7 @@ contract ERC20StakingFactory is Ownable {
         address stakedToken;
         address rewardToken;
         address stakingContract;
+        uint256 poolId;
   }
 
   vaultInfo[] public VaultInfo;
@@ -26,7 +27,8 @@ contract ERC20StakingFactory is Ownable {
             vaultInfo({
                 stakedToken: _stakedToken,
                 rewardToken:_rewardToken,
-                stakingContract: address(stakingContract)
+                stakingContract: address(stakingContract),
+                poolId:VaultInfo.length
             })
         );
 
@@ -35,6 +37,16 @@ contract ERC20StakingFactory is Ownable {
     }
   function listVaults() public view returns ( vaultInfo[] memory) {
             return VaultInfo;   
+  }
+
+  function removeVault(uint256 index) public onlyOwner{
+       if (index >= VaultInfo.length) return;
+        for (uint i = index; i<VaultInfo.length-1; i++){
+            VaultInfo[i] = VaultInfo[i+1];
+            
+        }
+        delete VaultInfo[VaultInfo.length-1];
+       
   }
   
 }

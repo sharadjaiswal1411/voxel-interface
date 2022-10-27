@@ -72,7 +72,7 @@ const görliInfo: NetworkInfo = {
   },
   staking: {
     nftFactory: '0x475d9629F309578f78129C512ae8133A0399D722',
-    tokenFactory:'0xCb5dd86e2F8c8f976E80f5EBaA6d625d9e0cd137'
+    tokenFactory:'0xdBA1E8d2d9B81db4ad5Da5Bb790EffCe7b1620C2'
   },
   averageBlockTimeInSeconds: 13.13,
   coingeckoNetworkId: EMPTY,
