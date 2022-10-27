@@ -6,19 +6,39 @@ import {useFarmAction } from 'state/nfts/promm/hooks'
 import { useIsTransactionPending } from 'state/transactions/hooks'
 import styled from 'styled-components'
 import { ButtonPrimary } from 'components/Button'
+import { AutoColumn } from 'components/Column'
 
-const stakeTo= (nftContract: string)=>{
-  console.log(nftContract);
-}
+import { LightCard} from 'components/Card'
 
-export const NftCard= styled.div`
-    background: #1C1C1C;
-    height: auto;
-    border-radius: 12px;
-    padding: 15px 15px 20px 15px;
-    position: relative;
-    width:320px;
-    margin-right:5px;
+
+export const PositionCardGrid = styled.div`
+  display: grid;
+  grid-template-columns: minmax(320px,auto) minmax(320px,auto) minmax(320px,auto) minmax(320px,auto);
+  gap: 24px;
+  max-width: 1392px;
+
+  ${({ theme }) => theme.mediaWidth.upToLarge`
+    grid-template-columns: 1fr 1fr;
+    max-width: 832px;
+  `}
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    grid-template-columns: 1fr;
+    max-width: 392px;
+  `};
+`
+const StyledPositionCard = styled(LightCard)`
+  border: none;
+  background: ${({ theme }) => theme.background};
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+
+  ${({ theme }) => theme.mediaWidth.upToMedium`
+    padding: 16px;
+  `}
 `
 function StakedNftCards({stakingAddress,nftAddress}: { stakingAddress:string,nftAddress:string } ) {
   const theme = useTheme()
@@ -56,18 +76,18 @@ function StakedNftCards({stakingAddress,nftAddress}: { stakingAddress:string,nft
 
 
   return (
-    <>
-     <Flex>
+   <AutoColumn gap="lg" style={{ width: '100%' }}>
+     <PositionCardGrid>
      {!nfts.length && <div> No NFTs Staked. Please stake some. </div>}
      {nfts &&
           nfts?.map((item, key) => (
-          <NftCard key={key}>
+          <StyledPositionCard key={key}>
                   
                     <div className="product-card-body">
                       <h4 className="capitalize">
                         {item?.name}
                       </h4>
-                      <p>Token Id: #{item.toString()}</p>
+                      <p>Token Id: #{item?.tokenId}</p>
                     </div>
                     <div className="product-card-footer">
                    
@@ -77,13 +97,13 @@ function StakedNftCards({stakingAddress,nftAddress}: { stakingAddress:string,nft
                     </Text>
                   </ButtonPrimary>
                     </div>
-         </NftCard>
+         </StyledPositionCard>
  
 
           ))
      }
-</Flex>
-    </>
+</PositionCardGrid>
+    </AutoColumn>
   )
 }
 

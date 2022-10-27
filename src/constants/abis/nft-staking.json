@@ -8,22 +8,17 @@
 					},
 					{
 						"internalType": "contract IRewardToken",
-						"name": "_rewardsToken",
+						"name": "_rewardToken",
 						"type": "address"
 					},
 					{
 						"internalType": "uint256",
-						"name": "_openedAt",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_openedTill",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
 						"name": "_rewardPerDay",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_lockTime",
 						"type": "uint256"
 					}
 				],
@@ -85,6 +80,19 @@
 				"anonymous": false,
 				"inputs": [
 					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "Paused",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
 						"indexed": true,
 						"internalType": "address",
 						"name": "user",
@@ -125,6 +133,19 @@
 					{
 						"indexed": false,
 						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "Unpaused",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
 						"name": "owner",
 						"type": "address"
 					},
@@ -137,6 +158,52 @@
 				],
 				"name": "Unstaked",
 				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "PoolInfo",
+				"outputs": [
+					{
+						"internalType": "contract IERC721",
+						"name": "nft",
+						"type": "address"
+					},
+					{
+						"internalType": "contract IRewardToken",
+						"name": "rewardToken",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "stakedTotal",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "lockTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "rewardsPerDay",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_rewardsPerDay",
+						"type": "uint256"
+					}
+				],
+				"name": "UpdateRewardsPerDay",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			},
 			{
 				"inputs": [
@@ -184,19 +251,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "nft",
-				"outputs": [
-					{
-						"internalType": "contract IERC721",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
 				"inputs": [
 					{
 						"internalType": "address",
@@ -232,32 +286,6 @@
 			},
 			{
 				"inputs": [],
-				"name": "openedAt",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "openedTill",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
 				"name": "owner",
 				"outputs": [
 					{
@@ -270,34 +298,34 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "renounceOwnership",
+				"inputs": [
+					{
+						"internalType": "bool",
+						"name": "_isPause",
+						"type": "bool"
+					}
+				],
+				"name": "pause",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
 				"inputs": [],
-				"name": "rewardsToken",
+				"name": "paused",
 				"outputs": [
 					{
-						"internalType": "contract IRewardToken",
+						"internalType": "bool",
 						"name": "",
-						"type": "address"
+						"type": "bool"
 					}
 				],
 				"stateMutability": "view",
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "bool",
-						"name": "_enabled",
-						"type": "bool"
-					}
-				],
-				"name": "setTokensClaimable",
+				"inputs": [],
+				"name": "renounceOwnership",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -326,19 +354,6 @@
 				"name": "stakeBatch",
 				"outputs": [],
 				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "stakedTotal",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -379,19 +394,6 @@
 						"internalType": "address",
 						"name": "",
 						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "tokensClaimable",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
 					}
 				],
 				"stateMutability": "view",
@@ -439,6 +441,19 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "_locktime",
+						"type": "uint256"
+					}
+				],
+				"name": "updateNftMinLockTime",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "address",
 						"name": "_user",
 						"type": "address"
@@ -447,6 +462,25 @@
 				"name": "updateReward",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_user",
+						"type": "address"
+					}
+				],
+				"name": "viewRewards",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			}
 		]

@@ -234,9 +234,19 @@ export const useFarmAction = (stakingAddress: string, nftAddress: string) => {
       throw new Error(CONTRACT_NOT_FOUND_MSG);
     }
 
-    const tx = await contract.getStakedTokens(account);
+    const nfts = await contract.getStakedTokens(account);
+     const data :any=[];
+    nfts.forEach(async function(nft: any){
+      console.log("nfnftnftnftt",nft);
 
-    return tx;
+      data.push({"tokenId":nft.toString(),'name':"NFT 001"});
+
+    });
+
+    
+
+
+    return data;
   }, [contract, nftAddress, chainId]);
 
   const fetchBalance = useCallback(async () => {

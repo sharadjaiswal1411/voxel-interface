@@ -9,18 +9,38 @@ import { useStakingAction} from 'state/nfts/promm/hooks'
 import styled from 'styled-components'
 import { BigNumber } from 'ethers'
 import JSBI from 'jsbi'
+import { AutoColumn } from 'components/Column'
+import { LightCard} from 'components/Card'
 
+export const PositionCardGrid = styled.div`
+  display: grid;
+  grid-template-columns: minmax(320px,auto) minmax(320px,auto) minmax(320px,auto) minmax(320px,auto);
+  gap: 24px;
+  max-width: 1392px;
 
-export const NftCard= styled.div`
-    background: #1C1C1C;
-    height: auto;
-    border-radius: 12px;
-    padding: 15px 15px 20px 15px;
-    position: relative;
-    max-width:320px;
-    margin-right:5px;
+  ${({ theme }) => theme.mediaWidth.upToLarge`
+    grid-template-columns: 1fr 1fr;
+    max-width: 832px;
+  `}
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    grid-template-columns: 1fr;
+    max-width: 392px;
+  `};
 `
+const StyledPositionCard = styled(LightCard)`
+  border: none;
+  background: ${({ theme }) => theme.background};
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
 
+  ${({ theme }) => theme.mediaWidth.upToMedium`
+    padding: 16px;
+  `}
+`
 const getFullDisplayBalance = (balance: BigNumber, decimals = 18, significant = 6): string => {
   const amount = new Fraction(balance.toString(), JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(decimals)))
   if (amount.lessThan(new Fraction('1'))) {
@@ -51,53 +71,30 @@ function ProMMFarms({ active }: { active: boolean } ) {
 
   }, ["farms"])
 
-  
 
-
-  const filteredFarms = useMemo(() => {
-    const now = Date.now() / 1000
-    return Object.keys(farms).reduce((acc: { [key: string]: any[] }, address) => {
-
-      const currentFarms = farms.filter(farm => {
-        const filterActive = active ? farm.openedTill.toNumber() >= now : farm.openedTill.toNumber() < now
-        return filterActive
-      })
-
-      if (currentFarms.length) acc["data"] = currentFarms
-      return acc
-    }, {})
-  }, [farms, active, activeTab])
-
-  const noFarms = !Object.keys(filteredFarms).length
- 
-  const allActiveFarms= filteredFarms.data;
 
   return (
-    <>
-     <Flex>
-     {noFarms && <div> No Nft Contract available for Staking. </div>}
-{!noFarms &&
-    allActiveFarms?.map((item, key) => (
-  <NftCard key={key}>
-  <div className="product-card-img" style={{height:"320px"}}>
+<AutoColumn gap="lg" style={{ width: '100%' }}>
+<PositionCardGrid>
+{!farms.length && <div> No Nft Contract available for Staking. </div>}
+{farms.length &&
+    farms?.map((item, key) => (
+  <StyledPositionCard key={key}>
+  <div >
      <Link to={`nft-staking/${item.stakingContract}/${item.nft}`}>
-      <img src={item.logoURI} alt={item.name} width="100%"  />
+      <img src={item.logoURI} alt={item.name} width="300px" height="320px" />
      </Link>
+      
   </div>
-  <div className="product-card-body">
-    <h4 className="capitalize">
+  <h4 className="capitalize">
       {item.name} 
     </h4>
-   <small> Rewards {getFullDisplayBalance(BigNumber.from(item.rewardPerDay.toString()))} <TokenInfo address={item.token} logo={false} /> / Day </small>
-  </div>
-  <div className="product-card-footer">
  
-  </div>
-</NftCard>
+</StyledPositionCard>
  ))
 }
-     </Flex>
-    </>
+     </PositionCardGrid>
+    </AutoColumn>
   )
 }
 
