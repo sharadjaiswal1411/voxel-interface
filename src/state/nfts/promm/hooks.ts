@@ -1,6 +1,6 @@
 import { defaultAbiCoder } from "@ethersproject/abi";
-import { BigNumber,utils } from "ethers";
-import  moment from 'moment';
+import { BigNumber, utils } from "ethers";
+import moment from 'moment';
 import { useCallback } from "react";
 import { CONTRACT_NOT_FOUND_MSG } from "constants/messages";
 import { useActiveWeb3React } from "hooks";
@@ -14,8 +14,8 @@ import {
 } from "hooks/useContract";
 
 import { useTransactionAdder } from "state/transactions/hooks";
-
 import { calculateGasMargin } from "utils";
+import axios from "axios";
 
 
 export const useStakingAction = () => {
@@ -53,65 +53,65 @@ export const useTokenStakingAction = () => {
 };
 
 
- function toMonthDaysMinutesSeconds(seconds:any) {
+function toMonthDaysMinutesSeconds(seconds: any) {
 
-  const date1   = new Date();
+  const date1 = new Date();
 
   const b = moment(date1),
-      a = moment(b).add(seconds, 'seconds'),
-      intervals = ['years','months','weeks','days'],
-      out = [];
-  for(let i=0; i<intervals.length; i++){
-      let unit: any =intervals[i];
-      const diff = a.diff(b, unit);
-      b.add(diff, unit);
-      if(diff>0){
-        if(diff==1){
-           unit=unit.slice("s", -1); 
-        }
-        out.push(diff + ' ' + unit);
+    a = moment(b).add(seconds, 'seconds'),
+    intervals = ['years', 'months', 'weeks', 'days'],
+    out = [];
+  for (let i = 0; i < intervals.length; i++) {
+    let unit: any = intervals[i];
+    const diff = a.diff(b, unit);
+    b.add(diff, unit);
+    if (diff > 0) {
+      if (diff == 1) {
+        unit = unit.slice("s", -1);
       }
-      
+      out.push(diff + ' ' + unit);
+    }
+
   }
   return out.join(', ');
 };
 
 
 
-export const useTokenStakingDetailsAction= (stakingAddress: string, stakedToken:string)=>{
+export const useTokenStakingDetailsAction = (stakingAddress: string, stakedToken: string) => {
   const { chainId, account } = useActiveWeb3React();
   const addTransactionWithType = useTransactionAdder();
   const contract = useTokenStakingContract(stakingAddress);
-  const tokenContract =useTokenContract(stakedToken);
+  const tokenContract = useTokenContract(stakedToken);
 
   const fetchPoolInfo = useCallback(async () => {
     if (!contract || !tokenContract) {
       throw new Error(CONTRACT_NOT_FOUND_MSG);
     }
     const data = await contract.getPoolInfo();
-    const tokenStaked=await contract.minStakeRequiredOf(account);
-    const {apy,closingIn,lockPeriod,minStakeRequired,rewardToken,stakedToken,totalStaked}=data[0];
-    const isApproved=await tokenContract.allowance(account, stakingAddress);
-    const balance=await tokenContract.balanceOf(account);
+    const tokenStaked = await contract.minStakeRequiredOf(account);
+    const { apy, closingIn, lockPeriod, minStakeRequired, rewardToken, stakedToken, totalStaked } = data[0];
+    const isApproved = await tokenContract.allowance(account, stakingAddress);
+    const balance = await tokenContract.balanceOf(account);
     const now = Date.now() / 1000
-    const isClosed= (now>closingIn.toNumber())
+    const isClosed = (now > closingIn.toNumber())
     const denom = BigNumber.from(10).pow(16)
-    const rewardEarned=data[1];
-    const poolInfo ={
-      apr:apy.toNumber()/100,
-      closingIn:closingIn.toNumber(),
-      lockPeriod:toMonthDaysMinutesSeconds(lockPeriod.toNumber()),
-      minStakeRequired:Number(utils.formatEther(minStakeRequired)),
+    const rewardEarned = data[1];
+    const poolInfo = {
+      apr: apy.toNumber() / 100,
+      closingIn: closingIn.toNumber(),
+      lockPeriod: toMonthDaysMinutesSeconds(lockPeriod.toNumber()),
+      minStakeRequired: Number(utils.formatEther(minStakeRequired)),
       rewardToken,
       stakedToken,
-      totalStaked:Number(utils.formatEther(totalStaked)),
-      rewardEarned:Number(utils.formatEther(rewardEarned)),
-      tokenStaked:Number(utils.formatEther(tokenStaked)),
-      availableTokens:balance.div(denom).toNumber(),
-      isClosed:isClosed,
-      isApproved:isApproved.div(denom).toNumber(),
+      totalStaked: Number(utils.formatEther(totalStaked)),
+      rewardEarned: Number(utils.formatEther(rewardEarned)),
+      tokenStaked: Number(utils.formatEther(tokenStaked)),
+      availableTokens: balance.div(denom).toNumber(),
+      isClosed: isClosed,
+      isApproved: isApproved.div(denom).toNumber(),
     };
-    
+
     return poolInfo;
   }, [contract, chainId]);
 
@@ -119,7 +119,7 @@ export const useTokenStakingDetailsAction= (stakingAddress: string, stakedToken:
     if (!tokenContract) {
       throw new Error(CONTRACT_NOT_FOUND_MSG);
     }
-    const balance=await tokenContract.balanceOf(account);
+    const balance = await tokenContract.balanceOf(account);
     const estimateGas = await tokenContract.estimateGas.approve(
       stakingAddress,
       balance.toString()
@@ -142,7 +142,7 @@ export const useTokenStakingDetailsAction= (stakingAddress: string, stakedToken:
         throw new Error(CONTRACT_NOT_FOUND_MSG);
       }
 
-      tokens=utils.parseUnits(tokens.toString(), 18).toString()
+      tokens = utils.parseUnits(tokens.toString(), 18).toString()
 
       const estimateGas = await contract.estimateGas.stake(tokens);
       const tx = await contract.stake(tokens, {
@@ -172,7 +172,7 @@ export const useTokenStakingDetailsAction= (stakingAddress: string, stakedToken:
     [addTransactionWithType, contract]
   );
 
-   const harvest = useCallback(
+  const harvest = useCallback(
     async () => {
       if (!contract) {
         throw new Error(CONTRACT_NOT_FOUND_MSG);
@@ -189,7 +189,7 @@ export const useTokenStakingDetailsAction= (stakingAddress: string, stakedToken:
     [addTransactionWithType, contract]
   );
 
-  return { fetchPoolInfo, stake, unStake,approve,harvest };
+  return { fetchPoolInfo, stake, unStake, approve, harvest };
 
 }
 
@@ -230,24 +230,47 @@ export const useFarmAction = (stakingAddress: string, nftAddress: string) => {
   }, [nftAddress, posManager]);
 
   const fetchNfts = useCallback(async () => {
-    if (!contract) {
+    if (!contract || !posManager) {
       throw new Error(CONTRACT_NOT_FOUND_MSG);
     }
 
     const nfts = await contract.getStakedTokens(account);
-     const data :any=[];
-    nfts.forEach(async function(nft: any){
-      console.log("nfnftnftnftt",nft);
+    const data: any=[];
 
-      data.push({"tokenId":nft.toString(),'name':"NFT 001"});
+    const promises: any[] = await Promise.all(
+      nfts.map(async (nft:any)  => {
+        const tokenUri = await posManager.tokenURI(nft.toString());
+        const nftData = await getLinkData(tokenUri)
 
-    });
+        return {
+          'tokenId': nft.toString(),
+          'name': nftData.name,
+          'image': nftData.image
+        }
+        
+   
+      }));
 
-    
+      const allNfts = await Promise.all(promises)
+      return allNfts;
 
-
-    return data;
   }, [contract, nftAddress, chainId]);
+
+  const getLinkData = async (link: any) => {
+
+    try {
+      const res = await axios.get(link)
+      if (res) {
+        return (res.data)
+      } else {
+        return null;
+      }
+    }
+    catch (e) {
+      console.log("Error in fetching nft data.", { e });
+    }
+
+  }
 
   const fetchBalance = useCallback(async () => {
     if (!contract) {

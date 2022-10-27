@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react'
 import { Flex, Text } from 'rebass'
 import useTheme from 'hooks/useTheme'
 import { useBlockNumber } from 'state/application/hooks'
-import {useFarmAction } from 'state/nfts/promm/hooks'
+import { useFarmAction } from 'state/nfts/promm/hooks'
 import { useIsTransactionPending } from 'state/transactions/hooks'
 import styled from 'styled-components'
 import { ButtonPrimary } from 'components/Button'
 import { AutoColumn } from 'components/Column'
+import ContentLoader from 'pages/TokenAmmPool/ContentLoader'
 
-import { LightCard} from 'components/Card'
+import { LightCard } from 'components/Card'
 
 
 export const PositionCardGrid = styled.div`
@@ -40,69 +41,86 @@ const StyledPositionCard = styled(LightCard)`
     padding: 16px;
   `}
 `
-function StakedNftCards({stakingAddress,nftAddress}: { stakingAddress:string,nftAddress:string } ) {
+function StakedNftCards({ stakingAddress, nftAddress }: { stakingAddress: string, nftAddress: string }) {
   const theme = useTheme()
 
-  const { approve,withdraw,fetchNfts } = useFarmAction(stakingAddress,nftAddress)
+  const { approve, withdraw, fetchNfts } = useFarmAction(stakingAddress, nftAddress)
 
   const [approvalTx, setApprovalTx] = useState('')
 
   const isApprovalTxPending = useIsTransactionPending(approvalTx)
-  
-  const isApprovedForAll=true;
+
+  const isApprovedForAll = true;
   const [nfts, setNfts] = useState<any[]>([])
-  const handleApprove = async (nftId:string) => {
+  const [loading, setLoading] = useState<boolean>(true)
+  const handleApprove = async (nftId: string) => {
     if (!isApprovedForAll) {
       const tx = await approve()
       setApprovalTx(tx)
-    }else{
-     
-     const tx = await withdraw(nftId)
+    } else {
+
+      const tx = await withdraw(nftId)
       setApprovalTx(tx)
     }
   }
-    
+
   const blockNumber = useBlockNumber()
+
   const getNfts = async () => {
-      setNfts(await fetchNfts());
+
+    const nftList = await fetchNfts();
+    console.log({ nftList })
+    setNfts(nftList);
+    setLoading(false);
   };
 
-  useEffect( () => {
-    
+  useEffect(() => {
+
     getNfts();
 
-  }, [nfts])
+  }, [loading])
 
 
 
   return (
-   <AutoColumn gap="lg" style={{ width: '100%' }}>
-     <PositionCardGrid>
-     {!nfts.length && <div> No NFTs Staked. Please stake some. </div>}
-     {nfts &&
+    <AutoColumn gap="lg" style={{ width: '100%' }}>
+      <PositionCardGrid>
+        {loading && <>
+          <ContentLoader />
+          <ContentLoader />
+          <ContentLoader />
+          <ContentLoader />
+        </>}
+        {!loading && nfts.length == 0 && <>
+          No NFTs Staked. Please stake one.
+        </>}
+        {!loading &&
           nfts?.map((item, key) => (
-          <StyledPositionCard key={key}>
-                  
-                    <div className="product-card-body">
-                      <h4 className="capitalize">
-                        {item?.name}
-                      </h4>
-                      <p>Token Id: #{item?.tokenId}</p>
-                    </div>
-                    <div className="product-card-footer">
-                   
-                   <ButtonPrimary style={{ margin: '4px 0 0 0', padding: '16px' }} onClick={() =>handleApprove(item.toString())}>
-                    <Text fontWeight={500} fontSize={18}>
-                      Unstake
-                    </Text>
-                  </ButtonPrimary>
-                    </div>
-         </StyledPositionCard>
- 
+            <StyledPositionCard key={key}>
+
+              <div className="product-card-body">
+                <div className='d-flex justify-content-center align-items-center'>
+                  <img height={300} width={300} src={item.image} className="nft-image" />
+                </div>
+                <h4 className="capitalize">
+                  {item?.name}
+                </h4>
+                <p>Token Id: #{item?.tokenId}</p>
+              </div>
+              <div className="product-card-footer">
+
+                <ButtonPrimary style={{ margin: '4px 0 0 0', padding: '16px' }} onClick={() => handleApprove(item.toString())}>
+                  <Text fontWeight={500} fontSize={18}>
+                    Unstake
+                  </Text>
+                </ButtonPrimary>
+              </div>
+            </StyledPositionCard>
+
 
           ))
-     }
-</PositionCardGrid>
+        }
+      </PositionCardGrid>
     </AutoColumn>
   )
 }
