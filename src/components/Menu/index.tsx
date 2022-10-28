@@ -1,43 +1,30 @@
 import { ChainId } from '@kyberswap/ks-sdk-core'
 import { Trans, t } from '@lingui/macro'
 import React, { useRef } from 'react'
-import { isMobile } from 'react-device-detect'
 import {
-  Award,
   BookOpen,
   Edit,
   FileText,
   Menu as MenuIcon,
   MessageCircle,
   PieChart,
-  Share2,
-  Triangle,
   UserPlus,
 } from 'react-feather'
 import { NavLink } from 'react-router-dom'
 import { useMedia } from 'react-use'
-import { Text } from 'rebass'
 import styled, { css } from 'styled-components'
-
 import { ButtonPrimary } from 'components/Button'
-import { SlideToUnlock } from 'components/Header'
-import DiscoverIcon from 'components/Icons/DiscoverIcon'
-import Faucet from 'components/Icons/Faucet'
-import Loader from 'components/Loader'
 import MenuFlyout from 'components/MenuFlyout'
 import { DMM_ANALYTICS_URL } from 'constants/index'
 import { NETWORKS_INFO } from 'constants/networks'
 import { useActiveWeb3React } from 'hooks'
 import useClaimReward from 'hooks/useClaimReward'
-import useMixpanel, { MIXPANEL_TYPE } from 'hooks/useMixpanel'
+import useMixpanel from 'hooks/useMixpanel'
 import useTheme from 'hooks/useTheme'
 import { ApplicationModal } from 'state/application/actions'
 import { useModalOpen, useToggleModal } from 'state/application/hooks'
 import { ExternalLink } from 'theme'
-
 import AboutPageDropwdown from './AboutPageDropDown'
-import ClaimRewardModal from './ClaimRewardModal'
-import FaucetModal from './FaucetModal'
 
 const sharedStylesMenuItem = css`
   flex: 1;
@@ -185,49 +172,6 @@ export default function Menu() {
         translatedTitle={t`Menu`}
         hasArrow
       >
-        {chainId && [ChainId.BTTC, ChainId.RINKEBY].includes(chainId) && (
-          <MenuButton
-            onClick={() => {
-              toggleFaucetPopup()
-              mixpanelHandler(MIXPANEL_TYPE.FAUCET_MENU_CLICKED)
-            }}
-          >
-            <Faucet />
-            <Text width="max-content">
-              <Trans>Faucet</Trans>
-            </Text>
-          </MenuButton>
-        )}
-
-        {bridgeLink && (
-          <MenuItem href={bridgeLink}>
-            <Share2 size={14} />
-            <Text width="max-content">
-              <Trans>Bridge Assets</Trans>
-            </Text>
-          </MenuItem>
-        )}
-
-        {!above768 && (
-          <NavMenuItem to={'/discover?tab=trending_soon'} onClick={toggle}>
-            <DiscoverIcon size={14} />
-            <SlideToUnlock>
-              <Text width="max-content">
-                <Trans>Discover</Trans>
-              </Text>
-            </SlideToUnlock>
-            <NewLabel>
-              <Trans>New</Trans>
-            </NewLabel>
-          </NavMenuItem>
-        )}
-
-        {under369 && (
-          <NavMenuItem to="/campaigns" onClick={toggle}>
-            <Award size={14} />
-            <Trans>Campaigns</Trans>
-          </NavMenuItem>
-        )}
 
         {under1440 && <AboutPageDropwdown />}
 
@@ -241,58 +185,27 @@ export default function Menu() {
             <Trans>Analytics</Trans>
           </MenuItem>
         )}
-        <MenuItem id="link" href="https://docs.kyberswap.com">
+        <MenuItem id="link" href="https://voxelxnetwork2.gitbook.io">
           <BookOpen size={14} />
           <Trans>Docs</Trans>
         </MenuItem>
-        <MenuItem id="link" href="https://gov.kyber.org">
+        <MenuItem id="link" href="#">
           <MessageCircle size={14} />
           <Trans>Forum</Trans>
         </MenuItem>
 
-        <MenuItem id="link" href="/15022022KyberSwapTermsofUse.pdf">
+        <MenuItem id="link" href="#">
           <FileText size={14} />
           <Trans>Terms</Trans>
         </MenuItem>
-        {process.env.REACT_APP_MAINNET_ENV !== 'production' && (
-          <NavMenuItem to="/swap-legacy" onClick={toggle}>
-            <Triangle size={14} />
-            <Trans>Swap Legacy</Trans>
-          </NavMenuItem>
-        )}
-        <MenuItem id="link" href="https://forms.gle/gLiNsi7iUzHws2BY8">
+     
+        <MenuItem id="link" href="#">
           <Edit size={14} />
           <Trans>Contact Us</Trans>
         </MenuItem>
-        <ClaimRewardButton
-          disabled={!account || (!!chainId && NETWORKS_INFO[chainId].classic.claimReward === '') || pendingTx}
-          onClick={() => {
-            mixpanelHandler(MIXPANEL_TYPE.CLAIM_REWARDS_INITIATED)
-            toggleClaimPopup()
-          }}
-        >
-          {pendingTx ? (
-            <>
-              <Loader style={{ marginRight: '5px' }} stroke={theme.disableText} /> <Trans>Claiming...</Trans>
-            </>
-          ) : (
-            <Trans>Claim Rewards</Trans>
-          )}
-        </ClaimRewardButton>
-        {!!process.env.REACT_APP_TAG && (
-          <Text
-            fontSize="10px"
-            fontWeight={300}
-            color={theme.subText}
-            mt="16px"
-            textAlign={isMobile ? 'left' : 'center'}
-          >
-            kyberswap@{process.env.REACT_APP_TAG}
-          </Text>
-        )}
+
       </MenuFlyout>
-      <ClaimRewardModal />
-      {chainId && [ChainId.BTTC, ChainId.RINKEBY].includes(chainId) && <FaucetModal />}
+    
     </StyledMenu>
   )
 }

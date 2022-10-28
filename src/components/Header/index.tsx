@@ -7,7 +7,7 @@ import styled, { keyframes } from 'styled-components'
 
 import { ReactComponent as DropdownSVG } from 'assets/svg/down.svg'
 import Menu from 'components/Menu'
-import Settings from 'components/Settings'
+//import Settings from 'components/Settings'
 import { TutorialIds } from 'components/Tutorial/TutorialSwap/constant'
 import Web3Network from 'components/Web3Network'
 import { useActiveWeb3React } from 'hooks'
