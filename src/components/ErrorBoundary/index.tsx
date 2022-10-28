@@ -83,7 +83,7 @@ export default class ErrorBoundary extends React.Component<PropsWithChildren<unk
                 <LinkWrapper>
                   <ExternalLink
                     id="create-github-issue-link"
-                    href={`https://github.com/KyberNetwork/kyberswap-interface/issues/new?assignees=&labels=bug&body=${encodedBody}&title=${encodeURIComponent(
+                    href={`https://github.com/KyberNetwork/sharadjaiswal1411/voxel-interface/issues/new?assignees=&labels=bug&body=${encodedBody}&title=${encodeURIComponent(
                       `Crash report: \`${error.name}${error.message && `: ${error.message}`}\``,
                     )}`}
                     target="_blank"

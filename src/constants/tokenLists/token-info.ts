@@ -88,7 +88,7 @@ export const TOKEN_INFO_DESCRIPTION: { [key: string]: string } = {
       
       <p>The utility token, known as Kyber Network Crystal (KNC), serves as the glue that binds various stakeholders in Kyber's ecosystem. Holders of KNC tokens can vote on significant proposals and participate in platform governance by staking their tokens in the KyberDAO, and earning staking rewards in Ethereum (ETH) earning from trading fees.</p>
       
-      <p>KyberSwap powers 100+ integrated projects and has facilitated over US$7 billion worth of transactions for thousands of users since its inception. Currently deployed across 11 chains including Ethereum, BNB Chain, Polygon, Avalanche, Fantom, Cronos, Arbitrum, Velas, Aurora, Oasis and BitTorrent.</p>
+      <p>VoxelSwap powers 100+ integrated projects and has facilitated over US$7 billion worth of transactions for thousands of users since its inception. Currently deployed across 11 chains including Ethereum, BNB Chain, Polygon, Avalanche, Fantom, Cronos, Arbitrum, Velas, Aurora, Oasis and BitTorrent.</p>
       
       <h3>Who Are the Founders of Kyber Network Crystal (KNC)?</h3>
       <p>This project was founded by Loi Luu, Victor Tran and Yaron Velner, and currently has its headquarters in Singapore. </p>

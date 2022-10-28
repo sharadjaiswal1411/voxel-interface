@@ -1,8 +1,5 @@
-import { ChainId } from '@kyberswap/ks-sdk-core'
 import { Trans } from '@lingui/macro'
-import { stringify } from 'qs'
 import { X } from 'react-feather'
-import { useHistory } from 'react-router-dom'
 import { Flex, Text } from 'rebass'
 import styled from 'styled-components'
 import { useState, useEffect } from 'react'
@@ -10,7 +7,7 @@ import { useState, useEffect } from 'react'
 import { ButtonEmpty, ButtonPrimary } from 'components/Button'
 import Modal from 'components/Modal'
 import { formatBalance } from 'utils/formatBalance'
-import { useIsDarkMode } from 'state/user/hooks'
+
 
 export const Wrapper = styled.div`
   width: 100%;

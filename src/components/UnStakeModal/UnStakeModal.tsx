@@ -2,8 +2,6 @@ import { Trans } from '@lingui/macro'
 import { Info, X } from 'react-feather'
 import { Flex, Text } from 'rebass'
 import styled from 'styled-components'
-import { useState, useEffect } from 'react'
-
 import { ButtonEmpty, ButtonPrimary } from 'components/Button'
 import Modal from 'components/Modal'
 import moment from 'moment';

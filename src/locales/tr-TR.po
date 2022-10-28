@@ -148,6 +148,10 @@ msgstr ""
 #~ msgid "<0>Tip:</0> Use this tool to find pairs that don't automatically appear in the interface."
 #~ msgstr "<0>İpucu:</0> Arayüzde otomatik olarak görünmeyen çiftleri bulmak için bu aracı kullanın."
 
+#: src/components/UnStakeModal/UnStakeModal.tsx
+msgid "<0>Tokens are locked until {lockPeriodUntil}</0><1/>{0}"
+msgstr ""
+
 #: src/pages/SwapV2/index.tsx
 msgid "<0>VoxelSwap</0> gets you the best token rates"
 msgstr ""
@@ -640,8 +644,8 @@ msgid "Bridge"
 msgstr ""
 
 #: src/components/Menu/index.tsx
-msgid "Bridge Assets"
-msgstr ""
+#~ msgid "Bridge Assets"
+#~ msgstr ""
 
 #: src/pages/About/AboutKyberSwap.tsx
 msgid "Bug Bounty"
@@ -682,7 +686,6 @@ msgstr ""
 msgid "Calculating best route"
 msgstr "En iyi rota hesaplandı"
 
-#: src/components/Menu/index.tsx
 #: src/pages/Campaign/CampaignListAndSearch.tsx
 #: src/pages/Campaign/index.tsx
 msgid "Campaigns"
@@ -741,7 +744,6 @@ msgstr "Talep Et"
 #~ msgid "Claim All"
 #~ msgstr "Tümünü Talep Et"
 
-#: src/components/Menu/index.tsx
 #: src/pages/Campaign/CampaignButtonWithOptions.tsx
 msgid "Claim Rewards"
 msgstr ""
@@ -773,8 +775,8 @@ msgid "Claiming {rewardAmounts} KNC"
 msgstr ""
 
 #: src/components/Menu/index.tsx
-msgid "Claiming..."
-msgstr ""
+#~ msgid "Claiming..."
+#~ msgstr ""
 
 #: src/components/ClassicElasticTab.tsx
 #~ msgid "Classic Farms"
@@ -893,6 +895,9 @@ msgstr ""
 msgid "Connect to a wallet to find pools"
 msgstr "Havuzları bulmak için bir cüzdana bağlanın"
 
+#: src/components/NftPools/NftCards.tsx
+#: src/components/NftPools/ProMMFarms.tsx
+#: src/components/NftPools/StakedNftCards.tsx
 #: src/pages/TokenAmmPool/index.tsx
 msgid "Connect to a wallet to view staking Pools."
 msgstr ""
@@ -943,7 +948,11 @@ msgid "Contract not found! Please reload and try again."
 msgstr "Sözleşme bulunamadı! Lütfen yeniden yükleyin ve tekrar deneyin."
 
 #: src/components/NavigationTabs/index.tsx
-msgid "Converts your liquidity position on Sushiswap into underlying tokens at the current rate. Tokens are deposited into the basic AMP=1 pool on the KyberSwap and you will be given DMM-LP tokens representing your new pool share. If rates are different between the two platforms, some tokens may be refunded to your address."
+#~ msgid "Converts your liquidity position on Sushiswap into underlying tokens at the current rate. Tokens are deposited into the basic AMP=1 pool on the KyberSwap and you will be given DMM-LP tokens representing your new pool share. If rates are different between the two platforms, some tokens may be refunded to your address."
+#~ msgstr ""
+
+#: src/components/NavigationTabs/index.tsx
+msgid "Converts your liquidity position on Sushiswap into underlying tokens at the current rate. Tokens are deposited into the basic AMP=1 pool on the VoxelSwap and you will be given DMM-LP tokens representing your new pool share. If rates are different between the two platforms, some tokens may be refunded to your address."
 msgstr ""
 
 #: src/components/AccountDetails/Copy.tsx
@@ -1138,8 +1147,8 @@ msgid "Disconnect"
 msgstr ""
 
 #: src/components/Menu/index.tsx
-msgid "Discover"
-msgstr ""
+#~ msgid "Discover"
+#~ msgstr ""
 
 #: src/components/TopTrendingSoonTokensInCurrentNetwork/index.tsx
 #: src/components/TopTrendingSoonTokensInCurrentNetwork/index.tsx
@@ -1291,6 +1300,10 @@ msgstr ""
 #: src/constants/nftstaking.ts
 #: src/constants/v2.ts
 msgid "Elastic is not supported on Aurora. Please switch to other chains"
+msgstr ""
+
+#: src/components/UnStakeModal/UnStakeModal.tsx
+msgid "Emergency Unstake"
 msgstr ""
 
 #: src/components/WalletModal/WarningBox.tsx
@@ -1485,7 +1498,6 @@ msgid "Farms will run in multiple phases"
 msgstr ""
 
 #: src/components/Menu/FaucetModal.tsx
-#: src/components/Menu/index.tsx
 msgid "Faucet"
 msgstr ""
 
@@ -2271,6 +2283,7 @@ msgid "Market Cap Rank"
 msgstr ""
 
 #: src/components/CurrencyInputPanel/index.tsx
+#: src/components/StakeModal/StakeModal.tsx
 #: src/pages/CreateReferral/index.tsx
 #: src/pages/RemoveLiquidity/TokenPair.tsx
 #: src/pages/RemoveLiquidity/ZapOut.tsx
@@ -2458,7 +2471,6 @@ msgstr ""
 msgid "Network"
 msgstr "Ağ"
 
-#: src/components/Menu/index.tsx
 #: src/pages/Yield/index.tsx
 msgid "New"
 msgstr "Yeni"
@@ -3283,6 +3295,7 @@ msgstr "Bir şeyler yanlış gitti"
 msgid "Stablecoins"
 msgstr ""
 
+#: src/components/StakeModal/StakeModal.tsx
 #: src/components/YieldPools/ListItem.tsx
 #: src/components/YieldPools/ListItem.tsx
 #: src/components/YieldPools/ListItem.tsx
@@ -3301,6 +3314,10 @@ msgstr ""
 
 #: src/components/YieldPools/ProMMFarmModals/StakeModal.tsx
 msgid "Stake Selected"
+msgstr ""
+
+#: src/components/StakeModal/StakeModal.tsx
+msgid "Stake Tokens"
 msgstr ""
 
 #: src/components/NftPools/NftStakingGuide.tsx
@@ -3474,8 +3491,8 @@ msgid "Swap Anyway"
 msgstr "Yine de Takası Yap"
 
 #: src/components/Menu/index.tsx
-msgid "Swap Legacy"
-msgstr "Eski Versiyona Geç"
+#~ msgid "Swap Legacy"
+#~ msgstr "Eski Versiyona Geç"
 
 #: src/pages/About/AboutKNC.tsx
 #: src/pages/About/AboutKyberSwap.tsx
@@ -4027,6 +4044,7 @@ msgstr ""
 #~ msgid "Unstake Token"
 #~ msgstr ""
 
+#: src/components/UnStakeModal/UnStakeModal.tsx
 #: src/pages/TokenAmmPool/PositionListItem.tsx
 msgid "Unstake Tokens"
 msgstr ""

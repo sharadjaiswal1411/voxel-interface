@@ -124,10 +124,6 @@ msgstr ""
 msgid "<0>Identify</0> the Elastic farm you would like to participate in"
 msgstr ""
 
-#: src/pages/SwapV2/index.tsx
-#~ msgid "<0>KyberSwap</0> gets you the best token rates"
-#~ msgstr "<0>KyberSwap</0> mang đến tỷ giá Token tốt nhất cho bạn"
-
 #: src/components/YieldPools/ElasticFarmSummary/SummaryContent.tsx
 msgid "<0>Option 1</0>: Wait for the current market price of the pool to come back in your price range (i.e. for your liquidity position to become active again)."
 msgstr ""
@@ -144,6 +140,10 @@ msgstr ""
 msgid "<0>Swap</0> and <1>Earn</1> Tokens at the Best Rates"
 msgstr ""
 
+#: src/components/UnStakeModal/UnStakeModal.tsx
+msgid "<0>Tokens are locked until {lockPeriodUntil}</0><1/>{0}"
+msgstr ""
+
 #: src/pages/SwapV2/index.tsx
 msgid "<0>VoxelSwap</0> gets you the best token rates"
 msgstr ""
@@ -151,6 +151,10 @@ msgstr ""
 #: src/pages/BuyCrypto/index.tsx
 msgid "A cryptocurrency wallet gives you access to your digital tokens and acts as a gateway to many blockchain applications like KyberSwap. You can buy, store, send and swap tokens using this wallet.<0/><1/>On KyberSwap we support a list of wallets including: MetaMask, Coin98, Wallet Connect, Coinbase Wallet, Ledger and others"
 msgstr ""
+
+#: src/pages/BuyCrypto/index.tsx
+#~ msgid "A cryptocurrency wallet gives you access to your digital tokens and acts as a gateway to many blockchain applications like VoxelSwap. You can buy, store, send and swap tokens using this wallet.<0/><1/>On VoxelSwap we support a list of wallets including: MetaMask, Coin98, Wallet Connect, Coinbase Wallet, Ledger and others"
+#~ msgstr ""
 
 #: src/components/swap/AdvancedSwapDetails.tsx
 #: src/components/swap/SwapModalFooter.tsx
@@ -422,6 +426,10 @@ msgstr ""
 msgid "Anyone can access this liquidity from KyberSwap for their own use case e.g. Dapps, Aggregators."
 msgstr ""
 
+#: src/pages/About/AboutKyberSwap.tsx
+#~ msgid "Anyone can access this liquidity from VoxelSwap for their own use case e.g. Dapps, Aggregators."
+#~ msgstr ""
+
 #: src/components/SearchModal/ImportToken.tsx
 msgid "Anyone can create a token, including creating fake versions of existing tokens that claim to represent projects"
 msgstr ""
@@ -431,8 +439,16 @@ msgid "Anyone can provide liquidity to KyberSwap by depositing tokens e.g. Trade
 msgstr ""
 
 #: src/pages/About/AboutKyberSwap.tsx
+#~ msgid "Anyone can provide liquidity to VoxelSwap by depositing tokens e.g. Traders, Token Teams."
+#~ msgstr ""
+
+#: src/pages/About/AboutKyberSwap.tsx
 msgid "Applicable to KyberSwap Classic"
 msgstr ""
+
+#: src/pages/About/AboutKyberSwap.tsx
+#~ msgid "Applicable to VoxelSwap Classic"
+#~ msgstr ""
 
 #: src/components/YieldPools/ListItem.tsx
 #: src/components/YieldPools/ProMMFarmGroup/index.tsx
@@ -610,8 +626,8 @@ msgid "Bridge"
 msgstr ""
 
 #: src/components/Menu/index.tsx
-msgid "Bridge Assets"
-msgstr ""
+#~ msgid "Bridge Assets"
+#~ msgstr ""
 
 #: src/pages/About/AboutKyberSwap.tsx
 msgid "Bug Bounty"
@@ -647,7 +663,6 @@ msgstr ""
 msgid "Calculating best route"
 msgstr "Đang tính Route tốt nhất"
 
-#: src/components/Menu/index.tsx
 #: src/pages/Campaign/CampaignListAndSearch.tsx
 #: src/pages/Campaign/index.tsx
 msgid "Campaigns"
@@ -702,7 +717,6 @@ msgstr "Nhận"
 #~ msgid "Claim All"
 #~ msgstr "Nhận Hết"
 
-#: src/components/Menu/index.tsx
 #: src/pages/Campaign/CampaignButtonWithOptions.tsx
 msgid "Claim Rewards"
 msgstr "Nhận thưởng"
@@ -738,8 +752,8 @@ msgid "Claiming {rewardAmounts} KNC"
 msgstr ""
 
 #: src/components/Menu/index.tsx
-msgid "Claiming..."
-msgstr ""
+#~ msgid "Claiming..."
+#~ msgstr ""
 
 #: src/components/ClassicElasticTab.tsx
 #~ msgid "Classic Farms"
@@ -887,6 +901,9 @@ msgstr ""
 msgid "Connect to a wallet to find pools"
 msgstr "Kết nối đến Ví để tìm các Pool"
 
+#: src/components/NftPools/NftCards.tsx
+#: src/components/NftPools/ProMMFarms.tsx
+#: src/components/NftPools/StakedNftCards.tsx
 #: src/pages/TokenAmmPool/index.tsx
 msgid "Connect to a wallet to view staking Pools."
 msgstr ""
@@ -937,8 +954,8 @@ msgid "Contract not found! Please reload and try again."
 msgstr "Không tìm thấy contract! Vui lòng tải lại trang và thử lại."
 
 #: src/components/NavigationTabs/index.tsx
-msgid "Converts your liquidity position on Sushiswap into underlying tokens at the current rate. Tokens are deposited into the basic AMP=1 pool on the KyberSwap and you will be given DMM-LP tokens representing your new pool share. If rates are different between the two platforms, some tokens may be refunded to your address."
-msgstr "Chuyển vị trí thanh khoản của bạn trên Sushiswap thành các token cơ bản ở tỷ giá hiện tại. Các Token được ký gửi thành pool cơ bản với AMP = 1 trên KyberSwap và bạn sẽ nhận được DMM-LP token, đại diện cho tỷ lệ chia sẻ pool của bạn. Nếu tỷ giá khác nhau giữa hai nền tảng, một lượng token có thể sẽ được hoàn trả vào ví của bạn."
+msgid "Converts your liquidity position on Sushiswap into underlying tokens at the current rate. Tokens are deposited into the basic AMP=1 pool on the VoxelSwap and you will be given DMM-LP tokens representing your new pool share. If rates are different between the two platforms, some tokens may be refunded to your address."
+msgstr "Chuyển vị trí thanh khoản của bạn trên Sushiswap thành các token cơ bản ở tỷ giá hiện tại. Các Token được ký gửi thành pool cơ bản với AMP = 1 trên VoxelSwap và bạn sẽ nhận được DMM-LP token, đại diện cho tỷ lệ chia sẻ pool của bạn. Nếu tỷ giá khác nhau giữa hai nền tảng, một lượng token có thể sẽ được hoàn trả vào ví của bạn."
 
 #: src/components/AccountDetails/Copy.tsx
 msgid "Copied"
@@ -1127,8 +1144,8 @@ msgid "Disconnect"
 msgstr ""
 
 #: src/components/Menu/index.tsx
-msgid "Discover"
-msgstr "Khám phá"
+#~ msgid "Discover"
+#~ msgstr "Khám phá"
 
 #: src/components/TopTrendingSoonTokensInCurrentNetwork/index.tsx
 #: src/components/TopTrendingSoonTokensInCurrentNetwork/index.tsx
@@ -1280,6 +1297,10 @@ msgstr ""
 #: src/constants/nftstaking.ts
 #: src/constants/v2.ts
 msgid "Elastic is not supported on Aurora. Please switch to other chains"
+msgstr ""
+
+#: src/components/UnStakeModal/UnStakeModal.tsx
+msgid "Emergency Unstake"
 msgstr ""
 
 #: src/components/WalletModal/WarningBox.tsx
@@ -1465,7 +1486,6 @@ msgid "Farms will run in multiple phases"
 msgstr ""
 
 #: src/components/Menu/FaucetModal.tsx
-#: src/components/Menu/index.tsx
 msgid "Faucet"
 msgstr ""
 
@@ -2230,6 +2250,7 @@ msgid "Market Cap Rank"
 msgstr ""
 
 #: src/components/CurrencyInputPanel/index.tsx
+#: src/components/StakeModal/StakeModal.tsx
 #: src/pages/CreateReferral/index.tsx
 #: src/pages/RemoveLiquidity/TokenPair.tsx
 #: src/pages/RemoveLiquidity/ZapOut.tsx
@@ -2393,7 +2414,6 @@ msgstr ""
 msgid "Network"
 msgstr "Mạng"
 
-#: src/components/Menu/index.tsx
 #: src/pages/Yield/index.tsx
 msgid "New"
 msgstr "Mới"
@@ -3174,6 +3194,7 @@ msgstr "Có lỗi đã xảy ra"
 msgid "Stablecoins"
 msgstr ""
 
+#: src/components/StakeModal/StakeModal.tsx
 #: src/components/YieldPools/ListItem.tsx
 #: src/components/YieldPools/ListItem.tsx
 #: src/components/YieldPools/ListItem.tsx
@@ -3192,6 +3213,10 @@ msgstr ""
 
 #: src/components/YieldPools/ProMMFarmModals/StakeModal.tsx
 msgid "Stake Selected"
+msgstr ""
+
+#: src/components/StakeModal/StakeModal.tsx
+msgid "Stake Tokens"
 msgstr ""
 
 #: src/components/NftPools/NftStakingGuide.tsx
@@ -3365,8 +3390,8 @@ msgid "Swap Anyway"
 msgstr "Vẫn Giao dịch"
 
 #: src/components/Menu/index.tsx
-msgid "Swap Legacy"
-msgstr "Lịch sử Giao dịch"
+#~ msgid "Swap Legacy"
+#~ msgstr "Lịch sử Giao dịch"
 
 #: src/pages/About/AboutKNC.tsx
 #: src/pages/About/AboutKyberSwap.tsx
@@ -3881,6 +3906,7 @@ msgstr ""
 #~ msgid "Unstake Token"
 #~ msgstr ""
 
+#: src/components/UnStakeModal/UnStakeModal.tsx
 #: src/pages/TokenAmmPool/PositionListItem.tsx
 msgid "Unstake Tokens"
 msgstr ""
