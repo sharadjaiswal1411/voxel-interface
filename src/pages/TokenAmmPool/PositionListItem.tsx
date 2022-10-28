@@ -1,13 +1,13 @@
 import { Price, Token } from '@kyberswap/ks-sdk-core'
 import { Position } from '@kyberswap/ks-sdk-elastic'
-import { Trans} from '@lingui/macro'
+import { Trans } from '@lingui/macro'
 import { useWeb3React } from '@web3-react/core'
-import React, {useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Flex, Text } from 'rebass'
 import styled from 'styled-components'
 import QuestionHelper from 'components/QuestionHelper'
-import { ButtonEmpty, ButtonOutlined, ButtonPrimary,ButtonLight } from 'components/Button'
-import { LightCard,OutlineCard } from 'components/Card'
+import { ButtonEmpty, ButtonOutlined, ButtonPrimary, ButtonLight } from 'components/Button'
+import { LightCard, OutlineCard } from 'components/Card'
 import { AutoColumn } from 'components/Column'
 import CurrencyLogo from 'components/CurrencyLogo'
 import { RowBetween, RowFixed } from 'components/Row'
@@ -15,10 +15,12 @@ import Divider from 'components/Divider'
 import ProAmmStakeInfo from 'components/ProAmm/ProAmmStakeInfo'
 import { useToken } from 'hooks/Tokens'
 import useTheme from 'hooks/useTheme'
-import {useTokenStakingDetailsAction} from 'state/nfts/promm/hooks'
+import { useTokenStakingDetailsAction } from 'state/nfts/promm/hooks'
 import { formatBalance } from 'utils/formatBalance'
 import { unwrappedToken } from 'utils/wrappedCurrency'
 import ContentLoader from './ContentLoader'
+import StakeModal from 'components/StakeModal/StakeModal'
+import UnStakeModal from 'components/UnStakeModal/UnStakeModal'
 
 const StyledPositionCard = styled(LightCard)`
   border: none;
@@ -42,7 +44,7 @@ const TabContainer = styled.div`
   padding: 2px;
 `
 
-const Tab = styled(ButtonEmpty)<{ isActive?: boolean; isLeft?: boolean }>`
+const Tab = styled(ButtonEmpty) <{ isActive?: boolean; isLeft?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -92,11 +94,11 @@ const ButtonGroup = styled.div`
 `
 
 interface PositionListItemProps {
-   showStaked:boolean
-   closedPool:boolean
-   stakedToken:string
-   rewardToken:string
-   stakingContract:string
+  showStaked: boolean
+  closedPool: boolean
+  stakedToken: string
+  rewardToken: string
+  stakingContract: string
 }
 
 export function getPriceOrderingFromPositionForUI(position?: Position): {
@@ -120,11 +122,11 @@ export function getPriceOrderingFromPositionForUI(position?: Position): {
 }
 
 function PositionListItem({
-   showStaked,
-   closedPool,
-   stakedToken,
-   rewardToken,
-   stakingContract
+  showStaked,
+  closedPool,
+  stakedToken,
+  rewardToken,
+  stakingContract
 }: PositionListItemProps) {
   const { chainId } = useWeb3React()
 
@@ -134,53 +136,74 @@ function PositionListItem({
   const currency1 = _rewardToken ? unwrappedToken(_rewardToken) : undefined
   const [poolInfo, setPoolInfo] = useState<any>(null)
   const [approvalTx, setApprovalTx] = useState('')
-  const {fetchPoolInfo,stake,unStake,harvest,approve}=useTokenStakingDetailsAction(stakingContract,stakedToken);
+  const [showStakeModal, setShowStakeModal] = useState(false)
+  const [showUnStakeModal, setShowUnStakeModal] = useState(false)
+  const { fetchPoolInfo, stake, unStake, emergencyUnstake, harvest, approve } = useTokenStakingDetailsAction(stakingContract, stakedToken);
 
   const getPoolInfo = async () => {
-    
+
     setPoolInfo(await fetchPoolInfo());
-    
- };
+
+  };
 
   const handleApprove = async () => {
-      const tx = await approve()
-      setApprovalTx(tx)
+    const tx = await approve()
+    setApprovalTx(tx)
   }
 
-  const stakeTokens = async () => {
-      const tx = await stake("10")
-      setApprovalTx(tx)
+  const stakeTokens = async (token: any) => {
+    const tx = await stake(token)
+    setApprovalTx(tx)
   }
 
   const unstakeTokens = async () => {
-      const tx = await unStake()
-      setApprovalTx(tx)
+    const tx = await unStake()
+    setApprovalTx(tx)
+  }
+
+  const emergencyUnstakeTokens = async () => {
+    const tx = await emergencyUnstake()
+    setApprovalTx(tx)
   }
 
   const harvestRewards = async () => {
-      const tx = await harvest()
-      setApprovalTx(tx)
+    const tx = await harvest()
+    setApprovalTx(tx)
+  }
+
+  const openStakeModal = () => {
+    setShowStakeModal(true);
+  }
+
+  const openUnStakeModal = () => {
+    const currentDate = new Date();
+    const unStakeDate = new Date(((poolInfo.lockPeriodUntil).toNumber()) * 1000)
+
+    if (currentDate < unStakeDate) {
+      setShowUnStakeModal(true);
+    }
+    else if (currentDate > unStakeDate) {
+      unstakeTokens();
+    }
   }
 
 
+  useEffect(() => {
+    getPoolInfo();
 
-
-  useEffect( () => {
-      getPoolInfo();
-
-  }, [poolInfo,approvalTx])
+  }, [poolInfo, approvalTx])
 
 
   const theme = useTheme()
 
 
   return currency0 && currency1 && poolInfo ? (
-    <StyledPositionCard   style={{ display: (showStaked && !poolInfo.tokenStaked) ? 'none' : 'block' }}  >
+    <StyledPositionCard style={{ display: (showStaked && !poolInfo.tokenStaked) ? 'none' : 'block' }}  >
       <>
-         <ProAmmStakeInfo stakedToken={currency0} rewardToken={currency1} />
+        <ProAmmStakeInfo stakedToken={currency0} rewardToken={currency1} />
         <OutlineCard marginTop="1rem" padding="1rem">
           <AutoColumn gap="md">
-          <RowBetween>
+            <RowBetween>
               <Text fontSize={12} fontWeight={500} color={theme.subText}>
                 <Trans>Total Staked {currency0?.symbol}</Trans>
               </Text>
@@ -192,7 +215,7 @@ function PositionListItem({
                 </Text>
               </RowFixed>
             </RowBetween>
-            
+
             <RowBetween>
               <Text fontSize={12} fontWeight={500} color={theme.subText}>
                 <Trans>Available {currency0?.symbol}</Trans>
@@ -244,7 +267,7 @@ function PositionListItem({
                 <QuestionHelper text={`APR of pool`} />
               </Flex>
               <RowFixed>
-               
+
                 <Text fontSize={12} fontWeight={500} marginLeft={'6px'}>
                   {poolInfo.apr && <>{poolInfo.apr}</>} {"%"}
                 </Text>
@@ -258,78 +281,95 @@ function PositionListItem({
                 <QuestionHelper text={`Duration that you going to lock your tokens`} />
               </Flex>
               <RowFixed>
-               
+
                 <Text fontSize={12} fontWeight={500} marginLeft={'6px'}>
                   {poolInfo.lockPeriod}
                 </Text>
               </RowFixed>
             </RowBetween>
 
-              <ButtonLight disabled={!poolInfo.rewardEarned}   onClick={() =>harvestRewards()} style={{ padding: '10px', fontSize: '14px' }}>
-                <Flex alignItems="center" sx={{ gap: '8px' }}>
-                  <QuestionHelper
-                    size={16}
-                    text={
-                      !poolInfo.rewardEarned
-                        ? `You don't have any rewards to harvest`
-                        : `Harvest your rewards`
-                    }
-                    color={!poolInfo.rewardEarned ? theme.disableText : theme.primary}
-                  />
-                  <Trans>Harvest</Trans>
-                </Flex>
-              </ButtonLight>
+            <ButtonLight disabled={!poolInfo.rewardEarned} onClick={() => harvestRewards()} style={{ padding: '10px', fontSize: '14px' }}>
+              <Flex alignItems="center" sx={{ gap: '8px' }}>
+                <QuestionHelper
+                  size={16}
+                  text={
+                    !poolInfo.rewardEarned
+                      ? `You don't have any rewards to harvest`
+                      : `Harvest your rewards`
+                  }
+                  color={!poolInfo.rewardEarned ? theme.disableText : theme.primary}
+                />
+                <Trans>Harvest</Trans>
+              </Flex>
+            </ButtonLight>
           </AutoColumn>
         </OutlineCard>
-    
-         <Divider sx={{ marginTop: '20px' }} />
+
+        <Divider sx={{ marginTop: '20px' }} />
         <div style={{ marginBottom: '20px' }} />
         <Flex flexDirection={'column'} marginTop="auto">
-         {poolInfo.isApproved ? 
+          {poolInfo.isApproved ?
 
-             <ButtonGroup>
-         
-                <ButtonOutlined
-                  padding="8px"
-                  disabled={poolInfo.tokenStaked<1}
-                  onClick={() =>unstakeTokens()}
-                >
-                  <Text width="max-content" fontSize="14px">
-                    <Trans>Unstake Tokens</Trans>
-                  </Text>
-                </ButtonOutlined>
-          
-                <ButtonPrimary
-                  padding="8px"
-                   disabled={poolInfo.isClosed}
-                  style={{
-                    borderRadius: '18px',
-                    fontSize: '14px',
-                  }}
-                  onClick={() =>stakeTokens()}
-                >
-                  <Text width="max-content" fontSize="14px">
-                    <Trans>{poolInfo.isClosed ? 'Staking Closed' : 'Stake'}</Trans>
-                  </Text>
-                </ButtonPrimary>
+            <ButtonGroup>
+
+              <ButtonOutlined
+                padding="8px"
+                disabled={poolInfo.tokenStaked < 1}
+                onClick={() => openUnStakeModal()}
+              >
+                <Text width="max-content" fontSize="14px">
+                  <Trans>Unstake Tokens</Trans>
+                </Text>
+              </ButtonOutlined>
+
+              <ButtonPrimary
+                padding="8px"
+                disabled={poolInfo.isClosed}
+                style={{
+                  borderRadius: '18px',
+                  fontSize: '14px',
+                }}
+                onClick={() => openStakeModal()}
+              >
+                <Text width="max-content" fontSize="14px">
+                  <Trans>{poolInfo.isClosed ? 'Staking Closed' : 'Stake'}</Trans>
+                </Text>
+              </ButtonPrimary>
             </ButtonGroup>
-         :
-          <ButtonGroup>
-                <ButtonOutlined
-                  padding="8px"
-              
-                  onClick={() =>handleApprove()}
-                >
-                  <Text width="max-content" fontSize="14px">
-                    <Trans>Approve Contract</Trans>
-                  </Text>
-                </ButtonOutlined>
-              </ButtonGroup>
-                    
+            :
+            <ButtonGroup>
+              <ButtonOutlined
+                padding="8px"
 
-      }  
-  
+                onClick={() => handleApprove()}
+              >
+                <Text width="max-content" fontSize="14px">
+                  <Trans>Approve Contract</Trans>
+                </Text>
+              </ButtonOutlined>
+            </ButtonGroup>
+
+
+          }
+
         </Flex>
+
+        <StakeModal
+          showModal={showStakeModal}
+          closeModal={() => setShowStakeModal(false)}
+          availableTokens={poolInfo.availableTokens}
+          minStakeRequired={poolInfo.minStakeRequired}
+          stake={(token: any) => stakeTokens(token)}
+        />
+
+        <UnStakeModal
+          showModal={showUnStakeModal}
+          closeModal={() => setShowUnStakeModal(false)}
+          lockPeriodUntil={poolInfo.lockPeriodUntil}
+          unstakeFee={poolInfo.unstakeFee}
+          unStake={emergencyUnstakeTokens}
+        />
+
       </>
     </StyledPositionCard>
   ) : (

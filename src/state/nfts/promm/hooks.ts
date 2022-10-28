@@ -90,7 +90,8 @@ export const useTokenStakingDetailsAction = (stakingAddress: string, stakedToken
     }
     const data = await contract.getPoolInfo();
     const tokenStaked = await contract.minStakeRequiredOf(account);
-    const { apy, closingIn, lockPeriod, minStakeRequired, rewardToken, stakedToken, totalStaked } = data[0];
+    const stakeOf = await contract.stakeOf(account);
+    const { apy, closingIn, lockPeriod, minStakeRequired, rewardToken, stakedToken, totalStaked, unstakeFee } = data[0];
     const isApproved = await tokenContract.allowance(account, stakingAddress);
     const balance = await tokenContract.balanceOf(account);
     const now = Date.now() / 1000
@@ -101,15 +102,17 @@ export const useTokenStakingDetailsAction = (stakingAddress: string, stakedToken
       apr: apy.toNumber() / 100,
       closingIn: closingIn.toNumber(),
       lockPeriod: toMonthDaysMinutesSeconds(lockPeriod.toNumber()),
-      minStakeRequired: Number(utils.formatEther(minStakeRequired)),
+      minStakeRequired: Number(utils.formatEther(minStakeRequired)) * 2,
       rewardToken,
       stakedToken,
       totalStaked: Number(utils.formatEther(totalStaked)),
       rewardEarned: Number(utils.formatEther(rewardEarned)),
       tokenStaked: Number(utils.formatEther(tokenStaked)),
-      availableTokens: balance.div(denom).toNumber(),
+      availableTokens: Number(utils.formatEther(balance)),
       isClosed: isClosed,
-      isApproved: isApproved.div(denom).toNumber(),
+      unstakeFee: unstakeFee.toNumber() / 100,
+      isApproved: Number(utils.formatEther(isApproved)),
+      lockPeriodUntil: stakeOf.lockPeriodUntil,
     };
 
     return poolInfo;
@@ -172,6 +175,23 @@ export const useTokenStakingDetailsAction = (stakingAddress: string, stakedToken
     [addTransactionWithType, contract]
   );
 
+  const emergencyUnstake = useCallback(
+    async () => {
+      if (!contract) {
+        throw new Error(CONTRACT_NOT_FOUND_MSG);
+      }
+
+      const estimateGas = await contract.estimateGas.emergencyUnstake();
+      const tx = await contract.emergencyUnstake({
+        gasLimit: calculateGasMargin(estimateGas),
+      });
+      addTransactionWithType(tx, { type: "Withdraw", summary: `Emergency Tokens Unstaked` });
+
+      return tx.hash;
+    },
+    [addTransactionWithType, contract]
+  );
+
   const harvest = useCallback(
     async () => {
       if (!contract) {
@@ -189,7 +209,7 @@ export const useTokenStakingDetailsAction = (stakingAddress: string, stakedToken
     [addTransactionWithType, contract]
   );
 
-  return { fetchPoolInfo, stake, unStake, approve, harvest };
+  return { fetchPoolInfo, stake, unStake, emergencyUnstake, approve, harvest };
 
 }
 
@@ -235,10 +255,10 @@ export const useFarmAction = (stakingAddress: string, nftAddress: string) => {
     }
 
     const nfts = await contract.getStakedTokens(account);
-    const data: any=[];
+    const data: any = [];
 
     const promises: any[] = await Promise.all(
-      nfts.map(async (nft:any)  => {
+      nfts.map(async (nft: any) => {
         const tokenUri = await posManager.tokenURI(nft.toString());
         const nftData = await getLinkData(tokenUri)
 
@@ -247,12 +267,12 @@ export const useFarmAction = (stakingAddress: string, nftAddress: string) => {
           'name': nftData.name,
           'image': nftData.image
         }
-        
-   
+
+
       }));
 
-      const allNfts = await Promise.all(promises)
-      return allNfts;
+    const allNfts = await Promise.all(promises)
+    return allNfts;
 
   }, [contract, nftAddress, chainId]);
 

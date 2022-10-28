@@ -465,7 +465,7 @@ export default function Header() {
           </AccountElement>
         </HeaderElement>
         <HeaderElementWrap>
-          <Settings />
+          {/* <Settings /> */}
           <Menu />
         </HeaderElementWrap>
       </HeaderControls>

@@ -1,14 +1,17 @@
 import { Fraction } from '@kyberswap/ks-sdk-core'
 import { useEffect, useState } from 'react'
-import { Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useActiveWeb3React } from 'hooks'
 import useTheme from 'hooks/useTheme'
-import { useStakingAction} from 'state/nfts/promm/hooks'
+import { useStakingAction } from 'state/nfts/promm/hooks'
 import styled from 'styled-components'
 import { BigNumber } from 'ethers'
 import JSBI from 'jsbi'
 import { AutoColumn } from 'components/Column'
-import { LightCard} from 'components/Card'
+import { LightCard } from 'components/Card'
+import { Trans } from '@lingui/macro'
+import { TYPE } from 'theme'
+import ContentLoader from 'pages/TokenAmmPool/ContentLoader'
 
 export const PositionCardGrid = styled.div`
   display: grid;
@@ -48,50 +51,73 @@ const getFullDisplayBalance = (balance: BigNumber, decimals = 18, significant = 
   return amount.toFixed(0)
 }
 
-function ProMMFarms({ active }: { active: boolean } ) {
+function ProMMFarms({ active }: { active: boolean }) {
 
-   const theme = useTheme()
-   const { chainId,account } = useActiveWeb3React()
-   const { fetchPools } = useStakingAction();
-   const activeTab = active ? 'active' : 'ended'
+  const theme = useTheme()
+  const { chainId, account } = useActiveWeb3React()
+  const { fetchPools } = useStakingAction();
+  const activeTab = active ? 'active' : 'ended'
   const [farms, setFarms] = useState<any[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
 
-   const getPools = async () => {
-      const allPools:any[]= await fetchPools();
+  const getPools = async () => {
+    const allPools: any[] = await fetchPools();
 
-      setFarms(allPools);
-      
-   };
+    setFarms(allPools);
 
-  useEffect( () => {
-      getPools();
+    setLoading(false);
+  };
 
+  useEffect(() => {
+
+    getPools();
 
   }, ["farms"])
 
 
 
   return (
-<AutoColumn gap="lg" style={{ width: '100%' }}>
-<PositionCardGrid>
-{!farms.length && <div> No Nft Contract available for Staking. </div>}
-{farms.length &&
-    farms?.map((item, key) => (
-  <StyledPositionCard key={key}>
-  <div >
-     <Link to={`nft-staking/${item.stakingContract}/${item.nft}`}>
-      <img src={item.logoURI} alt={item.name} width="300px" height="320px" />
-     </Link>
-      
-  </div>
-  <h4 className="capitalize">
-      {item.name} 
-    </h4>
- 
-</StyledPositionCard>
- ))
-}
-     </PositionCardGrid>
+    <AutoColumn gap="lg" style={{ width: '100%' }}>
+      <PositionCardGrid>
+
+        {!account
+          ?
+          <TYPE.body color={theme.text3} textAlign="center">
+            <Trans>Connect to a wallet to view staking Pools.</Trans>
+          </TYPE.body>
+          :
+          <>
+            {(farms.length > 0 && !loading)
+              &&
+              farms?.map((item, key) => (
+                <StyledPositionCard key={key}>
+                  <div >
+                    <Link to={`nft-staking/${item.stakingContract}/${item.nft}`}>
+                      <img src={item.logoURI} alt={item.name} width="300px" height="320px" />
+                    </Link>
+                  </div>
+
+                  <h4 className="capitalize">
+                    {item.name}
+                  </h4>
+                </StyledPositionCard>
+              ))
+            }
+
+            {loading
+              &&
+              <PositionCardGrid>
+                <ContentLoader />
+                <ContentLoader />
+                <ContentLoader />
+                <ContentLoader />
+              </PositionCardGrid>
+            }
+
+            {(farms.length == 0 && !loading) && <div> No Nft Contract available for Staking. </div>}
+          </>
+        }
+      </PositionCardGrid>
     </AutoColumn>
   )
 }
