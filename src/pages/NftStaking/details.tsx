@@ -1,11 +1,11 @@
 import { Trans } from '@lingui/macro'
 import { stringify } from 'qs'
 import { useState, useEffect } from 'react'
-import { useHistory,useParams} from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { useMedia } from 'react-use'
 import { Flex, Text } from 'rebass'
 import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
-import {useFarmAction,useStakingAction } from 'state/nfts/promm/hooks'
+import { useFarmAction, useStakingAction } from 'state/nfts/promm/hooks'
 import NftCards from 'components/NftPools/NftCards'
 import StakedNftCards from 'components/NftPools/StakedNftCards'
 import NftStakingGuide from 'components/NftPools/NftStakingGuide'
@@ -26,8 +26,9 @@ import useParsedQueryString from 'hooks/useParsedQueryString'
 import { useBlockNumber } from 'state/application/hooks'
 import { isInEnum } from 'utils/string'
 import styled from 'styled-components'
+import { NftStakingInfo } from './NftStakingInfo'
 
-export const NftCard= styled.div`
+export const NftCard = styled.div`
     background: #1C1C1C;
     height: auto;
     border-radius: 12px;
@@ -38,51 +39,54 @@ export const NftCard= styled.div`
 `
 const Details = () => {
 
-  const { nftAddress,stakingAddress } = useParams<{ nftAddress: string,stakingAddress: string }>();
-   const theme = useTheme()
+  const { nftAddress, stakingAddress } = useParams<{ nftAddress: string, stakingAddress: string }>();
+  const theme = useTheme()
 
-   const { fetchBalance } = useFarmAction(stakingAddress,nftAddress)
-   const { fetchPools } = useStakingAction();
+  const { fetchBalance, fetchPoolInfo } = useFarmAction(stakingAddress, nftAddress)
+  const { fetchPools } = useStakingAction();
 
-   const [balance, setBalance] = useState<number>(0)
-  
-   const [farm, setFarm] = useState<any>()
+  const [balance, setBalance] = useState<number>(0)
+  const [poolInfo, setPoolInfo] = useState<any>(null)
+  const [farm, setFarm] = useState<any>()
 
-   const getPools = async () => {
-      const allPools:any[]= await fetchPools();
+  const getPools = async () => {
+    const allPools: any[] = await fetchPools();
 
-     const pools= allPools.filter(function(nftFrm){
+    const pools = allPools.filter(function (nftFrm) {
 
-        if(nftFrm.stakingContract== stakingAddress)
-          return true;
-        else
-          return false;
+      if (nftFrm.stakingContract == stakingAddress)
+        return true;
+      else
+        return false;
 
-      })
-      setFarm(pools[0]);
-      
-   };
+    })
+    setFarm(pools[0]);
 
-  useEffect( () => {
-      getPools();
+  };
+
+  useEffect(() => {
+    getPools();
 
   }, ["farm"])
 
 
   const getBalance = async () => {
-    const bal=await fetchBalance();
-      setBalance(bal.toNumber());
-  };
- 
- const below768 = useMedia('(max-width: 768px)')
- const below1500 = useMedia('(max-width: 1500px)')
 
- const blockNumber = useBlockNumber()
-  useEffect( () => {
+    setPoolInfo(await fetchPoolInfo());
     
+    const bal = await fetchBalance();
+    setBalance(bal.toNumber());
+  };
+
+  const below768 = useMedia('(max-width: 768px)')
+  const below1500 = useMedia('(max-width: 1500px)')
+  const blockNumber = useBlockNumber()
+
+  useEffect(() => {
+
     getBalance();
 
-  }, [balance,blockNumber])
+  }, [balance, blockNumber])
 
   const qs = useParsedQueryString()
   const type = qs.type || 'active'
@@ -100,24 +104,15 @@ const Details = () => {
     }
   }
 
-
-
   const { mixpanelHandler } = useMixpanel()
- 
-
-
-
 
   return (
     <>
       <PageWrapper gap="24px">
-        <TopBar>
-    
-     <Flex>
-     <MouseoverTooltip text={''}>
+
         <Flex
+          justifyContent='space-between'
           alignItems={'center'}
-     
         >
           <Text
             fontWeight={500}
@@ -126,21 +121,17 @@ const Details = () => {
             width={'auto'}
             marginRight={'5px'}
             role="button"
-            
           >
-            <Trans>{farm?.name}</Trans> 
+            <Trans>{farm?.name}</Trans>
           </Text>
-          
-        </Flex>
-      </MouseoverTooltip>
 
-    </Flex>
-    
-        </TopBar>
+          <NftStakingInfo poolInfo={poolInfo} />
+
+        </Flex>
 
         <NftStakingGuide />
 
-      <div>
+        <div>
           <TabContainer>
             <TabWrapper>
               <Tab

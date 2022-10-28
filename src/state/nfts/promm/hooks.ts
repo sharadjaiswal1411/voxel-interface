@@ -220,6 +220,27 @@ export const useFarmAction = (stakingAddress: string, nftAddress: string) => {
   const stakingFactory = useNFTStakingFactoryContract();
   const posManager = useERC721Contract(nftAddress);
 
+  const fetchPoolInfo = useCallback(async () => {
+    if (!contract || !posManager) {
+      throw new Error(CONTRACT_NOT_FOUND_MSG);
+    }
+    
+    const data = await contract.PoolInfo();
+    const viewRewards = await contract.viewRewards(account);
+    const { rewardToken, stakedTotal, rewardsPerDay, lockTime } = data;
+
+    const poolInfo = {
+      rewardToken: rewardToken,
+      stakedTotal: (stakedTotal).toString(),
+      rewardsPerDay: Number(utils.formatEther(rewardsPerDay)),
+      lockTime: (lockTime).toString(),
+      totalRewards: Number(utils.formatEther(viewRewards)),
+    };
+
+    return poolInfo;
+  }, [contract, chainId]);
+
+
   const approve = useCallback(async () => {
     if (!posManager) {
       throw new Error(CONTRACT_NOT_FOUND_MSG);
@@ -301,6 +322,7 @@ export const useFarmAction = (stakingAddress: string, nftAddress: string) => {
 
     return tx?.balance;
   }, [contract, nftAddress, chainId]);
+
 
   // Deposit
   const deposit = useCallback(
@@ -432,5 +454,6 @@ export const useFarmAction = (stakingAddress: string, nftAddress: string) => {
     fetchNfts,
     isApprovedContract,
     fetchBalance,
+    fetchPoolInfo,
   };
 };
