@@ -21,8 +21,12 @@ import transactions from './transactions/reducer'
 import tutorial from './tutorial/reducer'
 import user from './user/reducer'
 import vesting from './vesting/reducer'
+import {
+  gelatoReducers,
+  GELATO_PERSISTED_KEYS,
+} from "@gelatonetwork/limit-orders-react";
 
-const PERSISTED_KEYS: string[] = ['user', 'transactions', 'lists']
+const PERSISTED_KEYS: string[] = ['user', 'transactions', 'lists', ...GELATO_PERSISTED_KEYS];
 
 const store = configureStore({
   devTools: process.env.NODE_ENV !== 'production',
@@ -47,6 +51,7 @@ const store = configureStore({
     campaigns,
     tutorial,
     customizeDexes,
+    ...gelatoReducers,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({ thunk: false, immutableCheck: false, serializableCheck: false })
