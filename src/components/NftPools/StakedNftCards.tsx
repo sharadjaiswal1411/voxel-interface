@@ -109,7 +109,7 @@ function StakedNftCards({ stakingAddress, nftAddress }: { stakingAddress: string
                     <div className='d-flex justify-content-center align-items-center'>
                       <img height={300} width={300} src={item.image} className="nft-image" />
                     </div>
-                    <h4 className="capitalize">
+                    <h4 className="capitalize" style={{ textTransform: "capitalize" }}>
                       {item?.name}
                     </h4>
                     <p>Token Id: #{item?.tokenId}</p>

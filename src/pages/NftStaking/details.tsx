@@ -19,6 +19,7 @@ import {
   TabWrapper,
   TopBar
 } from 'components/NftPools/styleds'
+import { ButtonPrimary } from 'components/Button'
 
 import { VERSION } from 'constants/v2'
 import useMixpanel, { MIXPANEL_TYPE } from 'hooks/useMixpanel'
@@ -27,6 +28,8 @@ import { useBlockNumber } from 'state/application/hooks'
 import { isInEnum } from 'utils/string'
 import styled from 'styled-components'
 import { NftStakingInfo } from './NftStakingInfo'
+import { useIsTransactionPending } from 'state/transactions/hooks'
+import { NftStakingButton } from './NftStakingButton'
 
 export const NftCard = styled.div`
     background: #1C1C1C;
@@ -42,16 +45,20 @@ const Details = () => {
   const { nftAddress, stakingAddress } = useParams<{ nftAddress: string, stakingAddress: string }>();
   const theme = useTheme()
 
-  const { fetchBalance, fetchPoolInfo } = useFarmAction(stakingAddress, nftAddress)
+  const { fetchBalance, fetchPoolInfo, isApprovedContract, approve } = useFarmAction(stakingAddress, nftAddress)
   const { fetchPools } = useStakingAction();
 
   const [balance, setBalance] = useState<number>(0)
   const [poolInfo, setPoolInfo] = useState<any>(null)
   const [farm, setFarm] = useState<any>()
+  const [isApprovedForAll, setApprovedForAll] = useState<boolean>(false)
+  const [approvalTx, setApprovalTx] = useState('')
+  const isApprovalTxPending = useIsTransactionPending(approvalTx)
+
+
 
   const getPools = async () => {
     const allPools: any[] = await fetchPools();
-
     const pools = allPools.filter(function (nftFrm) {
 
       if (nftFrm.stakingContract == stakingAddress)
@@ -61,19 +68,17 @@ const Details = () => {
 
     })
     setFarm(pools[0]);
-
   };
 
   useEffect(() => {
     getPools();
-
-  }, ["farm"])
+  }, [approvalTx, isApprovedForAll])
 
 
   const getBalance = async () => {
 
     setPoolInfo(await fetchPoolInfo());
-    
+
     const bal = await fetchBalance();
     setBalance(bal.toNumber());
   };
@@ -132,47 +137,52 @@ const Details = () => {
         <NftStakingGuide />
 
         <div>
-          <TabContainer>
-            <TabWrapper>
-              <Tab
-                onClick={() => {
-                  if (type && type !== 'active') {
-                    mixpanelHandler(MIXPANEL_TYPE.FARMS_ACTIVE_VIEWED)
-                  }
-                  const newQs = { ...qs, type: 'active' }
-                  history.push({
-                    search: stringify(newQs),
-                  })
-                }}
-                isActive={!type || type === 'active'}
-              >
-                <PoolTitleContainer>
-                  <span>
-                    <Trans>Wallet NFTs</Trans>
-                  </span>
-                </PoolTitleContainer>
-              </Tab>
-              <Tab
-                onClick={() => {
-                  if (type !== 'ended') {
-                    mixpanelHandler(MIXPANEL_TYPE.FARMS_ENDING_VIEWED)
-                  }
-                  const newQs = { ...qs, type: 'ended' }
-                  history.push({
-                    search: stringify(newQs),
-                  })
-                }}
-                isActive={type === 'ended'}
-              >
-                <PoolTitleContainer>
-                  <span>
-                    <Trans>Staked NFTs</Trans>
-                  </span>
-                </PoolTitleContainer>
-              </Tab>
+          <Flex justifyContent='space-between' alignItems='start'>
+            <TabContainer>
+              <TabWrapper>
+                <Tab
+                  onClick={() => {
+                    if (type && type !== 'active') {
+                      mixpanelHandler(MIXPANEL_TYPE.FARMS_ACTIVE_VIEWED)
+                    }
+                    const newQs = { ...qs, type: 'active' }
+                    history.push({
+                      search: stringify(newQs),
+                    })
+                  }}
+                  isActive={!type || type === 'active'}
+                >
+                  <PoolTitleContainer>
+                    <span>
+                      <Trans>Wallet NFTs</Trans>
+                    </span>
+                  </PoolTitleContainer>
+                </Tab>
+                <Tab
+                  onClick={() => {
+                    if (type !== 'ended') {
+                      mixpanelHandler(MIXPANEL_TYPE.FARMS_ENDING_VIEWED)
+                    }
+                    const newQs = { ...qs, type: 'ended' }
+                    history.push({
+                      search: stringify(newQs),
+                    })
+                  }}
+                  isActive={type === 'ended'}
+                >
+                  <PoolTitleContainer>
+                    <span>
+                      <Trans>Staked NFTs</Trans>
+                    </span>
+                  </PoolTitleContainer>
+                </Tab>
 
-            </TabWrapper>
-          </TabContainer>
+              </TabWrapper>
+            </TabContainer>
+
+
+            <NftStakingButton />
+          </Flex>
 
           {renderTabContent()}
         </div>

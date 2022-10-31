@@ -55,10 +55,7 @@ function NftCards({ stakingAddress, nftAddress }: { stakingAddress: string, nftA
   const isApprovalTxPending = useIsTransactionPending(approvalTx)
 
   const handleApprove = async (nftId: string) => {
-    if (!isApprovedForAll) {
-      const tx = await approve()
-      setApprovalTx(tx)
-    } else {
+    if (isApprovedForAll) {
       const tx = await deposit(nftId)
       setApprovalTx(tx)
     }
@@ -79,12 +76,13 @@ function NftCards({ stakingAddress, nftAddress }: { stakingAddress: string, nftA
       .then(async function (response) {
 
         const res = response.data.result;
-
+        
         const newItems: any = await Promise.all(
           res.map(async (data: any) => {
 
             if (data.metadata) {
               data.image = JSON.parse(data.metadata).image;
+              data.nftName = JSON.parse(data.metadata).name;
             }
             else {
               data.image = defaultNftImage
@@ -145,16 +143,18 @@ function NftCards({ stakingAddress, nftAddress }: { stakingAddress: string, nftA
                       <div className='d-flex justify-content-center align-items-center'>
                         <img height={300} width={300} src={item.image} className="nft-image" />
                       </div>
-                      <h4 className="capitalize">
-                        {item.name}
+                      <h4 className="capitalize" style={{ textTransform: "capitalize" }}>
+                        {item.nftName}
                       </h4>
+                      {/* <h5 className="capitalize" style={{ textTransform: "capitalize" }}>
+                        {item.name}
+                      </h5> */}
                       <p>Token Id: #{item.token_id}</p>
                     </div>
                     <div className="product-card-footer">
-                      <ButtonPrimary style={{ margin: '4px 0 0 0', padding: '16px' }} onClick={() => handleApprove(item.token_id.toString())}>
+                      <ButtonPrimary style={{ margin: '4px 0 0 0', padding: '16px' }} onClick={() => handleApprove(item.token_id.toString())} disabled={!isApprovedForAll}>
                         <Text fontWeight={500} fontSize={18}>
-                          {isApprovedForAll ? "Stake" : "Approve Contract"
-                          }
+                          Stake
                         </Text>
                       </ButtonPrimary>
 
