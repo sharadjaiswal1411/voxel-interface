@@ -37,7 +37,7 @@ enum Tab {
   Imported,
 }
 
-const ContentWrapper = styled(Column)`
+export const ContentWrapper = styled(Column)`
   width: 100%;
   flex: 1 1;
   position: relative;
@@ -133,7 +133,16 @@ const fetchTokens = async (
     return { tokens: [] }
   }
 }
-
+export const NoResult = () => {
+  const theme = useTheme()
+  return (
+    <Column style={{ padding: '20px', height: '100%' }}>
+      <TYPE.main color={theme.text3} textAlign="center" mb="20px">
+        <Trans>No results found.</Trans>
+      </TYPE.main>
+    </Column>
+  )
+}
 export function CurrencySearch({
   selectedCurrency,
   onCurrencySelect,

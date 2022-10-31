@@ -4,11 +4,13 @@ import { stringify } from 'qs'
 import { X } from 'react-feather'
 import { useHistory } from 'react-router-dom'
 import { Flex, Text } from 'rebass'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
+import Solana from 'assets/networks/solana-network.svg'
 import { ButtonEmpty } from 'components/Button'
 import Modal from 'components/Modal'
-import { useActiveWeb3React } from 'hooks'
+import { MouseoverTooltip } from 'components/Tooltip'
+import { Z_INDEXS } from 'constants/styles'
 import { useActiveNetwork } from 'hooks/useActiveNetwork'
 import useParsedQueryString from 'hooks/useParsedQueryString'
 import { ApplicationModal } from 'state/application/actions'
@@ -58,39 +60,90 @@ export const ListItem = styled.div<{ selected?: boolean }>`
       `}
 `
 
-export const SelectNetworkButton = styled(ButtonEmpty)`
+export const SelectNetworkButton = styled(ButtonEmpty)<{ isDisabled?: boolean }>`
   background-color: transparent;
   color: ${({ theme }) => theme.primary};
   display: flex;
   justify-content: center;
   align-items: center;
-  &:focus {
-    text-decoration: none;
-  }
-  &:hover {
-    text-decoration: none;
-    border: 1px solid ${({ theme }) => theme.primary};
-  }
-  &:active {
-    text-decoration: none;
-  }
-  &:disabled {
-    opacity: 50%;
-    cursor: not-allowed;
-  }
+  ${({ isDisabled, theme }) =>
+    isDisabled
+      ? css`
+          opacity: 50%;
+          pointer-events: none;
+        `
+      : css`
+          &:focus {
+            text-decoration: none;
+          }
+          &:hover {
+            text-decoration: none;
+            border: 1px solid ${theme.primary};
+          }
+          &:active {
+            text-decoration: none;
+          }
+        `}
 `
+
+const NewLabel = styled.div`
+  position: absolute;
+  top: 7px;
+  left: 93px;
+  font-size: 8px;
+  font-weight: 500;
+  color: #ff537b;
+`
+
 const SHOW_NETWORKS = process.env.NODE_ENV === 'production' ? MAINNET_NETWORKS : SUPPORTED_NETWORKS
-export default function NetworkModal(): JSX.Element | null {
-  const { chainId } = useActiveWeb3React()
+export default function NetworkModal({
+  activeChainIds,
+  selectedId,
+  customOnSelectNetwork,
+  isOpen,
+  customToggleModal,
+  disabledMsg,
+}: {
+  activeChainIds?: ChainId[]
+  selectedId?: ChainId | undefined
+  isOpen?: boolean
+  customOnSelectNetwork?: (chainId: ChainId) => void
+  customToggleModal?: () => void
+  disabledMsg?: string
+}): JSX.Element | null {
   const networkModalOpen = useModalOpen(ApplicationModal.NETWORK)
-  const toggleNetworkModal = useNetworkModalToggle()
+  const toggleNetworkModalGlobal = useNetworkModalToggle()
   const { changeNetwork } = useActiveNetwork()
   const isDarkMode = useIsDarkMode()
   const history = useHistory()
   const qs = useParsedQueryString()
 
+  const toggleNetworkModal = () => {
+    if (customToggleModal) customToggleModal()
+    else toggleNetworkModalGlobal()
+  }
+
+  const onSelect = (chainId: ChainId) => {
+    toggleNetworkModal()
+    if (customOnSelectNetwork) {
+      customOnSelectNetwork(chainId)
+    } else {
+      changeNetwork(chainId, () => {
+        const { networkId, inputCurrency, outputCurrency, ...rest } = qs
+        history.replace({
+          search: stringify(rest),
+        })
+      })
+    }
+  }
+
   return (
-    <Modal isOpen={networkModalOpen} onDismiss={toggleNetworkModal} maxWidth={624}>
+    <Modal
+      zindex={Z_INDEXS.MODAL}
+      isOpen={isOpen !== undefined ? isOpen : networkModalOpen}
+      onDismiss={toggleNetworkModal}
+      maxWidth={624}
+    >
       <Wrapper>
         <Flex alignItems="center" justifyContent="space-between">
           <Text fontWeight="500" fontSize={20}>
@@ -103,56 +156,35 @@ export default function NetworkModal(): JSX.Element | null {
         </Flex>
         <NetworkList>
           {SHOW_NETWORKS.map((key: ChainId, i: number) => {
-            if (chainId === key && (key===1 || key===5)) {
-              return (
-                <SelectNetworkButton key={i} padding="0">
-                  <ListItem selected>
-                    <img
-                      src={
-                        isDarkMode && !!NETWORKS_INFO[key].iconDark
-                          ? NETWORKS_INFO[key].iconDark
-                          : NETWORKS_INFO[key].icon
-                      }
-                      alt="Switch Network"
-                      style={{ width: '24px', marginRight: '8px' }}
-                    />
-                    <NetworkLabel>{NETWORKS_INFO[key].name}</NetworkLabel>
+            const { iconDark, icon, name } = NETWORKS_INFO[key as ChainId]
+            const iconSrc = isDarkMode && iconDark ? iconDark : icon
+            const selected = selectedId === key
+            const disabled = activeChainIds ? !activeChainIds?.includes(key) : false
+            return (
+              <MouseoverTooltip style={{ zIndex: Z_INDEXS.MODAL + 1 }} key={key} text={disabled ? disabledMsg : ''}>
+                <SelectNetworkButton
+                  key={key}
+                  isDisabled={disabled}
+                  padding="0"
+                  onClick={() => !selected && onSelect(key)}
+                >
+                  <ListItem selected={selected}>
+                    <img src={iconSrc} alt="Switch Network" style={{ width: '24px', marginRight: '8px' }} />
+                    <NetworkLabel>{name}</NetworkLabel>
                   </ListItem>
                 </SelectNetworkButton>
-              )
-            }
-       if ((key===1 || key===5)){
-            return (
-              <SelectNetworkButton
-                key={i}
-                padding="0"
-                onClick={() => {
-                  toggleNetworkModal()
-                  changeNetwork(key, () => {
-                    const { networkId, inputCurrency, outputCurrency, ...rest } = qs
-                    history.replace({
-                      search: stringify(rest),
-                    })
-                  })
-                }}
-              >
-                <ListItem>
-                  <img
-                    src={
-                      isDarkMode && !!NETWORKS_INFO[key].iconDark
-                        ? NETWORKS_INFO[key].iconDark
-                        : NETWORKS_INFO[key].icon
-                    }
-                    alt="Switch Network"
-                    style={{ width: '24px', marginRight: '8px' }}
-                  />
-                  <NetworkLabel>{NETWORKS_INFO[key].name}</NetworkLabel>
-                </ListItem>
-              </SelectNetworkButton>
+              </MouseoverTooltip>
             )
-          }
-          return null
           })}
+          <SelectNetworkButton padding="0" isDisabled>
+            <ListItem>
+              <img src={Solana} alt="Switch Network" style={{ width: '24px', marginRight: '8px' }} />
+              <NetworkLabel>Solana</NetworkLabel>
+              <NewLabel>
+                <Trans>Coming Soon</Trans>
+              </NewLabel>
+            </ListItem>
+          </SelectNetworkButton>
         </NetworkList>
       </Wrapper>
     </Modal>

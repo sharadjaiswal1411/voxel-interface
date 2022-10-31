@@ -24,7 +24,7 @@ interface TooltipProps extends Omit<PopoverProps, 'content'> {
   size?: number
 }
 
-export default function Tooltip({ text, width, size, ...rest }: TooltipProps) {
+export default function Tooltip({ text, width, size, ...rest }: any) {
   return (
     <Popover
       content={
@@ -39,7 +39,7 @@ export default function Tooltip({ text, width, size, ...rest }: TooltipProps) {
   )
 }
 
-export function MouseoverTooltip({ children, ...rest }: Omit<TooltipProps, 'show'>) {
+export function MouseoverTooltip({ children, ...rest }: Omit<any, 'show'>) {
   const [show, setShow] = useState(false)
   const open = useCallback(() => !!rest.text && setShow(true), [setShow, rest.text])
   const close = useCallback(() => setShow(false), [setShow])
@@ -52,7 +52,7 @@ export function MouseoverTooltip({ children, ...rest }: Omit<TooltipProps, 'show
   )
 }
 
-export function MouseoverTooltipDesktopOnly(props: Omit<TooltipProps, 'show'>) {
+export function MouseoverTooltipDesktopOnly(props: Omit<any, 'show'>) {
   if (isMobile) return <>{props.children}</>
 
   return <MouseoverTooltip {...props} />

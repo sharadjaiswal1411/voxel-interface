@@ -3,6 +3,8 @@ import { BrowserTracing } from '@sentry/tracing'
 import { Web3ReactProvider, createWeb3ReactRoot } from '@web3-react/core'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
 import 'inter-ui'
 import { StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
@@ -29,6 +31,7 @@ import TransactionUpdater from './state/transactions/updater'
 import UserUpdater from './state/user/updater'
 import ThemeProvider, { FixedGlobalStyle, ThemedGlobalStyle } from './theme'
 import getLibrary from './utils/getLibrary'
+dayjs.extend(utc)
 
 AOS.init()
 

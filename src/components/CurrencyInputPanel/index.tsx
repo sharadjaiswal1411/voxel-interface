@@ -22,7 +22,7 @@ import DoubleCurrencyLogo from '../DoubleLogo'
 import { Input as NumericalInput } from '../NumericalInput'
 import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
 
-const InputRow = styled.div`
+export const InputRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
   align-items: center;
 `
@@ -35,7 +35,7 @@ const StyledSwitchIcon = styled(SwitchIcon)<{ selected: boolean }>`
   }
 `
 
-const CurrencySelect = styled.button<{ selected: boolean; hideInput?: boolean }>`
+export const CurrencySelect = styled.button<{ selected: boolean; hideInput?: boolean }>`
   align-items: center;
   height: ${({ hideInput }) => (hideInput ? '2.5rem' : 'unset')};
   width: ${({ hideInput }) => (hideInput ? '100%' : 'initial')};
@@ -65,13 +65,13 @@ const CurrencySelect = styled.button<{ selected: boolean; hideInput?: boolean }>
   }
 `
 
-const Aligner = styled.span`
+export const Aligner = styled.span`
   display: flex;
   align-items: center;
   justify-content: space-between;
 `
 
-const InputPanel = styled.div<{ hideInput?: boolean }>`
+export const InputPanel = styled.div<{ hideInput?: boolean }>`
   ${({ theme }) => theme.flexColumnNoWrap}
   position: relative;
   border-radius: ${({ hideInput }) => (hideInput ? '8px' : '20px')};
@@ -91,13 +91,13 @@ const FixedContainer = styled.div`
   z-index: 2;
 `
 
-const Container = styled.div<{ selected: boolean; hideInput: boolean }>`
+export const Container = styled.div<{ selected: boolean; hideInput: boolean; error?: boolean }>`
   border-radius: 16px;
   background-color: ${({ theme, hideInput }) => (hideInput ? 'transparent' : theme.buttonBlack)};
   padding: ${({ hideInput }) => (hideInput ? 0 : '0.75rem')};
+  border: ${({ error, theme }) => (error ? `1px solid ${theme.red}` : 'none')};
 `
-
-const StyledTokenName = styled.span<{ active?: boolean; fontSize?: string }>`
+export const StyledTokenName = styled.span<{ active?: boolean; fontSize?: string }>`
   margin-left: 0.5rem;
   font-size: ${({ active, fontSize }) => (fontSize ? fontSize : active ? '20px' : '16px')};
   overflow: hidden;

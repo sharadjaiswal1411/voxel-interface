@@ -433,9 +433,7 @@ export default function Header() {
                 id={`buy-crypto-nav-link`}
                 to={'/nft-staking'}
                 isActive={match => Boolean(match)}
-                onClick={() => {
-                  mixpanelHandler(MIXPANEL_TYPE.SWAP_BUY_CRYPTO_CLICKED)
-                }}
+             
               >
                 <Flex alignItems="center" sx={{ gap: '8px' }}>
                   <Trans>NFT Staking</Trans>
@@ -445,14 +443,16 @@ export default function Header() {
           </HoverDropdown>
 
           <AnalyticsWrapper>
-            <StyledNavExternalLink
-              onClick={() => {
-                mixpanelHandler(MIXPANEL_TYPE.ANALYTICS_MENU_CLICKED)
-              }}
-              href={'/bridge'}
-            >
-              <Trans>Bridge</Trans>
-            </StyledNavExternalLink>
+              <StyledNavLink
+                id={`bridge`}
+                to={'/bridge'}
+                isActive={match => Boolean(match)}
+               
+              >
+                <Flex alignItems="center" sx={{ gap: '8px' }}>
+                  <Trans>Bridge</Trans>
+                </Flex>
+              </StyledNavLink>
           </AnalyticsWrapper>
         </HeaderLinks>
       </HeaderRow>
