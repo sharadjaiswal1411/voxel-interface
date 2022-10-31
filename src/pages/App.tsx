@@ -32,6 +32,7 @@ import Swap from './Swap'
 import { RedirectPathToSwapOnly, RedirectToSwap } from './Swap/redirects'
 import ProAmmSwap from './SwapProAmm'
 import SwapV2 from './SwapV2'
+import LimitOrder from './LimitOrder'
 
 // Route-based code splitting
 const Pools = lazy(() => import(/* webpackChunkName: 'pools-page' */ './Pools'))
@@ -197,6 +198,8 @@ export default function App() {
                     <Route exact strict path="/swap/:outputCurrency" component={RedirectToSwap} />
                     <Route exact strict path="/swapv2" component={ProAmmSwap} />
                      <Route exact strict path="/swap" component={SwapV2} />
+
+                    <Route exact strict path="/limit-order" component={LimitOrder} />
 
                     
 
