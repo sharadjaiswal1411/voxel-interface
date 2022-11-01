@@ -1,36 +1,9 @@
-import React, { Suspense,lazy} from 'react'
+import React, { lazy} from 'react'
 import { GelatoLimitOrderPanel, GelatoLimitOrdersHistoryPanel, GelatoProvider,useGelatoLimitOrders } from '@gelatonetwork/limit-orders-react'
-import { RouteComponentProps, useParams } from 'react-router-dom'
-import Skeleton from 'react-loading-skeleton'
-import { AutoRow, RowBetween } from 'components/Row'
-import { Box, Flex, Text } from 'rebass'
+import { RouteComponentProps} from 'react-router-dom'
 import { useActiveWeb3React } from 'hooks'
-import { Trans, t } from '@lingui/macro'
-import styled, { DefaultTheme, keyframes } from 'styled-components'
-import { BodyWrapper } from 'pages/AppBody'
-import { Z_INDEXS } from 'constants/styles'
 import useTheme from 'hooks/useTheme'
 
-
-import {
-  ArrowWrapper,
-  BottomGrouping,
-  Container,
-  Dots,
-  InfoComponentsWrapper,
-  KyberTag,
-  LiveChartWrapper,
-  PageWrapper,
-  PriceImpactHigh,
-  StyledActionButtonSwapForm,
-  SwapCallbackError,
-  SwapFormActions,
-  SwapFormWrapper,
-  Tab,
-  TabContainer,
-  TabWrapper,
-  Wrapper,
-} from 'components/swapv2/styleds'
 
 
 function Gelato({ children }: { children?: React.ReactNode }) {
@@ -47,7 +20,6 @@ function Gelato({ children }: { children?: React.ReactNode }) {
   );
 }
 
-const LiveChart = lazy(() => import('components/LiveChart'))
 export default function LimitOrder({ history }: RouteComponentProps) {
   const {
     handlers: {

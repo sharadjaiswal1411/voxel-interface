@@ -195,10 +195,10 @@ contract NftStaking is Ownable, ERC721Holder, Pausable {
                 block.timestamp + PoolInfo.lockTime &&
                 staker.tokenStakingCoolDown[ids[i]] > 0
             ) {
-            
+
+             
                 uint256 stakedDays = ((block.timestamp - uint(staker.tokenStakingCoolDown[ids[i]]))) / PoolInfo.lockTime;
-        
-                balance += PoolInfo.rewardsPerDay * stakedDays;
+                balance += PoolInfo.rewardsPerDay  * (stakedDays/86400);
                 
             }
         }
@@ -206,8 +206,8 @@ contract NftStaking is Ownable, ERC721Holder, Pausable {
     }
  
     function claimReward(address _user) public whenNotPaused{
-        require(stakers[_user].balance > 0 , "0 rewards yet");
         updateReward(msg.sender);
+        require(stakers[_user].balance > 0 , "0 rewards yet");
         stakers[_user].rewardsReleased += stakers[_user].balance;
         PoolInfo.rewardToken.transfer(_user, stakers[_user].balance);
         stakers[_user].balance = 0;

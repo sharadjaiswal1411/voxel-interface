@@ -128,6 +128,10 @@ msgstr ""
 #~ msgid "<0>KyberSwap</0> gets you the best token rates"
 #~ msgstr ""
 
+#: src/pages/Bridge/Disclaimer.tsx
+msgid "<0>Multichain</0> is a well-known cross-chain router protocol that facilitates transfer of tokens between chains. However, in the event of a security breach on our partners platform, VoxelSwap won't assume any liability for any losses incurred."
+msgstr ""
+
 #: src/components/YieldPools/ElasticFarmSummary/SummaryContent.tsx
 msgid "<0>Option 1</0>: Wait for the current market price of the pool to come back in your price range (i.e. for your liquidity position to become active again)."
 msgstr ""
@@ -179,8 +183,16 @@ msgstr ""
 msgid "ABOUT KNC"
 msgstr ""
 
+#: src/pages/Bridge/BridgeTransferHistory/index.tsx
+msgid "ACTION"
+msgstr ""
+
 #: src/pages/ProAmmPools/index.tsx
 msgid "ACTIONS"
+msgstr ""
+
+#: src/pages/Bridge/BridgeTransferHistory/index.tsx
+msgid "AMOUNT"
 msgstr ""
 
 #: 
@@ -485,6 +497,7 @@ msgstr ""
 
 #: src/pages/AddLiquidityV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/Bridge/SwapForm.tsx
 #: src/pages/IncreaseLiquidity/index.tsx
 #: src/pages/IncreaseLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
@@ -505,6 +518,7 @@ msgstr "Onaylandı"
 #: src/components/YieldPools/ProMMFarmGroup/index.tsx
 #: src/components/YieldPools/ProMMFarmGroup/index.tsx
 #: src/components/YieldPools/ProMMFarmGroup/index.tsx
+#: src/pages/Bridge/SwapForm.tsx
 #: src/pages/RemoveLiquidity/TokenPair.tsx
 #: src/pages/RemoveLiquidity/ZapOut.tsx
 #: src/pages/Swap/index.tsx
@@ -548,6 +562,10 @@ msgstr ""
 
 #: src/components/PositionCard/index.tsx
 msgid "Available LP Tokens"
+msgstr ""
+
+#: src/pages/NftStaking/NftStakingInfo.tsx
+msgid "Available Rewards:"
 msgstr ""
 
 #: src/components/PoolList/ListItem.tsx
@@ -640,6 +658,7 @@ msgid "Brave wallet can only be used in Brave Browser. Download it"
 msgstr ""
 
 #: src/components/Header/index.tsx
+#: src/pages/Bridge/index.tsx
 msgid "Bridge"
 msgstr ""
 
@@ -681,6 +700,10 @@ msgstr ""
 #~ msgid "CLAIMED"
 #~ msgstr "ALINDI"
 
+#: src/pages/Bridge/BridgeTransferHistory/index.tsx
+msgid "CREATED"
+msgstr ""
+
 #: src/pages/Swap/index.tsx
 #: src/pages/SwapV2/index.tsx
 msgid "Calculating best route"
@@ -694,6 +717,14 @@ msgstr ""
 #: src/components/TransactionSettings/AdvanceModeModal.tsx
 #~ msgid "Cancel"
 #~ msgstr "İptal Et"
+
+#: src/pages/Bridge/SwapForm.tsx
+msgid "Cannot get token info. Please try again later."
+msgstr ""
+
+#: src/pages/Bridge/BridgeTransferHistory/RouteCell.tsx
+msgid "ChainId: {chainId} not supported"
+msgstr ""
 
 #: src/pages/About/AboutKyberSwap.tsx
 msgid "Chains"
@@ -816,6 +847,10 @@ msgstr ""
 msgid "Collect Fees"
 msgstr ""
 
+#: src/components/NetworkModal/index.tsx
+msgid "Coming Soon"
+msgstr ""
+
 #: src/components/UpcomingFarms/StartingIn.tsx
 msgid "Coming soon"
 msgstr "Çok yakında"
@@ -873,6 +908,7 @@ msgstr "Bu işlemi cüzdanınızda onaylayın"
 #: src/pages/AddLiquidity/TokenPair.tsx
 #: src/pages/AddLiquidity/ZapIn.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/Bridge/SwapForm.tsx
 #: src/pages/Campaign/index.tsx
 #: src/pages/CreatePool/index.tsx
 #: src/pages/IncreaseLiquidity/index.tsx
@@ -1007,6 +1043,10 @@ msgstr "Mevcut havuzları görüntülemek için yeni bir havuz oluşturun veya b
 msgid "Create an issue on GitHub"
 msgstr ""
 
+#: src/components/swapv2/AdvancedSwapDetails.tsx
+msgid "Crosschain amount larger than {0} {1} could take up to 12 hours"
+msgstr ""
+
 #: src/components/ConfirmAddModalBottom/index.tsx
 #: src/components/swapv2/SwapModalFooter.tsx
 #: src/pages/AddLiquidity/TokenPair.tsx
@@ -1051,6 +1091,10 @@ msgstr "Özel"
 
 #: src/components/Tutorial/TutorialSwap/constant.ts
 msgid "Customize your settings"
+msgstr ""
+
+#: src/pages/Bridge/BridgeTransferHistory/index.tsx
+msgid "DATE | STATUS"
 msgstr ""
 
 #: 
@@ -1136,6 +1180,10 @@ msgstr ""
 
 #: src/components/WalletModal/WarningBox.tsx
 msgid "Disable Metamask in C98"
+msgstr ""
+
+#: src/pages/Bridge/Disclaimer.tsx
+msgid "Disclaimer"
 msgstr ""
 
 #: src/pages/TrueSight/TrendingSoonHero.tsx
@@ -1281,6 +1329,10 @@ msgstr ""
 msgid "Earn trading fees through our Pools / Farms"
 msgstr ""
 
+#: src/pages/Bridge/index.tsx
+msgid "Easily transfer tokens from one chain to another"
+msgstr ""
+
 #: src/pages/AddLiquidityV2/index.tsx
 msgid "Efficiency Comparison"
 msgstr ""
@@ -1398,6 +1450,11 @@ msgstr "Bağlantı hatası."
 msgid "Error connecting. Try refreshing the page."
 msgstr "Bağlantı hatası. Sayfayı yenilemeyi deneyin."
 
+#: src/components/swapv2/AdvancedSwapDetails.tsx
+#: src/pages/Bridge/ComfirmBridgeModal.tsx
+msgid "Estimated Processing Time"
+msgstr ""
+
 #: 
 #: 
 #~ msgid "Estimated Refund"
@@ -1408,6 +1465,7 @@ msgstr "Bağlantı hatası. Sayfayı yenilemeyi deneyin."
 msgid "Estimated change in price due to the size of your transaction"
 msgstr "İşleminizin boyutuna bağlı olarak fiyattaki tahmini değişiklik"
 
+#: src/components/swapv2/AdvancedSwapDetails.tsx
 #: src/components/swapv2/AdvancedSwapDetails.tsx
 #: src/components/swapv2/SwapModalFooter.tsx
 msgid "Estimated network fee for your transaction"
@@ -1447,6 +1505,10 @@ msgstr ""
 #: 
 #~ msgid "FULL UNLOCK"
 #~ msgstr "TAM KİLİT AÇMA"
+
+#: src/pages/Bridge/utils.ts
+msgid "Failed"
+msgstr ""
 
 #: src/hooks/useActiveNetwork.ts
 #: src/hooks/useActiveNetwork.ts
@@ -1625,6 +1687,10 @@ msgstr ""
 msgid "Gas Fee"
 msgstr "Gas Ücreti"
 
+#: src/components/swapv2/AdvancedSwapDetails.tsx
+msgid "Gas Fee: {fee} {0} for your cross-chain transaction on destination chain"
+msgstr ""
+
 #: src/components/swapv2/GasPriceTrackerPanel.tsx
 #: src/components/swapv2/SwapSettingsPanel/GasPriceTrackerSetting.tsx
 msgid "Gas Price Tracker"
@@ -1697,6 +1763,10 @@ msgstr "Topla"
 msgid "Harvest All"
 msgstr "Tümünü Topla"
 
+#: src/pages/NftStaking/NftStakingButton.tsx
+msgid "Harvest Rewards"
+msgstr ""
+
 #: src/components/NftPools/NftStakingGuide.tsx
 #: src/components/YieldPools/FarmGuide.tsx
 msgid "Harvest your farming rewards whenever you want"
@@ -1758,11 +1828,19 @@ msgstr ""
 msgid "How to win"
 msgstr ""
 
+#: src/pages/Bridge/Disclaimer.tsx
+msgid "I Understand"
+msgstr ""
+
 #: src/components/SearchModal/ImportList.tsx
 #: src/components/SearchModal/ImportToken.tsx
 #: src/pages/AddLiquidityV2/index.tsx
 msgid "I understand"
 msgstr "Anladım"
+
+#: src/pages/Bridge/ComfirmBridgeModal.tsx
+msgid "I want to transfer"
+msgstr ""
 
 #: src/components/NftPools/NftStakingGuide.tsx
 #: src/components/YieldPools/FarmGuide.tsx
@@ -1916,6 +1994,10 @@ msgstr "Başlatılıyor..."
 msgid "Input Token"
 msgstr ""
 
+#: src/pages/Bridge/SwapForm.tsx
+msgid "Input amount is not valid"
+msgstr ""
+
 #: src/components/swap/SwapModalHeader.tsx
 #: src/components/swapv2/SwapModalHeader.tsx
 msgid "Input is estimated. You will sell at most"
@@ -1964,6 +2046,7 @@ msgid "Insufficient reward amount available for claim!"
 msgstr ""
 
 #: src/hooks/useWrapCallback.ts
+#: src/pages/Bridge/SwapForm.tsx
 #: src/state/mint/hooks.ts
 #: src/state/mint/hooks.ts
 #: src/state/mint/hooks.ts
@@ -2157,6 +2240,7 @@ msgid "Limit Order"
 msgstr ""
 
 #: src/components/PoolList/ItemCard/index.tsx
+#: src/components/SearchModal/bridge/CurrencySearchBridge.tsx
 msgid "Liquidity"
 msgstr ""
 
@@ -2196,6 +2280,10 @@ msgstr "Yüklendi"
 #: src/pages/PoolFinder/index.tsx
 msgid "Loading"
 msgstr "Yükleniyor"
+
+#: src/components/CurrencyInputPanel/CurrencyInputPanelBridge.tsx
+msgid "Loading tokens"
+msgstr ""
 
 #: src/components/YourCampaignTransactionsModal/index.tsx
 msgid "Local Time"
@@ -2242,6 +2330,7 @@ msgstr ""
 msgid "MIN PRICE"
 msgstr ""
 
+#: src/components/swapv2/AdvancedSwapDetails.tsx
 #: src/components/swapv2/AdvancedSwapDetails.tsx
 msgid "MORE INFORMATION"
 msgstr "DAHA FAZLA BİLGİ"
@@ -2318,6 +2407,10 @@ msgstr "Maksimum Kayma"
 msgid "Max Slippage:"
 msgstr "Maksimum Kayma:"
 
+#: src/components/swapv2/AdvancedSwapDetails.tsx
+msgid "Max {0} {1}"
+msgstr ""
+
 #: src/components/swapv2/TradeTypeSelection.tsx
 msgid "Maximum Return"
 msgstr "Maksimum Getiri"
@@ -2351,9 +2444,21 @@ msgstr "Taşı"
 msgid "Migrate Liquidity"
 msgstr "Likiditeyi Taşı"
 
+#: src/pages/NftStaking/NftStakingInfo.tsx
+msgid "Min Lock Duration:"
+msgstr ""
+
 #: src/components/PositionPreview/index.tsx
 #: src/components/RangeSelector/index.tsx
 msgid "Min Price"
+msgstr ""
+
+#: src/components/swapv2/AdvancedSwapDetails.tsx
+msgid "Min Transaction Fee is {0} {1} <0/>Max Transaction Fee is {2} {3}"
+msgstr ""
+
+#: src/components/swapv2/AdvancedSwapDetails.tsx
+msgid "Min {0} {1}"
 msgstr ""
 
 #: src/components/swap/AdvancedSwapDetails.tsx
@@ -2516,6 +2621,7 @@ msgstr ""
 #~ msgstr "Kayıt bulunamadı."
 
 #: src/components/SearchModal/CurrencySearch.tsx
+#: src/components/SearchModal/CurrencySearch.tsx
 msgid "No results found."
 msgstr "Sonuç bulunamadı."
 
@@ -2550,9 +2656,17 @@ msgstr ""
 msgid "Not enough trading volume"
 msgstr ""
 
+#: src/pages/Bridge/ComfirmBridgeModal.tsx
+msgid "Note: It may take upto 30 minutes for your transaction to show up under Transfer History."
+msgstr ""
+
 #: src/pages/CreatePool/index.tsx
 msgid "Note: There are existing pools for this token pair. Please check"
 msgstr "Not: Bu token çifti için mevcut havuzlar var. Lütfen kontrol edin"
+
+#: src/pages/Bridge/SwapForm.tsx
+msgid "Note: Your transfer amount ({0} {1}) is more than {2}% of the available liquidity ({poolLiquidity} {3})!"
+msgstr ""
 
 #: src/components/PositionCard/index.tsx
 msgid "Note: {warningToken} is now <10% of the pool. Pool might become inactive if {warningToken} reaches 0%"
@@ -2719,6 +2833,7 @@ msgid "Points"
 msgstr ""
 
 #: src/components/NavigationTabs/index.tsx
+#: src/components/SearchModal/bridge/CurrencySearchBridge.tsx
 #: src/components/YieldPools/ProMMFarmGroup/index.tsx
 msgid "Pool"
 msgstr "Havuz"
@@ -2888,6 +3003,10 @@ msgstr "Fiyatlar ve Havuz payı"
 msgid "Privacy Policy"
 msgstr "Gizlilik Politikası"
 
+#: src/pages/Bridge/utils.ts
+msgid "Processing"
+msgstr ""
+
 #: 
 #: 
 #~ msgid "Provide Liquidity"
@@ -2897,10 +3016,19 @@ msgstr "Gizlilik Politikası"
 msgid "Qualified"
 msgstr ""
 
+#: src/pages/Bridge/BridgeTransferHistory/index.tsx
+msgid "RECEIVED AMOUNT"
+msgstr ""
+
 #: 
 #: 
 #~ msgid "REWARD:"
 #~ msgstr ""
+
+#: src/pages/Bridge/BridgeTransferHistory/index.tsx
+#: src/pages/Bridge/BridgeTransferHistory/index.tsx
+msgid "ROUTE"
+msgstr ""
 
 #: src/pages/About/AboutKyberSwap.tsx
 msgid "Rainmaker Yield Farming"
@@ -3021,8 +3149,24 @@ msgstr ""
 msgid "Request to Faucet - Submitted"
 msgstr ""
 
+#: src/components/swapv2/AdvancedSwapDetails.tsx
+msgid "Required Amount"
+msgstr ""
+
 #: src/pages/Campaign/index.tsx
 msgid "Requirements"
+msgstr ""
+
+#: src/pages/Bridge/SwapForm.tsx
+msgid "Review Transfer"
+msgstr ""
+
+#: src/pages/Bridge/SwapForm.tsx
+msgid "Review transfer"
+msgstr ""
+
+#: src/pages/Bridge/ComfirmBridgeModal.tsx
+msgid "Review your transfer"
 msgstr ""
 
 #: src/components/UpcomingFarms/ListItem.tsx
@@ -3032,6 +3176,10 @@ msgstr ""
 #: src/pages/Campaign/index.tsx
 msgid "Rewards"
 msgstr "Ödüllerim"
+
+#: src/pages/NftStaking/NftStakingInfo.tsx
+msgid "Rewards / Day:"
+msgstr ""
 
 #: src/pages/Campaign/LeaderboardLayout.tsx
 msgid "Rewards were distributed at"
@@ -3061,6 +3209,10 @@ msgstr ""
 #: 
 #~ msgid "STAKED BALANCE:"
 #~ msgstr ""
+
+#: src/pages/Bridge/BridgeTransferHistory/index.tsx
+msgid "STATUS"
+msgstr ""
 
 #: src/pages/About/AboutKyberSwap.tsx
 msgid "Save time & effort"
@@ -3096,6 +3248,7 @@ msgid "Search by token name or tag"
 msgstr ""
 
 #: src/components/SearchModal/CurrencySearch.tsx
+#: src/components/SearchModal/bridge/CurrencySearchBridge.tsx
 msgid "Search by token name, token symbol or address"
 msgstr ""
 
@@ -3152,8 +3305,14 @@ msgstr "Bir Ağ Seçin"
 msgid "Select a collection from below and stake your NFT to earn rewards."
 msgstr ""
 
+#: src/pages/Bridge/SelectNetwork.tsx
+msgid "Select a network"
+msgstr ""
+
+#: src/components/CurrencyInputPanel/CurrencyInputPanelBridge.tsx
 #: src/components/CurrencyInputPanel/index.tsx
 #: src/components/SearchModal/CurrencySearch.tsx
+#: src/components/SearchModal/bridge/CurrencySearchBridge.tsx
 #: src/pages/CreateReferral/TokensSelect.tsx
 #: src/state/swap/hooks.ts
 #: src/state/swap/proamm/hooks.tsx
@@ -3438,6 +3597,10 @@ msgstr ""
 #~ msgid "Subscribe to get notifications on the latest tokens that could be trending soon!"
 #~ msgstr ""
 
+#: src/pages/Bridge/utils.ts
+msgid "Success"
+msgstr ""
+
 #: src/pages/Campaign/ModalRegisterCampaignSuccess.tsx
 msgid "Success!"
 msgstr ""
@@ -3584,8 +3747,20 @@ msgstr ""
 msgid "The amount of rewards you have already claimed"
 msgstr ""
 
+#: src/pages/Bridge/SwapForm.tsx
+msgid "The amount to bridge must be less than {0} {1}"
+msgstr ""
+
+#: src/pages/Bridge/SwapForm.tsx
+msgid "The amount to bridge must be more than {0} {1}"
+msgstr ""
+
 #: src/pages/SwapV2/index.tsx
 msgid "The amount you save compared to <0>{0}</0>."
+msgstr ""
+
+#: src/pages/Bridge/SwapForm.tsx
+msgid "The bridge amount must be less than the current available amount of the pool which is {poolLiquidity} {0}."
 msgstr ""
 
 #: src/components/swap/AdvancedSwapDetails.tsx
@@ -3616,6 +3791,10 @@ msgstr ""
 msgid "The price of this pool is within your selected range. Your position is currently earning fees"
 msgstr ""
 
+#: src/pages/Bridge/SelectNetwork.tsx
+msgid "The token cannot be bridged to this chain"
+msgstr ""
+
 #: src/components/Popups/ListUpdatePopup.tsx
 msgid "The token list \"{0}\" has been updated to <0>{1}</0>."
 msgstr "\"{0}\" token listesi <0>{1}</0> olarak güncellendi."
@@ -3628,6 +3807,10 @@ msgstr ""
 #: src/pages/ProAmmPools/index.tsx
 msgid "There are no pools for this token pair."
 msgstr "Bu token çifti için havuz yok."
+
+#: src/pages/Bridge/ErrorWarning.tsx
+msgid "There is a chance that during your transfer another high volume transaction utilizes the available liquidity. As a result, for the unavailable liquidity, you may receive ‘anyToken’ from Multichain. You can exchange your ‘anyToken’ when the Multichain pool has sufficient liquidity."
+msgstr ""
 
 #: src/pages/Campaign/index.tsx
 msgid "There is an error while loading campaigns."
@@ -3838,6 +4021,10 @@ msgstr ""
 #~ msgid "Total Supply"
 #~ msgstr ""
 
+#: src/pages/NftStaking/NftStakingInfo.tsx
+msgid "Total Tokens Staked:"
+msgstr ""
+
 #: src/pages/About/AboutKyberSwap.tsx
 msgid "Total Trading Volume"
 msgstr ""
@@ -3899,6 +4086,11 @@ msgstr ""
 msgid "Trading Volume (24H)"
 msgstr ""
 
+#: src/components/swapv2/AdvancedSwapDetails.tsx
+#: src/pages/Bridge/ComfirmBridgeModal.tsx
+msgid "Transaction Fee"
+msgstr ""
+
 #: src/components/TransactionConfirmationModal/index.tsx
 msgid "Transaction Submitted"
 msgstr "İşlem Gönderildi"
@@ -3917,6 +4109,14 @@ msgstr "Belirtilen süreden daha uzun süre beklemede kalırsa işlem geri alın
 #: src/components/swapv2/SwapSettingsPanel/SlippageSetting.tsx
 msgid "Transaction will revert if there is an adverse rate change that is higher than this %"
 msgstr "Bu %'den daha yüksek bir olumsuz oran değişikliği olursa işlem geri dönecektir"
+
+#: src/pages/Bridge/ComfirmBridgeModal.tsx
+msgid "Transfer"
+msgstr ""
+
+#: src/pages/Bridge/ComfirmBridgeModal.tsx
+msgid "Transferring {0} ({1}) to {2} ({3})"
+msgstr ""
 
 #: src/pages/TrueSight/TrueSightTab.tsx
 msgid "Trending"
@@ -4008,13 +4208,19 @@ msgstr ""
 msgid "Unamplified Pool existed"
 msgstr "Güçlendirilmemiş Havuz mevcuttur"
 
-#: 
-#~ msgid "Unknown"
-#~ msgstr "Bilinmeyen"
+#: src/pages/Bridge/BridgeTransferHistory/TimeCell.tsx
+#: src/pages/Bridge/BridgeTransferHistory/TimeStatusCell.tsx
+msgid "Unknown"
+msgstr "Bilinmeyen"
 
 #: src/components/SearchModal/ImportToken.tsx
 #~ msgid "Unknown Source"
 #~ msgstr "Bilinmeyen Kaynak"
+
+#: src/components/SearchModal/bridge/CurrencyListBridge.tsx
+#: src/pages/Bridge/helpers.ts
+msgid "Unlimited"
+msgstr ""
 
 #: 
 #~ msgid "Unlocked"
@@ -4242,6 +4448,10 @@ msgstr ""
 msgid "VoxelSwap is also an automated market maker (AMM) with industry-leading liquidity protocols and <0>concentrated liquidity</0>. Liquidity providers can add liquidity to our pools & <1>earn fees</1>!"
 msgstr ""
 
+#: src/pages/Bridge/Disclaimer.tsx
+msgid "VoxelSwap strives to offer its users the best DeFi experience on a single platform. In order to do that, VoxelSwap partners with 3rd party platforms like Multichain."
+msgstr ""
+
 #: 
 #~ msgid "WITHDRAW"
 #~ msgstr "ÇEKİM"
@@ -4392,6 +4602,14 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
+#: src/pages/Bridge/SwapForm.tsx
+msgid "You Receive"
+msgstr ""
+
+#: src/pages/Bridge/SwapForm.tsx
+msgid "You Transfer"
+msgstr ""
+
 #: src/pages/CreatePool/index.tsx
 msgid "You are creating a new pool and will be the first liquidity provider. The ratio of tokens you supply below will set the initial price of this pool. Once you are satisfied with the rate, proceed to supply liquidity."
 msgstr "Yeni bir havuz oluşturuyorsunuz ve ilk likidite sağlayıcısı olacaksınız. Tedarik ettiğiniz token varlıklarının oranı, aşağıda bu havuzun başlangıç fiyatını belirleyecektir. Orandan memnunsanız, likidite sağlama işlemine devam edin."
@@ -4465,6 +4683,14 @@ msgstr ""
 msgid "You can search and select <0>any token</0> on VoxelSwap"
 msgstr ""
 
+#: src/components/SearchModal/bridge/CurrencySearchBridge.tsx
+msgid "You can select and transfer any token supported by Multichain from one chain to another"
+msgstr ""
+
+#: src/components/SearchModal/bridge/CurrencySearchBridge.tsx
+msgid "You can select from one of the token pools below. Different pools may have different liquidity and fees"
+msgstr ""
+
 #: src/pages/CreatePool/FeeTypeSelector.tsx
 #: src/pages/CreatePool/index.tsx
 msgid "You can select the appropriate fee tier for your pool. For each trade that uses this liquidity pool, liquidity providers will earn this trading fee."
@@ -4522,6 +4748,10 @@ msgstr ""
 msgid "You haven't made any eligible transactions yet."
 msgstr ""
 
+#: src/pages/Bridge/BridgeTransferHistory/index.tsx
+msgid "You haven't made any transfers yet"
+msgstr ""
+
 #: src/components/ProAmm/ProAmmFee.tsx
 msgid "You need to withdraw your deposited liquidity position from the Farm first"
 msgstr ""
@@ -4569,6 +4799,10 @@ msgstr "Alacaksınız"
 
 #: src/components/Menu/FaucetModal.tsx
 msgid "You will receive {0} {tokenSymbol} soon!"
+msgstr ""
+
+#: src/pages/Bridge/SwapForm.tsx
+msgid "You would need to first allow Multichain smart contract to use your {0}. This has to be done only once for each token."
 msgstr ""
 
 #: src/components/PositionCard/index.tsx
@@ -4764,8 +4998,20 @@ msgstr ""
 msgid "and"
 msgstr "ve"
 
+#: src/pages/Bridge/ComfirmBridgeModal.tsx
+msgid "and receive at least"
+msgstr ""
+
+#: src/pages/Bridge/ComfirmBridgeModal.tsx
+msgid "at this address"
+msgstr ""
+
 #: src/components/TrendingSoonTokenBanner/index.tsx
 msgid "could be trending very soon!"
+msgstr ""
+
+#: src/pages/Bridge/ComfirmBridgeModal.tsx
+msgid "from"
 msgstr ""
 
 #: src/components/TrendingSoonTokenBanner/index.tsx
@@ -4805,6 +5051,10 @@ msgstr "başına"
 msgid "pool"
 msgstr "havuz"
 
+#: src/pages/Bridge/ComfirmBridgeModal.tsx
+msgid "to"
+msgstr ""
+
 #: src/components/SearchModal/ImportRow.tsx
 #~ msgid "via {0}"
 #~ msgstr "{0} aracılığıyla"
@@ -4825,6 +5075,8 @@ msgstr ""
 #: src/components/RateToggle/index.tsx
 #: src/components/swapv2/TokenInfo.tsx
 #: src/components/swapv2/TokenInfoV2/SingleTokenInfo.tsx
+#: src/pages/Bridge/PoolInfo.tsx
+#: src/pages/NftStaking/NftStakingButton.tsx
 #: src/pages/NftStaking/details.tsx
 #: src/pages/TokenAmmPool/PositionListItem.tsx
 #: src/pages/TrueSight/components/FilterBar/NetworkSelect.tsx
@@ -4898,6 +5150,10 @@ msgstr "%{0} LP Ücreti + %{1} Ödül"
 
 #: src/components/Vesting/VestingCard.tsx
 msgid "{0}% Locked"
+msgstr ""
+
+#: src/components/swapv2/AdvancedSwapDetails.tsx
+msgid "{0}% Transaction Fee"
 msgstr ""
 
 #: src/components/Vesting/VestingCard.tsx
