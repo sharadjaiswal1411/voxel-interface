@@ -141,11 +141,33 @@ export const useTokenStakingDetailsAction = (stakingAddress: string, stakedToken
   // Deposit
   const stake = useCallback(
     async (tokens: string) => {
-      if (!contract) {
+      if (!contract || !tokenContract) {
         throw new Error(CONTRACT_NOT_FOUND_MSG);
       }
 
       tokens = utils.parseUnits(tokens.toString(), 18).toString()
+
+      let allowance = await tokenContract.allowance(account, stakingAddress);
+      allowance = allowance.toString()
+
+      console.log({ tokens }, "allowance", allowance)
+
+      if (tokens >= allowance) {
+
+        const balance = await tokenContract.balanceOf(account);
+        const estimateGas1 = await tokenContract.estimateGas.approve(
+          stakingAddress,
+          balance.toString()
+        );
+        const tx1 = await tokenContract.approve(stakingAddress, balance.toString(), {
+          gasLimit: calculateGasMargin(estimateGas1),
+        });
+        addTransactionWithType(tx1, {
+          type: "Approve",
+          summary: `Token allowance approved`,
+        });
+
+      }
 
       const estimateGas = await contract.estimateGas.stake(tokens);
       const tx = await contract.stake(tokens, {
@@ -224,7 +246,7 @@ export const useFarmAction = (stakingAddress: string, nftAddress: string) => {
     if (!contract || !posManager) {
       throw new Error(CONTRACT_NOT_FOUND_MSG);
     }
-    
+
     const data = await contract.PoolInfo();
     const viewRewards = await contract.viewRewards(account);
     const { rewardToken, stakedTotal, rewardsPerDay, lockTime } = data;
@@ -419,19 +441,12 @@ export const useFarmAction = (stakingAddress: string, nftAddress: string) => {
   );
 
   const harvest = useCallback(
-    async (nftIds: BigNumber[], poolIds: BigNumber[]) => {
+    async () => {
       if (!contract) return;
 
-      const encodeData = poolIds.map((id) =>
-        defaultAbiCoder.encode(["tupple(uint256[] pIds)"], [{ pIds: [id] }])
-      );
-
       try {
-        const estimateGas = await contract.estimateGas.harvestMultiplePools(
-          nftIds,
-          encodeData
-        );
-        const tx = await contract.harvestMultiplePools(nftIds, encodeData, {
+        const estimateGas = await contract.estimateGas.claimReward(account);
+        const tx = await contract.claimReward(account, {
           gasLimit: calculateGasMargin(estimateGas),
         });
         addTransactionWithType(tx, { type: "Harvest" });

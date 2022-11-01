@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react'
 import { ButtonEmpty, ButtonPrimary } from 'components/Button'
 import Modal from 'components/Modal'
 import { formatBalance } from 'utils/formatBalance'
-
+import Loader from 'components/Loader'
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -158,6 +158,7 @@ export default function StakeModal(params: any): JSX.Element | null {
                 min="0"
                 step="1"
                 onChange={(e) => inputFilter(e.target.value)}
+                disabled={params.isStakeLoading}
               />
             </div>
 
@@ -166,6 +167,7 @@ export default function StakeModal(params: any): JSX.Element | null {
               padding="10px 24px"
               width="fit-content"
               onClick={maxToken}
+              disabled={params.isStakeLoading}
             >
               <Trans>Max</Trans>
             </ButtonPrimary>
@@ -181,9 +183,9 @@ export default function StakeModal(params: any): JSX.Element | null {
               padding="10px 24px"
               width="fit-content"
               onClick={stake}
-              disabled={btnDisable}
+              disabled={btnDisable || params.isStakeLoading}
             >
-              <Trans>Stake</Trans>
+              <Trans>{(params.isStakeLoading) ? <>Staking &nbsp; <Loader /></> : "Stake"}</Trans>
             </ButtonPrimary>
           </Flex>
         </Flex>
