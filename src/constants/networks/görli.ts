@@ -71,7 +71,7 @@ const görliInfo: NetworkInfo = {
     routers: '0x0d8b67C67Dc8009EeC00Cc44520099F8Ee159Dc5',
   },
   staking: {
-    nftFactory: '0x475d9629F309578f78129C512ae8133A0399D722',
+    nftFactory: '0x5C0F2B2d1e5B9c88FFCf02CDd79Eb4d50DB1a6cf',
     tokenFactory:'0xdBA1E8d2d9B81db4ad5Da5Bb790EffCe7b1620C2'
   },
   averageBlockTimeInSeconds: 13.13,

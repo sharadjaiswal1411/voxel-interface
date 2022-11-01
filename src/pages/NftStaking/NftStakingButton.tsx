@@ -16,8 +16,7 @@ import { useActiveWeb3React } from 'hooks'
 export const NftStakingButton = () => {
   const { account } = useActiveWeb3React()
   const { nftAddress, stakingAddress } = useParams<{ nftAddress: string, stakingAddress: string }>();
-  const { isApprovedContract, approve } = useFarmAction(stakingAddress, nftAddress)
-  const { harvest, fetchPoolInfo } = useTokenStakingDetailsAction("0xAD7B3f4502EdC442fe85B17368d126581C555247", "0x64B22c577D50Bd69E838b48bE9EeB8D015Fd553B");
+  const { isApprovedContract, approve, harvest, fetchPoolInfo } = useFarmAction(stakingAddress, nftAddress)
 
   const [poolInfo, setPoolInfo] = useState<any>(null)
   const [isApprovedForAll, setApprovedForAll] = useState<boolean>(false)
@@ -32,8 +31,10 @@ export const NftStakingButton = () => {
   }, [approvalTx, isApprovedForAll, isApprovalTxPending])
 
   const harvestRewards = async () => {
-    const tx = await harvest()
-    setApprovalTx(tx)
+    if (isApprovedForAll && poolInfo.totalRewards > 0) {
+      const tx = await harvest()
+      setApprovalTx(tx)
+    }
   }
 
   const approveContract = async () => {
@@ -99,7 +100,7 @@ export const NftStakingButton = () => {
           padding="10px 24px"
           width="fit-content"
           onClick={harvestRewards}
-          disabled={poolInfo ? !poolInfo.rewardEarned : false}
+          disabled={(poolInfo ? !poolInfo.totalRewards : false) || !isApprovedForAll}
         >
           <Trans>Harvest Rewards</Trans>
         </ButtonPrimary>

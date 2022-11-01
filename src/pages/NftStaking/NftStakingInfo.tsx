@@ -2,6 +2,8 @@ import { Trans } from '@lingui/macro'
 import React, { useState } from 'react'
 import { Flex, Text } from 'rebass'
 import styled from 'styled-components'
+import { useToken } from 'hooks/Tokens'
+import { unwrappedToken } from 'utils/wrappedCurrency'
 
 import Loader from 'components/Loader'
 import { useGlobalData } from 'state/about/hooks'
@@ -100,6 +102,9 @@ export const NftStakingInfo = (params: any) => {
   const data = useGlobalData()
   const poolInfo = params.poolInfo;
 
+  const _rewardToken = useToken(poolInfo?.rewardToken)
+  const currency1 = _rewardToken ? unwrappedToken(_rewardToken) : undefined
+
   const dateForm = (arg: any) => {
     return moment.unix(arg).utc().format('H [h,] m [m and] s [s]');
   }
@@ -121,16 +126,16 @@ export const NftStakingInfo = (params: any) => {
           <Trans>Rewards / Day:</Trans>&nbsp;
         </GlobalDataItemTitle>
         <GlobalDataItemValue>
-          {poolInfo ? poolInfo.rewardsPerDay : <Loader />}
+          {poolInfo ? <>{poolInfo.rewardsPerDay} {currency1?.symbol}</> : <Loader />}
         </GlobalDataItemValue>
       </GlobalDataItem>
 
       <GlobalDataItem>
         <GlobalDataItemTitle>
-          <Trans>Total Tokens Staked:</Trans>&nbsp;
+          <Trans>Total NFTs Staked:</Trans>&nbsp;
         </GlobalDataItemTitle>
         <GlobalDataItemValue>
-          {poolInfo ? poolInfo.stakedTotal : <Loader />}
+          {poolInfo ? <>{poolInfo.stakedTotal}</> : <Loader />}
         </GlobalDataItemValue>
       </GlobalDataItem>
 
@@ -139,7 +144,7 @@ export const NftStakingInfo = (params: any) => {
           <Trans>Available Rewards:</Trans>&nbsp;
         </GlobalDataItemTitle>
         <GlobalDataItemValue>
-          {poolInfo ? poolInfo.totalRewards : <Loader />}
+          {poolInfo ? <>{poolInfo.totalRewards} {currency1?.symbol}</> : <Loader />}
         </GlobalDataItemValue>
       </GlobalDataItem>
 

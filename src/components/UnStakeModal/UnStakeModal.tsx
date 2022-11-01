@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { ButtonEmpty, ButtonPrimary } from 'components/Button'
 import Modal from 'components/Modal'
 import moment from 'moment';
+import Loader from 'components/Loader'
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -125,8 +126,9 @@ export default function UnStakeModal(params: any): JSX.Element | null {
             padding="10px 24px"
             width="fit-content"
             onClick={unStake}
+            disabled={params.isUnStakeLoading}
           >
-            <Trans>Emergency Unstake</Trans>
+            <Trans>{(params.isUnStakeLoading) ? <>Unstaking &nbsp; <Loader /></> : "Emergency Unstake"}</Trans>
           </ButtonPrimary>
         </Flex>
       </Wrapper>

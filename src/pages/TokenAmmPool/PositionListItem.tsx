@@ -21,6 +21,7 @@ import { unwrappedToken } from 'utils/wrappedCurrency'
 import ContentLoader from './ContentLoader'
 import StakeModal from 'components/StakeModal/StakeModal'
 import UnStakeModal from 'components/UnStakeModal/UnStakeModal'
+import { useIsTransactionPending } from 'state/transactions/hooks'
 
 const StyledPositionCard = styled(LightCard)`
   border: none;
@@ -136,8 +137,11 @@ function PositionListItem({
   const currency1 = _rewardToken ? unwrappedToken(_rewardToken) : undefined
   const [poolInfo, setPoolInfo] = useState<any>(null)
   const [approvalTx, setApprovalTx] = useState('')
+  const isApprovalTxPending = useIsTransactionPending(approvalTx);
   const [showStakeModal, setShowStakeModal] = useState(false)
   const [showUnStakeModal, setShowUnStakeModal] = useState(false)
+  const [isStakeLoading, setIsStakeLoading] = useState(false)
+  const [isUnStakeLoading, setIsUnStakeLoading] = useState(false)
   const { fetchPoolInfo, stake, unStake, emergencyUnstake, harvest, approve } = useTokenStakingDetailsAction(stakingContract, stakedToken);
 
   const getPoolInfo = async () => {
@@ -152,7 +156,8 @@ function PositionListItem({
   }
 
   const stakeTokens = async (token: any) => {
-    const tx = await stake(token)
+    setIsStakeLoading(true);
+    const tx = await stake(token).catch((e) => { setIsStakeLoading(false); })
     setApprovalTx(tx)
   }
 
@@ -162,7 +167,8 @@ function PositionListItem({
   }
 
   const emergencyUnstakeTokens = async () => {
-    const tx = await emergencyUnstake()
+    setIsUnStakeLoading(true);
+    const tx = await emergencyUnstake().catch((e) => { setIsUnStakeLoading(false); })
     setApprovalTx(tx)
   }
 
@@ -172,10 +178,12 @@ function PositionListItem({
   }
 
   const openStakeModal = () => {
+    setIsStakeLoading(false);
     setShowStakeModal(true);
   }
 
   const openUnStakeModal = () => {
+    setIsUnStakeLoading(false);
     const currentDate = new Date();
     const unStakeDate = new Date(((poolInfo.lockPeriodUntil).toNumber()) * 1000)
 
@@ -190,8 +198,15 @@ function PositionListItem({
 
   useEffect(() => {
     getPoolInfo();
+  }, [approvalTx, isApprovalTxPending])
 
-  }, [poolInfo, approvalTx])
+  useEffect(() => {
+    if (!isApprovalTxPending) {
+      setShowStakeModal(false);
+      setShowUnStakeModal(false);
+    }
+
+  }, [isApprovalTxPending])
 
 
   const theme = useTheme()
@@ -360,6 +375,7 @@ function PositionListItem({
           availableTokens={poolInfo.availableTokens}
           minStakeRequired={poolInfo.minStakeRequired}
           stake={(token: any) => stakeTokens(token)}
+          isStakeLoading={isStakeLoading}
         />
 
         <UnStakeModal
@@ -368,6 +384,7 @@ function PositionListItem({
           lockPeriodUntil={poolInfo.lockPeriodUntil}
           unstakeFee={poolInfo.unstakeFee}
           unStake={emergencyUnstakeTokens}
+          isUnStakeLoading={isUnStakeLoading}
         />
 
       </>
