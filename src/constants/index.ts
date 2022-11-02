@@ -657,6 +657,14 @@ export const PINNED_PAIRS: { readonly [chainId in ChainId]?: [Token, Token][] } 
     [USDC[ChainId.MAINNET], USDT[ChainId.MAINNET]],
     [DAI[ChainId.MAINNET], USDT[ChainId.MAINNET]],
   ],
+  [ChainId.GÖRLI]: [
+    [
+      new Token(ChainId.GÖRLI, '0x822397d9a55d0fefd20F5c4bCaB33C5F65bd28Eb', 8, 'cDAI', 'Compound Dai'),
+      new Token(ChainId.GÖRLI, '0x07865c6E87B9F70255377e024ace6630C1Eaa37F', 8, 'USDC', 'USD Coin'),
+    ],
+    [USDC[ChainId.GÖRLI], USDT[ChainId.GÖRLI]],
+    [DAI[ChainId.GÖRLI], USDT[ChainId.GÖRLI]],
+  ],
 }
 
 export interface WalletInfo {
