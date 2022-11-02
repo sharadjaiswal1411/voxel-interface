@@ -306,6 +306,9 @@ export function CurrencySearch({
     try {
       if (!Object.keys(cacheTokens).length && !Object.keys(defaultTokens).length) return
       setLoadingCommon(true)
+
+      console.log("Object.keys(defaultTokens).length",Object.keys(defaultTokens).length);
+      
       const promises: Promise<any>[] = []
       const result: (Token | Currency)[] = []
       if (favoriteTokens?.includeNativeToken && chainId) {

@@ -96,7 +96,7 @@ export default function AddLiquidity({
   //   tokenId ? BigNumber.from(tokenId) : undefined
   // )
   // const hasExistingPosition = !!existingPositionDetails && !positionLoading
-
+  console.log("FeeAmountFeeAmountFeeAmountFeeAmount",FeeAmount);
   // fee selection from url
   const feeAmount: FeeAmount | undefined =
     feeAmountFromUrl && Object.values(FeeAmount).includes(parseFloat(feeAmountFromUrl))
@@ -262,6 +262,8 @@ export default function AddLiquidity({
     if (position && account && deadline) {
       const useNative = baseCurrency.isNative ? baseCurrency : quoteCurrency.isNative ? quoteCurrency : undefined
 
+      console.log("positionpositionpositionposition",position);
+
       const { calldata, value } = NonfungiblePositionManager.addCallParameters(position, previousTicks, {
         slippageTolerance: basisPointsToPercent(allowedSlippage[0]),
         recipient: account,
@@ -287,7 +289,7 @@ export default function AddLiquidity({
             gasLimit: calculateGasMargin(estimate),
           }
           //calculateGasMargin = 0x0827f6
-console.log("calculateGasMargin",NETWORKS_INFO[chainId].elastic.nonfungiblePositionManager)
+
           return library
             .getSigner()
             .sendTransaction(newTxn)
@@ -827,7 +829,7 @@ console.log("calculateGasMargin",NETWORKS_INFO[chainId].elastic.nonfungiblePosit
                 />
               </RowBetween>
 
-              <DynamicSection disabled={!currencyIdA || !currencyIdB} gap="16px">
+      {/*        <DynamicSection disabled={!currencyIdA || !currencyIdB} gap="16px">
                 <Text fontWeight={500} fontSize="1rem">
                   <Trans>Select fee tier</Trans>
                 </Text>
@@ -837,7 +839,7 @@ console.log("calculateGasMargin",NETWORKS_INFO[chainId].elastic.nonfungiblePosit
                   currencyA={currencies[Field.CURRENCY_A]}
                   currencyB={currencies[Field.CURRENCY_B]}
                 />
-              </DynamicSection>
+              </DynamicSection>*/}
               <AutoColumn>
                 <AutoColumn gap="16px">
                   <HideMedium>{chart}</HideMedium>
