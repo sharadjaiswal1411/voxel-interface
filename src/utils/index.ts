@@ -437,12 +437,18 @@ export const getRopstenTokenLogoURL = (address: string) => {
 }
 
 export const getTokenLogoURL = (inputAddress: string, chainId?: ChainId): string => {
+
   let address = inputAddress
   if (address === ZERO_ADDRESS && chainId) {
     address = WETH[chainId].address
   }
 
+  if (address.toLowerCase() === ((NETWORKS_INFO[ChainId.MAINNET].marketToken.address)).toLowerCase()) {
+    return 'https://etherscan.io/token/images/voxelxnetwork_32.png'
+  }
+
   if (chainId !== ChainId.ETHW) {
+
     if (address.toLowerCase() === KNC[chainId as ChainId].address.toLowerCase()) {
       return 'https://raw.githubusercontent.com/KyberNetwork/kyberswap-interface/develop/src/assets/images/KNC.svg'
     }
@@ -456,6 +462,8 @@ export const getTokenLogoURL = (inputAddress: string, chainId?: ChainId): string
       return 'https://assets.coingecko.com/coins/images/7598/thumb/wrapped_bitcoin_wbtc.png?1548822744'
     }
   }
+
+
 
   let imageURL
 

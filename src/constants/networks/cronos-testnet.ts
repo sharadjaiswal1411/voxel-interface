@@ -39,9 +39,16 @@ const cronosTestnetInfo: NetworkInfo = {
     logo: CronosLogo,
     decimal: 18,
   },
+  marketToken: {
+    symbol: 'VXL',
+    name: 'Voxel X Network',
+    address: '0x16CC8367055aE7e9157DBcB9d86Fd6CE82522b31',
+    logo: "",
+    decimal: 18,
+  },
   rpcUrl: 'https://cronos-testnet-3.crypto.org:8545',
   routerUri: EMPTY,
-  nftStaker:EMPTY_ARRAY,
+  nftStaker: EMPTY_ARRAY,
   classic: {
     static: {
       zap: EMPTY,
@@ -68,7 +75,7 @@ const cronosTestnetInfo: NetworkInfo = {
   },
   staking: {
     nftFactory: '0x1a91f5ADc7cB5763d35A26e98A18520CB9b67e70',
-    tokenFactory:'0x7EDF6fC10D13996C36422ca915310E0B3876b993'
+    tokenFactory: '0x7EDF6fC10D13996C36422ca915310E0B3876b993'
   },
   averageBlockTimeInSeconds: 5.6,
   coingeckoNetworkId: EMPTY,

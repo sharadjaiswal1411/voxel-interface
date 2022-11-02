@@ -18,6 +18,7 @@ import { ExternalLink } from 'theme/components'
 
 import Row, { RowFixed } from '../Row'
 import Web3Status from '../Web3Status'
+import ExchangeRateInfo from './ExchangeRateInfo'
 
 
 const HeaderFrame = styled.div`
@@ -399,20 +400,20 @@ export default function Header() {
             </HoverDropdown>
           </Flex>
 
-            <CampaignWrapper id={TutorialIds.CAMPAIGN_LINK}>
-              <StyledNavLink
-                onClick={() => {
-                  mixpanelHandler(MIXPANEL_TYPE.FARM_UNDER_EARN_TAB_CLICK)
-                }}
-                id="farms-nav-link"
-                to="/farms"
-                isActive={match => Boolean(match)}
-              >
-                <Trans>Farms</Trans>
-              </StyledNavLink>
-            </CampaignWrapper>
-         
-           <HoverDropdown active={pathname.includes('/token-staking') || pathname.includes('/nft-staking')}>
+          <CampaignWrapper id={TutorialIds.CAMPAIGN_LINK}>
+            <StyledNavLink
+              onClick={() => {
+                mixpanelHandler(MIXPANEL_TYPE.FARM_UNDER_EARN_TAB_CLICK)
+              }}
+              id="farms-nav-link"
+              to="/farms"
+              isActive={match => Boolean(match)}
+            >
+              <Trans>Farms</Trans>
+            </StyledNavLink>
+          </CampaignWrapper>
+
+          <HoverDropdown active={pathname.includes('/token-staking') || pathname.includes('/nft-staking')}>
             <Flex alignItems="center">
               <Trans>Staking</Trans>
               <DropdownIcon />
@@ -425,15 +426,15 @@ export default function Header() {
                 isActive={match => Boolean(match)}
                 style={{ flexDirection: 'column' }}
               >
-              <Flex alignItems="center" sx={{ gap: '10px' }}>
+                <Flex alignItems="center" sx={{ gap: '10px' }}>
                   <Trans>Token Staking</Trans>
-              </Flex>
+                </Flex>
               </StyledNavLink>{' '}
               <StyledNavLink
                 id={`buy-crypto-nav-link`}
                 to={'/nft-staking'}
                 isActive={match => Boolean(match)}
-             
+
               >
                 <Flex alignItems="center" sx={{ gap: '8px' }}>
                   <Trans>NFT Staking</Trans>
@@ -443,21 +444,24 @@ export default function Header() {
           </HoverDropdown>
 
           <AnalyticsWrapper>
-              <StyledNavLink
-                id={`bridge`}
-                to={'/bridge'}
-                isActive={match => Boolean(match)}
-               
-              >
-                <Flex alignItems="center" sx={{ gap: '8px' }}>
-                  <Trans>Bridge</Trans>
-                </Flex>
-              </StyledNavLink>
+            <StyledNavLink
+              id={`bridge`}
+              to={'/bridge'}
+              isActive={match => Boolean(match)}
+
+            >
+              <Flex alignItems="center" sx={{ gap: '8px' }}>
+                <Trans>Bridge</Trans>
+              </Flex>
+            </StyledNavLink>
           </AnalyticsWrapper>
         </HeaderLinks>
       </HeaderRow>
       <HeaderControls>
         <HeaderElement>
+
+          <ExchangeRateInfo />
+
           <Web3Network />
 
           <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>

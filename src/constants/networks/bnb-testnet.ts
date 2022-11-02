@@ -30,6 +30,13 @@ const bnbTestnetInfo: NetworkInfo = {
     logo: BnbLogo,
     decimal: 18,
   },
+  marketToken: {
+    symbol: 'VXL',
+    name: 'Voxel X Network',
+    address: '0x16CC8367055aE7e9157DBcB9d86Fd6CE82522b31',
+    logo: "",
+    decimal: 18,
+  },
   rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545',
   routerUri: EMPTY,
   nftStaker:EMPTY_ARRAY,
