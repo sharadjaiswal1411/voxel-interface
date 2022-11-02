@@ -1303,8 +1303,8 @@ msgid "Elastic is not supported on Aurora. Please switch to other chains"
 msgstr "Elastic is not supported on Aurora. Please switch to other chains"
 
 #: src/components/UnStakeModal/UnStakeModal.tsx
-msgid "Emergency Unstake"
-msgstr "Emergency Unstake"
+#~ msgid "Emergency Unstake"
+#~ msgstr "Emergency Unstake"
 
 #: src/components/WalletModal/WarningBox.tsx
 msgid "Enable Metamask in C98"
@@ -3300,7 +3300,6 @@ msgstr "Something went wrong"
 msgid "Stablecoins"
 msgstr "Stablecoins"
 
-#: src/components/StakeModal/StakeModal.tsx
 #: src/components/YieldPools/ListItem.tsx
 #: src/components/YieldPools/ListItem.tsx
 #: src/components/YieldPools/ListItem.tsx
@@ -3825,6 +3824,10 @@ msgstr "Total Harvested Rewards"
 msgid "Total LP Tokens"
 msgstr "Total LP Tokens"
 
+#: src/pages/NftStaking/NftStakingInfo.tsx
+msgid "Total NFTs Staked:"
+msgstr "Total NFTs Staked:"
+
 #: src/pages/Campaign/CampaignItem.tsx
 msgid "Total Reward: {rCampaignReward}"
 msgstr "Total Reward: {rCampaignReward}"
@@ -3839,8 +3842,8 @@ msgid "Total Staked {0}"
 msgstr "Total Staked {0}"
 
 #: src/pages/NftStaking/NftStakingInfo.tsx
-msgid "Total Tokens Staked:"
-msgstr "Total Tokens Staked:"
+#~ msgid "Total Tokens Staked:"
+#~ msgstr "Total Tokens Staked:"
 
 #: src/pages/About/AboutKyberSwap.tsx
 msgid "Total Trading Volume"
@@ -4852,6 +4855,8 @@ msgstr "your wallet"
 #: src/components/ProAmm/ProAmmPriceRange.tsx
 #: src/components/RateToggle/index.tsx
 #: src/components/RateToggle/index.tsx
+#: src/components/StakeModal/StakeModal.tsx
+#: src/components/UnStakeModal/UnStakeModal.tsx
 #: src/components/swapv2/TokenInfo.tsx
 #: src/components/swapv2/TokenInfoV2/SingleTokenInfo.tsx
 #: src/pages/Bridge/PoolInfo.tsx

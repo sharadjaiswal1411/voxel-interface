@@ -24,8 +24,6 @@ import useTheme from 'hooks/useTheme'
 import { ApplicationModal } from 'state/application/actions'
 import { useModalOpen, useToggleModal } from 'state/application/hooks'
 import { ExternalLink } from 'theme'
-import AboutPageDropwdown from './AboutPageDropDown'
-
 const sharedStylesMenuItem = css`
   flex: 1;
   padding: 0.75rem 0;
@@ -173,7 +171,7 @@ export default function Menu() {
         hasArrow
       >
 
-        {under1440 && <AboutPageDropwdown />}
+        
 
         <NavMenuItem to="/referral" onClick={toggle}>
           <UserPlus size={14} />

@@ -1,9 +1,14 @@
-import React, { lazy} from 'react'
+import React from 'react'
 import { GelatoLimitOrderPanel, GelatoLimitOrdersHistoryPanel, GelatoProvider,useGelatoLimitOrders } from '@gelatonetwork/limit-orders-react'
 import { RouteComponentProps} from 'react-router-dom'
 import { useActiveWeb3React } from 'hooks'
 import useTheme from 'hooks/useTheme'
-
+import {
+  PageWrapper,
+  Container,
+  SwapFormWrapper,
+  InfoComponentsWrapper
+} from 'components/swapv2/styleds'
 
 
 function Gelato({ children }: { children?: React.ReactNode }) {

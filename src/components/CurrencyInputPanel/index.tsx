@@ -61,7 +61,7 @@ export const CurrencySelect = styled.button<{ selected: boolean; hideInput?: boo
           ? darken(0.05, theme.buttonBlack)
           : lighten(0.05, theme.background)
         : darken(0.05, theme.primary)};
-    color: ${({ selected, theme }) => (selected ? theme.subText : theme.textReverse)};
+    color: ${({ selected, theme }) => (selected ? theme.subText : theme.text)};
   }
 `
 

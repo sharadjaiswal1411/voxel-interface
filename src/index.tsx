@@ -11,7 +11,7 @@ import { createRoot } from 'react-dom/client'
 import TagManager from 'react-gtm-module'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { Provider } from 'react-redux'
-import { BrowserRouter } from 'react-router-dom'
+
 import 'swiper/swiper-bundle.min.css'
 import 'swiper/swiper.min.css'
 
@@ -23,6 +23,8 @@ import { LanguageProvider } from './i18n'
 import App from './pages/App'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import store from './state'
+import { HashRouter } from 'react-router-dom'
+
 import ApplicationUpdater from './state/application/updater'
 import CustomizeDexesUpdater from './state/customizeDexes/updater'
 import ListsUpdater from './state/lists/updater'
@@ -106,7 +108,7 @@ const ReactApp = () => {
       />
       <FixedGlobalStyle />
       <Provider store={store}>
-        <BrowserRouter>
+        <HashRouter>
           <LanguageProvider>
             <Web3ReactProvider getLibrary={getLibrary}>
               <Web3ProviderNetwork getLibrary={getLibrary}>
@@ -118,7 +120,7 @@ const ReactApp = () => {
               </Web3ProviderNetwork>
             </Web3ReactProvider>
           </LanguageProvider>
-        </BrowserRouter>
+        </HashRouter>
       </Provider>
     </StrictMode>
   )

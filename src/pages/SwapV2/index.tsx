@@ -35,7 +35,7 @@ import ConfirmSwapModal from 'components/swap/ConfirmSwapModal'
 import GasPriceTrackerPanel from 'components/swapv2/GasPriceTrackerPanel'
 import LiquiditySourcesPanel from 'components/swapv2/LiquiditySourcesPanel'
 import MobileTokenInfo from 'components/swapv2/MobileTokenInfo'
-import PairSuggestion, { PairSuggestionHandle } from 'components/swapv2/PairSuggestion'
+//import PairSuggestion, { PairSuggestionHandle } from 'components/swapv2/PairSuggestion'
 //import RefreshButton from 'components/swapv2/RefreshButton'
 import SettingsPanel from 'components/swapv2/SwapSettingsPanel'
 import TokenInfo from 'components/swapv2/TokenInfo'
@@ -170,7 +170,7 @@ export default function Swap({ history }: RouteComponentProps) {
   const allDexes = useAllDexes()
   const [{ show: isShowTutorial = false }] = useTutorialSwapGuide()
 
-  const refSuggestPair = useRef<PairSuggestionHandle>(null)
+  //const refSuggestPair = useRef<PairSuggestionHandle>(null)
   const [showingPairSuggestionImport, setShowingPairSuggestionImport] = useState<boolean>(false) // show modal import when click pair suggestion
 
   const shouldHighlightSwapBox = qs.highlightBox === 'true'
@@ -335,10 +335,8 @@ export default function Swap({ history }: RouteComponentProps) {
 
   const handleConfirmTokenWarning = useCallback(() => {
     handleDismissTokenWarning()
-    if (showingPairSuggestionImport) {
-      refSuggestPair.current?.onConfirmImportToken() // callback from children
-    }
-  }, [handleDismissTokenWarning, showingPairSuggestionImport])
+   
+  }, [handleDismissTokenWarning])
 
   // modal and loading
   const [{ showConfirm, tradeToConfirm, swapErrorMessage, attemptingTxn, txHash }, setSwapState] = useState<{
@@ -816,7 +814,7 @@ export default function Swap({ history }: RouteComponentProps) {
               </SwapFormActions>
             </RowBetween>
 
-            {chainId !== ChainId.ETHW && (
+      {/*      {chainId !== ChainId.ETHW && (
               <RowBetween mb={'16px'}>
                 <PairSuggestion
                   ref={refSuggestPair}
@@ -824,7 +822,7 @@ export default function Swap({ history }: RouteComponentProps) {
                   setShowModalImportToken={setShowingPairSuggestionImport}
                 />
               </RowBetween>
-            )}
+            )}*/}
 
             <AppBodyWrapped data-highlight={shouldHighlightSwapBox} id={TutorialIds.SWAP_FORM}>
               {activeTab === TAB.SWAP && (

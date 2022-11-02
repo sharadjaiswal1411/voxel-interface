@@ -3,14 +3,13 @@ import React, {
   useState,
   useEffect
 } from 'react'
-import { Flex, Text } from 'rebass'
+import { Flex} from 'rebass'
 import axios from 'axios';
 
-import Loader from 'components/Loader'
 import { ButtonPrimary } from 'components/Button'
 import { useIsTransactionPending } from 'state/transactions/hooks'
 import { useParams } from 'react-router-dom'
-import { useFarmAction, useTokenStakingDetailsAction } from 'state/nfts/promm/hooks'
+import { useFarmAction } from 'state/nfts/promm/hooks'
 import { useActiveWeb3React } from 'hooks'
 
 export const NftStakingButton = () => {

@@ -1,13 +1,11 @@
 import { Trans } from '@lingui/macro'
-import React, { useState } from 'react'
-import { Flex, Text } from 'rebass'
+import React from 'react'
 import styled from 'styled-components'
 import { useToken } from 'hooks/Tokens'
 import { unwrappedToken } from 'utils/wrappedCurrency'
 
 import Loader from 'components/Loader'
 import { useGlobalData } from 'state/about/hooks'
-import { formatBigLiquidity } from 'utils/formatBalance'
 import moment from 'moment'
 
 const Wrapper = styled.div`

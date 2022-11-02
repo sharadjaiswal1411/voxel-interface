@@ -1352,8 +1352,8 @@ msgid "Elastic is not supported on Aurora. Please switch to other chains"
 msgstr ""
 
 #: src/components/UnStakeModal/UnStakeModal.tsx
-msgid "Emergency Unstake"
-msgstr ""
+#~ msgid "Emergency Unstake"
+#~ msgstr ""
 
 #: src/components/WalletModal/WarningBox.tsx
 msgid "Enable Metamask in C98"
@@ -3353,7 +3353,6 @@ msgstr "Có lỗi đã xảy ra"
 msgid "Stablecoins"
 msgstr ""
 
-#: src/components/StakeModal/StakeModal.tsx
 #: src/components/YieldPools/ListItem.tsx
 #: src/components/YieldPools/ListItem.tsx
 #: src/components/YieldPools/ListItem.tsx
@@ -3878,6 +3877,10 @@ msgstr ""
 msgid "Total LP Tokens"
 msgstr "Tổng số Token LP"
 
+#: src/pages/NftStaking/NftStakingInfo.tsx
+msgid "Total NFTs Staked:"
+msgstr ""
+
 #: src/pages/Campaign/CampaignItem.tsx
 msgid "Total Reward: {rCampaignReward}"
 msgstr ""
@@ -3892,8 +3895,8 @@ msgid "Total Staked {0}"
 msgstr ""
 
 #: src/pages/NftStaking/NftStakingInfo.tsx
-msgid "Total Tokens Staked:"
-msgstr ""
+#~ msgid "Total Tokens Staked:"
+#~ msgstr ""
 
 #: src/pages/About/AboutKyberSwap.tsx
 msgid "Total Trading Volume"
@@ -4918,6 +4921,8 @@ msgstr ""
 #: src/components/ProAmm/ProAmmPriceRange.tsx
 #: src/components/RateToggle/index.tsx
 #: src/components/RateToggle/index.tsx
+#: src/components/StakeModal/StakeModal.tsx
+#: src/components/UnStakeModal/UnStakeModal.tsx
 #: src/components/swapv2/TokenInfo.tsx
 #: src/components/swapv2/TokenInfoV2/SingleTokenInfo.tsx
 #: src/pages/Bridge/PoolInfo.tsx

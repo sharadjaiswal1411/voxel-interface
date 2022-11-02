@@ -9,17 +9,14 @@ import { useFarmAction, useStakingAction } from 'state/nfts/promm/hooks'
 import NftCards from 'components/NftPools/NftCards'
 import StakedNftCards from 'components/NftPools/StakedNftCards'
 import NftStakingGuide from 'components/NftPools/NftStakingGuide'
-import { MouseoverTooltip } from 'components/Tooltip'
 import useTheme from 'hooks/useTheme'
 import {
   PageWrapper,
   PoolTitleContainer,
   Tab,
   TabContainer,
-  TabWrapper,
-  TopBar
+  TabWrapper
 } from 'components/NftPools/styleds'
-import { ButtonPrimary } from 'components/Button'
 
 import { VERSION } from 'constants/v2'
 import useMixpanel, { MIXPANEL_TYPE } from 'hooks/useMixpanel'
