@@ -1,0 +1,44 @@
+{
+	"code": 0,
+	"message": "Succeeded",
+	"data": {
+		"tokens": [
+		{
+			"chainId": 5,
+			"address": "0x64B22c577D50Bd69E838b48bE9EeB8D015Fd553B",
+			"symbol": "VXL",
+			"name": "Voxel X Network",
+			"decimals": 18,
+			"logoURI": "https://etherscan.io/token/images/voxelxnetwork_32.png",
+			"isWhitelisted": true
+		},
+			{
+			"chainId": 5,
+			"address": "0xDDfAc669166CDaeFb007A0500bB520AeA2fFC8F4",
+			"symbol": "Stripto",
+			"name": "Strip",
+			"decimals": 18,
+			"logoURI": "https://s2.coinmarketcap.com/static/img/coins/64x64/17856.png",
+			"isWhitelisted": true
+		}, {
+			"chainId": 5,
+			"address": "0x1a30c9ed6436e03d506227a362b2cbf59a303967",
+			"symbol": "USDT",
+			"name": "Tether USD",
+			"decimals": 18,
+			"logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png",
+			"isWhitelisted": true
+		}, {
+			"chainId": 5,
+			"address": "0x48f6d7dae56623dde5a0d56b283165cae1753d70",
+			"symbol": "ETH",
+			"name": "Ether",
+			"decimals": 18,
+			"logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png",
+			"isWhitelisted": true
+		}],
+		"pagination": {
+			"totalItems": 100
+		}
+	}
+}
