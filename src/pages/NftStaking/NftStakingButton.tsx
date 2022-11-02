@@ -57,7 +57,7 @@ export const NftStakingButton = () => {
       method: 'GET',
       url: `https://deep-index.moralis.io/api/v2/${account}/nft`,
       params: { chain: 'goerli', format: 'decimal', limit: '100', token_addresses: nftAddress },
-      headers: { accept: 'application/json', 'X-API-Key': '0w8Ivx0tOflZTjQIb9ITjW2LFU1U243aiNXc6Ccqf9eu9qNajB4F4OSYb9xsxEQZ' }
+      headers: { accept: 'application/json', 'X-API-Key': 'Rv3g3LTZTkWtDKVHmX75V4kddgnOEE4qSboNpNNQemGVnZwOl0sinl3fQJJSgaN0' }
     };
 
     axios

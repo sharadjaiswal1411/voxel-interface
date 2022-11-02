@@ -34,9 +34,17 @@ const görliInfo: NetworkInfo = {
     logo: EthereumLogo,
     decimal: 18,
   },
-  rpcUrl: 'https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
+  marketToken: {
+    symbol: 'VXL',
+    name: 'Voxel X Network',
+    address: '0x16CC8367055aE7e9157DBcB9d86Fd6CE82522b31',
+    logo: "",
+    decimal: 18,
+  },
+  // rpcUrl: 'https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161', // old
+  rpcUrl: 'https://bitter-powerful-spree.ethereum-goerli.quiknode.pro/ff59c04d314b7fa51ca4ebfbb2a52506a5882f3d',
   routerUri: EMPTY,
-  nftStaker:EMPTY_ARRAY,
+  nftStaker: EMPTY_ARRAY,
   classic: {
     static: {
       zap: EMPTY,
@@ -72,7 +80,7 @@ const görliInfo: NetworkInfo = {
   },
   staking: {
     nftFactory: '0x5C0F2B2d1e5B9c88FFCf02CDd79Eb4d50DB1a6cf',
-    tokenFactory:'0xdBA1E8d2d9B81db4ad5Da5Bb790EffCe7b1620C2'
+    tokenFactory: '0xdBA1E8d2d9B81db4ad5Da5Bb790EffCe7b1620C2'
   },
   averageBlockTimeInSeconds: 13.13,
   coingeckoNetworkId: EMPTY,

@@ -28,6 +28,13 @@ const avaxInfo: NetworkInfo = {
     logo: AVAX,
     decimal: 18,
   },
+  marketToken: {
+    symbol: 'VXL',
+    name: 'Voxel X Network',
+    address: '0x16CC8367055aE7e9157DBcB9d86Fd6CE82522b31',
+    logo: "",
+    decimal: 18,
+  },
   rpcUrl: 'https://avalanche.kyberengineering.io',
   routerUri: `${process.env.REACT_APP_AGGREGATOR_API}/avalanche/route/encode`,
   nftStaker:EMPTY_ARRAY,

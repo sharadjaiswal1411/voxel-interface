@@ -22,6 +22,13 @@ export type NetworkInfo = {
     readonly address: string
     readonly logo: string
     readonly decimal: number
+  },
+  readonly marketToken: {
+    readonly symbol: string
+    readonly name: string
+    readonly address: string
+    readonly logo: string
+    readonly decimal: number
   }
   readonly rpcUrl: string
   readonly routerUri: string

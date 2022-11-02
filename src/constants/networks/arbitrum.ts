@@ -32,6 +32,13 @@ const arbitrumInfo: NetworkInfo = {
     logo: EthereumLogo,
     decimal: 18,
   },
+  marketToken: {
+    symbol: 'VXL',
+    name: 'Voxel X Network',
+    address: '0x16CC8367055aE7e9157DBcB9d86Fd6CE82522b31',
+    logo: "",
+    decimal: 18,
+  },
   rpcUrl: 'https://arbitrum.kyberengineering.io',
   routerUri: `${process.env.REACT_APP_AGGREGATOR_API}/arbitrum/route/encode`,
   nftStaker:EMPTY_ARRAY,

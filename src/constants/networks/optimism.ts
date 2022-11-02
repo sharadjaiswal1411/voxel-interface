@@ -30,6 +30,13 @@ const optimismInfo: NetworkInfo = {
     logo: EthereumLogo,
     decimal: 18,
   },
+  marketToken: {
+    symbol: 'VXL',
+    name: 'Voxel X Network',
+    address: '0x16CC8367055aE7e9157DBcB9d86Fd6CE82522b31',
+    logo: "",
+    decimal: 18,
+  },
   rpcUrl: 'https://opt-mainnet.g.alchemy.com/v2/N7gZFcuMkhLTTpdsRLEcDXYIJssj6GsI',
   routerUri: `${process.env.REACT_APP_AGGREGATOR_API}/optimism/route/encode`,
   nftStaker:EMPTY_ARRAY,

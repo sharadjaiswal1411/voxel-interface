@@ -30,9 +30,16 @@ const arbitrumTestnetInfo: NetworkInfo = {
     logo: EthereumLogo,
     decimal: 18,
   },
+  marketToken: {
+    symbol: 'VXL',
+    name: 'Voxel X Network',
+    address: '0x16CC8367055aE7e9157DBcB9d86Fd6CE82522b31',
+    logo: "",
+    decimal: 18,
+  },
   rpcUrl: 'https://rinkeby.arbitrum.io/rpc',
   routerUri: EMPTY,
-  nftStaker:EMPTY_ARRAY,
+  nftStaker: EMPTY_ARRAY,
   classic: {
     static: {
       zap: '0xfa33723F6fA00a35F69F8aCd72A5BE9AF3c8Bd25',
@@ -55,7 +62,7 @@ const arbitrumTestnetInfo: NetworkInfo = {
   },
   staking: {
     nftFactory: '0x1a91f5ADc7cB5763d35A26e98A18520CB9b67e70',
-    tokenFactory:'0x7EDF6fC10D13996C36422ca915310E0B3876b993'
+    tokenFactory: '0x7EDF6fC10D13996C36422ca915310E0B3876b993'
   },
   averageBlockTimeInSeconds: 1, // TODO: check these info
   coingeckoNetworkId: EMPTY,

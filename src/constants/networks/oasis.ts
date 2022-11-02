@@ -33,6 +33,13 @@ const oasisInfo: NetworkInfo = {
     logo: OASIS,
     decimal: 18,
   },
+  marketToken: {
+    symbol: 'VXL',
+    name: 'Voxel X Network',
+    address: '0x16CC8367055aE7e9157DBcB9d86Fd6CE82522b31',
+    logo: "",
+    decimal: 18,
+  },
   rpcUrl: 'https://oasis.kyberengineering.io',
   nftStaker:EMPTY_ARRAY,
   routerUri: `${process.env.REACT_APP_AGGREGATOR_API}/oasis/route/encode`,

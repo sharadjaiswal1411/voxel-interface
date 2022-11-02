@@ -29,6 +29,13 @@ const avaxTestnetInfo: NetworkInfo = {
     logo: AVAX,
     decimal: 18,
   },
+  marketToken: {
+    symbol: 'VXL',
+    name: 'Voxel X Network',
+    address: '0x16CC8367055aE7e9157DBcB9d86Fd6CE82522b31',
+    logo: "",
+    decimal: 18,
+  },
   rpcUrl: 'https://api.avax-test.network/ext/bc/C/rpc',
   routerUri: EMPTY,
   nftStaker:EMPTY_ARRAY,

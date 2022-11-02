@@ -68,7 +68,8 @@ function NftCards({ stakingAddress, nftAddress }: { stakingAddress: string, nftA
       method: 'GET',
       url: `https://deep-index.moralis.io/api/v2/${account}/nft`,
       params: { chain: 'goerli', format: 'decimal', limit: '100', token_addresses: nftAddress },
-      headers: { accept: 'application/json', 'X-API-Key': '0w8Ivx0tOflZTjQIb9ITjW2LFU1U243aiNXc6Ccqf9eu9qNajB4F4OSYb9xsxEQZ' }
+      headers: { accept: 'application/json', 'X-API-Key': 'Rv3g3LTZTkWtDKVHmX75V4kddgnOEE4qSboNpNNQemGVnZwOl0sinl3fQJJSgaN0' }
+      //0w8Ivx0tOflZTjQIb9ITjW2LFU1U243aiNXc6Ccqf9eu9qNajB4F4OSYb9xsxEQZ (OLD)
     };
 
     axios
@@ -76,7 +77,7 @@ function NftCards({ stakingAddress, nftAddress }: { stakingAddress: string, nftA
       .then(async function (response) {
 
         const res = response.data.result;
-        
+
         const newItems: any = await Promise.all(
           res.map(async (data: any) => {
 

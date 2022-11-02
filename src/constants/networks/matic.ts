@@ -28,6 +28,13 @@ const maticInfo: NetworkInfo = {
     logo: Polygon,
     decimal: 18,
   },
+  marketToken: {
+    symbol: 'VXL',
+    name: 'Voxel X Network',
+    address: '0x16CC8367055aE7e9157DBcB9d86Fd6CE82522b31',
+    logo: "",
+    decimal: 18,
+  },
   rpcUrl: 'https://polygon.kyberengineering.io',
   // Sometime, our rpc is quite slow, keep this for testing purpose on local
   // rpcUrl: 'https://polygon-rpc.com',

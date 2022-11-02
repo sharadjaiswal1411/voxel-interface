@@ -29,6 +29,13 @@ const mumbaiInfo: NetworkInfo = {
     logo: Polygon,
     decimal: 18,
   },
+  marketToken: {
+    symbol: 'VXL',
+    name: 'Voxel X Network',
+    address: '0x16CC8367055aE7e9157DBcB9d86Fd6CE82522b31',
+    logo: "",
+    decimal: 18,
+  },
   rpcUrl: 'https://rpc-mumbai.maticvigil.com',
   routerUri: EMPTY,
   nftStaker:EMPTY_ARRAY,
