@@ -14,7 +14,7 @@ import { ButtonError, ButtonLight, ButtonPrimary, ButtonWarning } from 'componen
 import { OutlineCard, WarningCard } from 'components/Card'
 import { AutoColumn } from 'components/Column'
 import CurrencyInputPanel from 'components/CurrencyInputPanel'
-import FeeSelector from 'components/FeeSelector'
+//import FeeSelector from 'components/FeeSelector'
 import HoverInlineText from 'components/HoverInlineText'
 import { Swap as SwapIcon } from 'components/Icons'
 import InfoHelper from 'components/InfoHelper'

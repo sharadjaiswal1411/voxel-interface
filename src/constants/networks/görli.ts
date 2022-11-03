@@ -2,7 +2,7 @@ import { ChainId } from '@kyberswap/ks-sdk-core'
 
 import EthereumLogo from 'assets/images/ethereum-logo.png'
 import Mainnet from 'assets/networks/mainnet-network.svg'
-import { KS_SETTING_API } from 'constants/env'
+//import { KS_SETTING_API } from 'constants/env'
 import { createClient } from 'utils/client'
 
 import { NetworkInfo } from '../type'
@@ -25,7 +25,7 @@ const görliInfo: NetworkInfo = {
   blockClient: createClient('https://api.thegraph.com/subgraphs/name/blocklytics/goerli-blocks'),
   etherscanUrl: 'https://goerli.etherscan.io',
   etherscanName: 'Goerli Explorer',
-  tokenListUrl: `https://raw.githubusercontent.com/sharadjaiswal1411/voxel-interface/main/tokenLists/5.json?token=GHSAT0AAAAAABZQXOEUF6T7HWQP4SHQHRDOY3CSEKQ`,
+  tokenListUrl: `https://test.voxdex.io/tokens/5.json?`,
   bridgeURL: EMPTY,
   nativeToken: {
     symbol: 'ETH',

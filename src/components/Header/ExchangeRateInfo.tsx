@@ -1,76 +1,71 @@
-import { Trans, t } from '@lingui/macro'
-import { darken, lighten } from 'polished'
 import styled from 'styled-components'
-import { useToken } from 'hooks/Tokens'
-import { unwrappedToken } from 'utils/wrappedCurrency'
-import useTokenInfo from 'hooks/useTokenInfo'
-import { ButtonSecondary } from '../Button'
-import Loader from '../Loader'
+import useMarketTokenInfo from 'hooks/useMarketTokenInfo'
 import { NETWORKS_INFO } from 'constants/networks'
-import { useCurrencyConvertedToNative } from 'utils/dmm'
-import { Flex } from 'rebass'
-import CurrencyLogo from 'components/CurrencyLogo'
 import { formattedNum } from 'utils'
 import { ChainId } from '@kyberswap/ks-sdk-core'
+import Row from 'components/Row'
+import Card from 'components/Card'
 
-const Web3StatusGeneric = styled(ButtonSecondary)`
-  ${({ theme }) => theme.flexRowNoWrap}
-  height: 42px;
-  width: 100%;
+const NetworkSwitchContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 10px 12px;
+  width: 100%;
+  min-width: fit-content;
+`
+
+const NetworkCard = styled(Card)`
+  position: relative;
+  background-color: ${({ theme }) => theme.buttonBlack};
+  color: ${({ theme }) => theme.text};
   border-radius: 999px;
-  cursor: pointer;
-  user-select: none;
-  :focus {
-    outline: none;
-  }
+  padding: 8px 12px;
+  border: 1px solid transparent;
+  min-width: fit-content;
+
+
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    margin: 0;
+    margin-right: 0.5rem;
+    width: initial;
+    text-overflow: ellipsis;
+    flex-shrink: 1;
+    min-width: auto;
+  `};
 `
 
-const Web3StatusConnected = styled(Web3StatusGeneric) <{ pending?: boolean }>`
-  background-color: ${({ pending, theme }) => (pending ? theme.primary : theme.buttonGray)};
-  border: 1px solid ${({ pending, theme }) => (pending ? theme.primary : theme.buttonGray)};
-  color: ${({ pending, theme }) => (pending ? theme.white : theme.subText)};
+const NetworkLabel = styled.div`
+  white-space: nowrap;
   font-weight: 500;
-  :hover,
-  :focus {
-    background-color: ${({ pending, theme }) =>
-    pending ? darken(0.05, theme.primary) : lighten(0.05, theme.buttonGray)};
 
-    :focus {
-      border: 1px solid
-        ${({ pending, theme }) => (pending ? darken(0.1, theme.primary) : darken(0.1, theme.buttonGray))};
-    }
-  }
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    display: none;
+  `};
 `
+
 
 export default function ExchangeRateInfo() {
 
-  const networkInfo = NETWORKS_INFO[ChainId.MAINNET].marketToken.address;
-  const logoToken = useToken(networkInfo)
-  const currency = logoToken ? unwrappedToken(logoToken) : undefined
-
-  const marketCurrency = useCurrencyConvertedToNative(currency)
-  const inputToken = marketCurrency?.wrapped
+  const tokenAddress = NETWORKS_INFO[ChainId.MAINNET].marketToken.address;
+  
 
 
+  const { data: tokenInfo, loading } = useMarketTokenInfo(tokenAddress)
 
-  const { data: tokenInfo, loading } = useTokenInfo(inputToken)
-
-
-  // console.log({networkInfo, logoToken, currency, marketCurrency, inputToken })
   return (
-    <>
-      <Web3StatusConnected>
-        <Flex justifyContent='space-between' alignItems='center' flexDirection='row'>
-          {!currency
-            ?
-            <><Loader /></>
-            :
-            <>{currency && <CurrencyLogo currency={currency} />}&nbsp;{formattedNum((tokenInfo?.price).toString(), true)}</>
-          }
-        </Flex>
-      </Web3StatusConnected>
-    </>
+      <NetworkCard  role="button">
+      <NetworkSwitchContainer>
+        <Row>
+          <img src={ tokenInfo?.logo }
+            alt={tokenInfo?.name}
+            style={{ width: 20, height: 20, marginRight: '12px' }}
+          />
+          <NetworkLabel>{formattedNum((tokenInfo?.price).toString(), true)}</NetworkLabel>
+        </Row>
+       
+      </NetworkSwitchContainer>
+     
+    </NetworkCard>
+
   )
 }

@@ -34,7 +34,7 @@ const ethereumInfo: NetworkInfo = {
     symbol: 'VXL',
     name: 'Voxel X Network',
     address: '0x16CC8367055aE7e9157DBcB9d86Fd6CE82522b31',
-    logo: "",
+    logo: "https://etherscan.io/token/images/voxelxnetwork_32.png",
     decimal: 18,
   },
   rpcUrl: 'https://ethereum.kyberengineering.io',

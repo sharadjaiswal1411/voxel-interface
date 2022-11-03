@@ -3325,8 +3325,8 @@ msgid "Select a token to find your liquidity."
 msgstr "Likiditenizi bulmak için bir token seçin."
 
 #: src/pages/AddLiquidityV2/index.tsx
-msgid "Select fee tier"
-msgstr ""
+#~ msgid "Select fee tier"
+#~ msgstr ""
 
 #: src/components/Tutorial/TutorialSwap/index.tsx
 msgid "Select from over thousands of tokens and start trading. VoxelSwap finds you the best prices across multiple exchanges & combines them into one trade!"

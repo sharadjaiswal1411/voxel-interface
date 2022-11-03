@@ -30,6 +30,7 @@ import { isAddressString, shortenAddress } from 'utils'
 import { RedirectDuplicateTokenIds } from './AddLiquidityV2/redirects'
 import Bridge from './Bridge'
 import Swap from './Swap'
+//import Transactions from './Transactions'
 import { RedirectPathToSwapOnly, RedirectToSwap } from './Swap/redirects'
 import ProAmmSwap from './SwapProAmm'
 import SwapV2 from './SwapV2'
@@ -200,8 +201,6 @@ export default function App() {
                     <Route exact strict path="/swapv2" component={ProAmmSwap} />
                      <Route exact strict path="/swap" component={SwapV2} />
                     <Route exact strict path="/bridge" component={Bridge} />
-                 
-
                     <Route exact strict path="/limit-order" component={LimitOrder} />
 
                     
