@@ -202,9 +202,6 @@ export default function App() {
                      <Route exact strict path="/swap" component={SwapV2} />
                     <Route exact strict path="/bridge" component={Bridge} />
                     <Route exact strict path="/limit-order" component={LimitOrder} />
-
-                    
-
                     <Route exact strict path="/find" component={PoolFinder} />
                     <Route exact strict path="/pools" component={Pools} />
                     <Route exact strict path="/pools/:currencyIdA" component={Pools} />
