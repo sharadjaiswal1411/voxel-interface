@@ -153,9 +153,11 @@ function PositionListItem({
   };
 
   const handleApprove = async () => {
-    setIsApproving(true)
-    const tx = await approve().catch((e) => { setIsApproving(false); })
-    setApprovalTx(tx)
+    if (poolInfo.availableTokens > 0) {
+      setIsApproving(true)
+      const tx = await approve().catch((e) => { setIsApproving(false); })
+      setApprovalTx(tx)
+    }
   }
 
   const stakeTokens = async (token: any) => {
@@ -359,7 +361,7 @@ function PositionListItem({
               <ButtonOutlined
                 padding="8px"
                 onClick={() => handleApprove()}
-                disabled={isApproving}
+                disabled={isApproving || (poolInfo.availableTokens == 0)}
               >
                 <Text width="max-content" fontSize="14px">
                   <Trans>
@@ -368,7 +370,15 @@ function PositionListItem({
                         ?
                         <Flex alignItems="center" justifyContent="center">Approving&nbsp;Contract&nbsp;<Loader /></Flex>
                         :
-                        "Approve Contract"
+                        <>
+                          {
+                            (poolInfo.availableTokens == 0)
+                              ?
+                              `Insufficient ${currency0?.symbol} balance`
+                              :
+                              "Approve Contract"
+                          }
+                        </>
                     }
                   </Trans>
                 </Text>

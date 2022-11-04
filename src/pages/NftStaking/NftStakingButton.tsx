@@ -25,11 +25,11 @@ export const NftStakingButton = () => {
   const isApprovalTxPending = useIsTransactionPending(approvalTx);
   const [isApprovedLoading, setIsApprovedLoading] = useState<boolean>(false)
   const [isHarvestLoading, setIsHarvestLoading] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    checkApproval();
-    getPoolInfo();
-    getWalletNfts();
+
+    awaitedCall()
 
     if (!isApprovalTxPending) {
       setIsHarvestLoading(false);
@@ -37,6 +37,13 @@ export const NftStakingButton = () => {
     }
 
   }, [approvalTx, isApprovedForAll, isApprovalTxPending, account])
+
+  const awaitedCall = async () => {
+    await checkApproval();
+    await getPoolInfo();
+    await getWalletNfts();
+    setIsLoading(false);
+  }
 
   const harvestRewards = async () => {
     if (isApprovedForAll && poolInfo.totalRewards > 0) {
@@ -82,7 +89,6 @@ export const NftStakingButton = () => {
         else if (res.length > 0) {
           setHaveNfts(false);
         }
-
       })
       .catch(function (error) {
         console.error(error);
@@ -97,7 +103,7 @@ export const NftStakingButton = () => {
           fontSize="14px"
           padding="10px 24px"
           width="fit-content"
-          disabled={isApprovedForAll || haveNfts || isApprovedLoading}
+          disabled={isLoading || isApprovedForAll || haveNfts || isApprovedLoading}
           onClick={approveContract}
         >
           <Trans>{isApprovedLoading ? <>Approving&nbsp;<Loader /></> : (isApprovedForAll ? "Approved" : "Approve Contract")}</Trans>
@@ -110,7 +116,7 @@ export const NftStakingButton = () => {
           padding="10px 24px"
           width="fit-content"
           onClick={harvestRewards}
-          disabled={(poolInfo ? !poolInfo.totalRewards : false) || !isApprovedForAll || isHarvestLoading}
+          disabled={isLoading || (poolInfo ? !poolInfo.totalRewards : false) || !isApprovedForAll || isHarvestLoading}
         >
           <Trans>{isHarvestLoading ? <>Harvesting&nbsp;<Loader /></> : "Harvest Rewards"}</Trans>
         </ButtonPrimary>
