@@ -282,7 +282,7 @@ const Dropdown = styled.div`
   @media only screen and (max-width:993px){
     position: absolute;
     left: -36px;
-  }
+  } 
 `
 const DropdownIcon = styled(DropdownSVG)`
   transition: transform 300ms;
