@@ -1,7 +1,6 @@
 import { Price, Token } from '@kyberswap/ks-sdk-core'
 import { Position } from '@kyberswap/ks-sdk-elastic'
 import { Trans } from '@lingui/macro'
-import { useWeb3React } from '@web3-react/core'
 import React, { useState, useEffect } from 'react'
 import { Flex, Text } from 'rebass'
 import styled from 'styled-components'
@@ -22,6 +21,8 @@ import ContentLoader from './ContentLoader'
 import StakeModal from 'components/StakeModal/StakeModal'
 import UnStakeModal from 'components/UnStakeModal/UnStakeModal'
 import { useIsTransactionPending } from 'state/transactions/hooks'
+import Loader from 'components/Loader'
+import { useActiveWeb3React } from 'hooks'
 
 const StyledPositionCard = styled(LightCard)`
   border: none;
@@ -129,7 +130,7 @@ function PositionListItem({
   rewardToken,
   stakingContract
 }: PositionListItemProps) {
-  const { chainId } = useWeb3React()
+  const { chainId, account } = useActiveWeb3React()
 
   const _stakedToken = useToken(stakedToken)
   const _rewardToken = useToken(rewardToken)
@@ -142,6 +143,7 @@ function PositionListItem({
   const [showUnStakeModal, setShowUnStakeModal] = useState(false)
   const [isStakeLoading, setIsStakeLoading] = useState(false)
   const [isUnStakeLoading, setIsUnStakeLoading] = useState(false)
+  const [isApproving, setIsApproving] = useState(false)
   const { fetchPoolInfo, stake, unStake, emergencyUnstake, harvest, approve } = useTokenStakingDetailsAction(stakingContract, stakedToken);
 
   const getPoolInfo = async () => {
@@ -151,7 +153,8 @@ function PositionListItem({
   };
 
   const handleApprove = async () => {
-    const tx = await approve()
+    setIsApproving(true)
+    const tx = await approve().catch((e) => { setIsApproving(false); })
     setApprovalTx(tx)
   }
 
@@ -198,14 +201,14 @@ function PositionListItem({
 
   useEffect(() => {
     getPoolInfo();
-  }, [approvalTx, isApprovalTxPending])
+  }, [approvalTx, isApprovalTxPending, account])
 
   useEffect(() => {
     if (!isApprovalTxPending) {
+      setIsApproving(false)
       setShowStakeModal(false);
       setShowUnStakeModal(false);
     }
-
   }, [isApprovalTxPending])
 
 
@@ -355,11 +358,19 @@ function PositionListItem({
             <ButtonGroup>
               <ButtonOutlined
                 padding="8px"
-
                 onClick={() => handleApprove()}
+                disabled={isApproving}
               >
                 <Text width="max-content" fontSize="14px">
-                  <Trans>Approve Contract</Trans>
+                  <Trans>
+                    {
+                      isApproving
+                        ?
+                        <Flex alignItems="center" justifyContent="center">Approving&nbsp;Contract&nbsp;<Loader /></Flex>
+                        :
+                        "Approve Contract"
+                    }
+                  </Trans>
                 </Text>
               </ButtonOutlined>
             </ButtonGroup>

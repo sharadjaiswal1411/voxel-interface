@@ -12,6 +12,8 @@ import { LightCard } from 'components/Card'
 import { Trans } from '@lingui/macro'
 import { TYPE } from 'theme'
 import ContentLoader from 'pages/TokenAmmPool/ContentLoader'
+import { Flex, Text } from 'rebass'
+import { Info } from 'react-feather'
 
 export const PositionCardGrid = styled.div`
   display: grid;
@@ -61,9 +63,11 @@ function ProMMFarms({ active }: { active: boolean }) {
   const [loading, setLoading] = useState<boolean>(true)
 
   const getPools = async () => {
-    const allPools: any[] = await fetchPools();
+    const allPools: any[] = await fetchPools().catch((e) => { setFarms([]); setLoading(false); });
 
-    setFarms(allPools);
+    if (allPools) {
+      setFarms(allPools);
+    }
 
     setLoading(false);
   };
@@ -72,14 +76,13 @@ function ProMMFarms({ active }: { active: boolean }) {
 
     getPools();
 
-  }, ["farms"])
+  }, [chainId, account])
 
 
 
   return (
-    <AutoColumn gap="lg" style={{ width: '100%' }}>
-      <PositionCardGrid>
-
+    <>
+      <AutoColumn gap="lg" style={{ width: '100%' }}>
         {!account
           ?
           <TYPE.body color={theme.text3} textAlign="center">
@@ -87,22 +90,24 @@ function ProMMFarms({ active }: { active: boolean }) {
           </TYPE.body>
           :
           <>
-            {(farms.length > 0 && !loading)
-              &&
-              farms?.map((item, key) => (
-                <StyledPositionCard key={key}>
-                  <div >
-                    <Link to={`nft-staking/${item.stakingContract}/${item.nft}`}>
-                      <img src={item.logoURI} alt={item.name} width="300px" height="320px" />
-                    </Link>
-                  </div>
+            <PositionCardGrid>
+              {(farms.length > 0 && !loading)
+                &&
+                (farms?.map((item, key) => (
+                  <StyledPositionCard key={key}>
+                    <div >
+                      <Link to={`nft-staking/${item.stakingContract}/${item.nft}`}>
+                        <img src={item.logoURI} alt={item.name} width="300px" height="320px" />
+                      </Link>
+                    </div>
 
-                  <h4 className="capitalize">
-                    {item.name}
-                  </h4>
-                </StyledPositionCard>
-              ))
-            }
+                    <h4 className="capitalize">
+                      {item.name}
+                    </h4>
+                  </StyledPositionCard>
+                )))
+              }
+            </PositionCardGrid>
 
             {loading
               &&
@@ -114,11 +119,21 @@ function ProMMFarms({ active }: { active: boolean }) {
               </PositionCardGrid>
             }
 
-            {(farms.length == 0 && !loading) && <div> No Nft Contract available for Staking. </div>}
+            {(farms.length == 0 && !loading)
+              &&
+              <Flex flexDirection="column" alignItems="center" justifyContent="center" marginTop="60px">
+                <Info size={48} color={theme.subText} />
+                <Text fontSize={16} lineHeight={1.5} color={theme.subText} textAlign="center" marginTop="1rem">
+                  <Trans>
+                    No Nft Contract available for Staking.
+                  </Trans>
+                </Text>
+              </Flex>
+            }
           </>
         }
-      </PositionCardGrid>
-    </AutoColumn>
+      </AutoColumn>
+    </>
   )
 }
 

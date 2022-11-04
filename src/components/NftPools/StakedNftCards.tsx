@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Text } from 'rebass'
+import { Text, Flex } from 'rebass'
 import useTheme from 'hooks/useTheme'
 import { useBlockNumber } from 'state/application/hooks'
 import { useFarmAction } from 'state/nfts/promm/hooks'
@@ -12,6 +12,8 @@ import { Trans } from '@lingui/macro'
 import { TYPE } from 'theme'
 import { LightCard } from 'components/Card'
 import { useActiveWeb3React } from 'hooks'
+import Loader from 'components/Loader'
+import axios from 'axios';
 
 
 export const PositionCardGrid = styled.div`
@@ -53,15 +55,24 @@ function StakedNftCards({ stakingAddress, nftAddress }: { stakingAddress: string
   const isApprovedForAll = true;
   const [nfts, setNfts] = useState<any[]>([])
   const [loading, setLoading] = useState<boolean>(true)
+  const [isUnstaking, setIsUnstaking] = useState<boolean>(false)
+  const [nftIdCheck, setNftIdCheck] = useState<string>('')
 
   const handleApprove = async (nftId: string) => {
+
+    setNftIdCheck(nftId)
+    setIsUnstaking(true);
+
     if (!isApprovedForAll) {
-      const tx = await approve()
+
+      const tx = await approve().catch((e) => { setIsUnstaking(false); })
       setApprovalTx(tx)
+
     } else {
 
-      const tx = await withdraw(nftId)
+      const tx = await withdraw(nftId).catch((e) => { setIsUnstaking(false); })
       setApprovalTx(tx)
+
     }
   }
 
@@ -69,15 +80,45 @@ function StakedNftCards({ stakingAddress, nftAddress }: { stakingAddress: string
 
   const getNfts = async () => {
     const nftList = await fetchNfts();
-    setNfts(nftList);
+
+    const newItems: any = await Promise.all(
+      nftList.map(async (data: any) => {
+
+        const fileType = await getUrlFileType(data?.image)
+        data.fileType = fileType;
+
+        return data;
+      })
+    ).catch((err) => {
+      console.log("error1", err);
+    });
+
+    setNfts(newItems);
     setLoading(false);
   };
+
+  const getUrlFileType = async (url: string) => {
+    try {
+      const res = await axios.get(url, { responseType: 'blob' }).then((response) => {
+        return JSON.stringify(response?.headers['content-type'])
+      });
+
+      return res;
+    }
+    catch (e) {
+      return "image";
+    }
+  }
 
   useEffect(() => {
 
     getNfts();
 
-  }, [loading])
+    if (!isApprovalTxPending) {
+      setIsUnstaking(false);
+    }
+
+  }, [loading, isApprovalTxPending, account])
 
 
 
@@ -106,19 +147,41 @@ function StakedNftCards({ stakingAddress, nftAddress }: { stakingAddress: string
                 <StyledPositionCard key={key}>
 
                   <div className="product-card-body">
-                    <div className='d-flex justify-content-center align-items-center'>
-                      <img height={300} width={300} src={item.image} className="nft-image" />
-                    </div>
+
+                    <Flex alignItems='center' justifyContent='center' width='100%' height={300}>
+
+                      {(item?.fileType).includes("image")
+                        &&
+                        <img height={300} width={300} src={item?.image} className="nft-image" />
+                      }
+
+                      {(item?.fileType).includes("video")
+                        &&
+                        <>
+                          <video width="320" height="240" controls>
+                            <source src={item?.image} type="video/mp4" />
+                          </video>
+                        </>
+                      }
+                    </Flex>
+
                     <h4 className="capitalize" style={{ textTransform: "capitalize" }}>
                       {item?.name}
                     </h4>
                     <p>Token Id: #{item?.tokenId}</p>
                   </div>
+
                   <div className="product-card-footer">
 
-                    <ButtonPrimary style={{ margin: '4px 0 0 0', padding: '16px' }} onClick={() => handleApprove(item.tokenId)}>
-                      <Text fontWeight={500} fontSize={18}>
-                        Unstake
+                    <ButtonPrimary style={{ margin: '4px 0 0 0', padding: '16px' }} onClick={() => handleApprove(item?.tokenId)} disabled={isUnstaking}>
+                      <Text fontWeight={500} fontSize={18} >
+                        {
+                          (isUnstaking && (nftIdCheck == item?.tokenId))
+                            ?
+                            <Flex alignItems="center" justifyContent="center">Unstaking&nbsp;<Loader /></Flex>
+                            :
+                            "Unstake"
+                        }
                       </Text>
                     </ButtonPrimary>
                   </div>

@@ -3,7 +3,7 @@ import React, {
   useState,
   useEffect
 } from 'react'
-import { Flex} from 'rebass'
+import { Flex } from 'rebass'
 import axios from 'axios';
 
 import { ButtonPrimary } from 'components/Button'
@@ -11,6 +11,7 @@ import { useIsTransactionPending } from 'state/transactions/hooks'
 import { useParams } from 'react-router-dom'
 import { useFarmAction } from 'state/nfts/promm/hooks'
 import { useActiveWeb3React } from 'hooks'
+import Loader from 'components/Loader';
 
 export const NftStakingButton = () => {
   const { account } = useActiveWeb3React()
@@ -22,23 +23,33 @@ export const NftStakingButton = () => {
   const [haveNfts, setHaveNfts] = useState<boolean>(true)
   const [approvalTx, setApprovalTx] = useState('')
   const isApprovalTxPending = useIsTransactionPending(approvalTx);
+  const [isApprovedLoading, setIsApprovedLoading] = useState<boolean>(false)
+  const [isHarvestLoading, setIsHarvestLoading] = useState<boolean>(false)
 
   useEffect(() => {
     checkApproval();
     getPoolInfo();
     getWalletNfts();
-  }, [approvalTx, isApprovedForAll, isApprovalTxPending])
+
+    if (!isApprovalTxPending) {
+      setIsHarvestLoading(false);
+      setIsApprovedLoading(false);
+    }
+
+  }, [approvalTx, isApprovedForAll, isApprovalTxPending, account])
 
   const harvestRewards = async () => {
     if (isApprovedForAll && poolInfo.totalRewards > 0) {
-      const tx = await harvest()
+      setIsHarvestLoading(true);
+      const tx = await harvest().catch((e) => { setIsHarvestLoading(false); })
       setApprovalTx(tx)
     }
   }
 
   const approveContract = async () => {
     if (!isApprovedForAll && !haveNfts) {
-      const tx = await approve()
+      setIsApprovedLoading(true);
+      const tx = await approve().catch((e) => { setIsApprovedLoading(false); })
       setApprovalTx(tx)
     }
   }
@@ -86,10 +97,10 @@ export const NftStakingButton = () => {
           fontSize="14px"
           padding="10px 24px"
           width="fit-content"
-          disabled={isApprovedForAll || haveNfts}
+          disabled={isApprovedForAll || haveNfts || isApprovedLoading}
           onClick={approveContract}
         >
-          <Trans>{isApprovedForAll ? "Approved" : "Approve Contract"}</Trans>
+          <Trans>{isApprovedLoading ? <>Approving&nbsp;<Loader /></> : (isApprovedForAll ? "Approved" : "Approve Contract")}</Trans>
         </ButtonPrimary>
 
         &nbsp;
@@ -99,9 +110,9 @@ export const NftStakingButton = () => {
           padding="10px 24px"
           width="fit-content"
           onClick={harvestRewards}
-          disabled={(poolInfo ? !poolInfo.totalRewards : false) || !isApprovedForAll}
+          disabled={(poolInfo ? !poolInfo.totalRewards : false) || !isApprovedForAll || isHarvestLoading}
         >
-          <Trans>Harvest Rewards</Trans>
+          <Trans>{isHarvestLoading ? <>Harvesting&nbsp;<Loader /></> : "Harvest Rewards"}</Trans>
         </ButtonPrimary>
 
       </Flex>

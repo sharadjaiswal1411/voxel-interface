@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro'
-import React, { useRef, useState,useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { Info } from 'react-feather'
 import { Flex, Text } from 'rebass'
 import styled from 'styled-components'
@@ -10,13 +10,13 @@ import { useActiveWeb3React } from 'hooks'
 import { useProAmmPositions } from 'hooks/useProAmmPositions'
 import useTheme from 'hooks/useTheme'
 import { InstructionText, PageWrapper, PositionCardGrid, Tab } from 'pages/Pool'
-import {useTokenStakingAction} from 'state/nfts/promm/hooks'
+import { useTokenStakingAction } from 'state/nfts/promm/hooks'
 import { TYPE } from 'theme'
 import ContentLoader from './ContentLoader'
 import PositionListItem from './PositionListItem'
 import { useBlockNumber } from 'state/application/hooks'
 
-const TabRow = styled.div`
+export const TabRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -39,23 +39,25 @@ export default function TokenAmmPool() {
   const { positions, loading: positionsLoading } = useProAmmPositions(account)
   const [pools, setPools] = useState<any[]>([])
   const [showStaked, setShowStaked] = useState(false)
-  const {fetchPools}=useTokenStakingAction();
+  const [loading, setLoading] = useState(true)
+  const { fetchPools } = useTokenStakingAction();
   const blockNumber = useBlockNumber()
+  const theme = useTheme()
 
   const getPools = async () => {
-      const allPools:any[]= await fetchPools();
+    const allPools: any[] = await fetchPools().catch((e) => { setLoading(false); setPools([]); })
+
+    if (allPools) {
       setPools(allPools);
-      
-   };
+    }
 
-  useEffect( () => {
-      getPools();
+    setLoading(false);
+  };
 
-  }, [chainId,account,showStaked])
+  useEffect(() => {
+    getPools();
 
-  const loading  = false;
-
-  const theme = useTheme()
+  }, [chainId, account, showStaked])
 
   return (
     <>
@@ -87,11 +89,7 @@ export default function TokenAmmPool() {
                   <Trans>Staked Pools</Trans>
                 </Tab>
               </Flex>
-
-
             </Flex>
-
-       
           </TabRow>
 
           {!account ? (
@@ -107,9 +105,9 @@ export default function TokenAmmPool() {
               <ContentLoader />
             </PositionCardGrid>
           ) : (pools.length > 0) ? (
-          <>
-           <PositionCardGrid style={{ display: 'grid' }}>
-                {pools.map((p :any) => (
+            <>
+              <PositionCardGrid style={{ display: 'grid' }}>
+                {pools.map((p: any) => (
                   <PositionListItem
                     key={p.stakingContract}
                     closedPool={false}
@@ -120,10 +118,7 @@ export default function TokenAmmPool() {
                   />
                 ))}
               </PositionCardGrid>
-
-         
             </>
-
           ) : (
             <Flex flexDirection="column" alignItems="center" marginTop="60px">
               <Info size={48} color={theme.subText} />
