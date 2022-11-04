@@ -120,6 +120,9 @@ const AccountElement = styled.div<{ active: boolean }>`
   white-space: nowrap;
   width: 100%;
   cursor: pointer;
+  @media only screen and (max-width: 390px) {
+    width: 100px;
+  }
 `
 
 const AnalyticsWrapper = styled.span`
@@ -314,6 +317,17 @@ const HoverDropdown = styled.div<{ active: boolean }>`
   }
 `
 
+const Trans2 = styled.div`
+  @media only screen and (max-width: 440px) {
+    display:none;
+  }
+`
+const Trans1 = styled.div`
+  @media only screen and (min-width: 441px) {
+    display:none;
+  }
+`
+
 export default function Header() {
   const { account, chainId } = useActiveWeb3React()
 
@@ -396,22 +410,38 @@ export default function Header() {
                 >
                   <Trans>My Pools</Trans>
                 </StyledNavLink>
+
+                <Trans1>
+                  <StyledNavLink
+                    onClick={() => {
+                      mixpanelHandler(MIXPANEL_TYPE.FARM_UNDER_EARN_TAB_CLICK)
+                    }}
+                    id="farms-nav-link"
+                    to="/farms"
+                    isActive={match => Boolean(match)}
+                  >
+                    <Trans>Farms</Trans>
+                  </StyledNavLink>
+                </Trans1>
+
               </Dropdown>
             </HoverDropdown>
           </Flex>
 
-          <CampaignWrapper id={TutorialIds.CAMPAIGN_LINK}>
-            <StyledNavLink
-              onClick={() => {
-                mixpanelHandler(MIXPANEL_TYPE.FARM_UNDER_EARN_TAB_CLICK)
-              }}
-              id="farms-nav-link"
-              to="/farms"
-              isActive={match => Boolean(match)}
-            >
-              <Trans>Farms</Trans>
-            </StyledNavLink>
-          </CampaignWrapper>
+          <Trans2>
+            <CampaignWrapper id={TutorialIds.CAMPAIGN_LINK}>
+              <StyledNavLink
+                onClick={() => {
+                  mixpanelHandler(MIXPANEL_TYPE.FARM_UNDER_EARN_TAB_CLICK)
+                }}
+                id="farms-nav-link"
+                to="/farms"
+                isActive={match => Boolean(match)}
+              >
+                <Trans>Farms</Trans>
+              </StyledNavLink>
+            </CampaignWrapper>
+          </Trans2>
 
           <HoverDropdown active={pathname.includes('/token-staking') || pathname.includes('/nft-staking')}>
             <Flex alignItems="center">

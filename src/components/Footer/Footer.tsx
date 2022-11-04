@@ -22,7 +22,7 @@ const FooterWrapper = styled.div`
 
 const FooterContent = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content; space-between;
   margin: auto;
   align-items: center;
   width: 100%;
@@ -74,6 +74,41 @@ const Item = styled.div`
     flex-direction: column;
     gap: 12px;
   `};
+  @media only screen and (max-width: 768px) {
+    display:none;
+  }
+`
+
+const Item2 = styled.div`
+    display:flex;
+    align-items: center;
+  color: ${({ theme }) => theme.subText};
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    flex-direction: column;
+    gap: 12px;
+  `};
+  @media only screen and (max-width: 460px) {
+    .footer_nav{
+      display:grid;
+      grid-template-columns: auto auto auto;
+    }
+    @media only screen and (max-width: 340px) {
+      .footer_nav{
+        display:grid;
+        grid-template-columns: auto auto;
+      }
+  }
+`
+
+const Item3 = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top:5px;
+  color: ${({ theme }) => theme.subText};
+  @media only screen and (min-width: 768px) {
+    display:none;
+  }
+ 
 `
 
 export const FooterSocialLink = () => {
@@ -104,95 +139,105 @@ function Footer() {
     <FooterWrapper>
       <FooterContent>
         <InfoWrapper>
+
           <Item>
             <Text marginRight="6px">
               <Trans>Powered By</Trans>
             </Text>
             <ExternalLink href="https://www.voxelxnetwork.com/" style={{ display: 'flex' }}>
-             VoxelxNetwork
+              VoxelxNetwork
             </ExternalLink>
-           {/*<p className="aboutVxl"> Our community is building a comprehensive decentralized trading platform for the future of finance. Join us!</p>*/}
+            {/*<p className="aboutVxl"> Our community is building a comprehensive decentralized trading platform for the future of finance. Join us!</p>*/}
           </Item>
           <Separator />
- <Item>
-<ul className="footer_nav">
-  <li className="nav_item">
-    <h2 className="nav_title">Products</h2>
-    <ul className="nav_ul">
-      <li>
-        <a href="#">Liquidity Pools</a>
-      </li>
-      <li>
-        <a href="#">Staking</a>
-      </li>
-      <li>
-        <a href="#">Farming</a>
-      </li>
-    </ul>
-  </li>
-  <li className="nav_item">
-    <h2 className="nav_title">Help</h2>
-    <ul className="nav_ul">
-      <li>
-        <a href="#">What is voxel swap?</a>
-      </li>
-      <li>
-        <a href="#">Ask on Discord</a>
-      </li>
-      <li>
-        <a href="#">Ask on Twitter</a>
-      </li>
-      <li>
-        <a href="#">Ask on Forum</a>
-      </li>
-    </ul>
-  </li>
-  <li className="nav_item">
-    <h2 className="nav_title">Developers</h2>
-    <ul className="nav_ul">
-      <li>
-        <a href="#">Gitbook</a>
-      </li>
-      <li>
-        <a href="#">Github</a>
-      </li>
-      <li>
-        <a href="#">Development</a>
-      </li>
-      <li>
-        <a href="#">voxelGuard</a>
-      </li>
-    </ul>
-  </li>
-  <li className="nav_item">
-    <h2 className="nav_title">Governance</h2>
-    <ul className="nav_ul">
-      <li>
-        <a href="#">Forum &amp; Proposals</a>
-      </li>
-      <li>
-        <a href="#">Vote</a>
-      </li>
-    </ul>
-  </li>
-  <li className="nav_item">
-    <h2 className="nav_title">Protocol</h2>
-    <ul className="nav_ul">
-      <li>
-        <a href="#">Apply for Onsen</a>
-      </li>
-      <li>
-        <a href="#">Apply for Miso</a>
-      </li>
-      <li>
-        <a href="#">vesting</a>
-      </li>
-    </ul>
-  </li>
-</ul>
- </Item>
-
+          <Item2>
+            <ul className="footer_nav">
+              <li className="nav_item">
+                <h2 className="nav_title">Products</h2>
+                <ul className="nav_ul">
+                  <li>
+                    <a href="#">Liquidity Pools</a>
+                  </li>
+                  <li>
+                    <a href="#">Staking</a>
+                  </li>
+                  <li>
+                    <a href="#">Farming</a>
+                  </li>
+                </ul>
+              </li>
+              <li className="nav_item">
+                <h2 className="nav_title">Help</h2>
+                <ul className="nav_ul">
+                  <li>
+                    <a href="#">What is voxel swap?</a>
+                  </li>
+                  <li>
+                    <a href="#">Ask on Discord</a>
+                  </li>
+                  <li>
+                    <a href="#">Ask on Twitter</a>
+                  </li>
+                  <li>
+                    <a href="#">Ask on Forum</a>
+                  </li>
+                </ul>
+              </li>
+              <li className="nav_item">
+                <h2 className="nav_title">Developers</h2>
+                <ul className="nav_ul">
+                  <li>
+                    <a href="#">Gitbook</a>
+                  </li>
+                  <li>
+                    <a href="#">Github</a>
+                  </li>
+                  <li>
+                    <a href="#">Development</a>
+                  </li>
+                  <li>
+                    <a href="#">voxelGuard</a>
+                  </li>
+                </ul>
+              </li>
+              <li className="nav_item">
+                <h2 className="nav_title">Governance</h2>
+                <ul className="nav_ul">
+                  <li>
+                    <a href="#">Forum &amp; Proposals</a>
+                  </li>
+                  <li>
+                    <a href="#">Vote</a>
+                  </li>
+                </ul>
+              </li>
+              <li className="nav_item ">
+                <h2 className="nav_title" >Protocol</h2>
+                <ul className="nav_ul">
+                  <li>
+                    <a href="#">Apply for Onsen</a>
+                  </li>
+                  <li>
+                    <a href="#">Apply for Miso</a>
+                  </li>
+                  <li>
+                    <a href="#">vesting</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </Item2>
         </InfoWrapper>
+        {/* this for Brand Promotion Tab But Before 768px it will be visible otherwise disabled */}
+        <Item3>
+          <Text marginRight="6px">
+            <Trans>Powered By</Trans>
+          </Text>
+          <ExternalLink href="https://www.voxelxnetwork.com/" style={{ display: 'flex' }}>
+            VoxelxNetwork
+          </ExternalLink>
+          {/*<p className="aboutVxl"> Our community is building a comprehensive decentralized trading platform for the future of finance. Join us!</p>*/}
+        </Item3>
         <FooterSocialLink />
       </FooterContent>
     </FooterWrapper>

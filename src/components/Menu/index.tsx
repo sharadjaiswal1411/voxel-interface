@@ -79,6 +79,7 @@ const StyledMenuButton = styled.button<{ active?: boolean }>`
           background-color: ${({ theme }) => theme.buttonBlack};
         `
       : ''}
+     
 `
 
 const StyledMenu = styled.div`
@@ -143,7 +144,7 @@ export default function Menu() {
   const under1440 = useMedia('(max-width: 1440px)')
   const above1321 = useMedia('(min-width: 1321px)')
   const above768 = useMedia('(min-width: 768px)')
-  const under369 = useMedia('(max-width: 370px)')
+  const under369 = useMedia('(max-width: 360px)')
 
   const getBridgeLink = () => {
     if (!chainId) return ''
@@ -171,7 +172,7 @@ export default function Menu() {
         hasArrow
       >
 
-        
+
 
         <NavMenuItem to="/referral" onClick={toggle}>
           <UserPlus size={14} />
@@ -196,14 +197,14 @@ export default function Menu() {
           <FileText size={14} />
           <Trans>Terms</Trans>
         </MenuItem>
-     
+
         <MenuItem id="link" href="#">
           <Edit size={14} />
           <Trans>Contact Us</Trans>
         </MenuItem>
 
       </MenuFlyout>
-    
+
     </StyledMenu>
   )
 }
