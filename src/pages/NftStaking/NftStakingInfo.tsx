@@ -82,8 +82,8 @@ const GlobalDataItemTitle = styled.span`
 `
 
 const GlobalDataItemValue = styled.span`
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 800;
   color: ${({ theme }) => theme.text};
 `
 
