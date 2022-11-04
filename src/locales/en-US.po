@@ -450,8 +450,8 @@ msgid "Approve"
 msgstr "Approve"
 
 #: src/pages/TokenAmmPool/PositionListItem.tsx
-msgid "Approve Contract"
-msgstr "Approve Contract"
+#~ msgid "Approve Contract"
+#~ msgstr "Approve Contract"
 
 #: src/components/YieldPools/ProMMFarmGroup/index.tsx
 msgid "Approve Farming Contract"
@@ -1487,6 +1487,7 @@ msgid "Farming Pools"
 msgstr "Farming Pools"
 
 #: src/components/Header/index.tsx
+#: src/components/Header/index.tsx
 msgid "Farms"
 msgstr "Farms"
 
@@ -1699,8 +1700,8 @@ msgid "Harvest All"
 msgstr "Harvest All"
 
 #: src/pages/NftStaking/NftStakingButton.tsx
-msgid "Harvest Rewards"
-msgstr "Harvest Rewards"
+#~ msgid "Harvest Rewards"
+#~ msgstr "Harvest Rewards"
 
 #: src/components/NftPools/NftStakingGuide.tsx
 #: src/components/YieldPools/FarmGuide.tsx
@@ -2493,6 +2494,18 @@ msgstr "No Farms found"
 msgid "No KYC or sign-ups required"
 msgstr "No KYC or sign-ups required"
 
+#: src/components/NftPools/StakedNftCards.tsx
+msgid "No NFTs Staked. Please stake one."
+msgstr "No NFTs Staked. Please stake one."
+
+#: src/components/NftPools/NftCards.tsx
+msgid "No NFTs owned. Please mint some."
+msgstr "No NFTs owned. Please mint some."
+
+#: src/components/NftPools/ProMMFarms.tsx
+msgid "No Nft Contract available for Staking."
+msgstr "No Nft Contract available for Staking."
+
 #: src/pages/TokenAmmPool/index.tsx
 msgid "No Staking pools found. Please visit later."
 msgstr "No Staking pools found. Please visit later."
@@ -2773,6 +2786,7 @@ msgstr "Pools"
 msgid "Pools | AMP"
 msgstr "Pools | AMP"
 
+#: src/components/Footer/Footer.tsx
 #: src/components/Footer/Footer.tsx
 msgid "Powered By"
 msgstr "Powered By"
@@ -4861,7 +4875,9 @@ msgstr "your wallet"
 #: src/components/swapv2/TokenInfoV2/SingleTokenInfo.tsx
 #: src/pages/Bridge/PoolInfo.tsx
 #: src/pages/NftStaking/NftStakingButton.tsx
+#: src/pages/NftStaking/NftStakingButton.tsx
 #: src/pages/NftStaking/details.tsx
+#: src/pages/TokenAmmPool/PositionListItem.tsx
 #: src/pages/TokenAmmPool/PositionListItem.tsx
 #: src/pages/TrueSight/components/FilterBar/NetworkSelect.tsx
 msgid "{0}"

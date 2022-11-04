@@ -56,7 +56,7 @@ contract NftStakingFactory is Ownable {
             VaultInfo[i] = VaultInfo[i+1];
             
         }
-        delete VaultInfo[VaultInfo.length-1];
+       VaultInfo.pop();
        
   }
   

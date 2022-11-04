@@ -151,10 +151,23 @@ contract NftStaking is Ownable, ERC721Holder, Pausable {
             "Must be the owner of the staked nft"
         );
         Staker storage staker = stakers[_user];
-        
-        if (staker.tokenIds.length > 0) {
-            staker.tokenIds.pop();
+        uint index;
+        for (uint i = 0; i<staker.tokenIds.length; i++){
+            if(staker.tokenIds[i]==_tokenId){
+              index=i;  
+              break;
+             
+            }
+            
         }
+        if(staker.tokenIds.length>0){
+            for (uint i = index; i<staker.tokenIds.length-1; i++){
+                staker.tokenIds[i] = staker.tokenIds[i+1];
+                
+            }
+        }
+        staker.tokenIds.pop();
+
         staker.tokenStakingCoolDown[_tokenId] = 0;
         delete tokenOwner[_tokenId];
 

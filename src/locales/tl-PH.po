@@ -488,8 +488,8 @@ msgid "Approve"
 msgstr ""
 
 #: src/pages/TokenAmmPool/PositionListItem.tsx
-msgid "Approve Contract"
-msgstr ""
+#~ msgid "Approve Contract"
+#~ msgstr ""
 
 #: src/components/YieldPools/ProMMFarmGroup/index.tsx
 msgid "Approve Farming Contract"
@@ -1548,6 +1548,7 @@ msgid "Farming Pools"
 msgstr ""
 
 #: src/components/Header/index.tsx
+#: src/components/Header/index.tsx
 msgid "Farms"
 msgstr ""
 
@@ -1764,8 +1765,8 @@ msgid "Harvest All"
 msgstr ""
 
 #: src/pages/NftStaking/NftStakingButton.tsx
-msgid "Harvest Rewards"
-msgstr ""
+#~ msgid "Harvest Rewards"
+#~ msgstr ""
 
 #: src/components/NftPools/NftStakingGuide.tsx
 #: src/components/YieldPools/FarmGuide.tsx
@@ -2599,6 +2600,18 @@ msgstr ""
 msgid "No KYC or sign-ups required"
 msgstr ""
 
+#: src/components/NftPools/StakedNftCards.tsx
+msgid "No NFTs Staked. Please stake one."
+msgstr ""
+
+#: src/components/NftPools/NftCards.tsx
+msgid "No NFTs owned. Please mint some."
+msgstr ""
+
+#: src/components/NftPools/ProMMFarms.tsx
+msgid "No Nft Contract available for Staking."
+msgstr ""
+
 #: src/pages/TokenAmmPool/index.tsx
 msgid "No Staking pools found. Please visit later."
 msgstr ""
@@ -2905,6 +2918,7 @@ msgstr ""
 msgid "Pools | AMP"
 msgstr ""
 
+#: src/components/Footer/Footer.tsx
 #: src/components/Footer/Footer.tsx
 msgid "Powered By"
 msgstr ""
@@ -5082,7 +5096,9 @@ msgstr ""
 #: src/components/swapv2/TokenInfoV2/SingleTokenInfo.tsx
 #: src/pages/Bridge/PoolInfo.tsx
 #: src/pages/NftStaking/NftStakingButton.tsx
+#: src/pages/NftStaking/NftStakingButton.tsx
 #: src/pages/NftStaking/details.tsx
+#: src/pages/TokenAmmPool/PositionListItem.tsx
 #: src/pages/TokenAmmPool/PositionListItem.tsx
 #: src/pages/TrueSight/components/FilterBar/NetworkSelect.tsx
 msgid "{0}"
