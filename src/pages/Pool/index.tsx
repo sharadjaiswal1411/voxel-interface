@@ -266,8 +266,8 @@ function Pool() {
         .filter(v2Pair => {
           return debouncedSearchText
             ? v2Pair.token0.symbol?.toLowerCase().includes(debouncedSearchText) ||
-                v2Pair.token1.symbol?.toLowerCase().includes(debouncedSearchText) ||
-                v2Pair.address.toLowerCase() === debouncedSearchText
+            v2Pair.token1.symbol?.toLowerCase().includes(debouncedSearchText) ||
+            v2Pair.address.toLowerCase() === debouncedSearchText
             : true
         })
         .filter(v2Pair => !userFarms.map(farm => farm.id.toLowerCase()).includes(v2Pair.address.toLowerCase())),
@@ -399,7 +399,14 @@ function Pool() {
             {!account ? (
               <Card padding="40px">
                 <TYPE.body color={theme.text3} textAlign="center">
-                  <Trans>Connect to a wallet to view your liquidity.</Trans>
+                  <Flex flexDirection="column" alignItems="center" justifyContent="center" marginTop="60px">
+                    <Info size={48} color={theme.subText} />
+                    <Text fontSize={16} lineHeight={1.5} color={theme.subText} textAlign="center" marginTop="1rem">
+                      <Trans>
+                        Connect to a wallet to view your liquidity.
+                      </Trans>
+                    </Text>
+                  </Flex>
                 </TYPE.body>
               </Card>
             ) : !showStaked ? (

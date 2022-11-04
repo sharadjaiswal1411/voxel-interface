@@ -16,6 +16,7 @@ import ContentLoader from 'pages/TokenAmmPool/ContentLoader'
 import { Trans } from '@lingui/macro'
 import { TYPE } from 'theme'
 import Loader from 'components/Loader'
+import { Info } from 'react-feather'
 
 export const PositionCardGrid = styled.div`
   display: grid;
@@ -145,25 +146,46 @@ function NftCards({ stakingAddress, nftAddress }: { stakingAddress: string, nftA
   return (
     <>
       <AutoColumn gap="lg" style={{ width: '100%' }}>
-        <PositionCardGrid>
 
-          {!account
-            ?
-            <TYPE.body color={theme.text3} textAlign="center">
-              <Trans>Connect to a wallet to view staking Pools.</Trans>
-            </TYPE.body>
-            :
-            <>
+        {!account
+          ?
+          <TYPE.body color={theme.text3} textAlign="center">
+            <Flex flexDirection="column" alignItems="center" justifyContent="center" marginTop="60px">
+              <Info size={48} color={theme.subText} />
+              <Text fontSize={16} lineHeight={1.5} color={theme.subText} textAlign="center" marginTop="1rem">
+                <Trans>
+                  Connect to a wallet to view staking Pools.
+                </Trans>
+              </Text>
+            </Flex>
+          </TYPE.body>
+          :
+          <>
 
-              {(nfts.length == 0 && !loading) && <div> No NFTs owned. Please mint some. </div>}
+            {(nfts.length == 0 && !loading)
+              &&
+              <div>
+                <Flex flexDirection="column" alignItems="center" justifyContent="center" marginTop="60px">
+                  <Info size={48} color={theme.subText} />
+                  <Text fontSize={16} lineHeight={1.5} color={theme.subText} textAlign="center" marginTop="1rem">
+                    <Trans>
+                      No NFTs owned. Please mint some.
+                    </Trans>
+                  </Text>
+                </Flex>
+              </div>
+            }
 
-              {loading && <>
+            {loading && <>
+              <PositionCardGrid>
                 <ContentLoader />
                 <ContentLoader />
                 <ContentLoader />
                 <ContentLoader />
-              </>}
+              </PositionCardGrid>
+            </>}
 
+            <PositionCardGrid>
               {(nfts.length > 0 && !loading)
                 &&
                 nfts.map((item, key) => (
@@ -182,7 +204,7 @@ function NftCards({ stakingAddress, nftAddress }: { stakingAddress: string, nftA
                           {(item?.fileType).includes("video")
                             &&
                             <>
-                              <video width="320" height="240" controls>
+                              <video height={300} width={300} className="nft-image" controls>
                                 <source src={item?.srcFile} type="video/mp4" />
                               </video>
                             </>
@@ -215,10 +237,11 @@ function NftCards({ stakingAddress, nftAddress }: { stakingAddress: string, nftA
 
                     </div>
                   </StyledPositionCard>
-                ))}
-            </>
-          }
-        </PositionCardGrid>
+                ))
+              }
+            </PositionCardGrid>
+          </>
+        }
       </AutoColumn>
     </>
   )

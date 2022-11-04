@@ -86,7 +86,14 @@ function ProMMFarms({ active }: { active: boolean }) {
         {!account
           ?
           <TYPE.body color={theme.text3} textAlign="center">
-            <Trans>Connect to a wallet to view staking Pools.</Trans>
+            <Flex flexDirection="column" alignItems="center" justifyContent="center" marginTop="60px">
+              <Info size={48} color={theme.subText} />
+              <Text fontSize={16} lineHeight={1.5} color={theme.subText} textAlign="center" marginTop="1rem">
+                <Trans>
+                  Connect to a wallet to view staking Pools.
+                </Trans>
+              </Text>
+            </Flex>
           </TYPE.body>
           :
           <>
@@ -97,7 +104,7 @@ function ProMMFarms({ active }: { active: boolean }) {
                   <StyledPositionCard key={key}>
                     <div >
                       <Link to={`nft-staking/${item.stakingContract}/${item.nft}`}>
-                        <img src={item.logoURI} alt={item.name} width="300px" height="320px" />
+                        <img src={item.logoURI} alt={item.name} width="300px" height="320px" className="nft-image" />
                       </Link>
                     </div>
 

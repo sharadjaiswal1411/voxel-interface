@@ -14,6 +14,7 @@ import { LightCard } from 'components/Card'
 import { useActiveWeb3React } from 'hooks'
 import Loader from 'components/Loader'
 import axios from 'axios';
+import { Info } from 'react-feather'
 
 
 export const PositionCardGrid = styled.div`
@@ -81,6 +82,8 @@ function StakedNftCards({ stakingAddress, nftAddress }: { stakingAddress: string
   const getNfts = async () => {
     const nftList = await fetchNfts();
 
+    console.log({ nftList })
+
     const newItems: any = await Promise.all(
       nftList.map(async (data: any) => {
 
@@ -124,24 +127,42 @@ function StakedNftCards({ stakingAddress, nftAddress }: { stakingAddress: string
 
   return (
     <AutoColumn gap="lg" style={{ width: '100%' }}>
-      <PositionCardGrid>
 
-        {!account
-          ?
-          <TYPE.body color={theme.text3} textAlign="center">
-            <Trans>Connect to a wallet to view staking Pools.</Trans>
-          </TYPE.body>
-          :
-          <>
-            {loading && <>
+      {!account
+        ?
+        <TYPE.body color={theme.text3} textAlign="center">
+          <Flex flexDirection="column" alignItems="center" justifyContent="center" marginTop="60px">
+            <Info size={48} color={theme.subText} />
+            <Text fontSize={16} lineHeight={1.5} color={theme.subText} textAlign="center" marginTop="1rem">
+              <Trans>
+                Connect to a wallet to view staking Pools.
+              </Trans>
+            </Text>
+          </Flex>
+        </TYPE.body>
+        :
+        <>
+          {loading && <>
+            <PositionCardGrid>
               <ContentLoader />
               <ContentLoader />
               <ContentLoader />
               <ContentLoader />
-            </>}
-            {(!loading && nfts.length == 0) && <>
-              No NFTs Staked. Please stake one.
-            </>}
+            </PositionCardGrid>
+          </>}
+
+          {(!loading && nfts.length == 0) && <>
+            <Flex flexDirection="column" alignItems="center" justifyContent="center" marginTop="60px">
+              <Info size={48} color={theme.subText} />
+              <Text fontSize={16} lineHeight={1.5} color={theme.subText} textAlign="center" marginTop="1rem">
+                <Trans>
+                  No NFTs Staked. Please stake one.
+                </Trans>
+              </Text>
+            </Flex>
+          </>}
+
+          <PositionCardGrid>
             {!loading &&
               nfts?.map((item, key) => (
                 <StyledPositionCard key={key}>
@@ -158,7 +179,7 @@ function StakedNftCards({ stakingAddress, nftAddress }: { stakingAddress: string
                       {(item?.fileType).includes("video")
                         &&
                         <>
-                          <video width="320" height="240" controls>
+                          <video height={300} width={300} className="nft-image" controls>
                             <source src={item?.image} type="video/mp4" />
                           </video>
                         </>
@@ -190,10 +211,10 @@ function StakedNftCards({ stakingAddress, nftAddress }: { stakingAddress: string
 
               ))
             }
-          </>
-        }
-      </PositionCardGrid>
-    </AutoColumn>
+          </PositionCardGrid>
+        </>
+      }
+    </AutoColumn >
   )
 }
 

@@ -187,7 +187,7 @@ export default function ProAmmPool() {
                 </Tab>
               </Flex>
 
-   
+
             </Flex>
 
             <FilterRow>
@@ -203,14 +203,21 @@ export default function ProAmmPool() {
                 onSearch={onSearch}
                 placeholder={t`Search by token or pool address`}
               />
-              
+
             </FilterRow>
           </TabRow>
 
           {!account ? (
             <Card padding="40px">
               <TYPE.body color={theme.text3} textAlign="center">
-                <Trans>Connect to a wallet to view your liquidity.</Trans>
+                <Flex flexDirection="column" alignItems="center" justifyContent="center" marginTop="60px">
+                  <Info size={48} color={theme.subText} />
+                  <Text fontSize={16} lineHeight={1.5} color={theme.subText} textAlign="center" marginTop="1rem">
+                    <Trans>
+                      Connect to a wallet to view your liquidity.
+                    </Trans>
+                  </Text>
+                </Flex>
               </TYPE.body>
             </Card>
           ) : positionsLoading || loading ? (

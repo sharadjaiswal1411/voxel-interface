@@ -95,7 +95,14 @@ export default function TokenAmmPool() {
           {!account ? (
             <Card padding="40px">
               <TYPE.body color={theme.text3} textAlign="center">
-                <Trans>Connect to a wallet to view staking Pools.</Trans>
+                <Flex flexDirection="column" alignItems="center" justifyContent="center" marginTop="60px">
+                  <Info size={48} color={theme.subText} />
+                  <Text fontSize={16} lineHeight={1.5} color={theme.subText} textAlign="center" marginTop="1rem">
+                    <Trans>
+                      Connect to a wallet to view staking Pools.
+                    </Trans>
+                  </Text>
+                </Flex>
               </TYPE.body>
             </Card>
           ) : positionsLoading || loading ? (
