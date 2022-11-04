@@ -279,6 +279,10 @@ const Dropdown = styled.div`
   padding: 8px;
   width: max-content;
   top: 32px;
+  @media only screen and (max-width:993px){
+    position: absolute;
+    left: -36px;
+  } 
 `
 const DropdownIcon = styled(DropdownSVG)`
   transition: transform 300ms;
@@ -288,6 +292,7 @@ const HoverDropdown = styled.div<{ active: boolean }>`
   position: relative;
   display: inline-block;
   cursor: pointer;
+ 
 
   color: ${({ theme, active }) => (active ? theme.primary : theme.subText)};
   font-size: 1rem;
