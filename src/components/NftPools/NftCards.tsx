@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
-import { Text } from 'rebass'
+import { Text, Flex } from 'rebass'
 import { AutoColumn } from 'components/Column'
 import useTheme from 'hooks/useTheme'
 import { useBlockNumber } from 'state/application/hooks'
@@ -15,6 +15,7 @@ import defaultNftImage from '../../assets/images/default-nft-image.jpg';
 import ContentLoader from 'pages/TokenAmmPool/ContentLoader'
 import { Trans } from '@lingui/macro'
 import { TYPE } from 'theme'
+import Loader from 'components/Loader'
 
 export const PositionCardGrid = styled.div`
   display: grid;
@@ -52,11 +53,15 @@ function NftCards({ stakingAddress, nftAddress }: { stakingAddress: string, nftA
   const [approvalTx, setApprovalTx] = useState('')
   const [isApprovedForAll, setApprovedForAll] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(true)
+  const [isStaking, setIsStaking] = useState<boolean>(false)
+  const [nftIdCheck, setNftIdCheck] = useState<string>('')
   const isApprovalTxPending = useIsTransactionPending(approvalTx)
 
   const handleApprove = async (nftId: string) => {
+    setNftIdCheck(nftId);
+    setIsStaking(true);
     if (isApprovedForAll) {
-      const tx = await deposit(nftId)
+      const tx = await deposit(nftId).catch((e) => { setIsStaking(false); })
       setApprovalTx(tx)
     }
   }
@@ -82,11 +87,17 @@ function NftCards({ stakingAddress, nftAddress }: { stakingAddress: string, nftA
           res.map(async (data: any) => {
 
             if (data.metadata) {
-              data.image = JSON.parse(data.metadata).image;
+              const _image = JSON.parse(data.metadata).image;
+              data.srcFile = _image;
               data.nftName = JSON.parse(data.metadata).name;
+
+              const fileType = await getUrlFileType(_image)
+              data.fileType = fileType;
+
             }
             else {
-              data.image = defaultNftImage
+              data.srcFile = defaultNftImage
+              data.fileType = "image";
             }
 
             return data;
@@ -103,11 +114,29 @@ function NftCards({ stakingAddress, nftAddress }: { stakingAddress: string, nftA
       });
   }
 
+  const getUrlFileType = async (url: string) => {
+    try {
+      const res = await axios.get(url, { responseType: 'blob' }).then((response) => {
+        return JSON.stringify(response?.headers['content-type'])
+      });
+
+      return res;
+    }
+    catch (e) {
+      return "image";
+    }
+  }
+
   const blockNumber = useBlockNumber()
 
   useEffect(() => {
     getProMMFarms()
-  }, [getProMMFarms, approvalTx, isApprovedForAll])
+
+    if (!isApprovalTxPending) {
+      setIsStaking(false);
+    }
+
+  }, [approvalTx, isApprovedForAll, isApprovalTxPending, account])
 
   const history = useHistory()
   const location = useLocation()
@@ -141,21 +170,46 @@ function NftCards({ stakingAddress, nftAddress }: { stakingAddress: string, nftA
                   <StyledPositionCard key={key}>
 
                     <div className="product-card-body">
-                      <div className='d-flex justify-content-center align-items-center'>
-                        <img height={300} width={300} src={item.image} className="nft-image" />
-                      </div>
-                      <h4 className="capitalize" style={{ textTransform: "capitalize" }}>
-                        {item.nftName}
-                      </h4>
-                      {/* <h5 className="capitalize" style={{ textTransform: "capitalize" }}>
-                        {item.name}
-                      </h5> */}
-                      <p>Token Id: #{item.token_id}</p>
+
+                      <Flex flexDirection='column' justifyContent='space-between'>
+
+                        <Flex alignItems='center' justifyContent='center' width='100%' height={300}>
+                          {(item?.fileType).includes("image")
+                            &&
+                            <img height={300} width={300} src={item?.srcFile} className="nft-image" />
+                          }
+
+                          {(item?.fileType).includes("video")
+                            &&
+                            <>
+                              <video width="320" height="240" controls>
+                                <source src={item?.srcFile} type="video/mp4" />
+                              </video>
+                            </>
+                          }
+                        </Flex>
+
+                        <>
+                          <h4 className="capitalize" style={{ textTransform: "capitalize" }}>
+                            {item.nftName}
+                          </h4>
+                          {/* <h5 className="capitalize" style={{ textTransform: "capitalize" }}>
+                            {item.name}
+                            </h5> */}
+                          <p>Token Id: #{item.token_id}</p>
+                        </>
+                      </Flex>
                     </div>
                     <div className="product-card-footer">
-                      <ButtonPrimary style={{ margin: '4px 0 0 0', padding: '16px' }} onClick={() => handleApprove(item.token_id.toString())} disabled={!isApprovedForAll}>
+                      <ButtonPrimary style={{ margin: '4px 0 0 0', padding: '16px' }} onClick={() => handleApprove(item.token_id.toString())} disabled={!isApprovedForAll || isStaking}>
                         <Text fontWeight={500} fontSize={18}>
-                          Stake
+                          {
+                            (isStaking && (nftIdCheck == (item?.token_id).toString()))
+                              ?
+                              <Flex alignItems="center" justifyContent="center">Staking&nbsp;<Loader /></Flex>
+                              :
+                              "Stake"
+                          }
                         </Text>
                       </ButtonPrimary>
 

@@ -228,8 +228,8 @@ const Farms = () => {
               </Tab>
             </TabWrapper>
 
-            {farmType === VERSION.CLASSIC && <Tutorial type={TutorialType.CLASSIC_FARMS} />}
-            {farmType === VERSION.ELASTIC && <Tutorial type={TutorialType.ELASTIC_FARMS} />}
+            {/* {farmType === VERSION.CLASSIC && <Tutorial type={TutorialType.CLASSIC_FARMS} />}
+            {farmType === VERSION.ELASTIC && <Tutorial type={TutorialType.ELASTIC_FARMS} />} */}
           </TabContainer>
 
           {renderTabContent()}
