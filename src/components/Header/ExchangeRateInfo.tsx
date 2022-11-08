@@ -26,21 +26,23 @@ const NetworkCard = styled(Card)`
 
   ${({ theme }) => theme.mediaWidth.upToSmall`
     margin: 0;
-    margin-right: 0.5rem;
+    margin-right: 0.2rem;
     width: initial;
     text-overflow: ellipsis;
     flex-shrink: 1;
     min-width: auto;
+
+  `};
+   ${({ theme }) => theme.mediaWidth.belowExtraSmall`
+    display:none;
   `};
 `
 
 const NetworkLabel = styled.div`
   white-space: nowrap;
   font-weight: 500;
+  margin-left:5px;
 
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    display: none;
-  `};
 `
 
 

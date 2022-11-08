@@ -69,7 +69,7 @@ const StyledDialogContent = styled(
       ${
         mobile &&
         `
-          width: 100vw;
+          width: 95vw;
           border-radius: ${borderRadius};
           border-bottom-left-radius: 0;
           border-bottom-right-radius: 0;

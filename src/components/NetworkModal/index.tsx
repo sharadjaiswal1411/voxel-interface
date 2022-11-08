@@ -34,6 +34,9 @@ export const NetworkList = styled.div`
   ${({ theme }) => theme.mediaWidth.upToSmall`
     grid-template-columns: 1fr 1fr;
   `}
+   ${({ theme }) => theme.mediaWidth.belowExtraSmall`
+    grid-template-columns: 1fr;
+  `}
 `
 
 export const NetworkLabel = styled.span`

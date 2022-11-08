@@ -57,7 +57,7 @@ const HeaderControls = styled.div`
     justify-content: space-between;
     justify-self: center;
     width: 100%;
-    padding: 1rem;
+    padding: 5px;
     position: fixed;
     bottom: 0px;
     left: 0px;
@@ -76,6 +76,7 @@ const HeaderElement = styled.div`
 
   ${({ theme }) => theme.mediaWidth.upToMedium`
     align-items: center;
+     gap: 0px;
   `};
 `
 
@@ -96,8 +97,21 @@ const HeaderLinks = styled(Row)`
   ${({ theme }) => theme.mediaWidth.upToLarge`
     justify-content: flex-end;
   `};
-`
 
+   ${({ theme }) => theme.mediaWidth.belowExtraSmall`
+    display:none;
+  `};
+
+`
+const HeaderMobileLinks = styled(Row)`
+   display:none;
+   justify-content: flex-end;
+   text-align: right;
+   ${({ theme }) => theme.mediaWidth.belowExtraSmall`
+    display:block;
+  `};
+
+`
 const IconImage = styled.img`
   width: 140px;
   margin-top: 1px;
@@ -106,9 +120,14 @@ const IconImage = styled.img`
     width: 114px;
   `};
 
-  @media only screen and (max-width: 400px) {
-    width: 100px;
-  }
+   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+     width: 100px;
+  `};
+
+   ${({ theme }) => theme.mediaWidth.belowExtraSmall`
+     width: 150px;
+  `};
+
 `
 
 const AccountElement = styled.div<{ active: boolean }>`
@@ -283,6 +302,11 @@ const Dropdown = styled.div`
     position: absolute;
     left: -36px;
   } 
+
+  ${({ theme }) => theme.mediaWidth.belowExtraSmall`
+    padding: 8px 2px 8px 6px;
+    left:-60px;
+  `}
 `
 const DropdownIcon = styled(DropdownSVG)`
   transition: transform 300ms;
@@ -292,7 +316,6 @@ const HoverDropdown = styled.div<{ active: boolean }>`
   position: relative;
   display: inline-block;
   cursor: pointer;
- 
 
   color: ${({ theme, active }) => (active ? theme.primary : theme.subText)};
   font-size: 1rem;
@@ -303,6 +326,7 @@ const HoverDropdown = styled.div<{ active: boolean }>`
   ${({ theme }) => theme.mediaWidth.upToSmall`
     padding: 8px 2px 8px 6px;
   `}
+
 
   :hover {
     color: ${({ theme }) => darken(0.1, theme.primary)};
@@ -353,8 +377,106 @@ export default function Header() {
             <IconImage width="40px" src={isDark ? '/logo-dark.png' : '/logo-dark.png'} alt="logo" />
           </UniIcon>
         </Title>
+        <HeaderMobileLinks>
+        <HoverDropdown active={true}>
+         <Flex alignItems="center">
+              <Trans>Menu</Trans>
+              <DropdownIcon />
+         </Flex>
+          <Dropdown>
+              <StyledNavLink
+                id={`swapv2-nav-link`}
+                to={'/swap'}
+                isActive={match => Boolean(match)}
+                style={{ flexDirection: 'column' }}
+              >
+                <Flex alignItems="center" sx={{ gap: '10px' }}>
+                  <Trans>Swap</Trans>
+                </Flex>
+              </StyledNavLink>{' '}
+              <StyledNavLink
+                id={`buy-crypto-nav-link`}
+                to={'/limit-order'}
+                isActive={match => Boolean(match)}
+                onClick={() => {
+                  mixpanelHandler(MIXPANEL_TYPE.SWAP_BUY_CRYPTO_CLICKED)
+                }}
+              >
+                <Flex alignItems="center" sx={{ gap: '8px' }}>
+                  <Trans>Limit Order</Trans>
+                </Flex>
+              </StyledNavLink>
+               <StyledNavLink
+                  id="pools-nav-link"
+                  to="/pools"
+                  isActive={(match, { pathname }) => Boolean(match) || pathname.startsWith('/pools')}
+                  style={{ width: '100%' }}
+                >
+                  <Trans>All Pools</Trans>
+                </StyledNavLink>
+
+                <StyledNavLink
+                  id="my-pools-nav-link"
+                  to={'/myPools'}
+                  isActive={(match, { pathname }) =>
+                    Boolean(match) ||
+                    pathname.startsWith('/add') ||
+                    pathname.startsWith('/remove') ||
+                    pathname.startsWith('/create') ||
+                    (pathname.startsWith('/find') && pathname.endsWith('find'))
+                  }
+                >
+                  <Trans>My Pools</Trans>
+                </StyledNavLink>
+
+                <StyledNavLink
+                    onClick={() => {
+                      mixpanelHandler(MIXPANEL_TYPE.FARM_UNDER_EARN_TAB_CLICK)
+                    }}
+                    id="farms-nav-link"
+                    to="/farms"
+                    isActive={match => Boolean(match)}
+                  >
+                    <Trans>Farms</Trans>
+               </StyledNavLink>
+            <StyledNavLink
+                id={`swapv2-nav-link`}
+                to={'/token-staking'}
+                isActive={match => Boolean(match)}
+                style={{ flexDirection: 'column' }}
+              >
+                <Flex alignItems="center" sx={{ gap: '10px' }}>
+                  <Trans>Token Staking</Trans>
+                </Flex>
+              </StyledNavLink>{' '}
+              <StyledNavLink
+                id={`buy-crypto-nav-link`}
+                to={'/nft-staking'}
+                isActive={match => Boolean(match)}
+
+              >
+                <Flex alignItems="center" sx={{ gap: '8px' }}>
+                  <Trans>NFT Staking</Trans>
+                </Flex>
+              </StyledNavLink>
+            <StyledNavLink
+              id={`bridge`}
+              to={'/bridge'}
+              isActive={match => Boolean(match)}
+
+            >
+              <Flex alignItems="center" sx={{ gap: '8px' }}>
+                <Trans>Bridge</Trans>
+              </Flex>
+            </StyledNavLink>
+               
+            </Dropdown>
+
+        </HoverDropdown>
+          
+        </HeaderMobileLinks>
         <HeaderLinks>
-          <HoverDropdown active={pathname.includes('/swap') || pathname === '/buy-crypto'}>
+          <HoverDropdown active={pathname.includes('/swap')}>
             <Flex alignItems="center">
               <Trans>Swap</Trans>
               <DropdownIcon />
@@ -383,6 +505,7 @@ export default function Header() {
                   <Trans>Limit Order</Trans>
                 </Flex>
               </StyledNavLink>
+
             </Dropdown>
           </HoverDropdown>
 
@@ -416,7 +539,7 @@ export default function Header() {
                   <Trans>My Pools</Trans>
                 </StyledNavLink>
 
-                <Trans1>
+                
                   <StyledNavLink
                     onClick={() => {
                       mixpanelHandler(MIXPANEL_TYPE.FARM_UNDER_EARN_TAB_CLICK)
@@ -427,7 +550,7 @@ export default function Header() {
                   >
                     <Trans>Farms</Trans>
                   </StyledNavLink>
-                </Trans1>
+               
 
               </Dropdown>
             </HoverDropdown>

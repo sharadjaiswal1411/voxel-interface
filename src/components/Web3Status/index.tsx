@@ -216,7 +216,7 @@ function Web3StatusInner() {
     )
   } else {
     return (
-      <ButtonLight onClick={toggleWalletModal} padding="10px 12px" id={TutorialIds.BUTTON_CONNECT_WALLET}>
+      <ButtonLight onClick={toggleWalletModal} padding="10px 12px" width="auto" id={TutorialIds.BUTTON_CONNECT_WALLET}>
         <Trans>Connect Wallet</Trans>
       </ButtonLight>
     )
