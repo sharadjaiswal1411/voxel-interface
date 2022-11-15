@@ -182,7 +182,9 @@ function Web3StatusInner() {
   const hasSocks = useHasSocks()
   const toggleWalletModal = useWalletModalToggle()
 
-  const above369 = useMedia('(min-width: 369px)')
+ // const above369 = useMedia('(min-width: 369px)')
+
+  const above500 = useMedia('(min-width: 500px)')
 
   if (account) {
     return (
@@ -201,7 +203,7 @@ function Web3StatusInner() {
         ) : (
           <>
             {hasSocks ? SOCK : null}
-            <Text>{ENSName || shortenAddress(account, above369 ? undefined : 2)}</Text>
+            <Text>{ENSName || shortenAddress(account, above500 ? undefined : 1)}</Text>
           </>
         )}
         {!hasPendingTransactions && connector && <StatusIcon connector={connector} />}
@@ -217,7 +219,7 @@ function Web3StatusInner() {
   } else {
     return (
       <ButtonLight onClick={toggleWalletModal} padding="10px 12px" width="auto" id={TutorialIds.BUTTON_CONNECT_WALLET}>
-        <Trans>Connect Wallet</Trans>
+        <Trans>{above500 ? "Wallet Connect" : "Connect"}</Trans>
       </ButtonLight>
     )
   }

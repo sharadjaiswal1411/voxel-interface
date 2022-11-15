@@ -592,7 +592,7 @@ export default function FullPositionCard({
           <>
             <Row>
               <Text>
-                <Trans>Your Liquidity Balance</Trans>
+                <Trans>Your Liquidity Balance1</Trans>
               </Text>
               <Text fontSize={14} color={theme.text}>
                 {totalDeposit}

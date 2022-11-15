@@ -60,7 +60,7 @@ export default function ExchangeRateInfo() {
         <Row>
           <img src={ tokenInfo?.logo }
             alt={tokenInfo?.name}
-            style={{ width: 20, height: 20, marginRight: '12px' }}
+            style={{ width: 20, height: 20, marginRight: '2px' }}
           />
           <NetworkLabel>{formattedNum((tokenInfo?.price).toString(), true)}</NetworkLabel>
         </Row>

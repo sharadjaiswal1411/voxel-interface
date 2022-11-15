@@ -379,6 +379,7 @@ msgstr ""
 
 #: src/components/ClassicElasticTab.tsx
 #: src/components/Header/index.tsx
+#: src/components/Header/index.tsx
 msgid "All Pools"
 msgstr ""
 
@@ -627,6 +628,7 @@ msgstr ""
 msgid "Brave wallet can only be used in Brave Browser. Download it"
 msgstr ""
 
+#: src/components/Header/index.tsx
 #: src/components/Header/index.tsx
 #: src/pages/Bridge/index.tsx
 msgid "Bridge"
@@ -1529,6 +1531,7 @@ msgstr ""
 
 #: src/components/Header/index.tsx
 #: src/components/Header/index.tsx
+#: src/components/Header/index.tsx
 msgid "Farms"
 msgstr ""
 
@@ -2205,6 +2208,7 @@ msgid "Let’s get started"
 msgstr ""
 
 #: src/components/Header/index.tsx
+#: src/components/Header/index.tsx
 msgid "Limit Order"
 msgstr ""
 
@@ -2382,6 +2386,7 @@ msgstr ""
 msgid "Maybe later"
 msgstr ""
 
+#: src/components/Header/index.tsx
 #: src/components/Menu/index.tsx
 msgid "Menu"
 msgstr ""
@@ -2445,6 +2450,7 @@ msgstr "내 예치금"
 
 #: src/components/ClassicElasticTab.tsx
 #: src/components/Header/index.tsx
+#: src/components/Header/index.tsx
 #: src/pages/Pool/index.tsx
 msgid "My Pools"
 msgstr "내 풀"
@@ -2485,6 +2491,7 @@ msgstr "내 총 보상"
 msgid "My liquidity"
 msgstr "나의 유동성"
 
+#: src/components/Header/index.tsx
 #: src/components/Header/index.tsx
 msgid "NFT Staking"
 msgstr ""
@@ -3531,6 +3538,7 @@ msgstr "공급합니다. "
 
 #: src/components/Header/index.tsx
 #: src/components/Header/index.tsx
+#: src/components/Header/index.tsx
 #: src/components/NavigationTabs/index.tsx
 #: src/components/PoolList/ItemCard/index.tsx
 #: src/pages/Pools/index.tsx
@@ -3834,6 +3842,7 @@ msgstr ""
 msgid "Token Pair"
 msgstr "토큰 쌍"
 
+#: src/components/Header/index.tsx
 #: src/components/Header/index.tsx
 msgid "Token Staking"
 msgstr ""

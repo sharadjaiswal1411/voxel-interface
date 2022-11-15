@@ -10,8 +10,8 @@ import {IFactory} from './interfaces/IFactory.sol';
 
 import {Pool} from './Pool.sol';
 
-/// @title KyberSwap v2 factory
-/// @notice Deploys KyberSwap v2 pools and manages control over government fees
+/// @title VoxelSwap v2 factory
+/// @notice Deploys VoxelSwap v2 pools and manages control over government fees
 contract Factory is BaseSplitCodeFactory, IFactory {
   using EnumerableSet for EnumerableSet.AddressSet;
 
@@ -33,6 +33,8 @@ contract Factory is BaseSplitCodeFactory, IFactory {
 
   address private feeTo;
   uint24 private governmentFeeUnits;
+  address private dexVault;
+  uint24 private dexFraction;
   uint32 public override vestingPeriod;
 
   /// @inheritdoc IFactory
@@ -173,6 +175,23 @@ contract Factory is BaseSplitCodeFactory, IFactory {
     emit FeeConfigurationUpdated(_feeTo, _governmentFeeUnits);
   }
 
+    /// @inheritdoc IFactory
+  function updateDexFeeConfiguration(address _dexVault, uint24 _dexFraction)
+    external
+    override
+    onlyConfigMaster
+  {
+    require(_dexFraction >0, 'invalid fraction');
+    require(
+      (_dexVault == address(0) && _dexFraction == 0) ||
+        (_dexVault != address(0) && _dexFraction != 0),
+      'bad config'
+    );
+    dexVault = _dexVault;
+    dexFraction = _dexFraction;
+    emit DexFeeConfigurationUpdated(_dexVault, _dexFraction);
+  }
+
   /// @inheritdoc IFactory
   function feeConfiguration()
     external
@@ -184,6 +203,18 @@ contract Factory is BaseSplitCodeFactory, IFactory {
     _governmentFeeUnits = governmentFeeUnits;
   }
 
+  function dexFeeConfiguration()
+    external
+    view
+    override
+    returns (address _dexVault, uint24 _dexFraction)
+  {
+    _dexVault = dexVault;
+    _dexFraction = dexFraction;
+  }
+
+  
+
   /// @inheritdoc IFactory
   function isWhitelistedNFTManager(address sender) external view override returns (bool) {
     if (whitelistDisabled) return true;
@@ -194,4 +225,5 @@ contract Factory is BaseSplitCodeFactory, IFactory {
   function getWhitelistedNFTManagers() external view override returns (address[] memory) {
     return whitelistedNFTManagers.values();
   }
+  
 }

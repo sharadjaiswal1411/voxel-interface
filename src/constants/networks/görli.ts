@@ -70,14 +70,26 @@ const görliInfo: NetworkInfo = {
   //farming:'0xcBeb32E9AeDCa7F82913F21003Ac2C44Ad3f2385',
   // multicall: '0xD9bfE9979e9CA4b2fe84bA5d4Cf963bBcB376974'
   // },
+
+  
   elastic: {
-    coreFactory: '0x46A58CC7a42Ae904Ec4a2F570f22C747af2a4EAF',
-    nonfungiblePositionManager: '0x35753899B91d097A2099CA7Df6C15BDca56aa02A',
-    tickReader: '0x28Df5Ddb71f66961649b5c787f26Dc5D1727Da20',
-    initCodeHash: '0xa601255443f06ae8c87366539598fa1297034126c3e8575f1eebb7f3cad64e8d',
-    quoter: '0x28d72f111027283a2e7a9A99EAad7154AD957936',
-    routers: '0x0d8b67C67Dc8009EeC00Cc44520099F8Ee159Dc5',
+    coreFactory: '0x1A642f8bd7a9835Df8d64F9fA0291e5CC0Cfe7c4',
+    nonfungiblePositionManager: '0x87bD6F3435638eB2760FBd01FF1BBd1Ca918e749',
+    tickReader: '0x777fd0C0a99bFEa20b3066B5Ab74ecD47aE141aa',
+    initCodeHash: '0x5c878a9c1f788b21f73866aafd7454d090020eb38cda2d676bd4b07d9a35deb9',
+    quoter: '0x9eb194244b591c5F9555eaaef38fB66fafD3c405',
+    routers: '0x93F98f44C6d05d6Fd7B030124F508aE6038a4107',
+   // descriptor: '0x4880C819F4C2249e23655866bA48e29CC5153901'
   },
+  // elastic: {
+  //AntiSnipAttackPositionManager:      0xF5a98977213B3CF67A041A45b29E8ED389D7B0D2
+  //   coreFactory: '0x32ff4D05236E95FF60299E9b7BaB351179138389',
+  //   nonfungiblePositionManager: '0xCf6c82016F1781aa26C60e9432c1E8f2A192c6b0',
+  //   tickReader: '0x777fd0C0a99bFEa20b3066B5Ab74ecD47aE141aa',
+  //   initCodeHash: '0x080521b821ffe6f72ff78232bd25a0a2b65610261e006e50558215bee082ab73',
+  //   quoter: '0xA7cA99e835f3DB274289742f154BfA5E45459F0A',
+  //   routers: '0x510875C6eDAE8Ad25AD38AA741D82E2b33bc32fe',
+  // },
   staking: {
     nftFactory: '0x1E18fc64D42c7bdA0dDE0164e9B82A4E757a989b',
     tokenFactory: '0xdBA1E8d2d9B81db4ad5Da5Bb790EffCe7b1620C2'

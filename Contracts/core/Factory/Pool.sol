@@ -23,7 +23,7 @@ import {IFlashCallback} from './interfaces/callback/IFlashCallback.sol';
 
 import {PoolTicksState} from './PoolTicksState.sol';
 
-contract Pool is IPool, PoolTicksState, ERC20('KyberSwap v2 Reinvestment Token', 'KS2-RT') {
+contract Pool is IPool, PoolTicksState, ERC20('VoxelSwap v2 Reinvestment Token', 'VXL-RT') {
   using SafeCast for uint256;
   using SafeCast for int256;
   using SafeERC20 for IERC20;
@@ -296,7 +296,35 @@ contract Pool is IPool, PoolTicksState, ERC20('KyberSwap v2 Reinvestment Token',
     if (qty0 > 0) token0.safeTransfer(msg.sender, qty0);
     if (qty1 > 0) token1.safeTransfer(msg.sender, qty1);
 
+    _burnVaultTokens();
+
     emit BurnRTokens(msg.sender, _qty, qty0, qty1);
+  }
+
+  
+
+  function _burnVaultTokens() internal returns (uint256 qty0, uint256 qty1){
+
+    (address dexVault,) = factory.dexFeeConfiguration();
+    uint128 baseL = poolData.baseL;
+    uint128 reinvestL = poolData.reinvestL;
+    uint160 sqrtP = poolData.sqrtP;
+    _syncFeeGrowth(baseL, reinvestL, poolData.feeGrowthGlobal, false);
+    uint256 _qty = IERC20(this).balanceOf(dexVault);
+    // totalSupply() is the reinvestment token supply after syncing, but before burning
+    uint256 deltaL = FullMath.mulDivFloor(_qty, reinvestL, totalSupply());
+    reinvestL = reinvestL - deltaL.toUint128();
+    poolData.reinvestL = reinvestL;
+    poolData.reinvestLLast = reinvestL;
+    // finally, calculate and send token quantities to user
+    qty0 = QtyDeltaMath.getQty0FromBurnRTokens(sqrtP, deltaL);
+    qty1 = QtyDeltaMath.getQty1FromBurnRTokens(sqrtP, deltaL);
+
+    _burn(dexVault, _qty);
+
+    if (qty0 > 0) token0.safeTransfer(dexVault, qty0);
+    if (qty1 > 0) token1.safeTransfer(dexVault, qty1);
+
   }
 
   // temporary swap variables, some of which will be used to update the pool state
@@ -320,9 +348,12 @@ contract Pool is IPool, PoolTicksState, ERC20('KyberSwap v2 Reinvestment Token',
     uint256 feeGrowthGlobal; // cache of fee growth of the reinvestment token, multiplied by 2^96
     uint128 secondsPerLiquidityGlobal; // all-time seconds per liquidity, multiplied by 2^96
     address feeTo; // recipient of govt fees
-    uint24 governmentFeeUnits; // governmentFeeUnits to be charged
+    uint24  governmentFeeUnits; // governmentFeeUnits to be charged
+    uint24  dexFraction; // dexFraction to be charged
     uint256 governmentFee; // qty of reinvestment token for government fee
+    address dexVault; // recipient of dex fees
     uint256 lpFee; // qty of reinvestment token for liquidity provider
+    uint256 dexFee; // qty of reinvestment token for dex
   }
 
   // @inheritdoc IPoolActions
@@ -420,6 +451,8 @@ contract Pool is IPool, PoolTicksState, ERC20('KyberSwap v2 Reinvestment Token',
           swapData.baseL
         );
         (cache.feeTo, cache.governmentFeeUnits) = factory.feeConfiguration();
+        (cache.dexVault, cache.dexFraction) = factory.dexFeeConfiguration();
+       
       }
       // update rTotalSupply, feeGrowthGlobal and reinvestL
       uint256 rMintQty = ReinvestmentMath.calcrMintQty(
@@ -433,11 +466,12 @@ contract Pool is IPool, PoolTicksState, ERC20('KyberSwap v2 Reinvestment Token',
         // overflow/underflow not possible bc governmentFeeUnits < 20000
         unchecked {
           uint256 governmentFee = (rMintQty * cache.governmentFeeUnits) / C.FEE_UNITS;
+          uint256 dexFee = rMintQty/cache.dexFraction;
           cache.governmentFee += governmentFee;
-
+          cache.dexFee += dexFee;
           uint256 lpFee = rMintQty - governmentFee;
+          lpFee = lpFee-dexFee;
           cache.lpFee += lpFee;
-
           cache.feeGrowthGlobal += FullMath.mulDivFloor(lpFee, C.TWO_POW_96, swapData.baseL);
         }
       }
@@ -455,6 +489,7 @@ contract Pool is IPool, PoolTicksState, ERC20('KyberSwap v2 Reinvestment Token',
     // if the swap crosses at least 1 initalized tick
     if (cache.rTotalSupply != 0) {
       if (cache.governmentFee > 0) _mint(cache.feeTo, cache.governmentFee);
+      //  if (cache.dexFee > 0) _mint(cache.dexVault, cache.dexFee);
       if (cache.lpFee > 0) _mint(address(this), cache.lpFee);
       poolData.reinvestLLast = cache.reinvestLLast;
       poolData.feeGrowthGlobal = cache.feeGrowthGlobal;
@@ -493,6 +528,8 @@ contract Pool is IPool, PoolTicksState, ERC20('KyberSwap v2 Reinvestment Token',
       require(_poolBalToken0() >= balance0Before + uint256(deltaQty0), 'lacking deltaQty0');
     }
 
+    _burnVaultTokens();
+
     emit Swap(
       msg.sender,
       recipient,
@@ -504,6 +541,44 @@ contract Pool is IPool, PoolTicksState, ERC20('KyberSwap v2 Reinvestment Token',
     );
   }
 
+  function flashDex( address recipient,
+    uint256 qty0,
+    uint256 qty1,
+    bytes calldata data) internal lock {
+     (address dexVault, uint24 dexFraction) = factory.dexFeeConfiguration();
+      uint256 dexFeeQty0;
+      uint256 dexFeeQty1;
+    if (dexVault != address(0)) {
+      dexFeeQty0 = qty0 / dexFraction;
+      dexFeeQty1 = qty1 / dexFraction;
+    }
+
+    uint256 balance0Before = _poolBalToken0();
+    uint256 balance1Before = _poolBalToken1();
+
+    if (qty0 > 0) token0.safeTransfer(recipient, qty0);
+    if (qty1 > 0) token1.safeTransfer(recipient, qty1);
+
+    IFlashCallback(msg.sender).flashCallback(dexFeeQty0, dexFeeQty1, data);
+
+    uint256 balance0After = _poolBalToken0();
+    uint256 balance1After = _poolBalToken1();
+
+    require(balance0Before + dexFeeQty0 <= balance0After, 'lacking dexFeeQty0');
+    require(balance1Before + dexFeeQty1 <= balance1After, 'lacking dexFeeQty1');
+
+    uint256 paid0;
+    uint256 paid1;
+    unchecked {
+      paid0 = balance0After - balance0Before;
+      paid1 = balance1After - balance1Before;
+    }
+
+    if (paid0 > 0) token0.safeTransfer(dexVault, paid0);
+    if (paid1 > 0) token1.safeTransfer(dexVault, paid1);
+
+
+ }
   /// @inheritdoc IPoolActions
   function flash(
     address recipient,
@@ -543,8 +618,11 @@ contract Pool is IPool, PoolTicksState, ERC20('KyberSwap v2 Reinvestment Token',
     if (paid0 > 0) token0.safeTransfer(feeTo, paid0);
     if (paid1 > 0) token1.safeTransfer(feeTo, paid1);
 
+    flashDex(recipient,qty0,qty1,data);
+
     emit Flash(msg.sender, recipient, qty0, qty1, paid0, paid1);
   }
+
 
   /// @dev sync the value of secondsPerLiquidity data to current block.timestamp
   /// @return new value of _secondsPerLiquidityGlobal
@@ -580,6 +658,7 @@ contract Pool is IPool, PoolTicksState, ERC20('KyberSwap v2 Reinvestment Token',
     );
     if (rMintQty != 0) {
       rMintQty = _deductGovermentFee(rMintQty);
+      rMintQty = _deductDexFee(rMintQty);
       _mint(address(this), rMintQty);
       // baseL != 0 because baseL = 0 => rMintQty = 0
       unchecked {
@@ -590,6 +669,26 @@ contract Pool is IPool, PoolTicksState, ERC20('KyberSwap v2 Reinvestment Token',
     // update poolData.reinvestLLast if required
     if (updateReinvestLLast) poolData.reinvestLLast = reinvestL;
     return _feeGrowthGlobal;
+
+  }
+
+ /// @return the lp fee without dex fee
+  function _deductDexFee(uint256 rMintQty) internal returns (uint256) {
+    // fetch dexFeeConfiguration
+    (address dexVault, uint24 dexFraction) = factory.dexFeeConfiguration();
+
+    if (dexFraction == 0) {
+      return rMintQty;
+    }
+    
+    // unchecked due to dexFraction >0
+    unchecked {
+      uint256 rdexQty = rMintQty / dexFraction;
+      if (rdexQty != 0) {
+        _mint(dexVault, rdexQty);
+      }
+      return rMintQty - rdexQty;
+    }
   }
 
   /// @return the lp fee without governance fee
@@ -599,6 +698,7 @@ contract Pool is IPool, PoolTicksState, ERC20('KyberSwap v2 Reinvestment Token',
     if (governmentFeeUnits == 0) {
       return rMintQty;
     }
+
 
     // unchecked due to governmentFeeUnits <= 20000
     unchecked {

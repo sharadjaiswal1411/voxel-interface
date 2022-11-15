@@ -200,7 +200,7 @@ export default function AddLiquidity({
         useNative,
         tokenId: JSBI.BigInt(tokenId),
       })
-
+      console.log("calldatacalldata",calldata);
       //0.00283161
       const txn: { to: string; data: string; value: string } = {
         to: NETWORKS_INFO[chainId].elastic.nonfungiblePositionManager,

@@ -96,7 +96,7 @@ export default function AddLiquidity({
   //   tokenId ? BigNumber.from(tokenId) : undefined
   // )
   // const hasExistingPosition = !!existingPositionDetails && !positionLoading
-  console.log("FeeAmountFeeAmountFeeAmountFeeAmount",FeeAmount);
+ 
   // fee selection from url
   const feeAmount: FeeAmount | undefined =
     feeAmountFromUrl && Object.values(FeeAmount).includes(parseFloat(feeAmountFromUrl))
@@ -262,7 +262,7 @@ export default function AddLiquidity({
     if (position && account && deadline) {
       const useNative = baseCurrency.isNative ? baseCurrency : quoteCurrency.isNative ? quoteCurrency : undefined
 
-      console.log("positionpositionpositionposition",position);
+      
 
       const { calldata, value } = NonfungiblePositionManager.addCallParameters(position, previousTicks, {
         slippageTolerance: basisPointsToPercent(allowedSlippage[0]),
@@ -271,6 +271,9 @@ export default function AddLiquidity({
         useNative,
         createPool: noLiquidity,
       })
+      
+      console.log("calldatacalldatacalldatacalldata",calldata);
+    
        
       //0.00283161
       const txn: { to: string; data: string; value: string } = {

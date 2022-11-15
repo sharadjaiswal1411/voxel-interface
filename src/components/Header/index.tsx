@@ -57,7 +57,7 @@ const HeaderControls = styled.div`
     justify-content: space-between;
     justify-self: center;
     width: 100%;
-    padding: 5px;
+    padding: 10px;
     position: fixed;
     bottom: 0px;
     left: 0px;

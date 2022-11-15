@@ -39,6 +39,13 @@ interface IFactory {
   /// to be collected out of the fee charged for a pool swap
   event FeeConfigurationUpdated(address feeTo, uint24 governmentFeeUnits);
 
+
+  /// @notice Emitted when fee configuration changes
+  /// @param dexVault Recipient of dex fees
+  /// @param dexFraction Fee amount, in fraction,
+  /// to be collected out of the fee charged for a pool swap
+  event DexFeeConfigurationUpdated(address dexVault, uint24 dexFraction);
+
   /// @notice Emitted when whitelist feature is enabled
   event WhitelistEnabled();
 
@@ -65,6 +72,9 @@ interface IFactory {
   /// @notice Fetches the recipient of government fees
   /// and current government fee charged in fee units
   function feeConfiguration() external view returns (address _feeTo, uint24 _governmentFeeUnits);
+
+
+  function dexFeeConfiguration() external view returns (address _dexVault, uint24 _dexFraction);
 
   /// @notice Returns the status of whitelisting feature of NFT managers
   /// If true, anyone can mint liquidity tokens
@@ -149,6 +159,14 @@ interface IFactory {
   /// @param governmentFeeUnits Fee amount, in fee units,
   /// to be collected out of the fee charged for a pool swap
   function updateFeeConfiguration(address feeTo, uint24 governmentFeeUnits) external;
+
+  /// @notice Updates the address receiving government fees and fee quantity
+  /// @dev Only configMaster is able to perform the update
+  /// @param dexVault Address to receive government fees collected from pools
+  /// @param dexFraction Fee fraction,
+  /// to be collected out of the fee charged for a pool swap
+  function updateDexFeeConfiguration(address dexVault, uint24 dexFraction) external;
+
 
   /// @notice Enables the whitelisting feature
   /// @dev Only configMaster is able to perform the update
