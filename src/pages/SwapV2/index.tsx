@@ -13,7 +13,6 @@ import styled, { DefaultTheme, keyframes } from 'styled-components'
 import { ReactComponent as TutorialSvg } from 'assets/svg/play_circle_outline.svg'
 import { ReactComponent as RoutingIcon } from 'assets/svg/routing-icon.svg'
 import AddressInputPanel from 'components/AddressInputPanel'
-
 import { ButtonConfirmed, ButtonError, ButtonLight, ButtonPrimary } from 'components/Button'
 import { GreyCard } from 'components/Card/index'
 import Column from 'components/Column/index'
@@ -101,6 +100,7 @@ import { convertSymbol } from 'utils/tokenInfo'
 
 
 const LiveChart = lazy(() => import('components/LiveChart'))
+const Transactions = lazy(() => import('components/History/Transactions'))
 const Routing = lazy(() => import('components/swapv2/Routing'))
 const TutorialIcon = styled(TutorialSvg)`
   width: 22px;
@@ -250,8 +250,11 @@ export default function Swap({ history }: RouteComponentProps) {
     () => allDexes?.find(dex => dex.id === tradeComparer?.comparedDex),
     [allDexes, tradeComparer],
   )
+  
   const currencyIn = currencies[Field.INPUT]
   const currencyOut = currencies[Field.OUTPUT]
+
+  
 
   const {
     wrapType,
@@ -680,11 +683,6 @@ export default function Swap({ history }: RouteComponentProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultTokens, refIsCheckNetworkAutoSelect.current])
 
-  // useEffect(() => {
-  //   if (isSelectCurencyMannual) syncUrl(currencyIn, currencyOut) // when we select token manual
-  // }, [currencyIn, currencyOut, isSelectCurencyMannual, syncUrl])
-
-  // swap?inputCurrency=xxx&outputCurrency=yyy. xxx yyy not exist in chain => remove params => select default pair
 
   const checkParamsWrong = () => {
     if (isPairNotfound && !currencyIn && !currencyOut) {
@@ -744,11 +742,7 @@ export default function Swap({ history }: RouteComponentProps) {
     }`
   }, [currencyIn, currencyOut, chainId])
 
-  // const { isInWhiteList: isPairInWhiteList, canonicalUrl } = checkPairInWhiteList(
-  //   chainId,
-  //   getSymbolSlug(currencyIn),
-  //   getSymbolSlug(currencyOut),
-  // )
+
 
   const shouldRenderTokenInfo = isShowTokenInfoSetting && currencyIn && currencyOut
 
@@ -757,11 +751,6 @@ export default function Swap({ history }: RouteComponentProps) {
 
   return (
     <>
-      {/**
-       * /swap/bnb/knc-to-usdt vs /swap/bnb/usdt-to-knc has same content
-       * => add canonical link that specify which is main page, => /swap/bnb/knc-to-usdt
-       */}
-     
      
       <TokenWarningModal
         isOpen={isShowModalImportToken}
@@ -982,12 +971,20 @@ export default function Swap({ history }: RouteComponentProps) {
                         <ButtonLight onClick={toggleWalletModal}>
                           <Trans>Connect Wallet</Trans>
                         </ButtonLight>
-                      ) : showWrap ? (
+                      ): isLoading ? (
+                        <GreyCard style={{ textAlign: 'center', borderRadius: '999px', padding: '12px' }}>
+                          <Text color={theme.subText} fontSize="14px">
+                            <Dots>
+                              <Trans>Calculating best route</Trans>
+                            </Dots>
+                          </Text>
+                        </GreyCard>
+                      )  : showWrap ? (
                         <ButtonPrimary disabled={Boolean(wrapInputError)} onClick={onWrap}>
                           {wrapInputError ??
                             (wrapType === WrapType.WRAP ? t`Wrap` : wrapType === WrapType.UNWRAP ? t`Unwrap` : null)}
                         </ButtonPrimary>
-                      ) : noRoute && userHasSpecifiedInputOutput ? (
+                      ): noRoute && userHasSpecifiedInputOutput ? (
                         <GreyCard style={{ textAlign: 'center', borderRadius: '999px', padding: '12px' }}>
                           <TYPE.main>
                             <Trans>Insufficient liquidity for this trade.</Trans>
@@ -1036,14 +1033,6 @@ export default function Swap({ history }: RouteComponentProps) {
                             </Text>
                           </ButtonError>
                         </RowBetween>
-                      ) : isLoading ? (
-                        <GreyCard style={{ textAlign: 'center', borderRadius: '999px', padding: '12px' }}>
-                          <Text color={theme.subText} fontSize="14px">
-                            <Dots>
-                              <Trans>Calculating best route</Trans>
-                            </Dots>
-                          </Text>
-                        </GreyCard>
                       ) : (
                         <ButtonError
                           onClick={() => {
@@ -1113,6 +1102,8 @@ export default function Swap({ history }: RouteComponentProps) {
               {activeTab === TAB.LIQUIDITY_SOURCES && (
                 <LiquiditySourcesPanel onBack={() => setActiveTab(TAB.SETTINGS)} />
               )}
+
+
             </AppBodyWrapped>
            
           </SwapFormWrapper>
@@ -1132,12 +1123,18 @@ export default function Swap({ history }: RouteComponentProps) {
               {shouldRenderTokenInfo ? <TokenInfoV2 currencyIn={currencyIn} currencyOut={currencyOut} /> : null}
             </InfoComponentsWrapper>
           )}
+        
         </Container>
+
+        <Transactions currencyIn={currencyIn} currencyOut={currencyOut}/>
+        
+      
         <Flex justifyContent="center">
           <SwitchLocaleLinkWrapper>
             <SwitchLocaleLink />
           </SwitchLocaleLinkWrapper>
         </Flex>
+
       </PageWrapper>
     </>
   )

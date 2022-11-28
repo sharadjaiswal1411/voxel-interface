@@ -3,7 +3,7 @@
     "inputs": [
       { "internalType": "address", "name": "_admin", "type": "address" },
       { "internalType": "address[]", "name": "_rewardTokens", "type": "address[]" },
-      { "internalType": "contract IKyberRewardLocker", "name": "_rewardLocker", "type": "address" }
+      { "internalType": "contract IVoxelRewardLocker", "name": "_rewardLocker", "type": "address" }
     ],
     "stateMutability": "nonpayable",
     "type": "constructor"
@@ -244,7 +244,7 @@
   {
     "inputs": [],
     "name": "rewardLocker",
-    "outputs": [{ "internalType": "contract IKyberRewardLocker", "name": "", "type": "address" }],
+    "outputs": [{ "internalType": "contract IVoxelRewardLocker", "name": "", "type": "address" }],
     "stateMutability": "view",
     "type": "function"
   },

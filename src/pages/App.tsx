@@ -158,7 +158,7 @@ export default function App() {
             <Text marginTop="24px" fontSize="14px" lineHeight={2}>
               The US Treasury&apos;s OFAC has published a list of addresses associated with Tornado Cash. Your wallet
               address below is flagged as one of the addresses on this list, provided by our compliance vendor. As a
-              result, it is blocked from using KyberSwap and all of its related services at this juncture.
+              result, it is blocked from using VoxelSwap and all of its related services at this juncture.
             </Text>
             <Flex
               marginTop="24px"

@@ -71,6 +71,11 @@ export interface UserLiquidityPosition {
   }
 }
 
+
+
+
+
+
 export interface UserLiquidityPositionResult {
   loading: boolean
   error: any
@@ -78,6 +83,8 @@ export interface UserLiquidityPositionResult {
     liquidityPositions: UserLiquidityPosition[]
   }
 }
+
+
 
 /**
  * Get my liquidity for all pools

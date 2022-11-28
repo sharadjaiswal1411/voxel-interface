@@ -1,17 +1,17 @@
-import { gql, useQuery } from '@apollo/client'
+import { gql, useQuery, ApolloClient,NormalizedCacheObject } from '@apollo/client'
 import { ChainId, CurrencyAmount, Token } from '@kyberswap/ks-sdk-core'
 import { Pool, Position } from '@kyberswap/ks-sdk-elastic'
 import dayjs from 'dayjs'
 import JSBI from 'jsbi'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
 import { PROMM_POOLS_BULK, ProMMPoolFields } from 'apollo/queries/promm'
 import { ELASTIC_BASE_FEE_UNIT } from 'constants/index'
 import { NETWORKS_INFO } from 'constants/networks'
 import { useActiveWeb3React } from 'hooks'
 import { getBlocksFromTimestamps } from 'utils'
 import { get2DayChange } from 'utils/data'
+
 
 import { AppState } from '../index'
 import { setSharedPoolId } from './actions'
@@ -100,6 +100,67 @@ export interface UserPosition {
   }
 }
 
+
+const GET_TRADE_HISTORY = gql`
+   query tradeHistory($token0: Bytes!,$token1: Bytes!,$order: Bytes!) {
+          swaps(
+            first: 5
+            where: { token0:$token0,token1:$token1 }
+            orderBy: timestamp
+            orderDirection: $order
+          ) {
+            id
+            token0 {
+              id
+              name
+              symbol
+            }
+            token1 {
+              id
+              name
+              symbol
+            }
+            amount0
+            amount1
+            amountUSD
+            transaction {
+              id
+            }
+            sender
+            timestamp
+          }
+        }
+  `
+const GET_LIQUIDITY_HISTORY = gql`
+   query tradeHistory($token0: Bytes!,$token1: Bytes!,$order: Bytes!) {
+          mints(
+            first: 5
+            where: { token0:$token0,token1:$token1 }
+            orderBy: timestamp
+            orderDirection: $order
+          ) {
+            id
+            token0 {
+              id
+              name
+              symbol
+            }
+            token1 {
+              id
+              name
+              symbol
+            }
+            amount0
+            amount1
+            amountUSD
+            transaction {
+              id
+            }
+            sender
+            timestamp
+          }
+        }
+  `  
 const PROMM_USER_POSITIONS = gql`
   query positions($owner: Bytes!) {
     bundles {
@@ -147,6 +208,52 @@ export interface UserPositionResult {
   }
   positions: { address: string; valueUSD: number; tokenId: string }[]
 }
+
+
+/**
+ * Get trade history of specific pool
+ *
+ * @param user string
+ */
+export function useTradeHistory(apolloClient: ApolloClient<NormalizedCacheObject>,token0: any,token1: any,order: string){
+
+   const { loading, error, data } = useQuery(GET_TRADE_HISTORY, {
+    client: apolloClient,
+    variables: {
+      token0: token0?.address?.toLowerCase(),
+      token1: token1?.address?.toLowerCase(),
+      order: order?.toLowerCase()
+    },
+    fetchPolicy: 'no-cache',
+  })
+
+   return { loading, error, data };
+ 
+}
+
+/**
+ * Get trade history of specific pool
+ *
+ * @param user string
+ */
+export function useLiquidityHistory(apolloClient: ApolloClient<NormalizedCacheObject>,token0: any,token1: any,order: string){
+
+   const { loading, error, data } = useQuery(GET_LIQUIDITY_HISTORY, {
+    client: apolloClient,
+    variables: {
+      token0: token0?.address?.toLowerCase(),
+      token1: token1?.address?.toLowerCase(),
+      order: order?.toLowerCase()
+    },
+    fetchPolicy: 'no-cache',
+  })
+
+  return { loading, error, data };
+ 
+}
+
+
+
 
 /**
  * Get my liquidity for all pools

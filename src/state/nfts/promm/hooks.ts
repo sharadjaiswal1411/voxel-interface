@@ -90,7 +90,7 @@ export const useTokenStakingDetailsAction = (stakingAddress: string, stakedToken
     const data = await contract.getPoolInfo();
     const tokenStaked = await contract.minStakeRequiredOf(account);
     const stakeOf = await contract.stakeOf(account);
-    const { apy, closingIn, lockPeriod, minStakeRequired, rewardToken, stakedToken, totalStaked, unstakeFee } = data[0];
+    const { apy, closingIn, lockPeriod, minStakeRequired, rewardToken, stakedToken, totalStaked } = data[0];
     const isApproved = await tokenContract.allowance(account, stakingAddress);
     const balance = await tokenContract.balanceOf(account);
     const now = Date.now() / 1000
@@ -109,7 +109,7 @@ export const useTokenStakingDetailsAction = (stakingAddress: string, stakedToken
       tokenStaked: Number(utils.formatEther(tokenStaked)),
       availableTokens: Number(utils.formatEther(balance)),
       isClosed: isClosed,
-      unstakeFee: unstakeFee.toNumber() / 100,
+      unstakeFee: 0,
       isApproved: Number(utils.formatEther(isApproved)),
       lockPeriodUntil: stakeOf.lockPeriodUntil,
     };
@@ -131,7 +131,7 @@ export const useTokenStakingDetailsAction = (stakingAddress: string, stakedToken
     });
     addTransactionWithType(tx, {
       type: "Approve",
-      summary: `Staking contract approved`,
+      summary: `Staking contract`,
     });
 
     return tx.hash;
@@ -149,10 +149,12 @@ export const useTokenStakingDetailsAction = (stakingAddress: string, stakedToken
       let allowance = await tokenContract.allowance(account, stakingAddress);
       allowance = allowance.toString()
 
+  
       console.log({ tokens }, "allowance", allowance)
 
-      if (tokens >= allowance) {
-
+      if (parseInt(tokens) >= parseInt(allowance)) {
+       
+       // 100000000000000000000
         const balance = await tokenContract.balanceOf(account);
         const estimateGas1 = await tokenContract.estimateGas.approve(
           stakingAddress,
@@ -161,10 +163,10 @@ export const useTokenStakingDetailsAction = (stakingAddress: string, stakedToken
         const tx1 = await tokenContract.approve(stakingAddress, balance.toString(), {
           gasLimit: calculateGasMargin(estimateGas1),
         });
-        addTransactionWithType(tx1, {
-          type: "Approve",
-          summary: `Token allowance approved`,
-        });
+        // addTransactionWithType(tx1, {
+        //   type: "Approve",
+        //   summary: `Token allowance`,
+        // });
 
       }
 
@@ -275,7 +277,7 @@ export const useFarmAction = (stakingAddress: string, nftAddress: string) => {
     });
     addTransactionWithType(tx, {
       type: "Approve",
-      summary: `Staking contract approved`,
+      summary: `Staking contract`,
     });
 
     return tx.hash;

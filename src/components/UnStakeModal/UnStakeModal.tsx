@@ -111,8 +111,9 @@ export default function UnStakeModal(params: any): JSX.Element | null {
             <Trans>
               <label>Tokens are locked until {lockPeriodUntil}</label>
               <br />
-              {(params.unstakeFee > 0) &&
+              {(params.unstakeFee > 0) ?
                 <label style={{ fontSize: "12px", marginTop: "24px" }}>Emergency unstake fee {params.unstakeFee}%</label>
+                : ""
               }
             </Trans>
           </Text>

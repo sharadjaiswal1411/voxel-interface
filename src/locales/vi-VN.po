@@ -399,6 +399,7 @@ msgstr ""
 #~ msgid "Always make sure the URL is<0>KyberSwap.com</0> - bookmark it to be safe."
 #~ msgstr "Luôn đảm bảo URL là<0>KyberSwap.com</0> - nên bookmark link này để an toàn hơn."
 
+#: src/components/History/Transactions.tsx
 #: src/pages/RemoveLiquidity/TokenPair.tsx
 #: src/pages/RemoveLiquidity/ZapOut.tsx
 msgid "Amount"
@@ -910,7 +911,6 @@ msgid "Confirm this transaction in your wallet"
 msgstr "Chấp thuận giao dịch này trong ví của bạn"
 
 #: src/components/Menu/FaucetModal.tsx
-#: src/components/Web3Status/index.tsx
 #: src/components/YieldPools/ListItem.tsx
 #: src/components/YieldPools/ProMMFarmGroup/buttons.tsx
 #: src/pages/AddLiquidity/TokenPair.tsx
@@ -2225,6 +2225,10 @@ msgstr ""
 msgid "Liquidity"
 msgstr ""
 
+#: src/components/History/Transactions.tsx
+msgid "Liquidity History"
+msgstr ""
+
 #: src/components/swap/AdvancedSwapDetails.tsx
 #: src/components/swap/SwapModalFooter.tsx
 msgid "Liquidity Provider Fee"
@@ -2550,6 +2554,10 @@ msgstr "Không tìm thấy kết quả"
 msgid "No KYC or sign-ups required"
 msgstr ""
 
+#: src/components/History/Transactions.tsx
+msgid "No Liquidity History Available."
+msgstr ""
+
 #: src/components/NftPools/StakedNftCards.tsx
 msgid "No NFTs Staked. Please stake one."
 msgstr ""
@@ -2564,6 +2572,10 @@ msgstr ""
 
 #: src/pages/TokenAmmPool/index.tsx
 msgid "No Staking pools found. Please visit later."
+msgstr ""
+
+#: src/components/History/Transactions.tsx
+msgid "No Trading History Available."
 msgstr ""
 
 #: src/pages/About/AboutKyberSwap.tsx
@@ -3760,6 +3772,10 @@ msgstr ""
 msgid "Thousands of users and multiple decentralized applications are already providing and using our liquidity."
 msgstr ""
 
+#: src/components/History/Transactions.tsx
+msgid "Time"
+msgstr ""
+
 #: src/pages/TrueSight/components/FilterBar/index.tsx
 #: src/pages/TrueSight/components/FilterBar/index.tsx
 msgid "Timeframe"
@@ -3962,6 +3978,10 @@ msgstr ""
 msgid "Tradable token pair price range for this pool based on AMP. If the price goes below or above this range, the pool may become inactive."
 msgstr "Phạm vi giá của cặp token có thể giao dịch cho Pool này được dựa trên AMP. Nếu giá thấp hơn hoặc cao hơn phạm vi này, Pool có thể không hoạt động."
 
+#: src/components/History/Transactions.tsx
+msgid "Trade History"
+msgstr ""
+
 #: src/components/TransactionSettings/index.tsx
 msgid "Trade Route"
 msgstr ""
@@ -4081,6 +4101,10 @@ msgstr "Hash của giao dịch"
 #: 
 #~ msgid "UNLOCKED"
 #~ msgstr "ĐÃ MỞ KHÓA"
+
+#: src/components/History/Transactions.tsx
+msgid "USD"
+msgstr ""
 
 #: src/pages/SwapV2/index.tsx
 msgid "Unable to calculate Price Impact"
@@ -4693,10 +4717,13 @@ msgstr "Thanh khoản của bạn"
 
 #: src/components/PoolList/ItemCard/TabInfoItems.tsx
 #: src/components/PoolList/ItemCard/TabYourLiquidityItems.tsx
-#: src/components/PositionCard/index.tsx
 #: src/components/ProAmm/ProAmmPooledTokens.tsx
 #: src/pages/ProAmmPools/CardItem.tsx
 msgid "Your Liquidity Balance"
+msgstr ""
+
+#: src/components/PositionCard/index.tsx
+msgid "Your Liquidity Balance1"
 msgstr ""
 
 #: src/pages/Campaign/CampaignItem.tsx
@@ -4938,6 +4965,8 @@ msgstr ""
 msgid "your wallet"
 msgstr ""
 
+#: src/components/History/Transactions.tsx
+#: src/components/History/Transactions.tsx
 #: src/components/PositionPreview/index.tsx
 #: src/components/ProAmm/ProAmmPooledTokens.tsx
 #: src/components/ProAmm/ProAmmPriceRange.tsx
@@ -4946,6 +4975,7 @@ msgstr ""
 #: src/components/RateToggle/index.tsx
 #: src/components/StakeModal/StakeModal.tsx
 #: src/components/UnStakeModal/UnStakeModal.tsx
+#: src/components/Web3Status/index.tsx
 #: src/components/swapv2/TokenInfo.tsx
 #: src/components/swapv2/TokenInfoV2/SingleTokenInfo.tsx
 #: src/pages/Bridge/PoolInfo.tsx
@@ -5006,6 +5036,10 @@ msgstr "{0} đã bị loại bỏ"
 #: src/components/SearchModal/ManageLists.tsx
 msgid "{0} tokens"
 msgstr "{0} tokens"
+
+#: src/components/History/Transactions.tsx
+msgid "{0} {1} - {2} {3}"
+msgstr ""
 
 #: src/pages/TrueSight/components/TrendingLayout/TrendingTokenItemMobileOnly.tsx
 msgid "{0} ↗"

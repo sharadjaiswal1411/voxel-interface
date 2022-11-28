@@ -250,7 +250,7 @@ const STABLE_COINS = {
   ],
   [ChainId.GÖRLI]: [
     '0x07865c6E87B9F70255377e024ace6630C1Eaa37F', //usdc
-    '0x509Ee0d083DdF8AC028f2a56731412edD63223B9', //usdte
+    '0x2bf64acf7ead856209749d0d125e9ade2d908e7f', //usdte
   ],
   [ChainId.MATIC]: [
     '0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063', //DAI

@@ -133,7 +133,7 @@
           { "internalType": "uint128", "name": "quantity", "type": "uint128" },
           { "internalType": "uint128", "name": "vestedQuantity", "type": "uint128" }
         ],
-        "internalType": "struct IKyberRewardLocker.VestingSchedule",
+        "internalType": "struct IVoxelRewardLocker.VestingSchedule",
         "name": "",
         "type": "tuple"
       }
@@ -155,7 +155,7 @@
           { "internalType": "uint128", "name": "quantity", "type": "uint128" },
           { "internalType": "uint128", "name": "vestedQuantity", "type": "uint128" }
         ],
-        "internalType": "struct IKyberRewardLocker.VestingSchedule[]",
+        "internalType": "struct IVoxelRewardLocker.VestingSchedule[]",
         "name": "schedules",
         "type": "tuple[]"
       }

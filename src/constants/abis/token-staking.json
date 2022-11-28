@@ -3,6 +3,16 @@
 				"inputs": [
 					{
 						"internalType": "address",
+						"name": "_factory",
+						"type": "address"
+					},
+					{
+						"internalType": "contract IPermissionAdmin",
+						"name": "_permissionAdmin",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
 						"name": "_stakedToken",
 						"type": "address"
 					},
@@ -182,11 +192,6 @@
 						"internalType": "uint256",
 						"name": "totalStaked",
 						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "unstakeFee",
-						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -223,6 +228,19 @@
 				"name": "emergencyUnstake",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "factory",
+				"outputs": [
+					{
+						"internalType": "contract IFactory",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -277,11 +295,6 @@
 							{
 								"internalType": "uint256",
 								"name": "totalStaked",
-								"type": "uint256"
-							},
-							{
-								"internalType": "uint256",
-								"name": "unstakeFee",
 								"type": "uint256"
 							}
 						],
@@ -455,19 +468,6 @@
 					}
 				],
 				"name": "updateLockPeriod",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_fee",
-						"type": "uint256"
-					}
-				],
-				"name": "updateUnStakeBefore",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"

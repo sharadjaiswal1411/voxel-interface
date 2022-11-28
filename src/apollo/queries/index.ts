@@ -240,7 +240,7 @@ export const POOL_DATA = (poolAddress: string, block: number, withFee?: boolean)
     ${PoolFields(withFee)}
     `
 
-  return gql(queryString)
+   return gql(queryString)
 }
 
 export const POOL_COUNT = gql`
@@ -313,6 +313,77 @@ export const POOLS_HISTORICAL_BULK_FROM_LIST = (block: number, pools: string[], 
 
   return gql(queryString)
 }
+
+
+export const GET_LIQUIDITY_HISTORY = (token0: string, token1: string,order: string ) => {
+
+  return gql`
+        query liquidityHistory {
+          mints(
+            first: 10
+            where: { token0: ${token0},token1:${token1} }
+            orderBy: timestamp
+            orderDirection: ${order}
+          ) {
+            id
+            timestamp
+            token0 {
+              id
+              name
+              symbol
+            }
+            token1 {
+              id
+              name
+              symbol
+            }
+            amount0
+            amount1
+            amountUSD
+            transaction {
+              id
+            }
+          }
+        }
+  `
+}
+
+
+export const GET_TRADE_HISTORY = (token0: string, token1: string,order: string ) => {
+  
+  return gql`
+        query tradeHistory {
+          swaps(
+            first: 10
+            where: { token0: ${token0},token1:${token1} }
+            orderBy: timestamp
+            orderDirection: ${order}
+          ) {
+            id
+            token0 {
+              id
+              name
+              symbol
+            }
+            token1 {
+              id
+              name
+              symbol
+            }
+            amount0
+            amount1
+            amountUSD
+            transaction {
+              id
+            }
+            sender
+            timestamp
+          }
+        }
+  `
+}
+
+
 
 export const POOLS_HISTORICAL_BULK_WITH_PAGINATION = (
   first: number,

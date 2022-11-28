@@ -136,11 +136,12 @@ const Container = styled.div`
   overflow: hidden;
   display: flex;
   gap: 16px;
-  padding: 6px 6px 6px 12px;
+  padding: 6px 6px 6px 12px!important;
   background: ${({ theme }) => theme.background};
   border-radius: 999px;
   align-items: center;
   position: relative;
+
 
   ${({ theme }) => theme.mediaWidth.upToSmall`
     background: ${({ theme }) => theme.buttonBlack};
@@ -155,6 +156,7 @@ const Title = styled.div`
   align-items: center;
   color: ${({ theme }) => theme.subText};
   gap: 4px;
+
 `
 
 const TitleText = styled.span`

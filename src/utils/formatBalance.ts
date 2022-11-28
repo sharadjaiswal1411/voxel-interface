@@ -72,14 +72,18 @@ export const formatTokenBalance = (balance: number): string => {
   return balance.toFixed(3)
 }
 
-export const formatBalance = (balance: number): string => {
+export const formatBalance = (balance: any): string => {
+
+  balance=Math.abs(parseFloat(balance));
+
+
   if (balance === 0) {
     return '0'
   }
-
-  // if (0 < balance && balance < 1) {
-  //   return balance.toPrecision(2)
-  // }
+ 
+  if (0 < balance && balance < 1) {
+    return balance.toPrecision(3)
+  }
   return balance.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     
 }

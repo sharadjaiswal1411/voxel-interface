@@ -391,6 +391,7 @@ msgstr "All positions"
 #~ msgid "Always make sure the URL is<0>KyberSwap.com</0> - bookmark it to be safe."
 #~ msgstr "Always make sure the URL is<0>KyberSwap.com</0> - bookmark it to be safe."
 
+#: src/components/History/Transactions.tsx
 #: src/pages/RemoveLiquidity/TokenPair.tsx
 #: src/pages/RemoveLiquidity/ZapOut.tsx
 msgid "Amount"
@@ -857,7 +858,6 @@ msgid "Confirm this transaction in your wallet"
 msgstr "Confirm this transaction in your wallet"
 
 #: src/components/Menu/FaucetModal.tsx
-#: src/components/Web3Status/index.tsx
 #: src/components/YieldPools/ListItem.tsx
 #: src/components/YieldPools/ProMMFarmGroup/buttons.tsx
 #: src/pages/AddLiquidity/TokenPair.tsx
@@ -2176,6 +2176,10 @@ msgstr "Limit Order"
 msgid "Liquidity"
 msgstr "Liquidity"
 
+#: src/components/History/Transactions.tsx
+msgid "Liquidity History"
+msgstr "Liquidity History"
+
 #: src/components/swap/AdvancedSwapDetails.tsx
 #: src/components/swap/SwapModalFooter.tsx
 msgid "Liquidity Provider Fee"
@@ -2501,6 +2505,10 @@ msgstr "No Farms found"
 msgid "No KYC or sign-ups required"
 msgstr "No KYC or sign-ups required"
 
+#: src/components/History/Transactions.tsx
+msgid "No Liquidity History Available."
+msgstr "No Liquidity History Available."
+
 #: src/components/NftPools/StakedNftCards.tsx
 msgid "No NFTs Staked. Please stake one."
 msgstr "No NFTs Staked. Please stake one."
@@ -2516,6 +2524,10 @@ msgstr "No Nft Contract available for Staking."
 #: src/pages/TokenAmmPool/index.tsx
 msgid "No Staking pools found. Please visit later."
 msgstr "No Staking pools found. Please visit later."
+
+#: src/components/History/Transactions.tsx
+msgid "No Trading History Available."
+msgstr "No Trading History Available."
 
 #: src/pages/About/AboutKyberSwap.tsx
 msgid "No extra deposit or withdrawal fees"
@@ -3707,6 +3719,10 @@ msgstr "This pool require {0} LP Tokens. Get the LP Tokens <0>here ↗</0>"
 msgid "Thousands of users and multiple decentralized applications are already providing and using our liquidity."
 msgstr "Thousands of users and multiple decentralized applications are already providing and using our liquidity."
 
+#: src/components/History/Transactions.tsx
+msgid "Time"
+msgstr "Time"
+
 #: src/pages/TrueSight/components/FilterBar/index.tsx
 #: src/pages/TrueSight/components/FilterBar/index.tsx
 msgid "Timeframe"
@@ -3909,6 +3925,10 @@ msgstr "Tradable token pair price range for this pool based on AMP. If the price
 msgid "Tradable token pair price range for this pool based on AMP. If the price goes below or above this range, the pool may become inactive."
 msgstr "Tradable token pair price range for this pool based on AMP. If the price goes below or above this range, the pool may become inactive."
 
+#: src/components/History/Transactions.tsx
+msgid "Trade History"
+msgstr "Trade History"
+
 #: src/components/TransactionSettings/index.tsx
 msgid "Trade Route"
 msgstr "Trade Route"
@@ -4028,6 +4048,10 @@ msgstr "Txn Hash"
 #: 
 #~ msgid "UNLOCKED"
 #~ msgstr "UNLOCKED"
+
+#: src/components/History/Transactions.tsx
+msgid "USD"
+msgstr "USD"
 
 #: src/pages/SwapV2/index.tsx
 msgid "Unable to calculate Price Impact"
@@ -4632,11 +4656,14 @@ msgstr "Your Liquidity"
 
 #: src/components/PoolList/ItemCard/TabInfoItems.tsx
 #: src/components/PoolList/ItemCard/TabYourLiquidityItems.tsx
-#: src/components/PositionCard/index.tsx
 #: src/components/ProAmm/ProAmmPooledTokens.tsx
 #: src/pages/ProAmmPools/CardItem.tsx
 msgid "Your Liquidity Balance"
 msgstr "Your Liquidity Balance"
+
+#: src/components/PositionCard/index.tsx
+msgid "Your Liquidity Balance1"
+msgstr "Your Liquidity Balance1"
 
 #: src/pages/Campaign/CampaignItem.tsx
 msgid "Your Number of Trades"
@@ -4872,6 +4899,8 @@ msgstr "to"
 msgid "your wallet"
 msgstr "your wallet"
 
+#: src/components/History/Transactions.tsx
+#: src/components/History/Transactions.tsx
 #: src/components/PositionPreview/index.tsx
 #: src/components/ProAmm/ProAmmPooledTokens.tsx
 #: src/components/ProAmm/ProAmmPriceRange.tsx
@@ -4880,6 +4909,7 @@ msgstr "your wallet"
 #: src/components/RateToggle/index.tsx
 #: src/components/StakeModal/StakeModal.tsx
 #: src/components/UnStakeModal/UnStakeModal.tsx
+#: src/components/Web3Status/index.tsx
 #: src/components/swapv2/TokenInfo.tsx
 #: src/components/swapv2/TokenInfoV2/SingleTokenInfo.tsx
 #: src/pages/Bridge/PoolInfo.tsx
@@ -4940,6 +4970,10 @@ msgstr "{0} removed"
 #: src/components/SearchModal/ManageLists.tsx
 msgid "{0} tokens"
 msgstr "{0} tokens"
+
+#: src/components/History/Transactions.tsx
+msgid "{0} {1} - {2} {3}"
+msgstr "{0} {1} - {2} {3}"
 
 #: src/pages/TrueSight/components/TrendingLayout/TrendingTokenItemMobileOnly.tsx
 msgid "{0} ↗"

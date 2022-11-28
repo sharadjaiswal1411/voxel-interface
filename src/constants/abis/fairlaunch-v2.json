@@ -13,7 +13,7 @@
                 "type": "address[]"
             },
             {
-                "internalType": "contract IKyberRewardLockerV2",
+                "internalType": "contract IVoxelRewardLockerV2",
                 "name": "_rewardLocker",
                 "type": "address"
             }
@@ -701,7 +701,7 @@
         "outputs":
         [
             {
-                "internalType": "contract IKyberRewardLockerV2",
+                "internalType": "contract IVoxelRewardLockerV2",
                 "name": "",
                 "type": "address"
             }

@@ -79,7 +79,12 @@ const görliInfo: NetworkInfo = {
     initCodeHash: '0x5c878a9c1f788b21f73866aafd7454d090020eb38cda2d676bd4b07d9a35deb9',
     quoter: '0x9eb194244b591c5F9555eaaef38fB66fafD3c405',
     routers: '0x93F98f44C6d05d6Fd7B030124F508aE6038a4107',
+  //  rewardLocker:'0x99908d55Bf782a323c853DcDf113Cf0564fAE385'
+   // farming:'0x206a4b628B8bb3c920Fc7C11CCB133Dd97C4F453'
    // descriptor: '0x4880C819F4C2249e23655866bA48e29CC5153901'
+   // PERMISSIONADMIN: 0x9c2e6d70758C1BAe3314d4291cBdBF03f085e191
+   // VOXELVAULT: 0x0b1081f8818eA025247100AaE2024a5D0b9577a8
+    // sha1:"0x8Af882BDcfC7cbF19E0930E609dc9D16663841e1"
   },
   // elastic: {
   //AntiSnipAttackPositionManager:      0xF5a98977213B3CF67A041A45b29E8ED389D7B0D2
@@ -89,10 +94,11 @@ const görliInfo: NetworkInfo = {
   //   initCodeHash: '0x080521b821ffe6f72ff78232bd25a0a2b65610261e006e50558215bee082ab73',
   //   quoter: '0xA7cA99e835f3DB274289742f154BfA5E45459F0A',
   //   routers: '0x510875C6eDAE8Ad25AD38AA741D82E2b33bc32fe',
+  //   abhitoken 0x12a3b86d4f8947997882aae73cb041e2d325caac
   // },
   staking: {
     nftFactory: '0x1E18fc64D42c7bdA0dDE0164e9B82A4E757a989b',
-    tokenFactory: '0xdBA1E8d2d9B81db4ad5Da5Bb790EffCe7b1620C2'
+    tokenFactory: '0x90E08273AffF1074C6e4F6a4cc1802539e8Ed50a'
   },
   averageBlockTimeInSeconds: 13.13,
   coingeckoNetworkId: EMPTY,

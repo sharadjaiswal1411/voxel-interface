@@ -1,5 +1,16 @@
 [
 			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_permissionAdmin",
+						"type": "address"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
 				"anonymous": false,
 				"inputs": [
 					{
@@ -91,6 +102,40 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "stakedToken",
+						"type": "address"
+					}
+				],
+				"name": "dexFeeConfiguration",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "_dexToken",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_dexVault",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_dexStakeFee",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_dexUnStakeFee",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "listVaults",
 				"outputs": [
@@ -167,6 +212,34 @@
 					}
 				],
 				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_dexToken",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_dexVault",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_dexStakeFee",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_dexUnStakeFee",
+						"type": "uint256"
+					}
+				],
+				"name": "updateDexFeeConfiguration",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"

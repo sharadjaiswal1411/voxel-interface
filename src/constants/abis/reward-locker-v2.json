@@ -320,7 +320,7 @@
             "type": "uint128"
           }
         ],
-        "internalType": "struct IKyberRewardLockerV2.VestingSchedule",
+        "internalType": "struct IVoxelRewardLockerV2.VestingSchedule",
         "name": "",
         "type": "tuple"
       }
@@ -366,7 +366,7 @@
             "type": "uint128"
           }
         ],
-        "internalType": "struct IKyberRewardLockerV2.VestingSchedule[]",
+        "internalType": "struct IVoxelRewardLockerV2.VestingSchedule[]",
         "name": "schedules",
         "type": "tuple[]"
       }
