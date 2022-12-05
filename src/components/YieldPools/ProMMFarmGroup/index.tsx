@@ -213,6 +213,8 @@ const ProMMFarmGroup: React.FC<Props> = ({ address, onOpenModal, farms }) => {
 
   if (!farms) return null
 
+console.log("allfarns",farms);
+
   const canHarvest = farms.some(farm => farm.userDepositedNFTs.some(pos => !!pos.rewardPendings.length))
   const canWithdraw = farms.some(farms => farms.userDepositedNFTs.length)
 

@@ -97,8 +97,8 @@ const görliInfo: NetworkInfo = {
   //   abhitoken 0x12a3b86d4f8947997882aae73cb041e2d325caac
   // },
   staking: {
-    nftFactory: '0x1E18fc64D42c7bdA0dDE0164e9B82A4E757a989b',
-    tokenFactory: '0x90E08273AffF1074C6e4F6a4cc1802539e8Ed50a'
+    nftFactory: '0xe6336C2f375E9199CA1515167ab1da4dE43D9E6c',
+    tokenFactory: '0x115f934264f4d5347185f386C1b4A979bB40610d'
   },
   averageBlockTimeInSeconds: 13.13,
   coingeckoNetworkId: EMPTY,

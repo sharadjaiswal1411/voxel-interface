@@ -10,8 +10,10 @@ export const FARM_CONTRACTS: { readonly [chainId in ChainId]?: Array<string> } =
   [ChainId.AVAXMAINNET]: ['0xBdEc4a045446F583dc564C0A227FFd475b329bf0', '0x5C503D4b7DE0633f031229bbAA6A5e4A31cc35d8'],
   [ChainId.ARBITRUM]: ['0xBdEc4a045446F583dc564C0A227FFd475b329bf0'],
   [ChainId.OPTIMISM]: ['0xb85ebE2e4eA27526f817FF33fb55fB240057C03F'],
-  [ChainId.GÖRLI]: ['0x206a4b628B8bb3c920Fc7C11CCB133Dd97C4F453'],
+  [ChainId.GÖRLI]: ['0xf43c605C4A3Dd7B9BfF2fC6921087E29a30A058E'],
 }
+
+
 
 export const ELASTIC_NOT_SUPPORTED: { [key: string]: string } = {
   [ChainId.AURORA]: t`Elastic is not supported on Aurora. Please switch to other chains`,
