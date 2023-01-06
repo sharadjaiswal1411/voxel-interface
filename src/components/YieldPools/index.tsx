@@ -93,8 +93,8 @@ const YieldPools = ({ loading, active }: { loading: boolean; active?: boolean })
           // search farms
           (debouncedSearchText
             ? farm.token0?.symbol.toLowerCase().includes(debouncedSearchText) ||
-              farm.token1?.symbol.toLowerCase().includes(debouncedSearchText) ||
-              farm.id === debouncedSearchText
+            farm.token1?.symbol.toLowerCase().includes(debouncedSearchText) ||
+            farm.id === debouncedSearchText
             : true) &&
           // stakedOnly
           (stakedOnly[activeTab]
@@ -108,13 +108,13 @@ const YieldPools = ({ loading, active }: { loading: boolean; active?: boolean })
           (isSipherFarm
             ? active
             : active
-            ? farm.endBlock >= blockNumber || tobeExtended
-            : farm.endBlock < blockNumber) &&
+              ? farm.endBlock >= blockNumber || tobeExtended
+              : farm.endBlock < blockNumber) &&
           // search farms
           (debouncedSearchText
             ? farm.token0?.symbol.toLowerCase().includes(debouncedSearchText) ||
-              farm.token1?.symbol.toLowerCase().includes(debouncedSearchText) ||
-              farm.id === debouncedSearchText
+            farm.token1?.symbol.toLowerCase().includes(debouncedSearchText) ||
+            farm.id === debouncedSearchText
             : true) &&
           // stakedOnly
           (stakedOnly[activeTab]

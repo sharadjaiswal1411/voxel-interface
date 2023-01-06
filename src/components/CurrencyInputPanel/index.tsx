@@ -27,7 +27,7 @@ export const InputRow = styled.div`
   align-items: center;
 `
 
-const StyledSwitchIcon = styled(SwitchIcon)<{ selected: boolean }>`
+const StyledSwitchIcon = styled(SwitchIcon) <{ selected: boolean }>`
   height: 35%;
 
   path {
@@ -56,11 +56,11 @@ export const CurrencySelect = styled.button<{ selected: boolean; hideInput?: boo
   :focus,
   :hover {
     background-color: ${({ selected, hideInput, theme }) =>
-      selected
-        ? hideInput
-          ? darken(0.05, theme.buttonBlack)
-          : lighten(0.05, theme.background)
-        : darken(0.05, theme.primary)};
+    selected
+      ? hideInput
+        ? darken(0.05, theme.buttonBlack)
+        : lighten(0.05, theme.background)
+      : darken(0.05, theme.primary)};
     color: ${({ selected, theme }) => (selected ? theme.subText : theme.text)};
   }
 `
@@ -125,7 +125,7 @@ const StyledBalanceMax = styled.button`
   cursor: pointer;
 `
 
-const Card2 = styled(Card)<{ balancePosition: string }>`
+const Card2 = styled(Card) <{ balancePosition: string }>`
   padding: 0 0.25rem 0.5rem;
   text-align: ${({ balancePosition }) => `${balancePosition}`};
 `

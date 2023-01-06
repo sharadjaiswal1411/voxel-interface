@@ -4,7 +4,7 @@ import { Currency, CurrencyAmount, WETH } from '@kyberswap/ks-sdk-core'
 import { FeeAmount, NonfungiblePositionManager } from '@kyberswap/ks-sdk-elastic'
 import { Trans, t } from '@lingui/macro'
 import JSBI from 'jsbi'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { AlertTriangle } from 'react-feather'
 import { RouteComponentProps } from 'react-router-dom'
 import { Flex, Text } from 'rebass'
@@ -13,13 +13,11 @@ import styled from 'styled-components'
 import { ButtonError, ButtonLight, ButtonPrimary, ButtonWarning } from 'components/Button'
 import { OutlineCard, WarningCard } from 'components/Card'
 import { AutoColumn } from 'components/Column'
-import CurrencyInputPanel from 'components/CurrencyInputPanel'
 //import FeeSelector from 'components/FeeSelector'
 import HoverInlineText from 'components/HoverInlineText'
-import { Swap as SwapIcon } from 'components/Icons'
 import InfoHelper from 'components/InfoHelper'
 import LiquidityChartRangeInput from 'components/LiquidityChartRangeInput'
-import { AddRemoveTabs, LiquidityAction } from 'components/NavigationTabs'
+import { LiquidityAction } from 'components/NavigationTabs'
 import ProAmmPoolInfo from 'components/ProAmm/ProAmmPoolInfo'
 import ProAmmPooledTokens from 'components/ProAmm/ProAmmPooledTokens'
 import ProAmmPriceRange from 'components/ProAmm/ProAmmPriceRange'
@@ -50,26 +48,93 @@ import {
 } from 'state/mint/proamm/hooks'
 import { useTransactionAdder } from 'state/transactions/hooks'
 import { useIsExpertMode } from 'state/user/hooks'
-import { StyledInternalLink, TYPE } from 'theme'
-import { basisPointsToPercent, calculateGasMargin, formattedNum } from 'utils'
+import { TYPE } from 'theme'
+import { basisPointsToPercent, calculateGasMargin, formattedNum, isAddress } from 'utils'
 import { currencyId } from 'utils/currencyId'
 import { maxAmountSpend } from 'utils/maxAmountSpend'
 import { unwrappedToken } from 'utils/wrappedCurrency'
 
 import { useUserSlippageTolerance } from '../../state/user/hooks'
 import {
-  Container,
   DynamicSection,
   FlexLeft,
-  HideMedium,
-  MediumOnly,
-  PageWrapper,
   ResponsiveTwoColumns,
   RightContainer,
   StackedContainer,
   StackedItem,
   StyledInput,
 } from './styled'
+import { useMedia } from 'react-use'
+import { HeaderTabs } from './HeaderTabs'
+import CurrencyInputPanel from 'components/CurrencyInputPanel'
+
+
+
+
+export const Container = styled.div`
+  width: 100%;
+  border-radius: 0.75rem;
+  background: ${({ theme }) => theme.background};
+
+  padding: 4px 20px 28px;
+
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    padding: 0 16px 24px;
+  `};
+`
+
+const AddressBox = styled.div`
+  border-radius: 8px;
+  background: ${({ theme }) => theme.buttonBlack};
+  padding: 12px;
+  overflow: hidden;
+  margin-bottom:10px;
+`
+
+const AddressInput = styled.input`
+  font-size: 16px;
+  line-height: 20px;
+  color: ${({ theme }) => theme.text};
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  border-bottom: 1px solid;
+`
+
+const PageWrapper = styled.div`
+  width: 100%;
+  padding: 28px;
+  min-width: 343px;
+`
+
+const BodyWrapper = styled.div`
+  max-width: 1016px;
+  background: ${({ theme }) => theme.background};
+  border-radius: 8px;
+  padding: 20px;
+  margin: auto;
+`
+const BlockDiv = styled.div`
+  display: block;
+  width: 100%;
+`
+
+const ErrorMessage = styled.div`
+  color: ${({ theme }) => theme.red};
+  font-size: 12px;
+  margin-top: 8px;
+`
+
+const Span = styled.span`
+color: #f01d64;
+`
+
+
+
+
+
+
 
 // const DEFAULT_ADD_IN_RANGE_SLIPPAGE_TOLERANCE = new Percent(50, 10_000)
 
@@ -78,7 +143,7 @@ export const ArrowWrapper = styled(ArrowWrapperVertical) <{ rotated?: boolean }>
   width: 40px;
   height: 40px;
 `
-export default function AddLiquidity({
+export default function AddFarmV2({
   match: {
     params: { currencyIdA, currencyIdB, feeAmount: feeAmountFromUrl },
   },
@@ -91,6 +156,107 @@ export default function AddLiquidity({
   const expertMode = useIsExpertMode()
   const addTransactionWithType = useTransactionAdder()
   const positionManager = useProAmmNFTPositionManagerContract()
+
+
+  const [reward, setReward] = useState('')
+  const [nftAddress, setNftAddress] = useState('')
+  const [collectionName, setCollectionName] = useState('')
+  const [rewardTokenAddress, setRewardTokenAddress] = useState(currencyIdA)
+  const [lockTime, setLockTime] = useState('')
+  const [collectionLogo, setCollectionLogo] = useState('')
+
+  const [rewardErr, setRewardErr] = useState('')
+  const [nftAddressErr, setNftAddressErr] = useState('')
+  const [collectionNameErr, setCollectionNameErr] = useState('')
+  const [rewardTokenAddressErr, setRewardTokenAddressErr] = useState('')
+  const [lockTimeErr, setLockTimeErr] = useState('')
+  const [collectionLogoErr, setCollectionLogoErr] = useState('')
+
+  const [touched, setTouched] = useState(false)
+  const above1000 = useMedia('(min-width: 1000px)')
+
+
+  const isValidAddress = isAddress(reward)
+
+
+  const handleSubmit = () => {
+    const data = { reward, nftAddress, collectionName, rewardTokenAddress, lockTime, collectionLogo };
+    const err = validate(data);
+
+    setRewardTokenAddress(currencyIdA);
+    setRewardErr(err.reward!);
+    setNftAddressErr(err.nftAddress!);
+    setCollectionNameErr(err.collectionName!);
+    setRewardTokenAddressErr(err.rewardTokenAddress!);
+    setLockTimeErr(err.lockTime!);
+    setCollectionLogoErr(err.collectionLogo!);
+
+
+    if (!touched) {
+      setTouched(true)
+    }
+
+    if (data) {
+      console.log({ data });
+    }
+
+    // if (isValidAddress && (!isShowTokens || (isShowTokens && currencyA && currencyB))) {
+    //   mixpanelHandler(MIXPANEL_TYPE.CREATE_REFERRAL_CLICKED, {
+    //     referral_commission: commission,
+    //     input_token: currencyA && currencyA.symbol,
+    //     output_token: currencyB && currencyB.symbol,
+    //   })
+    //   setIsShowShareLinkModal(true)
+    //   setTouched(false)
+    // }
+  }
+
+  // Input Fields Validations
+  const validate = (valu: any) => {
+    type obj = {
+      reward?: string;
+      nftAddress?: string;
+      collectionName?: string;
+      rewardTokenAddress?: string;
+      lockTime?: string;
+      collectionLogo?: string;
+    };
+
+    const errors: obj = {};
+
+    const regex = /[A-Za-z0-9]{2,5}$/i;
+    if (!valu.reward) {
+      errors.reward = "This Field is Required !";
+    }
+
+    if (!valu.nftAddress) {
+      errors.nftAddress = "NFT Address is Required !";
+    } else if (!regex.test(valu.nftAddress)) {
+      errors.nftAddress = "This is not a Valid NFT Address!";
+    } else if (valu.nftAddress.length < 5) {
+      errors.nftAddress = "Address Value Must Be Greater Than 5 Character";
+    }
+
+    if (!valu.collectionName) {
+      errors.collectionName = "Collectin Name is Required !";
+    }
+
+    if (valu.rewardTokenAddress == undefined) {
+      errors.rewardTokenAddress = "Token Address is Required !";
+    }
+
+    if (!valu.lockTime) {
+      errors.lockTime = "Minimum Lock Time is Required !";
+    }
+
+    if (!valu.collectionLogo) {
+      errors.collectionLogo = "Collection Logo URL is Required !";
+    }
+
+    return errors;
+  };
+
+
   // check for existing position if tokenId in url
   // const { position: existingPositionDetails, loading: positionLoading } = useProAmmPositionsFromTokenId(
   //   tokenId ? BigNumber.from(tokenId) : undefined
@@ -194,7 +360,6 @@ export default function AddLiquidity({
   //   return [JSBI.BigInt('0'), JSBI.BigInt('0')]
   // }, [noLiquidity, price])
   // get the max amounts user can add
-
   const maxAmounts: { [field in Field]?: CurrencyAmount<Currency> } = [Field.CURRENCY_A, Field.CURRENCY_B].reduce(
     (accumulator, field) => {
       let maxAmount = maxAmountSpend(currencyBalances[field])
@@ -273,6 +438,7 @@ export default function AddLiquidity({
         createPool: noLiquidity,
       })
 
+      console.log("calldatacalldatacalldatacalldata", calldata);
 
 
       //0.00283161
@@ -366,9 +532,9 @@ export default function AddLiquidity({
     (currencyANew: Currency) => {
       const [idA, idB] = handleCurrencySelect(currencyANew, currencyIdB)
       if (idB === undefined) {
-        history.push(`/elastic/add/${idA}`)
+        history.push(`/nft-staking/add/${idA}`)
       } else {
-        history.push(`/elastic/add/${idA}/${idB}`)
+        history.push(`/nft-staking/add/${idA}/${idB}`)
       }
     },
     [handleCurrencySelect, currencyIdB, history],
@@ -378,9 +544,9 @@ export default function AddLiquidity({
     (currencyBNew: Currency) => {
       const [idB, idA] = handleCurrencySelect(currencyBNew, currencyIdA)
       if (idA === undefined) {
-        history.push(`/elastic/add/${idB}`)
+        history.push(`/nft-staking/add/${idB}`)
       } else {
-        history.push(`/elastic/add/${idA}/${idB}`)
+        history.push(`/nft-staking/add/${idA}/${idB}`)
       }
     },
     [handleCurrencySelect, currencyIdA, history],
@@ -754,174 +920,244 @@ export default function AddLiquidity({
         pendingText={pendingText}
       />
       <PageWrapper>
-        <Container>
-          <AddRemoveTabs
-            hideShare
-            action={!!noLiquidity ? LiquidityAction.CREATE : LiquidityAction.ADD}
-            showTooltip={true}
-            onCleared={() => {
-              onFieldAInput('0')
-              onFieldBInput('0')
-              history.push('/elastic/add')
-            }}
-            onBack={() => {
-              history.replace('/pools')
-            }}
-            tutorialType={TutorialType.ELASTIC_ADD_LIQUIDITY}
-          />
-          <ResponsiveTwoColumns>
-            <FlexLeft>
-              <RowBetween style={{ gap: '12px' }}>
+        <BodyWrapper>
+          <Container>
 
-                <CurrencyInputPanel
-                  hideBalance
-                  value={formattedAmounts[Field.CURRENCY_A]}
-                  onUserInput={onFieldAInput}
-                  hideInput={true}
-                  showMaxButton={false}
-                  onCurrencySelect={handleCurrencyASelect}
-                  currency={currencies[Field.CURRENCY_A] ?? null}
-                  id="add-liquidity-input-tokena"
-                  showCommonBases
-                  estimatedUsd={formattedNum(estimatedUsdCurrencyA.toString(), true) || undefined}
-                  maxCurrencySymbolLength={6}
-                />
+            <HeaderTabs
+              hideShare
+              action={!!noLiquidity ? LiquidityAction.CREATE : LiquidityAction.ADD}
+              showTooltip={true}
+              onCleared={() => {
+                onFieldAInput('0')
+                onFieldBInput('0')
+                history.push('/nft-staking/add')
+              }}
+              onBack={() => {
+                history.replace('/nft-staking')
+              }}
+              tutorialType={TutorialType.ELASTIC_ADD_LIQUIDITY}
+            />
 
-                <ArrowWrapper
-                  rotated={rotate}
-                  onClick={() => {
-                    if (!!rightPrice) {
-                      onLeftRangeInput(rightPrice?.invert().toString())
-                    }
-                    if (!!leftPrice) {
-                      onRightRangeInput(leftPrice?.invert().toString())
-                    }
-                    setRotate(prev => !prev)
-                  }} >
-                  {!currencyIdA && !currencyIdB ? (
-                    <SwapIcon size={24} color={theme.subText} />
-                  ) : (
-                    <StyledInternalLink
-                      replace
-                      to={`/elastic/add/${currencyIdB}/${currencyIdA}/${feeAmount}`}
-                      style={{ color: 'inherit', display: 'flex' }}
-                    >
-                      <SwapIcon size={24} color={theme.subText} />
-                    </StyledInternalLink>
-                  )}
-                </ArrowWrapper>
+            <ResponsiveTwoColumns>
 
-                <CurrencyInputPanel
-                  hideBalance
-                  value={formattedAmounts[Field.CURRENCY_B]}
-                  hideInput={true}
-                  onUserInput={onFieldBInput}
-                  onCurrencySelect={handleCurrencyBSelect}
-                  showMaxButton={false}
-                  positionMax="top"
-                  currency={currencies[Field.CURRENCY_B] ?? null}
-                  id="add-liquidity-input-tokenb"
-                  showCommonBases
-                  estimatedUsd={formattedNum(estimatedUsdCurrencyB.toString(), true) || undefined}
-                  maxCurrencySymbolLength={6}
-                />
+              <FlexLeft>
 
-              </RowBetween>
+                <RowBetween style={{ gap: '12px' }}>
 
-              {/*        <DynamicSection disabled={!currencyIdA || !currencyIdB} gap="16px">
-                <Text fontWeight={500} fontSize="1rem">
-                  <Trans>Select fee tier</Trans>
-                </Text>
-                <FeeSelector
-                  feeAmount={feeAmount}
-                  onChange={handleFeePoolSelect}
-                  currencyA={currencies[Field.CURRENCY_A]}
-                  currencyB={currencies[Field.CURRENCY_B]}
-                />
-              </DynamicSection>*/}
-              <AutoColumn>
-                <AutoColumn gap="16px">
-                  <HideMedium>{chart}</HideMedium>
-                  <DynamicSection
-                    gap="16px"
-                    disabled={tickLower === undefined || tickUpper === undefined || invalidPool || invalidRange}
-                  >
-                    <Text fontWeight={500}>
-                      <Trans>Deposit Amounts</Trans>
+                  <BlockDiv >
+
+                    <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
+                      <Trans>*Required</Trans>
                     </Text>
+                    <AddressBox
+                      style={{
+                        marginBottom: !above1000 ? '24px' : '',
+                        border: nftAddressErr && touched ? `1px solid ${theme.red}` : undefined,
+                      }}
+                    >
+                      <Text fontSize={12} color={theme.subText} marginBottom="8px" paddingBottom="15px">
+                        <Trans>NFT Collection Address <Span>*</Span></Trans>
+                      </Text>
+                      <Text fontSize={20} lineHeight={'24px'} color={theme.text}>
+                        <AddressInput
+                          type="text"
+                          value={nftAddress}
+                          onChange={(e: any) => {
+                            setNftAddress(e.target.value)
+                          }}
+                        />
+                      </Text>
+                      {nftAddressErr && touched && (
+                        <ErrorMessage>
+                          <Trans>{nftAddressErr}</Trans>
+                        </ErrorMessage>
+                      )}
+                    </AddressBox>
 
-                    <CurrencyInputPanel
-                      value={formattedAmounts[Field.CURRENCY_A]}
-                      onUserInput={onFieldAInput}
-                      onMax={() => {
-                        onFieldAInput(maxAmounts[Field.CURRENCY_A]?.toExact() ?? '')
-                      }}
-                      onHalf={() => {
-                        onFieldAInput(currencyBalances[Field.CURRENCY_A]?.divide(2).toExact() ?? '')
-                      }}
-                      showMaxButton
-                      currency={currencies[Field.CURRENCY_A] ?? null}
-                      id="add-liquidity-input-tokena"
-                      showCommonBases
-                      positionMax="top"
-                      locked={depositADisabled}
-                      estimatedUsd={formattedNum(estimatedUsdCurrencyA.toString(), true) || undefined}
-                      disableCurrencySelect={!baseCurrencyIsETHER && !baseCurrencyIsWETH}
-                      isSwitchMode={baseCurrencyIsETHER || baseCurrencyIsWETH}
-                      onSwitchCurrency={() => {
-                        chainId &&
-                          history.replace(
-                            `/elastic/add/${baseCurrencyIsETHER ? WETH[chainId].address : nativeOnChain(chainId).symbol
-                            }/${currencyIdB}/${feeAmount}`,
-                          )
+                    <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
+                      <Trans>*Required</Trans>
+                    </Text>
+                    <AddressBox style={{
+                      marginBottom: !above1000 ? '24px' : '',
+                      border: rewardErr && touched ? `1px solid ${theme.red}` : undefined,
+                    }}>
+
+                      <Text fontSize={12} color={theme.subText} marginBottom="8px">
+                        <Trans>Rewards/Day <Span>*</Span></Trans>
+                      </Text>
+                      <Text fontSize={20} lineHeight={'24px'} color={theme.text}>
+                        <AddressInput
+                          type="text"
+                          value={reward}
+                          onChange={(e: any) => {
+                            setReward(e.target.value)
+                          }}
+                        />
+                      </Text>
+                      {rewardErr && touched && (
+                        <ErrorMessage>
+                          <Trans>{rewardErr}</Trans>
+                        </ErrorMessage>
+                      )}
+                    </AddressBox>
+
+                    <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
+                      <Trans>*Required</Trans>
+                    </Text>
+                    <AddressBox style={{
+                      marginBottom: !above1000 ? '24px' : '',
+                      border: collectionNameErr && touched ? `1px solid ${theme.red}` : undefined,
+                    }}>
+                      <Text fontSize={12} color={theme.subText} marginBottom="8px">
+                        <Trans>Collection Name <Span>*</Span></Trans>
+                      </Text>
+                      <Text fontSize={20} lineHeight={'24px'} color={theme.text}>
+                        <AddressInput
+                          type="text"
+                          value={collectionName}
+                          onChange={(e: any) => {
+                            setCollectionName(e.target.value)
+                          }}
+                        />
+                      </Text>
+                      {collectionNameErr && touched && (
+                        <ErrorMessage>
+                          <Trans>{collectionNameErr}</Trans>
+                        </ErrorMessage>
+                      )}
+                    </AddressBox>
+
+                  </BlockDiv>
+
+                </RowBetween>
+
+              </FlexLeft>
+
+
+              <RightContainer >
+
+                {/* <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
+                  <Trans>*Required</Trans>
+                </Text>
+                <AddressBox
+                  style={{
+                    marginBottom: !above1000 ? '24px' : '',
+                    border: rewardTokenAddressErr && touched ? `1px solid ${theme.red}` : undefined,
+                  }} >
+                  <Text fontSize={12} color={theme.subText} marginBottom="8px">
+                    <Trans>Reward Token Address <Span>*</Span></Trans>
+                  </Text>
+                  <Text fontSize={20} lineHeight={'24px'} color={theme.text}>
+                    <AddressInput
+                      type="text"
+                      value={rewardTokenAddress}
+                      onChange={(e: any) => {
+                        setRewardTokenAddress(e.target.value)
                       }}
                     />
-                  </DynamicSection>
-                  <DynamicSection
-                    gap="md"
-                    disabled={tickLower === undefined || tickUpper === undefined || invalidPool || invalidRange}
-                  >
-                    <CurrencyInputPanel
-                      value={formattedAmounts[Field.CURRENCY_B]}
-                      onUserInput={onFieldBInput}
-                      onMax={() => {
-                        onFieldBInput(maxAmounts[Field.CURRENCY_B]?.toExact() ?? '')
-                      }}
-                      onHalf={() => {
-                        onFieldBInput(currencyBalances[Field.CURRENCY_B]?.divide(2).toExact() ?? '')
-                      }}
-                      showMaxButton
-                      currency={currencies[Field.CURRENCY_B] ?? null}
-                      id="add-liquidity-input-tokenb"
-                      showCommonBases
-                      positionMax="top"
-                      locked={depositBDisabled}
-                      estimatedUsd={formattedNum(estimatedUsdCurrencyB.toString(), true) || undefined}
-                      disableCurrencySelect={!quoteCurrencyIsETHER && !quoteCurrencyIsWETH}
-                      isSwitchMode={quoteCurrencyIsETHER || quoteCurrencyIsWETH}
-                      onSwitchCurrency={() => {
-                        chainId &&
-                          history.replace(
-                            `/elastic/add/${currencyIdA}/${quoteCurrencyIsETHER ? WETH[chainId].address : nativeOnChain(chainId).symbol
-                            }/${feeAmount}`,
-                          )
+                  </Text>
+                  {rewardTokenAddressErr && touched && (
+                    <ErrorMessage>
+                      <Trans>{rewardTokenAddressErr}</Trans>
+                    </ErrorMessage>
+                  )}
+                </AddressBox> */}
+
+                <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
+                  <Trans>*Required</Trans>
+                </Text>
+                <AddressBox style={{
+                  marginBottom: !above1000 ? '24px' : '',
+                  border: rewardTokenAddressErr && touched ? `1px solid ${theme.red}` : undefined,
+                }}>
+                  <Text fontSize={12} color={theme.subText} marginBottom="8px">
+                    <Trans>Reward Token Address <Span>*</Span></Trans>
+                  </Text>
+
+                  <CurrencyInputPanel
+                    hideBalance
+                    value={formattedAmounts[Field.CURRENCY_A]}
+                    onUserInput={onFieldAInput}
+                    hideInput={true}
+                    showMaxButton={false}
+                    onCurrencySelect={handleCurrencyASelect}
+                    currency={currencies[Field.CURRENCY_A] ?? null}
+                    id="add-input-tokena"
+                    showCommonBases
+                    estimatedUsd={formattedNum(estimatedUsdCurrencyA.toString(), true) || undefined}
+                    maxCurrencySymbolLength={6}
+                  />
+                  {rewardTokenAddressErr && touched && (
+                    <ErrorMessage>
+                      <Trans>{rewardTokenAddressErr}</Trans>
+                    </ErrorMessage>
+                  )}
+                </AddressBox>
+
+
+                <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
+                  <Trans>*Required</Trans>
+                </Text>
+                <AddressBox style={{
+                  marginBottom: !above1000 ? '24px' : '',
+                  border: lockTimeErr && touched ? `1px solid ${theme.red}` : undefined,
+                }}>
+                  <Text fontSize={12} color={theme.subText} marginBottom="8px">
+                    <Trans>Min Lock Time <Span>*</Span></Trans>
+                  </Text>
+                  <Text fontSize={20} lineHeight={'24px'} color={theme.text}>
+                    <AddressInput
+                      type="text"
+                      value={lockTime}
+                      onChange={(e: any) => {
+                        setLockTime(e.target.value)
                       }}
                     />
-                  </DynamicSection>
-                </AutoColumn>
-              </AutoColumn>
-            </FlexLeft>
-            <HideMedium>
-              <Buttons />
-            </HideMedium>
-            <RightContainer gap="lg">
-              <MediumOnly>{chart}</MediumOnly>
-              <MediumOnly>
-                <Buttons />
-              </MediumOnly>
-            </RightContainer>
-          </ResponsiveTwoColumns>
-        </Container>
+                  </Text>
+                  {lockTimeErr && touched && (
+                    <ErrorMessage>
+                      <Trans>{lockTimeErr}</Trans>
+                    </ErrorMessage>
+                  )}
+                </AddressBox>
+
+
+                <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
+                  <Trans>*Required</Trans>
+                </Text>
+                <AddressBox style={{
+                  marginBottom: !above1000 ? '24px' : '',
+                  border: collectionLogoErr && touched ? `1px solid ${theme.red}` : undefined,
+                }}>
+                  <Text fontSize={12} color={theme.subText} marginBottom="8px">
+                    <Trans>Collection Logo URL <Span>*</Span></Trans>
+                  </Text>
+                  <Text fontSize={20} lineHeight={'24px'} color={theme.text}>
+                    <AddressInput
+                      type="text"
+                      value={collectionLogo}
+                      onChange={(e: any) => {
+                        setCollectionLogo(e.target.value)
+                      }}
+                    />
+                  </Text>
+                  {collectionLogoErr && touched && (
+                    <ErrorMessage>
+                      <Trans>{collectionLogoErr}</Trans>
+                    </ErrorMessage>
+                  )}
+                </AddressBox>
+              </RightContainer>
+
+            </ResponsiveTwoColumns>
+
+            <ButtonPrimary onClick={handleSubmit} style={{ marginTop: 'auto' }}>
+              <Trans>Create</Trans>
+            </ButtonPrimary>
+
+
+          </Container>
+        </BodyWrapper>
       </PageWrapper>
     </>
   )

@@ -378,12 +378,12 @@ export default function Header() {
           </UniIcon>
         </Title>
         <HeaderMobileLinks>
-        <HoverDropdown active={true}>
-         <Flex alignItems="center">
+          <HoverDropdown active={true}>
+            <Flex alignItems="center">
               <Trans>Menu</Trans>
               <DropdownIcon />
-         </Flex>
-          <Dropdown>
+            </Flex>
+            <Dropdown>
               <StyledNavLink
                 id={`swapv2-nav-link`}
                 to={'/swap'}
@@ -406,40 +406,40 @@ export default function Header() {
                   <Trans>Limit Order</Trans>
                 </Flex>
               </StyledNavLink>
-               <StyledNavLink
-                  id="pools-nav-link"
-                  to="/pools"
-                  isActive={(match, { pathname }) => Boolean(match) || pathname.startsWith('/pools')}
-                  style={{ width: '100%' }}
-                >
-                  <Trans>All Pools</Trans>
-                </StyledNavLink>
+              <StyledNavLink
+                id="pools-nav-link"
+                to="/pools"
+                isActive={(match, { pathname }) => Boolean(match) || pathname.startsWith('/pools')}
+                style={{ width: '100%' }}
+              >
+                <Trans>All Pools</Trans>
+              </StyledNavLink>
 
-                <StyledNavLink
-                  id="my-pools-nav-link"
-                  to={'/myPools'}
-                  isActive={(match, { pathname }) =>
-                    Boolean(match) ||
-                    pathname.startsWith('/add') ||
-                    pathname.startsWith('/remove') ||
-                    pathname.startsWith('/create') ||
-                    (pathname.startsWith('/find') && pathname.endsWith('find'))
-                  }
-                >
-                  <Trans>My Pools</Trans>
-                </StyledNavLink>
+              <StyledNavLink
+                id="my-pools-nav-link"
+                to={'/myPools'}
+                isActive={(match, { pathname }) =>
+                  Boolean(match) ||
+                  pathname.startsWith('/add') ||
+                  pathname.startsWith('/remove') ||
+                  pathname.startsWith('/create') ||
+                  (pathname.startsWith('/find') && pathname.endsWith('find'))
+                }
+              >
+                <Trans>My Pools</Trans>
+              </StyledNavLink>
 
-                <StyledNavLink
-                    onClick={() => {
-                      mixpanelHandler(MIXPANEL_TYPE.FARM_UNDER_EARN_TAB_CLICK)
-                    }}
-                    id="farms-nav-link"
-                    to="/farms"
-                    isActive={match => Boolean(match)}
-                  >
-                    <Trans>Farms</Trans>
-               </StyledNavLink>
-            <StyledNavLink
+              <StyledNavLink
+                onClick={() => {
+                  mixpanelHandler(MIXPANEL_TYPE.FARM_UNDER_EARN_TAB_CLICK)
+                }}
+                id="farms-nav-link"
+                to="/farms"
+                isActive={match => Boolean(match)}
+              >
+                <Trans>Farms</Trans>
+              </StyledNavLink>
+              <StyledNavLink
                 id={`swapv2-nav-link`}
                 to={'/token-staking'}
                 isActive={match => Boolean(match)}
@@ -459,21 +459,21 @@ export default function Header() {
                   <Trans>NFT Staking</Trans>
                 </Flex>
               </StyledNavLink>
-            <StyledNavLink
-              id={`bridge`}
-              to={'/bridge'}
-              isActive={match => Boolean(match)}
+              <StyledNavLink
+                id={`bridge`}
+                to={'/bridge'}
+                isActive={match => Boolean(match)}
 
-            >
-              <Flex alignItems="center" sx={{ gap: '8px' }}>
-                <Trans>Bridge</Trans>
-              </Flex>
-            </StyledNavLink>
-               
+              >
+                <Flex alignItems="center" sx={{ gap: '8px' }}>
+                  <Trans>Bridge</Trans>
+                </Flex>
+              </StyledNavLink>
+
             </Dropdown>
 
-        </HoverDropdown>
-          
+          </HoverDropdown>
+
         </HeaderMobileLinks>
         <HeaderLinks>
           <HoverDropdown active={pathname.includes('/swap')}>
@@ -539,18 +539,18 @@ export default function Header() {
                   <Trans>My Pools</Trans>
                 </StyledNavLink>
 
-                
-                  <StyledNavLink
-                    onClick={() => {
-                      mixpanelHandler(MIXPANEL_TYPE.FARM_UNDER_EARN_TAB_CLICK)
-                    }}
-                    id="farms-nav-link"
-                    to="/farms"
-                    isActive={match => Boolean(match)}
-                  >
-                    <Trans>Farms</Trans>
-                  </StyledNavLink>
-               
+
+                <StyledNavLink
+                  onClick={() => {
+                    mixpanelHandler(MIXPANEL_TYPE.FARM_UNDER_EARN_TAB_CLICK)
+                  }}
+                  id="farms-nav-link"
+                  to="/farms"
+                  isActive={match => Boolean(match)}
+                >
+                  <Trans>Farms</Trans>
+                </StyledNavLink>
+
 
               </Dropdown>
             </HoverDropdown>

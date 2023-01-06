@@ -5,6 +5,7 @@ import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
 import { VERSION } from 'constants/v2'
 import useParsedQueryString from 'hooks/useParsedQueryString'
 import TokenAmmPool from '../TokenAmmPool'
+import CreateTokenStakingBtn from 'pages/AddTokenStaking/CreateTokenStakingBtn'
 
 export const Tab = styled.div<{ active: boolean }>`
   padding: 4px 0;
@@ -28,6 +29,21 @@ export const PageWrapper = styled.div`
   flex-direction: column;
   gap: 20px;
 `
+export const HeadingRight = styled.div`
+  display: flex;
+  gap: 20px;
+  justify-content: right;
+
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    width: 100%;
+  `}
+
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0;
+  `}
+`
 
 export default function PoolCombination() {
   const qs = useParsedQueryString()
@@ -39,7 +55,10 @@ export default function PoolCombination() {
         <AutoColumn>
           <ClassicElasticTab />
         </AutoColumn>
-       <TokenAmmPool />
+        <HeadingRight >
+          <CreateTokenStakingBtn />
+        </HeadingRight>
+        <TokenAmmPool />
       </PageWrapper>
       <SwitchLocaleLink />
     </>

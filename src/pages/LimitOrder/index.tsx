@@ -1,6 +1,6 @@
 import React from 'react'
-import { GelatoLimitOrderPanel, GelatoLimitOrdersHistoryPanel, GelatoProvider,useGelatoLimitOrders } from '@gelatonetwork/limit-orders-react'
-import { RouteComponentProps} from 'react-router-dom'
+import { GelatoLimitOrderPanel, GelatoLimitOrdersHistoryPanel, GelatoProvider, useGelatoLimitOrders } from '@gelatonetwork/limit-orders-react'
+import { RouteComponentProps } from 'react-router-dom'
 import { useActiveWeb3React } from 'hooks'
 import useTheme from 'hooks/useTheme'
 import {
@@ -46,27 +46,27 @@ export default function LimitOrder({ history }: RouteComponentProps) {
     orderState: { independentField, rateType, typedValue },
   } = useGelatoLimitOrders();
 
-  console.log("currencies",currencies);
+  console.log("currencies", currencies);
 
   const theme = useTheme()
 
   return (
-      <PageWrapper>
-        <Container>
-         <SwapFormWrapper isShowTutorial={false}>
-            <Gelato>
-                   <GelatoLimitOrderPanel />       
-             </Gelato>
-         </SwapFormWrapper> 
-          <InfoComponentsWrapper>   
-           <Gelato>
+    <PageWrapper>
+      <Container>
+        <SwapFormWrapper isShowTutorial={false}>
+          <Gelato>
+            <GelatoLimitOrderPanel />
+          </Gelato>
+        </SwapFormWrapper>
+        <InfoComponentsWrapper>
+          <Gelato>
             <GelatoLimitOrdersHistoryPanel />
-           </Gelato>
-          </InfoComponentsWrapper>
-          
+          </Gelato>
+        </InfoComponentsWrapper>
 
-        </Container>
-      </PageWrapper>
+
+      </Container>
+    </PageWrapper>
 
   )
 

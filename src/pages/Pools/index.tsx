@@ -151,13 +151,12 @@ const Pools = ({
     const url =
       tab === VERSION.CLASSIC
         ? `/create/${currencyIdA === '' ? undefined : currencyIdA}/${currencyIdB === '' ? undefined : currencyIdB}`
-        : `/elastic/add${
-            currencyIdA && currencyIdB
-              ? `/${currencyIdA}/${currencyIdB}`
-              : currencyIdA || currencyIdB
-              ? `/${currencyIdA || currencyIdB}`
-              : ''
-          }`
+        : `/elastic/add${currencyIdA && currencyIdB
+          ? `/${currencyIdA}/${currencyIdB}`
+          : currencyIdA || currencyIdB
+            ? `/${currencyIdA || currencyIdB}`
+            : ''
+        }`
 
     if (chainId === ChainId.ETHW) {
       setUrlOnEthPowAck(url)

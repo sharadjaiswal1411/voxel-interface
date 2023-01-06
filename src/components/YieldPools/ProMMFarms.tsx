@@ -34,6 +34,7 @@ import {
   StakedOnlyToggleText,
   StakedOnlyToggleWrapper,
 } from './styleds'
+import { CreateFarmsBtn } from '../../pages/AddFarmV2/CreateFarmsBtn'
 
 type ModalType = 'deposit' | 'withdraw' | 'stake' | 'unstake' | 'harvest' | 'forcedWithdraw'
 
@@ -85,12 +86,12 @@ function ProMMFarms({ active }: { active: boolean }) {
         const filterActive = active ? farm.endTime >= now : farm.endTime < now
         const filterSearchText = search
           ? farm.token0.toLowerCase().includes(search) ||
-            farm.token1.toLowerCase().includes(search) ||
-            farm.poolAddress.toLowerCase() === search ||
-            farm?.token0Info?.symbol?.toLowerCase().includes(search) ||
-            farm?.token1Info?.symbol?.toLowerCase().includes(search) ||
-            farm?.token0Info?.name?.toLowerCase().includes(search) ||
-            farm?.token1Info?.name?.toLowerCase().includes(search)
+          farm.token1.toLowerCase().includes(search) ||
+          farm.poolAddress.toLowerCase() === search ||
+          farm?.token0Info?.symbol?.toLowerCase().includes(search) ||
+          farm?.token1Info?.symbol?.toLowerCase().includes(search) ||
+          farm?.token0Info?.name?.toLowerCase().includes(search) ||
+          farm?.token1Info?.name?.toLowerCase().includes(search)
           : true
 
         let filterStaked = true
@@ -215,6 +216,9 @@ function ProMMFarms({ active }: { active: boolean }) {
             />
             <Search color={theme.subText} />
           </SearchContainer>
+          {/* Create Farms Button */}
+          <CreateFarmsBtn />
+
         </HeadingRight>
       </HeadingContainer>
 

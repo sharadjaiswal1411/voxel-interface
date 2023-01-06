@@ -14,9 +14,10 @@ import { ButtonError, ButtonLight, ButtonPrimary, ButtonWarning } from 'componen
 import { OutlineCard, WarningCard } from 'components/Card'
 import { AutoColumn } from 'components/Column'
 import CurrencyInputPanel from 'components/CurrencyInputPanel'
+
+
 //import FeeSelector from 'components/FeeSelector'
 import HoverInlineText from 'components/HoverInlineText'
-import { Swap as SwapIcon } from 'components/Icons'
 import InfoHelper from 'components/InfoHelper'
 import LiquidityChartRangeInput from 'components/LiquidityChartRangeInput'
 import { AddRemoveTabs, LiquidityAction } from 'components/NavigationTabs'
@@ -51,25 +52,101 @@ import {
 import { useTransactionAdder } from 'state/transactions/hooks'
 import { useIsExpertMode } from 'state/user/hooks'
 import { StyledInternalLink, TYPE } from 'theme'
-import { basisPointsToPercent, calculateGasMargin, formattedNum } from 'utils'
+import { basisPointsToPercent, calculateGasMargin, formattedNum, isAddress } from 'utils'
 import { currencyId } from 'utils/currencyId'
 import { maxAmountSpend } from 'utils/maxAmountSpend'
 import { unwrappedToken } from 'utils/wrappedCurrency'
 
 import { useUserSlippageTolerance } from '../../state/user/hooks'
 import {
-  Container,
   DynamicSection,
   FlexLeft,
-  HideMedium,
-  MediumOnly,
-  PageWrapper,
   ResponsiveTwoColumns,
   RightContainer,
   StackedContainer,
   StackedItem,
   StyledInput,
 } from './styled'
+import { CustomSelect, CustomSelectNew } from './CustomSelect'
+import CustomDatePicker from './CustomDatePicker'
+import { useMedia } from 'react-use'
+import { HeaderTabs } from './HeaderTabs'
+
+
+
+
+export const Container = styled.div`
+  width: 100%;
+  border-radius: 0.75rem;
+  background: ${({ theme }) => theme.background};
+
+  padding: 4px 20px 28px;
+
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    padding: 0 16px 24px;
+  `};
+`
+
+const AddressBox = styled.div`
+  border-radius: 8px;
+  background: ${({ theme }) => theme.buttonBlack};
+  padding: 12px;
+  overflow: hidden;
+  margin-bottom:10px;
+`
+const AddressBoxFull = styled.div`
+  width: 100%;
+  border-radius: 8px;
+  background: ${({ theme }) => theme.buttonBlack};
+  padding: 12px;
+  overflow: hidden;
+  margin-bottom: 10px;
+`
+
+const AddressInput = styled.input`
+  font-size: 16px;
+  line-height: 20px;
+  color: ${({ theme }) => theme.text};
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  border-bottom: 1px solid;
+`
+
+const PageWrapper = styled.div`
+  width: 100%;
+  padding: 28px;
+  min-width: 343px;
+`
+
+const BodyWrapper = styled.div`
+  max-width: 1016px;
+  background: ${({ theme }) => theme.background};
+  border-radius: 8px;
+  padding: 20px;
+  margin: auto;
+`
+const BlockDiv = styled.div`
+  display: block;
+  width: 100%;
+`
+
+const ErrorMessage = styled.div`
+  color: ${({ theme }) => theme.red};
+  font-size: 12px;
+  margin-top: 8px;
+`
+
+const Span = styled.span`
+color: #f01d64;
+`
+
+
+
+
+
+
 
 // const DEFAULT_ADD_IN_RANGE_SLIPPAGE_TOLERANCE = new Percent(50, 10_000)
 
@@ -78,7 +155,7 @@ export const ArrowWrapper = styled(ArrowWrapperVertical) <{ rotated?: boolean }>
   width: 40px;
   height: 40px;
 `
-export default function AddLiquidity({
+export default function AddFarmV2({
   match: {
     params: { currencyIdA, currencyIdB, feeAmount: feeAmountFromUrl },
   },
@@ -91,13 +168,82 @@ export default function AddLiquidity({
   const expertMode = useIsExpertMode()
   const addTransactionWithType = useTransactionAdder()
   const positionManager = useProAmmNFTPositionManagerContract()
-  // check for existing position if tokenId in url
-  // const { position: existingPositionDetails, loading: positionLoading } = useProAmmPositionsFromTokenId(
-  //   tokenId ? BigNumber.from(tokenId) : undefined
-  // )
-  // const hasExistingPosition = !!existingPositionDetails && !positionLoading
 
-  // fee selection from url
+
+  const [rewardToken, setRewardToken] = useState(currencyIdA)
+  const [tokenStake, setTokenStake] = useState(currencyIdB)
+  const [apy, setApy] = useState('')
+  const [lockPeriod, setLockPeriod] = useState('')
+  const [mintStake, setMintStake] = useState('')
+  const [touched, setTouched] = useState(false)
+  const [closingInDateTime, setClosingInDateTime] = useState('')
+
+
+  const [lockPeriodErr, setLockPeriodErr] = useState('')
+  const [mintStakeErr, setMintStakeErr] = useState('')
+  const above1000 = useMedia('(min-width: 1000px)')
+
+
+  // const isValidAddress = isAddress(tokenStake)
+
+
+  const handleSubmit = () => {
+    const data = { rewardToken, tokenStake, apy, lockPeriod, mintStake, closingInDateTime };
+
+    const err = validate(data);
+
+    // const currentdate = new Date();
+    // const datetime = currentdate.getFullYear() + "-"
+    //   + (currentdate.getMonth() + 1) + "-"
+    //   + currentdate.getDate() + "T"
+    //   + currentdate.getHours() + ":"
+    //   + currentdate.getMinutes();
+
+
+
+    setLockPeriodErr(err.lockPeriod!);
+    setMintStakeErr(err.mintStake!);
+    setRewardToken(currencyIdA);
+    setTokenStake(currencyIdB);
+
+    if (!touched) {
+      setTouched(true)
+    }
+
+    if (data) {
+      console.log({ data });
+    }
+
+  }
+
+
+
+  // Input Fields Validations
+  const validate = (valu: any) => {
+    type obj = {
+      lockPeriod?: string;
+      mintStake?: string;
+    };
+
+    const errors: obj = {};
+
+    const regex = /^[A-Za-z0-9]{2,5}$/i;
+
+
+    if (!valu.lockPeriod) {
+      errors.lockPeriod = "Lock Period is Required!";
+    }
+
+    if (!valu.mintStake) {
+      errors.mintStake = "Minimum Stake is Required!";
+    }
+
+    return errors;
+  };
+
+
+
+
   const feeAmount: FeeAmount | undefined =
     feeAmountFromUrl && Object.values(FeeAmount).includes(parseFloat(feeAmountFromUrl))
       ? parseFloat(feeAmountFromUrl)
@@ -176,24 +322,7 @@ export default function AddLiquidity({
     [dependentField]: parsedAmounts[dependentField]?.toExact() ?? '',
   }
 
-  // const [amount0Unlock, amount1Unlock] = useMemo(() => {
-  //   if (price && noLiquidity) {
-  //     return [
-  //       FullMath.mulDiv(
-  //         SqrtPriceMath.getAmount0Unlock(encodeSqrtRatioX96(price.numerator, price.denominator)),
-  //         JSBI.BigInt('105'),
-  //         JSBI.BigInt('100'),
-  //       ),
-  //       FullMath.mulDiv(
-  //         SqrtPriceMath.getAmount1Unlock(encodeSqrtRatioX96(price.numerator, price.denominator)),
-  //         JSBI.BigInt('105'),
-  //         JSBI.BigInt('100'),
-  //       ),
-  //     ]
-  //   }
-  //   return [JSBI.BigInt('0'), JSBI.BigInt('0')]
-  // }, [noLiquidity, price])
-  // get the max amounts user can add
+
 
   const maxAmounts: { [field in Field]?: CurrencyAmount<Currency> } = [Field.CURRENCY_A, Field.CURRENCY_B].reduce(
     (accumulator, field) => {
@@ -273,6 +402,7 @@ export default function AddLiquidity({
         createPool: noLiquidity,
       })
 
+      console.log("calldatacalldatacalldatacalldata", calldata);
 
 
       //0.00283161
@@ -366,21 +496,23 @@ export default function AddLiquidity({
     (currencyANew: Currency) => {
       const [idA, idB] = handleCurrencySelect(currencyANew, currencyIdB)
       if (idB === undefined) {
-        history.push(`/elastic/add/${idA}`)
+
+        history.push(`/token-staking/add/${idA}`)
       } else {
-        history.push(`/elastic/add/${idA}/${idB}`)
+        history.push(`/token-staking/add/${idA}/${idB}`)
       }
     },
     [handleCurrencySelect, currencyIdB, history],
+
   )
 
   const handleCurrencyBSelect = useCallback(
     (currencyBNew: Currency) => {
       const [idB, idA] = handleCurrencySelect(currencyBNew, currencyIdA)
       if (idA === undefined) {
-        history.push(`/elastic/add/${idB}`)
+        history.push(`/token-staking/add/${idB}`)
       } else {
-        history.push(`/elastic/add/${idA}/${idB}`)
+        history.push(`/token-staking/add/${idA}/${idB}`)
       }
     },
     [handleCurrencySelect, currencyIdA, history],
@@ -390,7 +522,7 @@ export default function AddLiquidity({
     (newFeeAmount: FeeAmount) => {
       onLeftRangeInput('')
       onRightRangeInput('')
-      history.push(`/elastic/add/${currencyIdA}/${currencyIdB}/${newFeeAmount}`)
+      history.push(`/token-staking/add/${currencyIdA}/${currencyIdB}/${newFeeAmount}`)
     },
     [currencyIdA, currencyIdB, history, onLeftRangeInput, onRightRangeInput],
   )
@@ -408,15 +540,7 @@ export default function AddLiquidity({
 
   const addIsUnsupported = false
 
-  // const clearAll = useCallback(() => {
-  //   onFieldAInput('')
-  //   onFieldBInput('')
-  //   onLeftRangeInput('')
-  //   onRightRangeInput('')
-  //   history.push(`/add`)
-  // }, [history, onFieldAInput, onFieldBInput, onLeftRangeInput, onRightRangeInput])
 
-  // get value and prices at ticks
   const { [Bound.LOWER]: tickLower, [Bound.UPPER]: tickUpper } = ticks
   const { [Bound.LOWER]: priceLower, [Bound.UPPER]: priceUpper } = pricesAtTicks
 
@@ -719,12 +843,7 @@ export default function AddLiquidity({
             onDismiss={handleDismissConfirmation}
             topContent={() =>
               position && (
-                // <PositionPreview
-                //   position={position}
-                //   title={<Trans>Selected Range</Trans>}
-                //   inRange={!outOfRange}
-                //   ticksAtLimit={ticksAtLimit}
-                // />
+
                 <div style={{ marginTop: '1rem' }}>
                   <ProAmmPoolInfo position={position} />
                   <ProAmmPooledTokens
@@ -754,174 +873,176 @@ export default function AddLiquidity({
         pendingText={pendingText}
       />
       <PageWrapper>
-        <Container>
-          <AddRemoveTabs
-            hideShare
-            action={!!noLiquidity ? LiquidityAction.CREATE : LiquidityAction.ADD}
-            showTooltip={true}
-            onCleared={() => {
-              onFieldAInput('0')
-              onFieldBInput('0')
-              history.push('/elastic/add')
-            }}
-            onBack={() => {
-              history.replace('/pools')
-            }}
-            tutorialType={TutorialType.ELASTIC_ADD_LIQUIDITY}
-          />
-          <ResponsiveTwoColumns>
-            <FlexLeft>
-              <RowBetween style={{ gap: '12px' }}>
+        <BodyWrapper>
+          <Container>
 
-                <CurrencyInputPanel
-                  hideBalance
-                  value={formattedAmounts[Field.CURRENCY_A]}
-                  onUserInput={onFieldAInput}
-                  hideInput={true}
-                  showMaxButton={false}
-                  onCurrencySelect={handleCurrencyASelect}
-                  currency={currencies[Field.CURRENCY_A] ?? null}
-                  id="add-liquidity-input-tokena"
-                  showCommonBases
-                  estimatedUsd={formattedNum(estimatedUsdCurrencyA.toString(), true) || undefined}
-                  maxCurrencySymbolLength={6}
-                />
+            <HeaderTabs
+              hideShare
+              action={!!noLiquidity ? LiquidityAction.CREATE : LiquidityAction.ADD}
+              showTooltip={true}
+              onCleared={() => {
+                onFieldAInput('0')
+                onFieldBInput('0')
+                history.push('/token-staking/add')
+              }}
+              onBack={() => {
+                history.replace('/token-staking')
+              }}
+              tutorialType={TutorialType.ELASTIC_ADD_LIQUIDITY}
+            />
 
-                <ArrowWrapper
-                  rotated={rotate}
-                  onClick={() => {
-                    if (!!rightPrice) {
-                      onLeftRangeInput(rightPrice?.invert().toString())
-                    }
-                    if (!!leftPrice) {
-                      onRightRangeInput(leftPrice?.invert().toString())
-                    }
-                    setRotate(prev => !prev)
-                  }} >
-                  {!currencyIdA && !currencyIdB ? (
-                    <SwapIcon size={24} color={theme.subText} />
-                  ) : (
-                    <StyledInternalLink
-                      replace
-                      to={`/elastic/add/${currencyIdB}/${currencyIdA}/${feeAmount}`}
-                      style={{ color: 'inherit', display: 'flex' }}
-                    >
-                      <SwapIcon size={24} color={theme.subText} />
-                    </StyledInternalLink>
-                  )}
-                </ArrowWrapper>
+            <ResponsiveTwoColumns>
+              <FlexLeft>
 
-                <CurrencyInputPanel
-                  hideBalance
-                  value={formattedAmounts[Field.CURRENCY_B]}
-                  hideInput={true}
-                  onUserInput={onFieldBInput}
-                  onCurrencySelect={handleCurrencyBSelect}
-                  showMaxButton={false}
-                  positionMax="top"
-                  currency={currencies[Field.CURRENCY_B] ?? null}
-                  id="add-liquidity-input-tokenb"
-                  showCommonBases
-                  estimatedUsd={formattedNum(estimatedUsdCurrencyB.toString(), true) || undefined}
-                  maxCurrencySymbolLength={6}
-                />
+                <RowBetween style={{ gap: '12px' }}>
 
-              </RowBetween>
-
-              {/*        <DynamicSection disabled={!currencyIdA || !currencyIdB} gap="16px">
-                <Text fontWeight={500} fontSize="1rem">
-                  <Trans>Select fee tier</Trans>
-                </Text>
-                <FeeSelector
-                  feeAmount={feeAmount}
-                  onChange={handleFeePoolSelect}
-                  currencyA={currencies[Field.CURRENCY_A]}
-                  currencyB={currencies[Field.CURRENCY_B]}
-                />
-              </DynamicSection>*/}
-              <AutoColumn>
-                <AutoColumn gap="16px">
-                  <HideMedium>{chart}</HideMedium>
-                  <DynamicSection
-                    gap="16px"
-                    disabled={tickLower === undefined || tickUpper === undefined || invalidPool || invalidRange}
-                  >
-                    <Text fontWeight={500}>
-                      <Trans>Deposit Amounts</Trans>
+                  <BlockDiv >
+                    <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="25px" fontStyle="italic">
+                      <Trans><pre></pre></Trans>
                     </Text>
+                    <AddressBox>
+                      <Text fontSize={12} color={theme.subText} marginBottom="8px">
+                        <Trans>Token to Stake </Trans>
+                      </Text>
+                      <CurrencyInputPanel
+                        hideBalance
+                        value={formattedAmounts[Field.CURRENCY_A]}
+                        onUserInput={onFieldAInput}
+                        hideInput={true}
+                        showMaxButton={false}
+                        onCurrencySelect={handleCurrencyASelect}
+                        currency={currencies[Field.CURRENCY_A] ?? null}
+                        id="add-input-tokena"
+                        showCommonBases
+                        estimatedUsd={formattedNum(estimatedUsdCurrencyA.toString(), true) || undefined}
+                        maxCurrencySymbolLength={6}
+                      />
+                    </AddressBox>
 
-                    <CurrencyInputPanel
-                      value={formattedAmounts[Field.CURRENCY_A]}
-                      onUserInput={onFieldAInput}
-                      onMax={() => {
-                        onFieldAInput(maxAmounts[Field.CURRENCY_A]?.toExact() ?? '')
-                      }}
-                      onHalf={() => {
-                        onFieldAInput(currencyBalances[Field.CURRENCY_A]?.divide(2).toExact() ?? '')
-                      }}
-                      showMaxButton
-                      currency={currencies[Field.CURRENCY_A] ?? null}
-                      id="add-liquidity-input-tokena"
-                      showCommonBases
-                      positionMax="top"
-                      locked={depositADisabled}
-                      estimatedUsd={formattedNum(estimatedUsdCurrencyA.toString(), true) || undefined}
-                      disableCurrencySelect={!baseCurrencyIsETHER && !baseCurrencyIsWETH}
-                      isSwitchMode={baseCurrencyIsETHER || baseCurrencyIsWETH}
-                      onSwitchCurrency={() => {
-                        chainId &&
-                          history.replace(
-                            `/elastic/add/${baseCurrencyIsETHER ? WETH[chainId].address : nativeOnChain(chainId).symbol
-                            }/${currencyIdB}/${feeAmount}`,
-                          )
-                      }}
-                    />
-                  </DynamicSection>
-                  <DynamicSection
-                    gap="md"
-                    disabled={tickLower === undefined || tickUpper === undefined || invalidPool || invalidRange}
-                  >
-                    <CurrencyInputPanel
-                      value={formattedAmounts[Field.CURRENCY_B]}
-                      onUserInput={onFieldBInput}
-                      onMax={() => {
-                        onFieldBInput(maxAmounts[Field.CURRENCY_B]?.toExact() ?? '')
-                      }}
-                      onHalf={() => {
-                        onFieldBInput(currencyBalances[Field.CURRENCY_B]?.divide(2).toExact() ?? '')
-                      }}
-                      showMaxButton
-                      currency={currencies[Field.CURRENCY_B] ?? null}
-                      id="add-liquidity-input-tokenb"
-                      showCommonBases
-                      positionMax="top"
-                      locked={depositBDisabled}
-                      estimatedUsd={formattedNum(estimatedUsdCurrencyB.toString(), true) || undefined}
-                      disableCurrencySelect={!quoteCurrencyIsETHER && !quoteCurrencyIsWETH}
-                      isSwitchMode={quoteCurrencyIsETHER || quoteCurrencyIsWETH}
-                      onSwitchCurrency={() => {
-                        chainId &&
-                          history.replace(
-                            `/elastic/add/${currencyIdA}/${quoteCurrencyIsETHER ? WETH[chainId].address : nativeOnChain(chainId).symbol
-                            }/${feeAmount}`,
-                          )
-                      }}
-                    />
-                  </DynamicSection>
-                </AutoColumn>
-              </AutoColumn>
-            </FlexLeft>
-            <HideMedium>
-              <Buttons />
-            </HideMedium>
-            <RightContainer gap="lg">
-              <MediumOnly>{chart}</MediumOnly>
-              <MediumOnly>
-                <Buttons />
-              </MediumOnly>
-            </RightContainer>
-          </ResponsiveTwoColumns>
-        </Container>
+
+
+                    <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
+                      <Trans>*Required</Trans>
+                    </Text>
+                    <AddressBox
+                      style={{
+                        marginBottom: !above1000 ? '24px' : '',
+                        border: lockPeriodErr && touched ? `1px solid ${theme.red}` : undefined,
+                      }} >
+                      <Text style={{ paddingBottom: mintStakeErr ? '20px' : '' }} fontSize={12} color={theme.subText} marginBottom="8px">
+                        <Trans>Lock Period in Seconds <Span>*</Span></Trans>
+                        <InfoHelper
+                          size={12}
+                          text={t`Any tool tips here`}
+                          placement="top"
+                        />
+                      </Text>
+                      <Text fontSize={20} lineHeight={'24px'} color={theme.text}>
+                        <AddressInput
+                          type="text"
+                          value={lockPeriod}
+                          onChange={(e: any) => {
+                            setLockPeriod(e.target.value)
+                          }}
+                        />
+                      </Text>
+                      {lockPeriodErr && touched && (
+                        <ErrorMessage>
+                          <Trans>{lockPeriodErr}</Trans>
+                        </ErrorMessage>
+                      )}
+                    </AddressBox>
+
+
+                    <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="25px" fontStyle="italic">
+                      <Trans><pre></pre></Trans>
+                    </Text>
+                    <AddressBox >
+                      <Text fontSize={12} color={theme.subText} marginBottom="8px">
+                        <Trans>APY</Trans>
+                      </Text>
+                      <Text fontSize={20} lineHeight={'24px'} color={theme.text}>
+                        <AddressInput
+                          type="text"
+                          value={apy}
+                          onChange={(e: any) => {
+                            setApy(e.target.value)
+                          }} />
+                      </Text>
+
+                    </AddressBox>
+
+
+                  </BlockDiv>
+                </RowBetween>
+              </FlexLeft>
+
+
+              <RightContainer >
+
+                <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="12px" fontStyle="italic">
+                  <Trans><pre></pre></Trans>
+                </Text>
+                <AddressBox >
+
+                  <Text fontSize={12} color={theme.subText} marginBottom="8px">
+                    <Trans>Reward Tokens</Trans>
+                  </Text>
+
+                  <CurrencyInputPanel
+                    hideBalance
+                    value={formattedAmounts[Field.CURRENCY_B]}
+                    hideInput={true}
+                    onUserInput={onFieldBInput}
+                    onCurrencySelect={handleCurrencyBSelect}
+                    showMaxButton={false}
+                    positionMax="top"
+                    currency={currencies[Field.CURRENCY_B] ?? null}
+                    id="add-liquidity-input-tokenb"
+                    showCommonBases
+                    estimatedUsd={formattedNum(estimatedUsdCurrencyB.toString(), true) || undefined}
+                    maxCurrencySymbolLength={6}
+                  />
+
+                </AddressBox>
+
+
+                <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
+                  <Trans>*Required</Trans>
+                </Text>
+                <AddressBoxFull style={{
+                  marginBottom: !above1000 ? '24px' : '',
+                  border: mintStakeErr && touched ? `1px solid ${theme.red}` : undefined,
+                }}>
+                  <Text style={{ paddingBottom: lockPeriodErr ? '20px' : '' }} fontSize={12} color={theme.subText} >
+                    <Trans>Min to Stake <Span>*</Span></Trans>
+                  </Text>
+                  <CustomSelect mint={(val: any) => { setMintStake(val) }} />
+                  {mintStakeErr && touched && (
+                    <ErrorMessage>
+                      <Trans>{mintStakeErr}</Trans>
+                    </ErrorMessage>
+                  )}
+                </AddressBoxFull>
+
+                <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="0px" fontStyle="italic">
+                  <Trans><pre></pre></Trans>
+                </Text>
+                <AddressBoxFull>
+                  <Text fontSize={12} color={theme.subText} >
+                    <Trans>Closing In</Trans>
+                  </Text>
+                  <CustomDatePicker dateTime={(val: any) => { setClosingInDateTime(val) }} />
+                </AddressBoxFull>
+
+              </RightContainer>
+            </ResponsiveTwoColumns>
+
+            <ButtonPrimary onClick={handleSubmit} style={{ marginTop: 'auto' }}>
+              <Trans>Create</Trans>
+            </ButtonPrimary>
+          </Container>
+        </BodyWrapper>
       </PageWrapper>
     </>
   )

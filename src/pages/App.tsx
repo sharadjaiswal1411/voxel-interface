@@ -42,8 +42,11 @@ const Pool = lazy(() => import(/* webpackChunkName: 'my-pool-page' */ './Pool'))
 
 const Yield = lazy(() => import(/* webpackChunkName: 'yield-page' */ './Yield'))
 const NftStaking = lazy(() => import(/* webpackChunkName: 'nft-page' */ './NftStaking'))
+const AddNftStaking = lazy(() => import(/* webpackChunkName: 'nft-page' */ './AddNftStaking'))
 const TokenStaking = lazy(() => import(/* webpackChunkName: 'nft-page' */ './TokenStaking'))
 const Details = lazy(() => import(/* webpackChunkName: 'nft-page' */ './NftStaking/details'))
+const AddFarmV2 = lazy(() => import(/* webpackChunkName: 'nft-page' */ './AddFarmV2'))
+const AddTokenStaking = lazy(() => import(/* webpackChunkName: 'nft-page' */ './AddTokenStaking'))
 const StakingDetails = lazy(() => import(/* webpackChunkName: 'nft-page' */ './TokenStaking/StakingDetails'))
 
 const PoolFinder = lazy(() => import(/* webpackChunkName: 'pool-finder-page' */ './PoolFinder'))
@@ -140,41 +143,41 @@ export default function App() {
     <ErrorBoundary>
       {(BLACKLIST_WALLETS.includes(isAddressString(account)) ||
         BLACKLIST_WALLETS.includes(account?.toLowerCase() || '')) && (
-        <Modal
-          isOpen
-          onDismiss={function (): void {
-            //
-          }}
-          maxWidth="600px"
-          width="80vw"
-        >
-          <Flex flexDirection="column" padding="24px" width="100%">
-            <Flex alignItems="center">
-              <AlertTriangle color={theme.red} />
-              <Text fontWeight="500" fontSize={24} color={theme.red} marginLeft="8px">
-                <Trans>Warning</Trans>
+          <Modal
+            isOpen
+            onDismiss={function (): void {
+              //
+            }}
+            maxWidth="600px"
+            width="80vw"
+          >
+            <Flex flexDirection="column" padding="24px" width="100%">
+              <Flex alignItems="center">
+                <AlertTriangle color={theme.red} />
+                <Text fontWeight="500" fontSize={24} color={theme.red} marginLeft="8px">
+                  <Trans>Warning</Trans>
+                </Text>
+              </Flex>
+              <Text marginTop="24px" fontSize="14px" lineHeight={2}>
+                The US Treasury&apos;s OFAC has published a list of addresses associated with Tornado Cash. Your wallet
+                address below is flagged as one of the addresses on this list, provided by our compliance vendor. As a
+                result, it is blocked from using VoxelSwap and all of its related services at this juncture.
               </Text>
+              <Flex
+                marginTop="24px"
+                padding="12px"
+                backgroundColor={theme.buttonBlack}
+                sx={{ borderRadius: '12px' }}
+                flexDirection="column"
+              >
+                <Text>Your wallet address</Text>
+                <Text color={theme.subText} fontSize={20} marginTop="12px" fontWeight="500">
+                  {isMobile ? shortenAddress(account || '', 10) : account}
+                </Text>
+              </Flex>
             </Flex>
-            <Text marginTop="24px" fontSize="14px" lineHeight={2}>
-              The US Treasury&apos;s OFAC has published a list of addresses associated with Tornado Cash. Your wallet
-              address below is flagged as one of the addresses on this list, provided by our compliance vendor. As a
-              result, it is blocked from using VoxelSwap and all of its related services at this juncture.
-            </Text>
-            <Flex
-              marginTop="24px"
-              padding="12px"
-              backgroundColor={theme.buttonBlack}
-              sx={{ borderRadius: '12px' }}
-              flexDirection="column"
-            >
-              <Text>Your wallet address</Text>
-              <Text color={theme.subText} fontSize={20} marginTop="12px" fontWeight="500">
-                {isMobile ? shortenAddress(account || '', 10) : account}
-              </Text>
-            </Flex>
-          </Flex>
-        </Modal>
-      )}
+          </Modal>
+        )}
 
       {(!account || !BLACKLIST_WALLETS.includes(account)) && (
         <ApolloProvider client={classicClient}>
@@ -193,13 +196,32 @@ export default function App() {
 
                     <Route exact strict path="/swap/:network/:fromCurrency-to-:toCurrency" component={SwapV2} />
                     <Route exact strict path="/swap/:network/:fromCurrency" component={SwapV2} />
-
+                    <Route
+                      exact
+                      strict
+                      path="/nft-staking/add/:currencyIdA?/:currencyIdB?/:feeAmount?"
+                      component={AddNftStaking}
+                    />
+                    <Route
+                      exact
+                      strict
+                      path="/token-staking/add/:currencyIdA?/:currencyIdB?/:feeAmount?"
+                      component={AddTokenStaking}
+                    />
                     <Route exact strict path="/nft-staking/:stakingAddress/:nftAddress" component={Details} />
-                    <Route exact strict path="/token-staking/:stakingAddress/:tokenAddress" component={StakingDetails} />
+
+                    {/* <Route exact strict path="/token-staking/:stakingAddress/:tokenAddress" component={StakingDetails} /> */}
+
+                    <Route
+                      exact
+                      strict
+                      path="/farms/add/:currencyIdA?/:currencyIdB?/:feeAmount?"
+                      component={AddFarmV2}
+                    />
 
                     <Route exact strict path="/swap/:outputCurrency" component={RedirectToSwap} />
                     <Route exact strict path="/swapv2" component={ProAmmSwap} />
-                     <Route exact strict path="/swap" component={SwapV2} />
+                    <Route exact strict path="/swap" component={SwapV2} />
                     <Route exact strict path="/bridge" component={Bridge} />
                     <Route exact strict path="/limit-order" component={LimitOrder} />
                     <Route exact strict path="/find" component={PoolFinder} />
@@ -207,6 +229,7 @@ export default function App() {
                     <Route exact strict path="/pools/:currencyIdA" component={Pools} />
                     <Route exact strict path="/pools/:currencyIdA/:currencyIdB" component={Pools} />
                     <Route exact strict path="/farms" component={Yield} />
+
                     <Route exact strict path="/nft-staking" component={NftStaking} />
                     <Route exact strict path="/token-staking" component={TokenStaking} />
                     <Route exact strict path="/myPools" component={Pool} />
@@ -252,7 +275,7 @@ export default function App() {
                     <Route exact path="/discover" component={TrueSight} />
                     <Route exact path="/buy-crypto" component={BuyCrypto} />
                     <Route exact path={`${AppPaths.CAMPAIGN}/:slug?`} component={Campaign} />
-                   
+
 
                     <Route component={RedirectPathToSwapOnly} />
                   </Switch>
