@@ -17,6 +17,14 @@ const dateInput = {
 
 
 const CustomDatePicker = (params: any) => {
+
+    const currentdate = new Date();
+    const datetime = currentdate.getFullYear() + "-"
+        + (currentdate.getMonth() + 1) + "-"
+        + currentdate.getDate() + "T"
+        + currentdate.getHours() + ":"
+        + currentdate.getMinutes();
+
     const selectedDateTimePicker = (val: any) => {
         params.dateTime(val)
     }
@@ -24,7 +32,7 @@ const CustomDatePicker = (params: any) => {
         // <Select options={options} />
         <>
             {/* <label >Start Time:</label> */}
-            <input type="datetime-local" id="birthdaytime" name="birthdaytime" style={dateInput} onChange={(e) => { selectedDateTimePicker(e.target.value) }} />
+            <input type="datetime-local" id="birthdaytime" name="birthdaytime" min={datetime} style={dateInput} onChange={(e) => { selectedDateTimePicker(e.target.value) }} />
         </>
     );
 };

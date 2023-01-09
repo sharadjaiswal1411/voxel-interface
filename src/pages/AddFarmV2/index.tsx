@@ -99,7 +99,7 @@ const AddressBoxFull = styled.div`
   background: ${({ theme }) => theme.buttonBlack};
   padding: 12px;
   overflow: hidden;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
 `
 
 const AddressInput = styled.input`
@@ -199,7 +199,32 @@ export default function AddFarmV2({
   const isValidAddress = isAddress(vestingDuration)
 
   const handleSubmit = () => {
-    const data = { vestingDuration, selectPool, feeTraget, startDateTime, endDateTime, currencyIdA, currencyIdB };
+
+
+
+    /* ------------------------------ For Date Picker - return number of days,hours,minutes,seconds between two dates------------------*/
+    const diffTime = Math.abs(new Date().valueOf() - new Date(startDateTime).valueOf());
+    let days = diffTime / (24 * 60 * 60 * 1000);
+    let hours = (days % 1) * 24;
+    let minutes = (hours % 1) * 60;
+    let secs = (minutes % 1) * 60;
+    [days, hours, minutes, secs] = [Math.floor(days), Math.floor(hours), Math.floor(minutes), Math.floor(secs)]
+
+    const differenceStartDate = String(days + 'd,' + hours + 'h,' + minutes + 'm,' + secs + 's');
+
+
+    const diffTimes = Math.abs(new Date().valueOf() - new Date(endDateTime).valueOf());
+    let day = diffTimes / (24 * 60 * 60 * 1000);
+    let hour = (days % 1) * 24;
+    let minute = (hours % 1) * 60;
+    let sec = (minutes % 1) * 60;
+    [day, hour, minute, sec] = [Math.floor(day), Math.floor(hour), Math.floor(minute), Math.floor(sec)]
+
+    const differenceEndDate = String(day + 'd,' + hour + 'h,' + minute + 'm,' + sec + 's');
+
+
+
+    const data = { vestingDuration, selectPool, feeTraget, differenceStartDate, differenceEndDate, currencyIdA, currencyIdB };
 
     const err = validate(data);
     // setFormErrors(err);
@@ -216,16 +241,6 @@ export default function AddFarmV2({
       console.log({ data });
     }
 
-
-    // if (isValidAddress && (!isShowTokens || (isShowTokens && currencyA && currencyB))) {
-    //   mixpanelHandler(MIXPANEL_TYPE.CREATE_REFERRAL_CLICKED, {
-    //     referral_commission: commission,
-    //     input_token: currencyA && currencyA.symbol,
-    //     output_token: currencyB && currencyB.symbol,
-    //   })
-    //   setIsShowShareLinkModal(true)
-    //   setTouched(false)
-    // }
   }
 
 
@@ -1013,10 +1028,6 @@ export default function AddFarmV2({
                       </Text>
                       <CustomDatePicker dateTime={(val: any) => { setStartDateTime(val) }} />
                     </AddressBoxFull>
-
-
-
-
 
 
 
