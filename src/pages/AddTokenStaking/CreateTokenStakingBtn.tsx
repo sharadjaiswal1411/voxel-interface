@@ -1,10 +1,9 @@
-import { t, Trans } from '@lingui/macro'
+import { Trans } from '@lingui/macro'
 import React from 'react'
-import { Plus, X } from 'react-feather'
+import { Plus } from 'react-feather'
 import styled, { DefaultTheme, keyframes } from 'styled-components'
 
-import { ButtonEmpty, ButtonPrimary } from 'components/Button'
-import SearchIcon from 'components/Icons/Search'
+import { ButtonPrimary } from 'components/Button'
 import useTheme from 'hooks/useTheme'
 import { ToolbarWrapper } from 'pages/Pools/styleds'
 import { Text } from 'rebass'

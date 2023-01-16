@@ -29,6 +29,15 @@ msgstr ""
 msgid "${totalRewardAmountString} in {tokenSymbol}"
 msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/CreateReferral/index.tsx
 msgid "*Required"
 msgstr ""
@@ -84,6 +93,18 @@ msgstr ""
 
 #: src/pages/TrueSight/components/Chart.tsx
 msgid "7D"
+msgstr ""
+
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
+msgid "<0/>"
 msgstr ""
 
 #: src/components/NftPools/NftStakingGuide.tsx
@@ -209,11 +230,9 @@ msgstr "Yếu tố AMP x Tính thanh khoản trong pool. Các pool khuếch đ�
 msgid "APR"
 msgstr "APR"
 
-#: 
-#: 
-#: 
-#~ msgid "APY"
-#~ msgstr ""
+#: src/pages/AddTokenStaking/index.tsx
+msgid "APY"
+msgstr ""
 
 #: 
 #: 
@@ -267,12 +286,23 @@ msgstr "Hoạt động"
 msgid "Active Price Range"
 msgstr "Mức Giá Hoạt Động"
 
+#: src/pages/AddFarmV2/HeaderTabs.tsx
+msgid "Add Farms"
+msgstr ""
+
 #: src/components/NavigationTabs/index.tsx
 #: src/components/PositionCard/index.tsx
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/ProAmmPools/CardItem.tsx
 msgid "Add Liquidity"
 msgstr "Thêm thanh khoản"
+
+#: src/pages/AddFarmV2/index.tsx
+msgid "Add Reward Tokens Value <0>*</0>"
+msgstr ""
 
 #: src/pages/PoolFinder/index.tsx
 #: src/pages/ProAmmPools/ListItem.tsx
@@ -280,6 +310,9 @@ msgid "Add liquidity"
 msgstr "Thêm thanh khoản"
 
 #: src/components/NavigationTabs/index.tsx
+#: src/pages/AddFarmV2/HeaderTabs.tsx
+#: src/pages/AddNftStaking/HeaderTabs.tsx
+#: src/pages/AddTokenStaking/HeaderTabs.tsx
 msgid "Add liquidity for a token pair and earn fees on the trades that are in your selected price range"
 msgstr ""
 
@@ -436,6 +469,10 @@ msgstr ""
 msgid "Any referral commission will automatically be sent to this wallet address"
 msgstr ""
 
+#: src/pages/AddTokenStaking/index.tsx
+msgid "Any tool tips here"
+msgstr ""
+
 #: src/pages/About/AboutKyberSwap.tsx
 msgid "Anyone can access this liquidity from KyberSwap for their own use case e.g. Dapps, Aggregators."
 msgstr ""
@@ -479,8 +516,14 @@ msgstr "Chấp nhận"
 msgid "Approve Farming Contract"
 msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/Bridge/SwapForm.tsx
 #: src/pages/IncreaseLiquidity/index.tsx
 #: src/pages/IncreaseLiquidity/index.tsx
@@ -511,8 +554,14 @@ msgstr "Đã chấp nhận"
 msgid "Approving"
 msgstr "Đang chấp nhận"
 
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/IncreaseLiquidity/index.tsx
 #: src/pages/IncreaseLiquidity/index.tsx
 msgid "Approving {0}"
@@ -818,6 +867,10 @@ msgstr "Đóng"
 msgid "Closed"
 msgstr ""
 
+#: src/pages/AddTokenStaking/index.tsx
+msgid "Closing In"
+msgstr ""
+
 #: src/pages/About/AboutKyberSwap.tsx
 msgid "Code Audited"
 msgstr ""
@@ -855,6 +908,14 @@ msgstr "Thu phí"
 #: 
 #~ msgid "Collecting fees will withdraw currently available fees for you."
 #~ msgstr ""
+
+#: src/pages/AddNftStaking/index.tsx
+msgid "Collection Logo URL <0>*</0>"
+msgstr ""
+
+#: src/pages/AddNftStaking/index.tsx
+msgid "Collection Name <0>*</0>"
+msgstr ""
 
 #: src/components/NetworkModal/index.tsx
 msgid "Coming Soon"
@@ -913,9 +974,12 @@ msgstr "Chấp thuận giao dịch này trong ví của bạn"
 #: src/components/Menu/FaucetModal.tsx
 #: src/components/YieldPools/ListItem.tsx
 #: src/components/YieldPools/ProMMFarmGroup/buttons.tsx
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidity/TokenPair.tsx
 #: src/pages/AddLiquidity/ZapIn.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/Bridge/SwapForm.tsx
 #: src/pages/Campaign/index.tsx
 #: src/pages/CreatePool/index.tsx
@@ -1009,17 +1073,32 @@ msgstr "Đã Sao Chép"
 #~ msgid "Covers smart-contracts"
 #~ msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/CreatePool/index.tsx
 msgid "Create"
 msgstr "Tạo mới"
+
+#: src/pages/AddFarmV2/CreateFarmsBtn.tsx
+msgid "Create Farm"
+msgstr ""
 
 #: src/pages/About/AboutKyberSwap.tsx
 msgid "Create New Pool"
 msgstr ""
 
+#: src/pages/AddNftStaking/CreateNftStakingBtn.tsx
+msgid "Create Nft Staking"
+msgstr ""
+
 #: src/pages/Pools/index.tsx
 msgid "Create Pool"
 msgstr "Tạo pool"
+
+#: src/pages/AddTokenStaking/CreateTokenStakingBtn.tsx
+msgid "Create Token Staking"
+msgstr ""
 
 #: src/pages/CreateReferral/index.tsx
 msgid "Create Your Referral Link"
@@ -1030,11 +1109,20 @@ msgid "Create a Referral Link"
 msgstr "Tạo liên kết giới thiệu"
 
 #: src/components/NavigationTabs/index.tsx
+#: src/pages/AddFarmV2/HeaderTabs.tsx
+#: src/pages/AddNftStaking/HeaderTabs.tsx
+#: src/pages/AddTokenStaking/HeaderTabs.tsx
 msgid "Create a new liquidity pool and earn fees on trades for this token pair"
 msgstr ""
 
 #: src/components/NavigationTabs/index.tsx
+#: src/pages/AddFarmV2/HeaderTabs.tsx
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/HeaderTabs.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/HeaderTabs.tsx
+#: src/pages/AddTokenStaking/index.tsx
 msgid "Create a new pool"
 msgstr "Tạo Pool mới"
 
@@ -1053,10 +1141,16 @@ msgstr ""
 
 #: src/components/ConfirmAddModalBottom/index.tsx
 #: src/components/swapv2/SwapModalFooter.tsx
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidity/TokenPair.tsx
 #: src/pages/AddLiquidity/ZapIn.tsx
 #: src/pages/AddLiquidityV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/RemoveLiquidity/TokenPair.tsx
 #: src/pages/RemoveLiquidity/TokenPair.tsx
 #: src/pages/RemoveLiquidity/ZapOut.tsx
@@ -1332,7 +1426,10 @@ msgstr ""
 msgid "Easily transfer tokens from one chain to another"
 msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 msgid "Efficiency Comparison"
 msgstr ""
 
@@ -1363,6 +1460,10 @@ msgstr ""
 
 #: src/components/TransactionSettings/index.tsx
 msgid "Enables high slippage trades. Use at your own risk"
+msgstr ""
+
+#: src/pages/AddFarmV2/index.tsx
+msgid "End Time"
 msgstr ""
 
 #: src/pages/Campaign/CampaignItem.tsx
@@ -1654,7 +1755,10 @@ msgstr ""
 msgid "Full Price Range"
 msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 msgid "Full range positions may earn less fees than concentrated positions."
 msgstr ""
 
@@ -1818,7 +1922,10 @@ msgstr ""
 
 #: src/components/SearchModal/ImportList.tsx
 #: src/components/SearchModal/ImportToken.tsx
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 msgid "I understand"
 msgstr "Tôi đã hiểu"
 
@@ -1953,6 +2060,9 @@ msgid "Increase Amount"
 msgstr ""
 
 #: src/components/NavigationTabs/index.tsx
+#: src/pages/AddFarmV2/HeaderTabs.tsx
+#: src/pages/AddNftStaking/HeaderTabs.tsx
+#: src/pages/AddTokenStaking/HeaderTabs.tsx
 #: src/pages/IncreaseLiquidity/index.tsx
 #: src/pages/ProAmmPool/PositionListItem.tsx
 #: src/pages/ProAmmPool/PositionListItem.tsx
@@ -2068,7 +2178,10 @@ msgstr "Cặp không hợp lệ"
 msgid "Invalid price input"
 msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 msgid "Invalid range selected. The min price must be lower than the max price."
 msgstr ""
 
@@ -2278,6 +2391,10 @@ msgstr "Giờ địa phương"
 msgid "Lock Duration"
 msgstr ""
 
+#: src/pages/AddTokenStaking/index.tsx
+msgid "Lock Period in Seconds <0>*</0>"
+msgstr ""
+
 #: src/components/Vesting/VestingSummary.tsx
 msgid "Locked Rewards"
 msgstr "Các Phần thưởng bị Khóa"
@@ -2415,6 +2532,10 @@ msgstr ""
 msgid "Min Lock Duration:"
 msgstr ""
 
+#: src/pages/AddNftStaking/index.tsx
+msgid "Min Lock Time <0>*</0>"
+msgstr ""
+
 #: src/components/PositionPreview/index.tsx
 #: src/components/RangeSelector/index.tsx
 msgid "Min Price"
@@ -2422,6 +2543,10 @@ msgstr ""
 
 #: src/components/swapv2/AdvancedSwapDetails.tsx
 msgid "Min Transaction Fee is {0} {1} <0/>Max Transaction Fee is {2} {3}"
+msgstr ""
+
+#: src/pages/AddTokenStaking/index.tsx
+msgid "Min to Stake <0>*</0>"
 msgstr ""
 
 #: src/components/swapv2/AdvancedSwapDetails.tsx
@@ -2503,8 +2628,13 @@ msgstr "Tổng các Phần thưởng của tôi"
 msgid "My liquidity"
 msgstr "Thanh khoản của tôi"
 
+#: src/pages/AddNftStaking/index.tsx
+msgid "NFT Collection Address <0>*</0>"
+msgstr ""
+
 #: src/components/Header/index.tsx
 #: src/components/Header/index.tsx
+#: src/pages/AddNftStaking/HeaderTabs.tsx
 msgid "NFT Staking"
 msgstr ""
 
@@ -2876,7 +3006,10 @@ msgstr ""
 msgid "Preferences"
 msgstr "Các tùy chọn"
 
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/IncreaseLiquidity/index.tsx
 #: src/pages/RemoveLiquidityProAmm/index.tsx
 msgid "Preview"
@@ -3058,6 +3191,9 @@ msgstr "Vẫn Rút"
 #: src/components/PoolList/ItemCard/index.tsx
 #: src/components/PositionCard/index.tsx
 #: src/components/PositionCard/index.tsx
+#: src/pages/AddFarmV2/HeaderTabs.tsx
+#: src/pages/AddNftStaking/HeaderTabs.tsx
+#: src/pages/AddTokenStaking/HeaderTabs.tsx
 #: src/pages/ProAmmPool/PositionListItem.tsx
 #: src/pages/ProAmmPool/PositionListItem.tsx
 #: src/pages/RemoveLiquidityProAmm/index.tsx
@@ -3069,6 +3205,9 @@ msgid "Remove list"
 msgstr "Xóa danh sách"
 
 #: src/components/NavigationTabs/index.tsx
+#: src/pages/AddFarmV2/HeaderTabs.tsx
+#: src/pages/AddNftStaking/HeaderTabs.tsx
+#: src/pages/AddTokenStaking/HeaderTabs.tsx
 msgid "Removing pool tokens converts your position back into underlying tokens at the current rate, proportional to your share of the pool. Accrued fees are included in the amounts you receive"
 msgstr ""
 
@@ -3077,8 +3216,14 @@ msgid "Removing {0} {1} and {2} {3}{4}{5}"
 msgstr ""
 
 #: src/components/ProAmm/ProAmmPriceRange.tsx
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 msgid "Represents the range where all your liquidity is concentrated. When market price of your token pair is no longer between your selected price range, your liquidity becomes inactive and you stop earning fees"
 msgstr ""
 
@@ -3110,6 +3255,18 @@ msgstr ""
 msgid "Review your transfer"
 msgstr ""
 
+#: src/pages/AddNftStaking/index.tsx
+msgid "Reward Token Address <0>*</0>"
+msgstr ""
+
+#: src/pages/AddTokenStaking/index.tsx
+msgid "Reward Tokens"
+msgstr ""
+
+#: src/pages/AddFarmV2/index.tsx
+msgid "Reward Tokens <0>*</0>"
+msgstr ""
+
 #: src/components/UpcomingFarms/ListItem.tsx
 #: src/components/UpcomingFarms/index.tsx
 #: src/pages/Campaign/LeaderboardLayout.tsx
@@ -3124,6 +3281,10 @@ msgstr ""
 
 #: src/pages/Campaign/LeaderboardLayout.tsx
 msgid "Rewards were distributed at"
+msgstr ""
+
+#: src/pages/AddNftStaking/index.tsx
+msgid "Rewards/Day <0>*</0>"
 msgstr ""
 
 #: 
@@ -3229,6 +3390,10 @@ msgstr "Tìm kiếm sự kiện"
 msgid "Select Override Wallets"
 msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
+msgid "Select Pool <0>*</0>"
+msgstr ""
+
 #: src/components/NetworkModal/index.tsx
 msgid "Select a Network"
 msgstr "Chọn Mạng"
@@ -3272,12 +3437,21 @@ msgstr ""
 msgid "Select your network"
 msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 msgid "Set Starting Price"
 msgstr "Đặt giá khởi điểm"
 
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 msgid "Set Your Price Range"
 msgstr "Cài đặt khoảng giá của bạn"
 
@@ -3481,6 +3655,10 @@ msgstr ""
 msgid "Staking"
 msgstr ""
 
+#: src/pages/AddTokenStaking/HeaderTabs.tsx
+msgid "Staking pool"
+msgstr ""
+
 #: src/constants/index.ts
 msgid "Stands for amplification factor. Each pool can have its own AMP. Pools with a higher AMP provide higher capital efficiency within a particular price range"
 msgstr "Viết tắt của hệ số khuếch đại. Mỗi Pool có thể có chỉ số AMP riêng. Các Pool có AMP cao hơn mang lại hiệu quả sử dụng vốn cao hơn trong một phạm vi giá cụ thể"
@@ -3492,6 +3670,10 @@ msgstr "Viết tắt của hệ số khuếch đại. Các Pool có chỉ số A
 #: src/pages/About/AboutKyberSwap.tsx
 #: src/pages/About/KyberSwapGeneralIntro.tsx
 msgid "Start Earning"
+msgstr ""
+
+#: src/pages/AddFarmV2/index.tsx
+msgid "Start Time"
 msgstr ""
 
 #: src/components/UpcomingFarms/ListItem.tsx
@@ -3544,10 +3726,13 @@ msgstr ""
 msgid "Summary"
 msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidity/TokenPair.tsx
 #: src/pages/AddLiquidity/ZapIn.tsx
 #: src/pages/AddLiquidity/ZapIn.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/IncreaseLiquidity/index.tsx
 msgid "Supply"
 msgstr "Cung cấp"
@@ -3806,7 +3991,10 @@ msgstr ""
 msgid "To continue, check the box below to verify and proceed"
 msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 msgid "To initialize this pool, select a starting price for the pool then enter your liquidity price range. Gas fees will be higher than usual due to initialization of the pool."
 msgstr ""
 
@@ -3878,6 +4066,10 @@ msgstr ""
 #: src/components/swap/AdvancedSwapDetails.tsx
 msgid "Token pool analytics →"
 msgstr "Phân tích pool token →"
+
+#: src/pages/AddTokenStaking/index.tsx
+msgid "Token to Stake"
+msgstr ""
 
 #: src/components/SearchModal/Manage.tsx
 #: src/components/SearchModal/ManageTokens.tsx
@@ -4197,7 +4389,10 @@ msgstr ""
 #~ msgid "Unsubscribe to stop receiving notifications on latest tokens that could be trending soon!"
 #~ msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/IncreaseLiquidity/index.tsx
 msgid "Unsupported Asset"
 msgstr ""
@@ -4265,6 +4460,10 @@ msgstr ""
 #: src/components/YieldPools/index.tsx
 #: src/pages/Yield/index.tsx
 msgid "Vesting"
+msgstr ""
+
+#: src/pages/AddFarmV2/index.tsx
+msgid "Vesting Duration"
 msgstr ""
 
 #: src/components/Vesting/ProMMVesting.tsx
@@ -4841,7 +5040,10 @@ msgstr ""
 #~ msgid "Your position will be 100% {0} at this price."
 #~ msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 msgid "Your position will not earn fees until the market price of the pool moves into your price range."
 msgstr ""
 
@@ -5077,9 +5279,53 @@ msgstr ""
 msgid "{TOTAL_STEP} easy ways to get started with VoxelSwap"
 msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
+msgid "{addRewardTokenErr}"
+msgstr ""
+
+#: src/pages/AddFarmV2/index.tsx
+msgid "{addRewardTokenValueErr}"
+msgstr ""
+
+#: src/pages/AddNftStaking/index.tsx
+msgid "{collectionLogoErr}"
+msgstr ""
+
+#: src/pages/AddNftStaking/index.tsx
+msgid "{collectionNameErr}"
+msgstr ""
+
+#: src/pages/AddTokenStaking/index.tsx
+msgid "{lockPeriodErr}"
+msgstr ""
+
+#: src/pages/AddNftStaking/index.tsx
+msgid "{lockTimeErr}"
+msgstr ""
+
+#: src/pages/AddTokenStaking/index.tsx
+msgid "{mintStakeErr}"
+msgstr ""
+
+#: src/pages/AddNftStaking/index.tsx
+msgid "{nftAddressErr}"
+msgstr ""
+
 #: src/components/Popups/ListUpdatePopup.tsx
 msgid "{numTokensChanged} tokens updated"
 msgstr "Đã cập nhật token {numTokensChanged}"
+
+#: src/pages/AddFarmV2/index.tsx
+msgid "{poolErr}"
+msgstr ""
+
+#: src/pages/AddNftStaking/index.tsx
+msgid "{rewardErr}"
+msgstr ""
+
+#: src/pages/AddNftStaking/index.tsx
+msgid "{rewardTokenAddressErr}"
+msgstr ""
 
 #: src/components/InputStepCounter/InputStepCounter.tsx
 msgid "{tokenB} per {tokenA}"

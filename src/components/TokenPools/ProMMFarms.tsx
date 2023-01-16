@@ -1,35 +1,17 @@
-import { Trans, t } from '@lingui/macro'
 import { Fraction } from '@kyberswap/ks-sdk-core'
-import { stringify } from 'querystring'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Search } from 'react-feather'
-import { useHistory, useLocation,Link} from 'react-router-dom'
-import { Flex, Text } from 'rebass'
+import { useEffect, useState } from 'react'
+import { Flex } from 'rebass'
 import LocalLoader from 'components/LocalLoader'
-import { NETWORKS_INFO } from 'constants/networks'
-import { VERSION } from 'constants/v2'
 import { useActiveWeb3React } from 'hooks'
-import { useOnClickOutside } from 'hooks/useOnClickOutside'
-import useParsedQueryString from 'hooks/useParsedQueryString'
 import useTheme from 'hooks/useTheme'
-import { ApplicationModal } from 'state/application/actions'
-import { useBlockNumber, useModalOpen, useOpenModal } from 'state/application/hooks'
 import { useTokenStakingAction} from 'state/nfts/promm/hooks'
 import styled from 'styled-components'
-import { StyledInternalLink } from 'theme'
-import { ButtonPrimary } from 'components/Button'
 import TokenInfo from 'components/TokenPools'
 import { BigNumber } from 'ethers'
 import JSBI from 'jsbi'
 
-import {
-  HeadingContainer,
-  HeadingRight,
-  SearchContainer,
-  SearchInput,
-  StakedOnlyToggleText,
-  StakedOnlyToggleWrapper,
-} from './styleds'
+
+
 
 
 export const NftCard= styled.div`

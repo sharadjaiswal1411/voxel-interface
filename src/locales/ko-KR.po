@@ -29,6 +29,15 @@ msgstr ""
 msgid "${totalRewardAmountString} in {tokenSymbol}"
 msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/CreateReferral/index.tsx
 msgid "*Required"
 msgstr ""
@@ -84,6 +93,18 @@ msgstr ""
 
 #: src/pages/TrueSight/components/Chart.tsx
 msgid "7D"
+msgstr ""
+
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
+msgid "<0/>"
 msgstr ""
 
 #: src/components/NftPools/NftStakingGuide.tsx
@@ -209,11 +230,9 @@ msgstr "AMP 계수와 풀에 있는 유동성을 곱한 값."
 msgid "APR"
 msgstr "APR"
 
-#: 
-#: 
-#: 
-#~ msgid "APY"
-#~ msgstr ""
+#: src/pages/AddTokenStaking/index.tsx
+msgid "APY"
+msgstr ""
 
 #: 
 #: 
@@ -267,12 +286,23 @@ msgstr "가동"
 msgid "Active Price Range"
 msgstr "가동 가격 범위"
 
+#: src/pages/AddFarmV2/HeaderTabs.tsx
+msgid "Add Farms"
+msgstr ""
+
 #: src/components/NavigationTabs/index.tsx
 #: src/components/PositionCard/index.tsx
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/ProAmmPools/CardItem.tsx
 msgid "Add Liquidity"
 msgstr "유동성 추가"
+
+#: src/pages/AddFarmV2/index.tsx
+msgid "Add Reward Tokens Value <0>*</0>"
+msgstr ""
 
 #: src/pages/PoolFinder/index.tsx
 #: src/pages/ProAmmPools/ListItem.tsx
@@ -280,6 +310,9 @@ msgid "Add liquidity"
 msgstr "유동성 추가"
 
 #: src/components/NavigationTabs/index.tsx
+#: src/pages/AddFarmV2/HeaderTabs.tsx
+#: src/pages/AddNftStaking/HeaderTabs.tsx
+#: src/pages/AddTokenStaking/HeaderTabs.tsx
 msgid "Add liquidity for a token pair and earn fees on the trades that are in your selected price range"
 msgstr ""
 
@@ -436,6 +469,10 @@ msgstr ""
 msgid "Any referral commission will automatically be sent to this wallet address"
 msgstr ""
 
+#: src/pages/AddTokenStaking/index.tsx
+msgid "Any tool tips here"
+msgstr ""
+
 #: src/pages/About/AboutKyberSwap.tsx
 msgid "Anyone can access this liquidity from KyberSwap for their own use case e.g. Dapps, Aggregators."
 msgstr ""
@@ -467,8 +504,14 @@ msgstr "승인"
 msgid "Approve Farming Contract"
 msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/Bridge/SwapForm.tsx
 #: src/pages/IncreaseLiquidity/index.tsx
 #: src/pages/IncreaseLiquidity/index.tsx
@@ -499,8 +542,14 @@ msgstr "승인됨"
 msgid "Approving"
 msgstr "승인 중"
 
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/IncreaseLiquidity/index.tsx
 #: src/pages/IncreaseLiquidity/index.tsx
 msgid "Approving {0}"
@@ -806,6 +855,10 @@ msgstr "닫기"
 msgid "Closed"
 msgstr ""
 
+#: src/pages/AddTokenStaking/index.tsx
+msgid "Closing In"
+msgstr ""
+
 #: src/pages/About/AboutKyberSwap.tsx
 msgid "Code Audited"
 msgstr ""
@@ -843,6 +896,14 @@ msgstr ""
 #: 
 #~ msgid "Collecting fees will withdraw currently available fees for you."
 #~ msgstr ""
+
+#: src/pages/AddNftStaking/index.tsx
+msgid "Collection Logo URL <0>*</0>"
+msgstr ""
+
+#: src/pages/AddNftStaking/index.tsx
+msgid "Collection Name <0>*</0>"
+msgstr ""
 
 #: src/components/NetworkModal/index.tsx
 msgid "Coming Soon"
@@ -901,9 +962,12 @@ msgstr "지갑에서 이 거래를 승인하세요"
 #: src/components/Menu/FaucetModal.tsx
 #: src/components/YieldPools/ListItem.tsx
 #: src/components/YieldPools/ProMMFarmGroup/buttons.tsx
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidity/TokenPair.tsx
 #: src/pages/AddLiquidity/ZapIn.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/Bridge/SwapForm.tsx
 #: src/pages/Campaign/index.tsx
 #: src/pages/CreatePool/index.tsx
@@ -1001,16 +1065,31 @@ msgstr "복사됨"
 #~ msgid "Covers smart-contracts"
 #~ msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/CreatePool/index.tsx
 msgid "Create"
 msgstr "생성"
+
+#: src/pages/AddFarmV2/CreateFarmsBtn.tsx
+msgid "Create Farm"
+msgstr ""
 
 #: src/pages/About/AboutKyberSwap.tsx
 msgid "Create New Pool"
 msgstr "새 풀 만들기"
 
+#: src/pages/AddNftStaking/CreateNftStakingBtn.tsx
+msgid "Create Nft Staking"
+msgstr ""
+
 #: src/pages/Pools/index.tsx
 msgid "Create Pool"
+msgstr ""
+
+#: src/pages/AddTokenStaking/CreateTokenStakingBtn.tsx
+msgid "Create Token Staking"
 msgstr ""
 
 #: src/pages/CreateReferral/index.tsx
@@ -1022,11 +1101,20 @@ msgid "Create a Referral Link"
 msgstr ""
 
 #: src/components/NavigationTabs/index.tsx
+#: src/pages/AddFarmV2/HeaderTabs.tsx
+#: src/pages/AddNftStaking/HeaderTabs.tsx
+#: src/pages/AddTokenStaking/HeaderTabs.tsx
 msgid "Create a new liquidity pool and earn fees on trades for this token pair"
 msgstr ""
 
 #: src/components/NavigationTabs/index.tsx
+#: src/pages/AddFarmV2/HeaderTabs.tsx
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/HeaderTabs.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/HeaderTabs.tsx
+#: src/pages/AddTokenStaking/index.tsx
 msgid "Create a new pool"
 msgstr "새 풀 만들기"
 
@@ -1045,10 +1133,16 @@ msgstr ""
 
 #: src/components/ConfirmAddModalBottom/index.tsx
 #: src/components/swapv2/SwapModalFooter.tsx
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidity/TokenPair.tsx
 #: src/pages/AddLiquidity/ZapIn.tsx
 #: src/pages/AddLiquidityV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/RemoveLiquidity/TokenPair.tsx
 #: src/pages/RemoveLiquidity/TokenPair.tsx
 #: src/pages/RemoveLiquidity/ZapOut.tsx
@@ -1324,7 +1418,10 @@ msgstr ""
 msgid "Easily transfer tokens from one chain to another"
 msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 msgid "Efficiency Comparison"
 msgstr ""
 
@@ -1355,6 +1452,10 @@ msgstr ""
 
 #: src/components/TransactionSettings/index.tsx
 msgid "Enables high slippage trades. Use at your own risk"
+msgstr ""
+
+#: src/pages/AddFarmV2/index.tsx
+msgid "End Time"
 msgstr ""
 
 #: src/pages/Campaign/CampaignItem.tsx
@@ -1646,7 +1747,10 @@ msgstr ""
 msgid "Full Price Range"
 msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 msgid "Full range positions may earn less fees than concentrated positions."
 msgstr ""
 
@@ -1810,7 +1914,10 @@ msgstr ""
 
 #: src/components/SearchModal/ImportList.tsx
 #: src/components/SearchModal/ImportToken.tsx
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 msgid "I understand"
 msgstr "이해했습니다"
 
@@ -1945,6 +2052,9 @@ msgid "Increase Amount"
 msgstr ""
 
 #: src/components/NavigationTabs/index.tsx
+#: src/pages/AddFarmV2/HeaderTabs.tsx
+#: src/pages/AddNftStaking/HeaderTabs.tsx
+#: src/pages/AddTokenStaking/HeaderTabs.tsx
 #: src/pages/IncreaseLiquidity/index.tsx
 #: src/pages/ProAmmPool/PositionListItem.tsx
 #: src/pages/ProAmmPool/PositionListItem.tsx
@@ -2060,7 +2170,10 @@ msgstr "잘못된 쌍입니다."
 msgid "Invalid price input"
 msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 msgid "Invalid range selected. The min price must be lower than the max price."
 msgstr ""
 
@@ -2270,6 +2383,10 @@ msgstr ""
 msgid "Lock Duration"
 msgstr ""
 
+#: src/pages/AddTokenStaking/index.tsx
+msgid "Lock Period in Seconds <0>*</0>"
+msgstr ""
+
 #: src/components/Vesting/VestingSummary.tsx
 msgid "Locked Rewards"
 msgstr "잠긴 보상"
@@ -2407,6 +2524,10 @@ msgstr ""
 msgid "Min Lock Duration:"
 msgstr ""
 
+#: src/pages/AddNftStaking/index.tsx
+msgid "Min Lock Time <0>*</0>"
+msgstr ""
+
 #: src/components/PositionPreview/index.tsx
 #: src/components/RangeSelector/index.tsx
 msgid "Min Price"
@@ -2414,6 +2535,10 @@ msgstr ""
 
 #: src/components/swapv2/AdvancedSwapDetails.tsx
 msgid "Min Transaction Fee is {0} {1} <0/>Max Transaction Fee is {2} {3}"
+msgstr ""
+
+#: src/pages/AddTokenStaking/index.tsx
+msgid "Min to Stake <0>*</0>"
 msgstr ""
 
 #: src/components/swapv2/AdvancedSwapDetails.tsx
@@ -2495,8 +2620,13 @@ msgstr "내 총 보상"
 msgid "My liquidity"
 msgstr "나의 유동성"
 
+#: src/pages/AddNftStaking/index.tsx
+msgid "NFT Collection Address <0>*</0>"
+msgstr ""
+
 #: src/components/Header/index.tsx
 #: src/components/Header/index.tsx
+#: src/pages/AddNftStaking/HeaderTabs.tsx
 msgid "NFT Staking"
 msgstr ""
 
@@ -2868,7 +2998,10 @@ msgstr ""
 msgid "Preferences"
 msgstr "기본 설정"
 
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/IncreaseLiquidity/index.tsx
 #: src/pages/RemoveLiquidityProAmm/index.tsx
 msgid "Preview"
@@ -3050,6 +3183,9 @@ msgstr "제거하기"
 #: src/components/PoolList/ItemCard/index.tsx
 #: src/components/PositionCard/index.tsx
 #: src/components/PositionCard/index.tsx
+#: src/pages/AddFarmV2/HeaderTabs.tsx
+#: src/pages/AddNftStaking/HeaderTabs.tsx
+#: src/pages/AddTokenStaking/HeaderTabs.tsx
 #: src/pages/ProAmmPool/PositionListItem.tsx
 #: src/pages/ProAmmPool/PositionListItem.tsx
 #: src/pages/RemoveLiquidityProAmm/index.tsx
@@ -3061,6 +3197,9 @@ msgid "Remove list"
 msgstr "목록 삭제"
 
 #: src/components/NavigationTabs/index.tsx
+#: src/pages/AddFarmV2/HeaderTabs.tsx
+#: src/pages/AddNftStaking/HeaderTabs.tsx
+#: src/pages/AddTokenStaking/HeaderTabs.tsx
 msgid "Removing pool tokens converts your position back into underlying tokens at the current rate, proportional to your share of the pool. Accrued fees are included in the amounts you receive"
 msgstr ""
 
@@ -3069,8 +3208,14 @@ msgid "Removing {0} {1} and {2} {3}{4}{5}"
 msgstr ""
 
 #: src/components/ProAmm/ProAmmPriceRange.tsx
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 msgid "Represents the range where all your liquidity is concentrated. When market price of your token pair is no longer between your selected price range, your liquidity becomes inactive and you stop earning fees"
 msgstr ""
 
@@ -3102,6 +3247,18 @@ msgstr ""
 msgid "Review your transfer"
 msgstr ""
 
+#: src/pages/AddNftStaking/index.tsx
+msgid "Reward Token Address <0>*</0>"
+msgstr ""
+
+#: src/pages/AddTokenStaking/index.tsx
+msgid "Reward Tokens"
+msgstr ""
+
+#: src/pages/AddFarmV2/index.tsx
+msgid "Reward Tokens <0>*</0>"
+msgstr ""
+
 #: src/components/UpcomingFarms/ListItem.tsx
 #: src/components/UpcomingFarms/index.tsx
 #: src/pages/Campaign/LeaderboardLayout.tsx
@@ -3116,6 +3273,10 @@ msgstr ""
 
 #: src/pages/Campaign/LeaderboardLayout.tsx
 msgid "Rewards were distributed at"
+msgstr ""
+
+#: src/pages/AddNftStaking/index.tsx
+msgid "Rewards/Day <0>*</0>"
 msgstr ""
 
 #: 
@@ -3221,6 +3382,10 @@ msgstr ""
 msgid "Select Override Wallets"
 msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
+msgid "Select Pool <0>*</0>"
+msgstr ""
+
 #: src/components/NetworkModal/index.tsx
 msgid "Select a Network"
 msgstr "네트워크 선택"
@@ -3264,12 +3429,21 @@ msgstr ""
 msgid "Select your network"
 msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 msgid "Set Starting Price"
 msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 msgid "Set Your Price Range"
 msgstr ""
 
@@ -3473,6 +3647,10 @@ msgstr ""
 msgid "Staking"
 msgstr ""
 
+#: src/pages/AddTokenStaking/HeaderTabs.tsx
+msgid "Staking pool"
+msgstr ""
+
 #: src/constants/index.ts
 msgid "Stands for amplification factor. Each pool can have its own AMP. Pools with a higher AMP provide higher capital efficiency within a particular price range"
 msgstr "증폭 계수를 뜻합니다. 모든 풀은 다른 AMP를 세팅 할 수 있습니다, 높은 풀은 더 높은 자본 효율성을 제공하지만 운영되는 토큰 가격범위가 좁습니다."
@@ -3484,6 +3662,10 @@ msgstr "증폭 계수를 뜻합니다. AMP가 더 높은 풀은 더 높은 자�
 #: src/pages/About/AboutKyberSwap.tsx
 #: src/pages/About/KyberSwapGeneralIntro.tsx
 msgid "Start Earning"
+msgstr ""
+
+#: src/pages/AddFarmV2/index.tsx
+msgid "Start Time"
 msgstr ""
 
 #: src/components/UpcomingFarms/ListItem.tsx
@@ -3536,10 +3718,13 @@ msgstr ""
 msgid "Summary"
 msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidity/TokenPair.tsx
 #: src/pages/AddLiquidity/ZapIn.tsx
 #: src/pages/AddLiquidity/ZapIn.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/IncreaseLiquidity/index.tsx
 msgid "Supply"
 msgstr "공급"
@@ -3798,7 +3983,10 @@ msgstr ""
 msgid "To continue, check the box below to verify and proceed"
 msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 msgid "To initialize this pool, select a starting price for the pool then enter your liquidity price range. Gas fees will be higher than usual due to initialization of the pool."
 msgstr ""
 
@@ -3870,6 +4058,10 @@ msgstr ""
 #: src/components/swap/AdvancedSwapDetails.tsx
 msgid "Token pool analytics →"
 msgstr "토큰 풀 분석 →"
+
+#: src/pages/AddTokenStaking/index.tsx
+msgid "Token to Stake"
+msgstr ""
 
 #: src/components/SearchModal/Manage.tsx
 #: src/components/SearchModal/ManageTokens.tsx
@@ -4189,7 +4381,10 @@ msgstr ""
 #~ msgid "Unsubscribe to stop receiving notifications on latest tokens that could be trending soon!"
 #~ msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/IncreaseLiquidity/index.tsx
 msgid "Unsupported Asset"
 msgstr ""
@@ -4257,6 +4452,10 @@ msgstr ""
 #: src/components/YieldPools/index.tsx
 #: src/pages/Yield/index.tsx
 msgid "Vesting"
+msgstr ""
+
+#: src/pages/AddFarmV2/index.tsx
+msgid "Vesting Duration"
 msgstr ""
 
 #: src/components/Vesting/ProMMVesting.tsx
@@ -4833,7 +5032,10 @@ msgstr ""
 #~ msgid "Your position will be 100% {0} at this price."
 #~ msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddNftStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 msgid "Your position will not earn fees until the market price of the pool moves into your price range."
 msgstr ""
 
@@ -5069,9 +5271,53 @@ msgstr ""
 msgid "{TOTAL_STEP} easy ways to get started with VoxelSwap"
 msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
+msgid "{addRewardTokenErr}"
+msgstr ""
+
+#: src/pages/AddFarmV2/index.tsx
+msgid "{addRewardTokenValueErr}"
+msgstr ""
+
+#: src/pages/AddNftStaking/index.tsx
+msgid "{collectionLogoErr}"
+msgstr ""
+
+#: src/pages/AddNftStaking/index.tsx
+msgid "{collectionNameErr}"
+msgstr ""
+
+#: src/pages/AddTokenStaking/index.tsx
+msgid "{lockPeriodErr}"
+msgstr ""
+
+#: src/pages/AddNftStaking/index.tsx
+msgid "{lockTimeErr}"
+msgstr ""
+
+#: src/pages/AddTokenStaking/index.tsx
+msgid "{mintStakeErr}"
+msgstr ""
+
+#: src/pages/AddNftStaking/index.tsx
+msgid "{nftAddressErr}"
+msgstr ""
+
 #: src/components/Popups/ListUpdatePopup.tsx
 msgid "{numTokensChanged} tokens updated"
 msgstr "{numTokensChanged} 토큰이 업데이트되었습니다"
+
+#: src/pages/AddFarmV2/index.tsx
+msgid "{poolErr}"
+msgstr ""
+
+#: src/pages/AddNftStaking/index.tsx
+msgid "{rewardErr}"
+msgstr ""
+
+#: src/pages/AddNftStaking/index.tsx
+msgid "{rewardTokenAddressErr}"
+msgstr ""
 
 #: src/components/InputStepCounter/InputStepCounter.tsx
 msgid "{tokenB} per {tokenA}"

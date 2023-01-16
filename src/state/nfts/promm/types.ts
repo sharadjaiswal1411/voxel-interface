@@ -1,7 +1,5 @@
-import { Token } from '@kyberswap/ks-sdk-core'
 import { BigNumber } from 'ethers'
 
-import { ProMMPoolData } from 'state/prommPools/hooks'
 import { PositionDetails } from 'types/position'
 
 export interface UserPositionFarm extends PositionDetails {

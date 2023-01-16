@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { ArrowLeft, Trash } from 'react-feather'
 import { useHistory } from 'react-router-dom'
-import { Flex, Text } from 'rebass'
+import { Flex } from 'rebass'
 import styled, { css } from 'styled-components'
 
 import { ButtonEmpty } from 'components/Button'

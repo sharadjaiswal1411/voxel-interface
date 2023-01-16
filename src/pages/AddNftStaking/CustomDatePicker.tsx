@@ -1,4 +1,3 @@
-import Select from 'react-select';
 
 const options = [
     { value: 'chocolate', label: 'Chocolate' },
