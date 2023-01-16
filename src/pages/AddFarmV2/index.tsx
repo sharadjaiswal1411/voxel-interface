@@ -84,7 +84,6 @@ export const Container = styled.div`
 `
 
 
-
 const AddressBox: any = styled.div`
   border-radius: 8px;
   background: ${({ theme }) => theme.buttonBlack};
@@ -98,7 +97,7 @@ const AddressBoxFull = styled.div`
   background: ${({ theme }) => theme.buttonBlack};
   padding: 12px;
   overflow: hidden;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
 `
 
 const AddressInput = styled.input`
@@ -187,6 +186,7 @@ export default function AddFarmV2({
   const [feeTraget, setFeeTraget] = useState('300')
   const [touched, setTouched] = useState(false)
   const [poolErr, setPoolErr] = useState('')
+  const [addRewardTokenValue, setAddRewardTokenValue] = useState('')
   const [addRewardTokenErr, setAddRewardTokenErr] = useState('')
   const [addRewardTokenValueErr, setAddRewardTokenValueErr] = useState('')
   // const [formErrors, setFormErrors] = useState({});
@@ -198,7 +198,32 @@ export default function AddFarmV2({
   const isValidAddress = isAddress(vestingDuration)
 
   const handleSubmit = () => {
-    const data = { vestingDuration, selectPool, feeTraget, startDateTime, endDateTime, currencyIdA, currencyIdB };
+
+
+
+    /* ------------------------------ For Date Picker - return number of days,hours,minutes,seconds between two dates------------------*/
+    const diffTime = Math.abs(new Date().valueOf() - new Date(startDateTime).valueOf());
+    let days = diffTime / (24 * 60 * 60 * 1000);
+    let hours = (days % 1) * 24;
+    let minutes = (hours % 1) * 60;
+    let secs = (minutes % 1) * 60;
+    [days, hours, minutes, secs] = [Math.floor(days), Math.floor(hours), Math.floor(minutes), Math.floor(secs)]
+
+    const differenceStartDate = String(days + 'd,' + hours + 'h,' + minutes + 'm,' + secs + 's');
+
+
+    const diffTimes = Math.abs(new Date().valueOf() - new Date(endDateTime).valueOf());
+    let day = diffTimes / (24 * 60 * 60 * 1000);
+    let hour = (days % 1) * 24;
+    let minute = (hours % 1) * 60;
+    let sec = (minutes % 1) * 60;
+    [day, hour, minute, sec] = [Math.floor(day), Math.floor(hour), Math.floor(minute), Math.floor(sec)]
+
+    const differenceEndDate = String(day + 'd,' + hour + 'h,' + minute + 'm,' + sec + 's');
+
+
+
+    const data = { vestingDuration, selectPool, feeTraget, differenceStartDate, differenceEndDate, currencyIdA, addRewardTokenValue };
 
     const err = validate(data);
     // setFormErrors(err);
@@ -214,19 +239,7 @@ export default function AddFarmV2({
     if (data) {
       console.log({ data });
     }
-
-
-    // if (isValidAddress && (!isShowTokens || (isShowTokens && currencyA && currencyB))) {
-    //   mixpanelHandler(MIXPANEL_TYPE.CREATE_REFERRAL_CLICKED, {
-    //     referral_commission: commission,
-    //     input_token: currencyA && currencyA.symbol,
-    //     output_token: currencyB && currencyB.symbol,
-    //   })
-    //   setIsShowShareLinkModal(true)
-    //   setTouched(false)
-    // }
   }
-
 
   // Input Fields Validations
   const validate = (valu: any) => {
@@ -245,7 +258,7 @@ export default function AddFarmV2({
     if (valu.currencyIdA == undefined) {
       errors.addRewardToken = "Selecting Token is Required !";
     }
-    if (valu.currencyIdB == undefined) {
+    if (!valu.addRewardTokenValue) {
       errors.addRewardTokenValue = "Selecting Token Value is Required !";
     }
 
@@ -1015,10 +1028,6 @@ export default function AddFarmV2({
 
 
 
-
-
-
-
                     <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="25px" fontStyle="italic">
                       <Trans><pre></pre></Trans>
                     </Text>
@@ -1120,24 +1129,20 @@ export default function AddFarmV2({
                   border: addRewardTokenValueErr && touched ? `1px solid ${theme.red}` : undefined,
                 }}>
 
-                  <Text fontSize={12} color={theme.subText} marginBottom="8px">
+                  <Text fontSize={12} color={theme.subText} marginBottom="20px">
                     <Trans>Add Reward Tokens Value <Span>*</Span></Trans>
                   </Text>
 
-                  <CurrencyInputPanel
-                    hideBalance
-                    value={formattedAmounts[Field.CURRENCY_B]}
-                    hideInput={true}
-                    onUserInput={onFieldBInput}
-                    onCurrencySelect={handleCurrencyBSelect}
-                    showMaxButton={false}
-                    positionMax="top"
-                    currency={currencies[Field.CURRENCY_B] ?? null}
-                    id="add-liquidity-input-tokenb"
-                    showCommonBases
-                    estimatedUsd={formattedNum(estimatedUsdCurrencyB.toString(), true) || undefined}
-                    maxCurrencySymbolLength={6}
-                  />
+                  <Text fontSize={20} lineHeight={'24px'} color={theme.text}>
+                    <AddressInput
+                      type="text"
+                      name="addRewardToken"
+                      value={addRewardTokenValue}
+                      onChange={(e: any) => {
+                        setAddRewardTokenValue(e.target.value)
+                      }}
+                    />
+                  </Text>
                   {addRewardTokenValueErr && touched && (
                     <ErrorMessage>
                       <Trans>{addRewardTokenValueErr}</Trans>

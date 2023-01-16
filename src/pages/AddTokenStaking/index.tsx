@@ -188,18 +188,24 @@ export default function AddFarmV2({
 
 
   const handleSubmit = () => {
-    const data = { rewardToken, tokenStake, apy, lockPeriod, mintStake, closingInDateTime };
+
+
+    /* ------------------------------ For Date Picker - return number of days,hours,minutes,seconds between two dates------------------*/
+    const diffTime = Math.abs(new Date().valueOf() - new Date(closingInDateTime).valueOf());
+    let days = diffTime / (24 * 60 * 60 * 1000);
+    let hours = (days % 1) * 24;
+    let minutes = (hours % 1) * 60;
+    let secs = (minutes % 1) * 60;
+    [days, hours, minutes, secs] = [Math.floor(days), Math.floor(hours), Math.floor(minutes), Math.floor(secs)]
+
+    const differenceDate = String(days + 'd,' + hours + 'h,' + minutes + 'm,' + secs + 's');
+
+
+
+
+    const data = { rewardToken, tokenStake, apy, lockPeriod, mintStake, differenceDate };
 
     const err = validate(data);
-
-    // const currentdate = new Date();
-    // const datetime = currentdate.getFullYear() + "-"
-    //   + (currentdate.getMonth() + 1) + "-"
-    //   + currentdate.getDate() + "T"
-    //   + currentdate.getHours() + ":"
-    //   + currentdate.getMinutes();
-
-
 
     setLockPeriodErr(err.lockPeriod!);
     setMintStakeErr(err.mintStake!);
