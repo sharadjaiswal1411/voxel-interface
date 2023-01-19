@@ -905,7 +905,7 @@ export default function Swap({ history }: RouteComponentProps) {
                           value={formattedAmounts[Field.OUTPUT]}
                           onUserInput={handleTypeOutput}
                           showMaxButton={false}
-                          currency={}
+                          currency={currencyOut}
                           onCurrencySelect={handleOutputSelect}
                           otherCurrency={currencyIn}
                           id="swap-currency-output"

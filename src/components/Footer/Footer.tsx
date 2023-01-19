@@ -5,8 +5,10 @@ import { Flex, Text } from 'rebass'
 import styled from 'styled-components'
 import { Telegram } from 'components/Icons'
 import Discord from 'components/Icons/Discord'
-import Medium from 'components/Icons/Medium'
-import TwitterIcon from 'components/Icons/TwitterIcon'
+import LinkedIn from 'components/Icons/LinkedIn'
+import Instagram from 'components/Icons/Instagram'
+import {TwitterNew} from 'components/Icons/TwitterIcon'
+import {FacebookNew} from 'components/Icons/Facebook'
 import useTheme from 'hooks/useTheme'
 import { useIsDarkMode } from 'state/user/hooks'
 import { ExternalLink, ExternalLinkNoLineHeight } from 'theme'
@@ -39,11 +41,11 @@ const FooterContent = styled.div`
   }
 
   @media only screen and (min-width: 1366px) {
-    padding: 16px 215px;
+    padding: 16px 120px;
   }
 
   @media only screen and (min-width: 1500px) {
-    padding: 16px 252px;
+    padding: 16px 120px;
   }
 `
 
@@ -115,18 +117,26 @@ export const FooterSocialLink = () => {
   const theme = useTheme()
   return (
     <Flex alignItems="center" justifyContent="center" sx={{ gap: '24px' }}>
-      <ExternalLinkNoLineHeight href="#">
-        <Telegram size={16} color={theme.subText} />
+      <ExternalLinkNoLineHeight href="https://t.me/VoxelXNetwork_Official">
+        <Telegram size={28} color={theme.subText} />
       </ExternalLinkNoLineHeight>
       <ExternalLinkNoLineHeight href="https://twitter.com/VoxelXnetwork">
-        <TwitterIcon color={theme.subText} />
+        <TwitterNew  size={36} color={theme.subText} />
       </ExternalLinkNoLineHeight>
-      <ExternalLinkNoLineHeight href="#">
-        <Discord width={16} height={12} color={theme.subText} />
+      <ExternalLinkNoLineHeight href="https://www.facebook.com/VoxelXnetwork">
+        <FacebookNew size={36} color={theme.subText} />
       </ExternalLinkNoLineHeight>
-      <ExternalLinkNoLineHeight href={`#`}>
-        <Medium />
+      <ExternalLinkNoLineHeight href="https://discord.com/invite/voxelxnetwork">
+        <Discord width={28} height={32} color={theme.subText} />
       </ExternalLinkNoLineHeight>
+
+      <ExternalLinkNoLineHeight href="https://www.linkedin.com/company/voxel-x-network">
+        <LinkedIn size={36} color={theme.subText} />
+      </ExternalLinkNoLineHeight>
+      <ExternalLinkNoLineHeight href="https://www.instagram.com/voxelxnetwork">
+        <Instagram size={36} color={theme.subText} />
+      </ExternalLinkNoLineHeight>
+      
     </Flex>
   )
 }
