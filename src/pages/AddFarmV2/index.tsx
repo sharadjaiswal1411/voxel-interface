@@ -189,6 +189,10 @@ export default function AddFarmV2({
   const [addRewardTokenValue, setAddRewardTokenValue] = useState('')
   const [addRewardTokenErr, setAddRewardTokenErr] = useState('')
   const [addRewardTokenValueErr, setAddRewardTokenValueErr] = useState('')
+  const [vestingDurationError, setVestingDurationError] = useState('')
+  const [startTimeError, setStartTimeError] = useState('')
+  const [endTimeError, setEndTimeError] = useState('')
+  const [currentTime, setCurrentTime] = useState('')
   // const [formErrors, setFormErrors] = useState({});
   const above1000 = useMedia('(min-width: 1000px)')
 
@@ -198,8 +202,6 @@ export default function AddFarmV2({
   const isValidAddress = isAddress(vestingDuration)
 
   const handleSubmit = () => {
-
-
 
     /* ------------------------------ For Date Picker - return number of days,hours,minutes,seconds between two dates------------------*/
     const diffTime = Math.abs(new Date().valueOf() - new Date(startDateTime).valueOf());
@@ -231,6 +233,9 @@ export default function AddFarmV2({
     setPoolErr(err.pool!);
     setAddRewardTokenErr(err.addRewardToken!);
     setAddRewardTokenValueErr(err.addRewardTokenValue!);
+    setVestingDurationError(err.addVestingDuration!);
+    setStartTimeError(err.addStartDate!);
+    setEndTimeError(err.addEndDate!);
 
     if (!touched) {
       setTouched(true)
@@ -244,6 +249,9 @@ export default function AddFarmV2({
   // Input Fields Validations
   const validate = (valu: any) => {
     type obj = {
+      addVestingDuration?: string
+      addStartDate?: string
+      addEndDate?: string
       pool?: string;
       addRewardToken?: string;
       addRewardTokenValue?: string;
@@ -253,13 +261,22 @@ export default function AddFarmV2({
 
     const regex = /[A-Za-z0-9]{2,5}$/i;
     if (!valu.selectPool) {
-      errors.pool = "Selecting Pool is Required !";
+      errors.pool = "Selecting pool is required !";
     }
     if (valu.currencyIdA == undefined) {
-      errors.addRewardToken = "Selecting Token is Required !";
+      errors.addRewardToken = "Selecting token is required !";
     }
     if (!valu.addRewardTokenValue) {
-      errors.addRewardTokenValue = "Selecting Token Value is Required !";
+      errors.addRewardTokenValue = "Selecting token value is required !";
+    }
+    if ((valu.vestingDuration).length === 0) {
+      errors.addVestingDuration = "Vesting duration is required !";
+    }
+    if ((startDateTime).length === 0) {
+      errors.addStartDate = "Selecting start time is required !";
+    }
+    if ((endDateTime).length === 0) {
+      errors.addEndDate = "Selecting end time is required !";
     }
 
 
@@ -269,12 +286,12 @@ export default function AddFarmV2({
     // for (let index = 0; index < tokensData.length; index++) {
     //   // const element = index;
     //   if (tokensData[index].rewardToken == '') {
-    //     tokensData[index].rewardTokenErrs = "Selecting Reward is Required !";
+    //     tokensData[index].rewardTokenErrs = "Selecting Reward is required !";
     //   } else {
     //     tokensData[index].rewardTokenErrs = "";
     //   }
     //   if (tokensData[index].addRewardToken == '') {
-    //     tokensData[index].addRewardTokenErrs = "Reward Token Value is Required !";
+    //     tokensData[index].addRewardTokenErrs = "Reward Token Value is required !";
     //   } else {
     //     tokensData[index].addRewardTokenErrs = "";
     //   }
@@ -386,7 +403,7 @@ export default function AddFarmV2({
   // capital efficiency warning
   const [showCapitalEfficiencyWarning, setShowCapitalEfficiencyWarning] = useState(false)
 
-  useEffect(() => setShowCapitalEfficiencyWarning(false), [baseCurrency, quoteCurrency, feeAmount])
+  useEffect(() => { setShowCapitalEfficiencyWarning(false); currentTimeFormatted(); }, [baseCurrency, quoteCurrency, feeAmount])
 
   // txn values
   const deadline = useTransactionDeadline() // custom from users settings
@@ -495,8 +512,6 @@ export default function AddFarmV2({
         createPool: noLiquidity,
       })
 
-      console.log("calldatacalldatacalldatacalldata", calldata);
-
 
       //0.00283161
       const txn: { to: string; data: string; value: string } = {
@@ -558,6 +573,19 @@ export default function AddFarmV2({
     } else {
       return
     }
+  }
+
+  // "YYYY-MM-DDTHH:mm"
+  const currentTimeFormatted = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1);
+    const day = date.getDate();
+    const hour = date.getHours();
+    const min = date.getMinutes();
+
+    const formattedDate = String(year + "-" + (month < 10 ? ("0" + month) : month) + "-" + (day < 10 ? ("0" + day) : day) + "T" + (hour < 10 ? ("0" + hour) : hour) + ":" + (min < 10 ? ("0" + min) : min));
+    setCurrentTime(formattedDate);
   }
 
   const handleCurrencySelect = useCallback(
@@ -1019,14 +1047,23 @@ export default function AddFarmV2({
                     <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="5px" fontStyle="italic">
                       <Trans><pre></pre></Trans>
                     </Text>
-                    <AddressBoxFull >
+                    <AddressBoxFull
+                      style={{
+                        marginBottom: !above1000 ? '24px' : '',
+                        border: startTimeError && touched ? `1px solid ${theme.red}` : undefined,
+                      }}
+                    >
                       <Text fontSize={12} color={theme.subText} >
-                        <Trans>Start Time</Trans>
+                        <Trans>Start Time <Span>*</Span></Trans>
                       </Text>
-                      <CustomDatePicker dateTime={(val: any) => { setStartDateTime(val) }} />
+                      <CustomDatePicker min={currentTime} max={endDateTime} dateTime={(val: any) => { setStartDateTime(val) }} />
+
+                      {startTimeError && touched && (
+                        <ErrorMessage>
+                          <Trans>{startTimeError}</Trans>
+                        </ErrorMessage>
+                      )}
                     </AddressBoxFull>
-
-
 
                     <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="25px" fontStyle="italic">
                       <Trans><pre></pre></Trans>
@@ -1094,9 +1131,14 @@ export default function AddFarmV2({
                 <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
                   <Trans><pre></pre></Trans>
                 </Text>
-                <AddressBox >
-                  <Text style={{ paddingBottom: poolErr ? '20px' : '' }} fontSize={12} color={theme.subText} marginBottom="8px">
-                    <Trans >Vesting Duration</Trans>
+                <AddressBox
+                  style={{
+                    marginBottom: !above1000 ? '24px' : '',
+                    border: vestingDurationError && touched ? `1px solid ${theme.red}` : undefined,
+                  }}
+                >
+                  <Text /*style={{ paddingBottom: poolErr ? '20px' : '' }}*/ fontSize={12} color={theme.subText} marginBottom="8px">
+                    <Trans >Vesting Duration</Trans> <Span>*</Span>
                   </Text>
                   <Text fontSize={20} lineHeight={'24px'} color={theme.text}>
                     <AddressInput
@@ -1107,19 +1149,32 @@ export default function AddFarmV2({
                       }}
                     />
                   </Text>
+                  {vestingDurationError && touched && (
+                    <ErrorMessage>
+                      <Trans>{vestingDurationError}</Trans>
+                    </ErrorMessage>
+                  )}
                 </AddressBox>
 
                 <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="0px" fontStyle="italic">
                   <Trans><pre></pre></Trans>
                 </Text>
-                <AddressBoxFull >
+                <AddressBoxFull
+                  style={{
+                    marginBottom: !above1000 ? '24px' : '',
+                    border: endTimeError && touched ? `1px solid ${theme.red}` : undefined,
+                  }}
+                >
                   <Text fontSize={12} color={theme.subText} >
-                    <Trans>End Time</Trans>
+                    <Trans>End Time</Trans> <Span>*</Span>
                   </Text>
-                  <CustomDatePicker dateTime={(val: any) => { setEndDateTime(val) }} />
+                  <CustomDatePicker min={startDateTime ? startDateTime : currentTime} dateTime={(val: any) => { setEndDateTime(val) }} />
+                  {endTimeError && touched && (
+                    <ErrorMessage>
+                      <Trans>{endTimeError}</Trans>
+                    </ErrorMessage>
+                  )}
                 </AddressBoxFull>
-
-
 
                 <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="12px" fontStyle="italic">
                   <Trans><pre></pre></Trans>

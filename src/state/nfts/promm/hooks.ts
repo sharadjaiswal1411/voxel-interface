@@ -85,7 +85,8 @@ export const useTokenStakingDetailsAction = (stakingAddress: string, stakedToken
 
   const fetchPoolInfo = useCallback(async () => {
     if (!contract || !tokenContract) {
-      throw new Error(CONTRACT_NOT_FOUND_MSG);
+      // throw new Error(CONTRACT_NOT_FOUND_MSG);
+      return false; //TEMP
     }
     const data = await contract.getPoolInfo();
     const tokenStaked = await contract.minStakeRequiredOf(account);

@@ -23,7 +23,7 @@ const CustomDatePicker = (params: any) => {
         // <Select options={options} />
         <>
             {/* <label >Start Time:</label> */}
-            <input type="datetime-local" id="birthdaytime" name="birthdaytime" style={dateInput} onChange={(e) => { selectedDateTimePicker(e.target.value) }} />
+            <input type="datetime-local" min={params?.min} max={params?.max} id="birthdaytime" name="birthdaytime" style={dateInput} onChange={(e) => { selectedDateTimePicker(e.target.value) }} />
         </>
     );
 };

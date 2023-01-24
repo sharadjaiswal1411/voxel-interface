@@ -181,6 +181,10 @@ export default function AddFarmV2({
 
   const [lockPeriodErr, setLockPeriodErr] = useState('')
   const [mintStakeErr, setMintStakeErr] = useState('')
+  const [tokenStakeErr, setSetTokenStakeErr] = useState('')
+  const [rewardTokenErr, setRewardTokenErr] = useState('')
+  const [apyErr, setApyErr] = useState('')
+  const [closingTimeErr, setClosingTimeErr] = useState('')
   const above1000 = useMedia('(min-width: 1000px)')
 
 
@@ -209,6 +213,10 @@ export default function AddFarmV2({
 
     setLockPeriodErr(err.lockPeriod!);
     setMintStakeErr(err.mintStake!);
+    setSetTokenStakeErr(err.tokenStake!);
+    setRewardTokenErr(err.rewardToken!);
+    setApyErr(err.apy!);
+    setClosingTimeErr(err.closingIn!);
     setRewardToken(currencyIdA);
     setTokenStake(currencyIdB);
 
@@ -229,6 +237,10 @@ export default function AddFarmV2({
     type obj = {
       lockPeriod?: string;
       mintStake?: string;
+      tokenStake?: string;
+      rewardToken?: string;
+      apy?: string;
+      closingIn?: string;
     };
 
     const errors: obj = {};
@@ -242,6 +254,22 @@ export default function AddFarmV2({
 
     if (!valu.mintStake) {
       errors.mintStake = "Minimum Stake is Required!";
+    }
+
+    if (!valu.tokenStake) {
+      errors.tokenStake = "Token To Stake is Required!";
+    }
+
+    if (!valu.rewardToken) {
+      errors.rewardToken = "Reward Token is Required!";
+    }
+
+    if (!valu.apy) {
+      errors.apy = "APY is Required!";
+    }
+
+    if ((closingInDateTime).length === 0) {
+      errors.closingIn = "Closing Time is Required!";
     }
 
     return errors;
@@ -903,10 +931,15 @@ export default function AddFarmV2({
                 <RowBetween style={{ gap: '12px' }}>
 
                   <BlockDiv >
-                    <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="25px" fontStyle="italic">
-                      <Trans><pre></pre></Trans>
+                    <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
+                      <Trans>*Required</Trans>
                     </Text>
-                    <AddressBox>
+                    <AddressBox
+                      style={{
+                        marginBottom: !above1000 ? '24px' : '',
+                        border: tokenStakeErr && touched ? `1px solid ${theme.red}` : undefined,
+                      }}
+                    >
                       <Text fontSize={12} color={theme.subText} marginBottom="8px">
                         <Trans>Token to Stake </Trans>
                       </Text>
@@ -923,11 +956,16 @@ export default function AddFarmV2({
                         estimatedUsd={formattedNum(estimatedUsdCurrencyA.toString(), true) || undefined}
                         maxCurrencySymbolLength={6}
                       />
+                      {tokenStakeErr && touched && (
+                        <ErrorMessage>
+                          <Trans>{tokenStakeErr}</Trans>
+                        </ErrorMessage>
+                      )}
                     </AddressBox>
 
 
 
-                    <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
+                    <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="4px" fontStyle="italic">
                       <Trans>*Required</Trans>
                     </Text>
                     <AddressBox
@@ -935,7 +973,7 @@ export default function AddFarmV2({
                         marginBottom: !above1000 ? '24px' : '',
                         border: lockPeriodErr && touched ? `1px solid ${theme.red}` : undefined,
                       }} >
-                      <Text style={{ paddingBottom: mintStakeErr ? '20px' : '' }} fontSize={12} color={theme.subText} marginBottom="8px">
+                      <Text /*style={{ paddingBottom: mintStakeErr ? '20px' : '' }}*/ fontSize={12} color={theme.subText} marginBottom="8px">
                         <Trans>Lock Period in Seconds <Span>*</Span></Trans>
                         <InfoHelper
                           size={12}
@@ -960,10 +998,15 @@ export default function AddFarmV2({
                     </AddressBox>
 
 
-                    <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="25px" fontStyle="italic">
-                      <Trans><pre></pre></Trans>
+                    <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="4px" fontStyle="italic">
+                      <Trans>*Required</Trans>
                     </Text>
-                    <AddressBox >
+                    <AddressBox
+                      style={{
+                        marginBottom: !above1000 ? '24px' : '',
+                        border: apyErr && touched ? `1px solid ${theme.red}` : undefined,
+                      }}
+                    >
                       <Text fontSize={12} color={theme.subText} marginBottom="8px">
                         <Trans>APY</Trans>
                       </Text>
@@ -975,7 +1018,11 @@ export default function AddFarmV2({
                             setApy(e.target.value)
                           }} />
                       </Text>
-
+                      {apyErr && touched && (
+                        <ErrorMessage>
+                          <Trans>{apyErr}</Trans>
+                        </ErrorMessage>
+                      )}
                     </AddressBox>
 
 
@@ -986,10 +1033,15 @@ export default function AddFarmV2({
 
               <RightContainer >
 
-                <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="12px" fontStyle="italic">
-                  <Trans><pre></pre></Trans>
+                <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
+                  <Trans>*Required</Trans>
                 </Text>
-                <AddressBox >
+                <AddressBox
+                  style={{
+                    marginBottom: !above1000 ? '24px' : '',
+                    border: rewardTokenErr && touched ? `1px solid ${theme.red}` : undefined,
+                  }}
+                >
 
                   <Text fontSize={12} color={theme.subText} marginBottom="8px">
                     <Trans>Reward Tokens</Trans>
@@ -1009,7 +1061,11 @@ export default function AddFarmV2({
                     estimatedUsd={formattedNum(estimatedUsdCurrencyB.toString(), true) || undefined}
                     maxCurrencySymbolLength={6}
                   />
-
+                  {rewardTokenErr && touched && (
+                    <ErrorMessage>
+                      <Trans>{rewardTokenErr}</Trans>
+                    </ErrorMessage>
+                  )}
                 </AddressBox>
 
 
@@ -1020,7 +1076,7 @@ export default function AddFarmV2({
                   marginBottom: !above1000 ? '24px' : '',
                   border: mintStakeErr && touched ? `1px solid ${theme.red}` : undefined,
                 }}>
-                  <Text style={{ paddingBottom: lockPeriodErr ? '20px' : '' }} fontSize={12} color={theme.subText} >
+                  <Text /*tyle={{ paddingBottom: lockPeriodErr ? '20px' : '' }}*/ fontSize={12} color={theme.subText} >
                     <Trans>Min to Stake <Span>*</Span></Trans>
                   </Text>
                   <CustomSelect mint={(val: any) => { setMintStake(val) }} />
@@ -1031,14 +1087,25 @@ export default function AddFarmV2({
                   )}
                 </AddressBoxFull>
 
-                <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="0px" fontStyle="italic">
-                  <Trans><pre></pre></Trans>
+
+                <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
+                  <Trans>*Required</Trans>
                 </Text>
-                <AddressBoxFull>
+                <AddressBoxFull
+                  style={{
+                    marginBottom: !above1000 ? '24px' : '',
+                    border: closingTimeErr && touched ? `1px solid ${theme.red}` : undefined,
+                  }}
+                >
                   <Text fontSize={12} color={theme.subText} >
                     <Trans>Closing In</Trans>
                   </Text>
                   <CustomDatePicker dateTime={(val: any) => { setClosingInDateTime(val) }} />
+                  {closingTimeErr && touched && (
+                    <ErrorMessage>
+                      <Trans>{closingTimeErr}</Trans>
+                    </ErrorMessage>
+                  )}
                 </AddressBoxFull>
 
               </RightContainer>
