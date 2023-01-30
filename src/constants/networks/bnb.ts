@@ -75,6 +75,16 @@ const bnbInfo: NetworkInfo = {
     nftFactory: '0x1a91f5ADc7cB5763d35A26e98A18520CB9b67e70',
     tokenFactory: '0x7EDF6fC10D13996C36422ca915310E0B3876b993'
   },
+  ROLES: {
+    NFTStaking: {
+      operator: "",
+      admin: ""
+    },
+    TokenStaking: {
+      operator: "",
+      admin: ""
+    }
+  },
   averageBlockTimeInSeconds: 3,
   coingeckoNetworkId: 'binance-smart-chain',
   coingeckoNativeTokenId: 'binancecoin',

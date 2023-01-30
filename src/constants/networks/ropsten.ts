@@ -39,7 +39,7 @@ const ropstenInfo: NetworkInfo = {
   },
   rpcUrl: 'https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
   routerUri: EMPTY,
-  nftStaker:EMPTY_ARRAY,
+  nftStaker: EMPTY_ARRAY,
   classic: {
     static: {
       zap: '0x548E585B17908D0387d16F9BFf46c4EDe7ca7746',
@@ -70,7 +70,17 @@ const ropstenInfo: NetworkInfo = {
   },
   staking: {
     nftFactory: '0x1a91f5ADc7cB5763d35A26e98A18520CB9b67e70',
-    tokenFactory:'0x7EDF6fC10D13996C36422ca915310E0B3876b993'
+    tokenFactory: '0x7EDF6fC10D13996C36422ca915310E0B3876b993'
+  },
+  ROLES: {
+    NFTStaking: {
+      operator: "",
+      admin: ""
+    },
+    TokenStaking: {
+      operator: "",
+      admin: ""
+    }
   },
   averageBlockTimeInSeconds: 13.13,
   coingeckoNetworkId: EMPTY,

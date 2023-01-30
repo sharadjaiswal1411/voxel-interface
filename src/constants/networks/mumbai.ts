@@ -38,7 +38,7 @@ const mumbaiInfo: NetworkInfo = {
   },
   rpcUrl: 'https://rpc-mumbai.maticvigil.com',
   routerUri: EMPTY,
-  nftStaker:EMPTY_ARRAY,
+  nftStaker: EMPTY_ARRAY,
   classic: {
     static: {
       zap: EMPTY,
@@ -65,7 +65,17 @@ const mumbaiInfo: NetworkInfo = {
   },
   staking: {
     nftFactory: '0x1a91f5ADc7cB5763d35A26e98A18520CB9b67e70',
-    tokenFactory:'0x7EDF6fC10D13996C36422ca915310E0B3876b993'
+    tokenFactory: '0x7EDF6fC10D13996C36422ca915310E0B3876b993'
+  },
+  ROLES: {
+    NFTStaking: {
+      operator: "",
+      admin: ""
+    },
+    TokenStaking: {
+      operator: "",
+      admin: ""
+    }
   },
   averageBlockTimeInSeconds: 2.6,
   coingeckoNetworkId: EMPTY,

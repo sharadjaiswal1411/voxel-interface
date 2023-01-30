@@ -6,7 +6,7 @@ import { Trans, t } from '@lingui/macro'
 import JSBI from 'jsbi'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { AlertTriangle } from 'react-feather'
-import { RouteComponentProps } from 'react-router-dom'
+import { RouteComponentProps, useHistory } from 'react-router-dom'
 import { Flex, Text } from 'rebass'
 import styled from 'styled-components'
 
@@ -14,6 +14,7 @@ import { ButtonError, ButtonLight, ButtonPrimary, ButtonWarning } from 'componen
 import { OutlineCard, WarningCard } from 'components/Card'
 import { AutoColumn } from 'components/Column'
 import CurrencyInputPanel from 'components/CurrencyInputPanel'
+import { ethers } from 'ethers'
 
 
 //import FeeSelector from 'components/FeeSelector'
@@ -71,8 +72,8 @@ import { CustomSelect } from './CustomSelect'
 import CustomDatePicker from './CustomDatePicker'
 import { useMedia } from 'react-use'
 import { HeaderTabs } from './HeaderTabs'
-
-
+import { useTokenStakingAction } from 'state/nfts/promm/hooks'
+import Loader from 'components/Loader'
 
 
 export const Container = styled.div`
@@ -161,6 +162,8 @@ export default function AddFarmV2({
   },
   history,
 }: RouteComponentProps<{ currencyIdA?: string; currencyIdB?: string; feeAmount?: string; tokenId?: string }>) {
+  const routeHistory = useHistory();
+
   const [rotate, setRotate] = useState(false)
   const { account, chainId, library } = useActiveWeb3React()
   const theme = useTheme()
@@ -177,7 +180,7 @@ export default function AddFarmV2({
   const [mintStake, setMintStake] = useState('')
   const [touched, setTouched] = useState(false)
   const [closingInDateTime, setClosingInDateTime] = useState('')
-
+  const [isLoading, setIsLoading] = useState(false);
 
   const [lockPeriodErr, setLockPeriodErr] = useState('')
   const [mintStakeErr, setMintStakeErr] = useState('')
@@ -187,25 +190,28 @@ export default function AddFarmV2({
   const [closingTimeErr, setClosingTimeErr] = useState('')
   const above1000 = useMedia('(min-width: 1000px)')
 
+  const { createTokenStake } = useTokenStakingAction();
 
   // const isValidAddress = isAddress(tokenStake)
 
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
 
 
     /* ------------------------------ For Date Picker - return number of days,hours,minutes,seconds between two dates------------------*/
-    const diffTime = Math.abs(new Date().valueOf() - new Date(closingInDateTime).valueOf());
-    let days = diffTime / (24 * 60 * 60 * 1000);
-    let hours = (days % 1) * 24;
-    let minutes = (hours % 1) * 60;
-    let secs = (minutes % 1) * 60;
-    [days, hours, minutes, secs] = [Math.floor(days), Math.floor(hours), Math.floor(minutes), Math.floor(secs)]
 
-    const differenceDate = String(days + 'd,' + hours + 'h,' + minutes + 'm,' + secs + 's');
+    // const diffTime = Math.abs(new Date().valueOf() - new Date(closingInDateTime).valueOf());
+    // let days = diffTime / (24 * 60 * 60 * 1000);
+    // let hours = (days % 1) * 24;
+    // let minutes = (hours % 1) * 60;
+    // let secs = (minutes % 1) * 60;
+    // [days, hours, minutes, secs] = [Math.floor(days), Math.floor(hours), Math.floor(minutes), Math.floor(secs)]
 
+    // const differenceDate = String(days + 'd,' + hours + 'h,' + minutes + 'm,' + secs + 's');
 
-
+    const a: any = new Date();
+    const b: any = new Date(closingInDateTime);
+    const differenceDate = Math.round(Math.abs(a - b) / 1000);
 
     const data = { rewardToken, tokenStake, apy, lockPeriod, mintStake, differenceDate };
 
@@ -217,23 +223,50 @@ export default function AddFarmV2({
     setRewardTokenErr(err.rewardToken!);
     setApyErr(err.apy!);
     setClosingTimeErr(err.closingIn!);
-    setRewardToken(currencyIdA);
-    setTokenStake(currencyIdB);
+    // setRewardToken(currencyIdA);
+    // setTokenStake(currencyIdB);
 
     if (!touched) {
       setTouched(true)
     }
 
-    if (data) {
-      console.log({ data });
-    }
+    if (
+      !err.lockPeriod &&
+      !err.mintStake &&
+      !err.tokenStake &&
+      !err.rewardToken &&
+      !err.apy &&
+      !err.closingIn
+    ) {
+      if (data) {
+        setIsLoading(true);
 
+        const _data = {
+          tokenStake: tokenStake,
+          rewardToken: rewardToken,
+          lockPeriod: lockPeriod,
+          mintStake: ethers.utils.parseUnits(String(mintStake), "ether").toString(),
+          apy: String(Math.round(Number(apy) * 100)),
+          differenceDate: String(differenceDate),
+        }
+
+        const res = await createTokenStake(_data).catch((e) => { console.log(e); setIsLoading(false); })
+
+        if (res) {
+          setIsLoading(false);
+          routeHistory.push('/token-staking')
+        }
+      }
+    }
   }
 
 
 
   // Input Fields Validations
   const validate = (valu: any) => {
+
+    console.log({ valu })
+
     type obj = {
       lockPeriod?: string;
       mintStake?: string;
@@ -246,7 +279,6 @@ export default function AddFarmV2({
     const errors: obj = {};
 
     const regex = /^[A-Za-z0-9]{2,5}$/i;
-
 
     if (!valu.lockPeriod) {
       errors.lockPeriod = "Lock Period is Required!";
@@ -276,17 +308,11 @@ export default function AddFarmV2({
   };
 
 
-
-
-  const feeAmount: FeeAmount | undefined =
-    feeAmountFromUrl && Object.values(FeeAmount).includes(parseFloat(feeAmountFromUrl))
-      ? parseFloat(feeAmountFromUrl)
-      : FeeAmount.MEDIUM
+  const feeAmount: FeeAmount | undefined = feeAmountFromUrl && Object.values(FeeAmount).includes(parseFloat(feeAmountFromUrl)) ? parseFloat(feeAmountFromUrl) : FeeAmount.MEDIUM
   const baseCurrency = useCurrency(currencyIdA)
   const currencyB = useCurrency(currencyIdB)
   // prevent an error if they input ETH/WETH
-  const quoteCurrency =
-    baseCurrency && currencyB && baseCurrency.wrapped.equals(currencyB.wrapped) ? undefined : currencyB
+  const quoteCurrency = baseCurrency && currencyB && baseCurrency.wrapped.equals(currencyB.wrapped) ? undefined : currencyB
 
   const baseCurrencyIsETHER = !!(chainId && baseCurrency && baseCurrency.isNative)
   const baseCurrencyIsWETH = !!(chainId && baseCurrency && baseCurrency.equals(WETH[chainId]))
@@ -331,8 +357,7 @@ export default function AddFarmV2({
   const previousTicks =
     // : number[] = []
     useProAmmPreviousTicks(pool, position)
-  const { onFieldAInput, onFieldBInput, onLeftRangeInput, onRightRangeInput, onStartPriceInput } =
-    useProAmmMintActionHandlers(noLiquidity)
+  const { onFieldAInput, onFieldBInput, onLeftRangeInput, onRightRangeInput, onStartPriceInput } = useProAmmMintActionHandlers(noLiquidity)
 
   const isValid = !errorMessage && !invalidRange
 
@@ -436,8 +461,6 @@ export default function AddFarmV2({
         createPool: noLiquidity,
       })
 
-      console.log("calldatacalldatacalldatacalldata", calldata);
-
 
       //0.00283161
       const txn: { to: string; data: string; value: string } = {
@@ -529,8 +552,8 @@ export default function AddFarmV2({
   const handleCurrencyASelect = useCallback(
     (currencyANew: Currency) => {
       const [idA, idB] = handleCurrencySelect(currencyANew, currencyIdB)
+      setTokenStake(idA)
       if (idB === undefined) {
-
         history.push(`/token-staking/add/${idA}`)
       } else {
         history.push(`/token-staking/add/${idA}/${idB}`)
@@ -543,6 +566,7 @@ export default function AddFarmV2({
   const handleCurrencyBSelect = useCallback(
     (currencyBNew: Currency) => {
       const [idB, idA] = handleCurrencySelect(currencyBNew, currencyIdA)
+      setRewardToken(idB)
       if (idA === undefined) {
         history.push(`/token-staking/add/${idB}`)
       } else {
@@ -931,7 +955,7 @@ export default function AddFarmV2({
                 <RowBetween style={{ gap: '12px' }}>
 
                   <BlockDiv >
-                    <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
+                    <Text fontSize={12} color={"#bfbfbf" /*theme.disableText*/} textAlign="right" marginBottom="2px" fontStyle="italic">
                       <Trans>*Required</Trans>
                     </Text>
                     <AddressBox
@@ -965,7 +989,7 @@ export default function AddFarmV2({
 
 
 
-                    <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="4px" fontStyle="italic">
+                    <Text fontSize={12} color={"#bfbfbf" /*theme.disableText*/} textAlign="right" marginBottom="4px" fontStyle="italic">
                       <Trans>*Required</Trans>
                     </Text>
                     <AddressBox
@@ -998,7 +1022,7 @@ export default function AddFarmV2({
                     </AddressBox>
 
 
-                    <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="4px" fontStyle="italic">
+                    <Text fontSize={12} color={"#bfbfbf" /*theme.disableText*/} textAlign="right" marginBottom="4px" fontStyle="italic">
                       <Trans>*Required</Trans>
                     </Text>
                     <AddressBox
@@ -1033,7 +1057,7 @@ export default function AddFarmV2({
 
               <RightContainer >
 
-                <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
+                <Text fontSize={12} color={"#bfbfbf" /*theme.disableText*/} textAlign="right" marginBottom="2px" fontStyle="italic">
                   <Trans>*Required</Trans>
                 </Text>
                 <AddressBox
@@ -1069,7 +1093,7 @@ export default function AddFarmV2({
                 </AddressBox>
 
 
-                <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
+                <Text fontSize={12} color={"#bfbfbf" /*theme.disableText*/} textAlign="right" marginBottom="2px" fontStyle="italic">
                   <Trans>*Required</Trans>
                 </Text>
                 <AddressBoxFull style={{
@@ -1088,7 +1112,7 @@ export default function AddFarmV2({
                 </AddressBoxFull>
 
 
-                <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
+                <Text fontSize={12} color={"#bfbfbf" /*theme.disableText*/} textAlign="right" marginBottom="2px" fontStyle="italic">
                   <Trans>*Required</Trans>
                 </Text>
                 <AddressBoxFull
@@ -1111,8 +1135,13 @@ export default function AddFarmV2({
               </RightContainer>
             </ResponsiveTwoColumns>
 
-            <ButtonPrimary onClick={handleSubmit} style={{ marginTop: 'auto' }}>
-              <Trans>Create</Trans>
+            <ButtonPrimary disabled={isLoading} onClick={handleSubmit} style={{ marginTop: 'auto' }}>
+              {isLoading
+                ?
+                <Trans>Create&nbsp;<Loader /></Trans>
+                :
+                <Trans>Create</Trans>
+              }
             </ButtonPrimary>
           </Container>
         </BodyWrapper>

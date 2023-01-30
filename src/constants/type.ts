@@ -65,6 +65,10 @@ export type NetworkInfo = {
     readonly nftFactory: string
     readonly tokenFactory: string
   }
+  readonly ROLES: {
+    readonly NFTStaking: Object
+    readonly TokenStaking: Object
+  }
   // token: {
   //   DAI: Token
   //   USDC: Token

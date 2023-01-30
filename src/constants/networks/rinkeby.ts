@@ -39,7 +39,7 @@ const rinkebyInfo: NetworkInfo = {
   },
   rpcUrl: 'https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
   routerUri: 'https://aggregator-api.dev.kyberengineering.io/rinkeby/route/encode',
-  nftStaker:EMPTY_ARRAY,
+  nftStaker: EMPTY_ARRAY,
   classic: {
     static: {
       zap: EMPTY,
@@ -66,7 +66,17 @@ const rinkebyInfo: NetworkInfo = {
   },
   staking: {
     nftFactory: '0x1a91f5ADc7cB5763d35A26e98A18520CB9b67e70',
-    tokenFactory:'0x7EDF6fC10D13996C36422ca915310E0B3876b993'
+    tokenFactory: '0x7EDF6fC10D13996C36422ca915310E0B3876b993'
+  },
+  ROLES: {
+    NFTStaking: {
+      operator: "",
+      admin: ""
+    },
+    TokenStaking: {
+      operator: "",
+      admin: ""
+    }
   },
   averageBlockTimeInSeconds: 13.13,
   coingeckoNetworkId: EMPTY,

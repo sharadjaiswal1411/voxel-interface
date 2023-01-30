@@ -946,7 +946,7 @@ export default function AddFarmV2({
 
                   <BlockDiv >
 
-                    <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
+                    <Text fontSize={12} color={"#bfbfbf" /*theme.disableText*/} textAlign="right" marginBottom="2px" fontStyle="italic">
                       <Trans>*Required</Trans>
                     </Text>
                     <AddressBox
@@ -974,7 +974,7 @@ export default function AddFarmV2({
                       )}
                     </AddressBox>
 
-                    <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
+                    <Text fontSize={12} color={"#bfbfbf" /*theme.disableText*/} textAlign="right" marginBottom="2px" fontStyle="italic">
                       <Trans>*Required</Trans>
                     </Text>
                     <AddressBox style={{
@@ -1001,7 +1001,7 @@ export default function AddFarmV2({
                       )}
                     </AddressBox>
 
-                    <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
+                    <Text fontSize={12} color={"#bfbfbf" /*theme.disableText*/} textAlign="right" marginBottom="2px" fontStyle="italic">
                       <Trans>*Required</Trans>
                     </Text>
                     <AddressBox style={{
@@ -1063,7 +1063,7 @@ export default function AddFarmV2({
                   )}
                 </AddressBox> */}
 
-                <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
+                <Text fontSize={12} color={"#bfbfbf" /*theme.disableText*/} textAlign="right" marginBottom="2px" fontStyle="italic">
                   <Trans>*Required</Trans>
                 </Text>
                 <AddressBox style={{
@@ -1095,7 +1095,7 @@ export default function AddFarmV2({
                 </AddressBox>
 
 
-                <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
+                <Text fontSize={12} color={"#bfbfbf" /*theme.disableText*/} textAlign="right" marginBottom="2px" fontStyle="italic">
                   <Trans>*Required</Trans>
                 </Text>
                 <AddressBox style={{
@@ -1122,7 +1122,7 @@ export default function AddFarmV2({
                 </AddressBox>
 
 
-                <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
+                <Text fontSize={12} color={"#bfbfbf" /*theme.disableText*/} textAlign="right" marginBottom="2px" fontStyle="italic">
                   <Trans>*Required</Trans>
                 </Text>
                 <AddressBox style={{

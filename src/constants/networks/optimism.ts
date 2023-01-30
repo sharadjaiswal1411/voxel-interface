@@ -39,7 +39,7 @@ const optimismInfo: NetworkInfo = {
   },
   rpcUrl: 'https://opt-mainnet.g.alchemy.com/v2/N7gZFcuMkhLTTpdsRLEcDXYIJssj6GsI',
   routerUri: `${process.env.REACT_APP_AGGREGATOR_API}/optimism/route/encode`,
-  nftStaker:EMPTY_ARRAY,
+  nftStaker: EMPTY_ARRAY,
   classic: {
     static: {
       zap: '0x2abE8750e4a65584d7452316356128C936273e0D',
@@ -62,7 +62,17 @@ const optimismInfo: NetworkInfo = {
   },
   staking: {
     nftFactory: '0x1a91f5ADc7cB5763d35A26e98A18520CB9b67e70',
-    tokenFactory:'0x7EDF6fC10D13996C36422ca915310E0B3876b993'
+    tokenFactory: '0x7EDF6fC10D13996C36422ca915310E0B3876b993'
+  },
+  ROLES: {
+    NFTStaking: {
+      operator: "",
+      admin: ""
+    },
+    TokenStaking: {
+      operator: "",
+      admin: ""
+    }
   },
   averageBlockTimeInSeconds: 120,
   coingeckoNetworkId: 'optimistic-ethereum',

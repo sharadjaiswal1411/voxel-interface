@@ -43,12 +43,30 @@ export const useTokenStakingAction = () => {
       throw new Error(CONTRACT_NOT_FOUND_MSG);
     }
     const allVaults = await stakingFactory.listVaults();
-    console.log("allVaults", allVaults);
 
     return allVaults;
   }, [stakingFactory, chainId]);
 
-  return { fetchPools };
+  const createTokenStake = useCallback(async (data: any) => {
+
+    if (!stakingFactory) {
+      throw new Error(CONTRACT_NOT_FOUND_MSG);
+    }
+
+    const addVaults = await stakingFactory.addVault(
+      data.tokenStake,
+      data.rewardToken,
+      data.lockPeriod,
+      data.mintStake,
+      data.apy,
+      data.differenceDate,
+    );
+
+    return addVaults;
+
+  }, [stakingFactory, chainId]);
+
+  return { fetchPools, createTokenStake };
 };
 
 
@@ -150,12 +168,9 @@ export const useTokenStakingDetailsAction = (stakingAddress: string, stakedToken
       let allowance = await tokenContract.allowance(account, stakingAddress);
       allowance = allowance.toString()
 
-  
-      console.log({ tokens }, "allowance", allowance)
-
       if (parseInt(tokens) >= parseInt(allowance)) {
-       
-       // 100000000000000000000
+
+        // 100000000000000000000
         const balance = await tokenContract.balanceOf(account);
         const estimateGas1 = await tokenContract.estimateGas.approve(
           stakingAddress,
@@ -290,7 +305,7 @@ export const useFarmAction = (stakingAddress: string, nftAddress: string) => {
     }
 
     const tx = await posManager.isApprovedForAll(account, stakingAddress);
-    console.log(tx);
+   
     return tx;
   }, [nftAddress, posManager]);
 
