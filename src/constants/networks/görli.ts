@@ -26,6 +26,7 @@ const görliInfo: NetworkInfo = {
   etherscanUrl: 'https://goerli.etherscan.io',
   etherscanName: 'Goerli Explorer',
   tokenListUrl: `https://test.voxdex.io/tokens/5.json?`,
+  // tokenListUrl: `http://localhost:3000/5.json?`,
   bridgeURL: EMPTY,
   nativeToken: {
     symbol: 'ETH',
@@ -71,7 +72,7 @@ const görliInfo: NetworkInfo = {
   // multicall: '0xD9bfE9979e9CA4b2fe84bA5d4Cf963bBcB376974'
   // },
 
-  
+
   elastic: {
     coreFactory: '0x1A642f8bd7a9835Df8d64F9fA0291e5CC0Cfe7c4',
     nonfungiblePositionManager: '0x87bD6F3435638eB2760FBd01FF1BBd1Ca918e749',
@@ -79,11 +80,11 @@ const görliInfo: NetworkInfo = {
     initCodeHash: '0x5c878a9c1f788b21f73866aafd7454d090020eb38cda2d676bd4b07d9a35deb9',
     quoter: '0x9eb194244b591c5F9555eaaef38fB66fafD3c405',
     routers: '0x93F98f44C6d05d6Fd7B030124F508aE6038a4107',
-  //  rewardLocker:'0x99908d55Bf782a323c853DcDf113Cf0564fAE385'
-   // farming:'0x206a4b628B8bb3c920Fc7C11CCB133Dd97C4F453'
-   // descriptor: '0x4880C819F4C2249e23655866bA48e29CC5153901'
-   // PERMISSIONADMIN: 0x9c2e6d70758C1BAe3314d4291cBdBF03f085e191
-   // VOXELVAULT: 0x0b1081f8818eA025247100AaE2024a5D0b9577a8
+    //  rewardLocker:'0x99908d55Bf782a323c853DcDf113Cf0564fAE385'
+    // farming:'0x206a4b628B8bb3c920Fc7C11CCB133Dd97C4F453'
+    // descriptor: '0x4880C819F4C2249e23655866bA48e29CC5153901'
+    // PERMISSIONADMIN: 0x9c2e6d70758C1BAe3314d4291cBdBF03f085e191
+    // VOXELVAULT: 0x0b1081f8818eA025247100AaE2024a5D0b9577a8
     // sha1:"0x8Af882BDcfC7cbF19E0930E609dc9D16663841e1"
   },
   // elastic: {
@@ -98,8 +99,19 @@ const görliInfo: NetworkInfo = {
   // },
   staking: {
     nftFactory: '0xe6336C2f375E9199CA1515167ab1da4dE43D9E6c',
-    tokenFactory: '0x115f934264f4d5347185f386C1b4A979bB40610d'
+    tokenFactory: '0x115f934264f4d5347185f386C1b4A979bB40610d',
   },
+  ROLES: {
+    NFTStaking: {
+      operator: "",
+      admin: ""
+    },
+    TokenStaking: {
+      operator: "0x523a704056dcd17bcf83bed8b68c59416dac1119be77755efe3bde0a64e46e0c",
+      admin: "0x0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  },
+
   averageBlockTimeInSeconds: 13.13,
   coingeckoNetworkId: EMPTY,
   coingeckoNativeTokenId: EMPTY,

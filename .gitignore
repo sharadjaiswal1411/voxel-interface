@@ -37,3 +37,6 @@ cypress/screenshots
 cypress/fixtures/example.json
 /src/libs/sdk/*
 .vercel
+
+public/1.json
+public/5.json
