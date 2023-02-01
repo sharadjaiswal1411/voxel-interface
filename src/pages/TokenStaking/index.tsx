@@ -6,6 +6,8 @@ import { VERSION } from 'constants/v2'
 import useParsedQueryString from 'hooks/useParsedQueryString'
 import TokenAmmPool from '../TokenAmmPool'
 import CreateTokenStakingBtn from 'pages/AddTokenStaking/CreateTokenStakingBtn'
+import { useEffect, useState } from 'react'
+import { useTokenStakingAction } from 'state/nfts/promm/hooks'
 
 export const Tab = styled.div<{ active: boolean }>`
   padding: 4px 0;
@@ -48,6 +50,17 @@ export const HeadingRight = styled.div`
 export default function PoolCombination() {
   const qs = useParsedQueryString()
   const tab = (qs.tab as string) || VERSION.ELASTIC
+  const { checkRole } = useTokenStakingAction();
+  
+  const [roleCheck, setRoleCheck] = useState(false);
+  const checkAuth = async () => {
+    const response = await checkRole()
+    setRoleCheck(response)
+  }
+
+  useEffect(() => {
+    checkAuth()
+  }, [])
 
   return (
     <>
@@ -56,7 +69,7 @@ export default function PoolCombination() {
           <ClassicElasticTab />
         </AutoColumn>
         <HeadingRight >
-          <CreateTokenStakingBtn />
+          {roleCheck && <CreateTokenStakingBtn />}
         </HeadingRight>
         <TokenAmmPool />
       </PageWrapper>

@@ -9,6 +9,8 @@ import {
   TopBar,
 } from 'components/NftPools/styleds'
 import CreateNftStakingBtn from 'pages/AddNftStaking/CreateNftStakingBtn'
+import { useStakingAction } from 'state/nfts/promm/hooks'
+import { useEffect, useState } from 'react'
 
 
 export const HeadingRight = styled.div`
@@ -29,6 +31,18 @@ export const HeadingRight = styled.div`
 
 const NftStaking = () => {
 
+  const { checkRole } = useStakingAction();
+
+  const [roleCheck, setRoleCheck] = useState(false);
+  const checkAuth = async () => {
+    const response = await checkRole()
+    setRoleCheck(response)
+  }
+
+  useEffect(() => {
+    checkAuth()
+  }, [])
+
   return (
     <>
       <PageWrapper gap="24px">
@@ -38,7 +52,7 @@ const NftStaking = () => {
         </TopBar>
 
         <HeadingRight >
-          <CreateNftStakingBtn />
+          {roleCheck && <CreateNftStakingBtn />}
         </HeadingRight>
 
         <NftStakingGuide />

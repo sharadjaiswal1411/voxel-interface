@@ -31,7 +31,43 @@ export const useStakingAction = () => {
     return allVaults;
   }, [stakingFactory, chainId]);
 
-  return { fetchPools };
+  const createNftStake = useCallback(async (data: any) => {
+
+    if (!stakingFactory) {
+      throw new Error(CONTRACT_NOT_FOUND_MSG);
+    }
+
+    const addVaults = await stakingFactory.addVault(
+      data.nftCollectionAddress,
+      data.rewardToken,
+      data.rewardPerDay,
+      data.lockTime,
+      data.name,
+      data.logoURI,
+    );
+
+    if (addVaults) {
+      return addVaults;
+    }
+
+  }, [stakingFactory, chainId]);
+
+  const checkRole = useCallback(async () => {
+
+    if (!stakingFactory) {
+      throw new Error(CONTRACT_NOT_FOUND_MSG);
+    }
+
+    const response = await stakingFactory.hasRole(
+      "0x523a704056dcd17bcf83bed8b68c59416dac1119be77755efe3bde0a64e46e0c",
+      account
+    );
+
+    return response;
+
+  }, [stakingFactory, chainId]);
+
+  return { fetchPools, createNftStake, checkRole };
 };
 
 export const useTokenStakingAction = () => {
@@ -66,7 +102,23 @@ export const useTokenStakingAction = () => {
 
   }, [stakingFactory, chainId]);
 
-  return { fetchPools, createTokenStake };
+
+  const checkRole = useCallback(async () => {
+
+    if (!stakingFactory) {
+      throw new Error(CONTRACT_NOT_FOUND_MSG);
+    }
+
+    const response = await stakingFactory.hasRole(
+      "0x523a704056dcd17bcf83bed8b68c59416dac1119be77755efe3bde0a64e46e0c",
+      account
+    );
+
+    return response;
+
+  }, [stakingFactory, chainId]);
+
+  return { fetchPools, createTokenStake, checkRole };
 };
 
 
@@ -305,7 +357,7 @@ export const useFarmAction = (stakingAddress: string, nftAddress: string) => {
     }
 
     const tx = await posManager.isApprovedForAll(account, stakingAddress);
-   
+
     return tx;
   }, [nftAddress, posManager]);
 

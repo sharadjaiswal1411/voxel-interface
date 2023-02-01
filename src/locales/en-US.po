@@ -30,6 +30,10 @@ msgstr "${totalRewardAmountString} in {tokenSymbol}"
 #: src/pages/AddNftStaking/index.tsx
 #: src/pages/AddTokenStaking/index.tsx
 #: src/pages/AddTokenStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/CreateReferral/index.tsx
 msgid "*Required"
 msgstr "*Required"
@@ -92,10 +96,6 @@ msgstr "7D"
 #: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddFarmV2/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
 msgid "<0/>"
 msgstr "<0/>"
 
@@ -212,11 +212,11 @@ msgid "AMP factor x Liquidity in the pool. Amplified pools have higher capital e
 msgstr "AMP factor x Liquidity in the pool. Amplified pools have higher capital efficiency and liquidity."
 
 #: src/components/NftPools/index.tsx
-#: src/components/PoolList/ItemCard/TabInfoItems.tsx
 #: src/components/PoolList/index.tsx
+#: src/components/PoolList/ItemCard/TabInfoItems.tsx
 #: src/components/ProAmm/ProStakeFee.tsx
-#: src/components/YieldPools/ListItem.tsx
 #: src/components/YieldPools/index.tsx
+#: src/components/YieldPools/ListItem.tsx
 #: src/pages/ProAmmPools/index.tsx
 #: src/pages/TokenAmmPool/PositionListItem.tsx
 msgid "APR"
@@ -231,8 +231,8 @@ msgstr "APY"
 #~ msgid "AVAILABLE BALANCE:"
 #~ msgstr "AVAILABLE BALANCE:"
 
-#: src/components/YieldPools/ProMMFarmGroup/Row.tsx
 #: src/components/YieldPools/ProMMFarmGroup/index.tsx
+#: src/components/YieldPools/ProMMFarmGroup/Row.tsx
 msgid "AVG APR"
 msgstr "AVG APR"
 
@@ -246,9 +246,9 @@ msgstr "AVG APR"
 msgid "About"
 msgstr "About"
 
-#: src/components/WalletModal/index.tsx
 #: src/components/swap/SwapModalHeader.tsx
 #: src/components/swapv2/SwapModalHeader.tsx
+#: src/components/WalletModal/index.tsx
 msgid "Accept"
 msgstr "Accept"
 
@@ -361,13 +361,13 @@ msgstr "Address is not valid"
 msgid "Adjust the advanced settings for your trades like the max slippage."
 msgstr "Adjust the advanced settings for your trades like the max slippage."
 
-#: src/components/TransactionSettings/index.tsx
 #: src/components/swapv2/SwapSettingsPanel/AdvancedModeSetting.tsx
+#: src/components/TransactionSettings/index.tsx
 msgid "Advanced Mode"
 msgstr "Advanced Mode"
 
-#: src/components/TransactionSettings/index.tsx
 #: src/components/swapv2/SwapSettingsPanel/index.tsx
+#: src/components/TransactionSettings/index.tsx
 msgid "Advanced Settings"
 msgstr "Advanced Settings"
 
@@ -385,9 +385,9 @@ msgid "After harvesting, your rewards will begin vesting linearly (only if the f
 msgstr "After harvesting, your rewards will begin vesting linearly (only if the farm has a vesting duration).<0/><1/>Vesting means that your reward tokens will be locked initially but released gradually. You can claim the reward tokens to your wallet as and when they are released.<2/><3/>To claim your rewards, go to the <4> Vesting</4> tab and click 'Claim'."
 
 #: src/components/NftPools/index.tsx
+#: src/components/YieldPools/index.tsx
 #: src/components/YieldPools/ListItem.tsx
 #: src/components/YieldPools/ProMMFarmGroup/Row.tsx
-#: src/components/YieldPools/index.tsx
 msgid "After harvesting, your rewards will unlock linearly over the indicated time period"
 msgstr "After harvesting, your rewards will unlock linearly over the indicated time period"
 
@@ -1086,6 +1086,10 @@ msgstr "Create a new pool or select another pair of tokens to view the available
 msgid "Create an issue on GitHub"
 msgstr "Create an issue on GitHub"
 
+#: src/pages/AddTokenStaking/index.tsx
+msgid "Create <0/>"
+msgstr "Create <0/>"
+
 #: src/components/swapv2/AdvancedSwapDetails.tsx
 msgid "Crosschain amount larger than {0} {1} could take up to 12 hours"
 msgstr "Crosschain amount larger than {0} {1} could take up to 12 hours"
@@ -1119,8 +1123,8 @@ msgid "Current {0} Price"
 msgstr "Current {0} Price"
 
 #: src/components/NftPools/index.tsx
-#: src/components/YieldPools/ProMMFarms.tsx
 #: src/components/YieldPools/index.tsx
+#: src/components/YieldPools/ProMMFarms.tsx
 msgid "Currently there are no Farms."
 msgstr "Currently there are no Farms."
 
@@ -1268,8 +1272,8 @@ msgstr "Discovered on"
 msgid "Dismiss"
 msgstr "Dismiss"
 
-#: src/components/TransactionSettings/index.tsx
 #: src/components/swapv2/SwapSettingsPanel/index.tsx
+#: src/components/TransactionSettings/index.tsx
 msgid "Display Settings"
 msgstr "Display Settings"
 
@@ -1430,8 +1434,8 @@ msgstr "Ended"
 msgid "Ended On"
 msgstr "Ended On"
 
-#: src/components/YieldPools/ProMMFarmGroup/Row.tsx
 #: src/components/YieldPools/ProMMFarmGroup/index.tsx
+#: src/components/YieldPools/ProMMFarmGroup/Row.tsx
 #: src/pages/Campaign/index.tsx
 msgid "Ending In"
 msgstr "Ending In"
@@ -1450,10 +1454,10 @@ msgstr "Enter a recipient"
 msgid "Enter a smaller slippage percentage"
 msgstr "Enter a smaller slippage percentage"
 
+#: src/components/swapv2/SwapSettingsPanel/SlippageSetting.tsx
+#: src/components/swapv2/SwapSettingsPanel/SlippageSetting.tsx
+#: src/components/swapv2/SwapSettingsPanel/SlippageSetting.tsx
 #: src/components/TransactionSettings/index.tsx
-#: src/components/swapv2/SwapSettingsPanel/SlippageSetting.tsx
-#: src/components/swapv2/SwapSettingsPanel/SlippageSetting.tsx
-#: src/components/swapv2/SwapSettingsPanel/SlippageSetting.tsx
 msgid "Enter a valid slippage percentage"
 msgstr "Enter a valid slippage percentage"
 
@@ -1514,8 +1518,8 @@ msgid "Estimated network fee for your transaction"
 msgstr "Estimated network fee for your transaction"
 
 #: src/components/NftPools/index.tsx
-#: src/components/PoolList/ItemCard/TabInfoItems.tsx
 #: src/components/PoolList/index.tsx
+#: src/components/PoolList/ItemCard/TabInfoItems.tsx
 #: src/components/YieldPools/index.tsx
 msgid "Estimated return based on yearly fees of the pool"
 msgstr "Estimated return based on yearly fees of the pool"
@@ -1851,8 +1855,8 @@ msgstr "High Price Impact"
 msgid "History"
 msgstr "History"
 
-#: src/pages/TrueSight/components/TrendingLayout/TrendingTokenItemMobileOnly.tsx
 #: src/pages/TrueSight/components/TrendingLayout/index.tsx
+#: src/pages/TrueSight/components/TrendingLayout/TrendingTokenItemMobileOnly.tsx
 #: src/pages/TrueSight/components/TrendingSoonLayout/TrendingSoonTokenDetail.tsx
 #: src/pages/TrueSight/components/TrendingSoonLayout/TrendingSoonTokenItemDetailsOnMobile.tsx
 msgid "Holders"
@@ -2026,8 +2030,8 @@ msgstr "Increase Liquidity"
 msgid "Info"
 msgstr "Info"
 
-#: src/components/UpcomingFarms/ListItem.tsx
 #: src/components/UpcomingFarms/index.tsx
+#: src/components/UpcomingFarms/ListItem.tsx
 msgid "Information"
 msgstr "Information"
 
@@ -2404,8 +2408,8 @@ msgstr "Manage"
 msgid "Manage your pools."
 msgstr "Manage your pools."
 
-#: src/pages/TrueSight/components/TrendingLayout/TrendingTokenItemMobileOnly.tsx
 #: src/pages/TrueSight/components/TrendingLayout/index.tsx
+#: src/pages/TrueSight/components/TrendingLayout/TrendingTokenItemMobileOnly.tsx
 #: src/pages/TrueSight/components/TrendingSoonLayout/TrendingSoonTokenDetail.tsx
 #: src/pages/TrueSight/components/TrendingSoonLayout/TrendingSoonTokenItemDetailsOnMobile.tsx
 msgid "Market Cap"
@@ -2437,8 +2441,8 @@ msgstr "Max APR Available"
 msgid "Max Price"
 msgstr "Max Price"
 
-#: src/components/TransactionSettings/index.tsx
 #: src/components/swapv2/SwapSettingsPanel/SlippageSetting.tsx
+#: src/components/TransactionSettings/index.tsx
 msgid "Max Slippage"
 msgstr "Max Slippage"
 
@@ -2529,10 +2533,10 @@ msgid "More information about KNC is available on:"
 msgstr "More information about KNC is available on:"
 
 #: src/components/NftPools/index.tsx
-#: src/components/YieldPools/ListItem.tsx
-#: src/components/YieldPools/ProMMFarmGroup/Row.tsx
-#: src/components/YieldPools/ProMMFarmGroup/index.tsx
 #: src/components/YieldPools/index.tsx
+#: src/components/YieldPools/ListItem.tsx
+#: src/components/YieldPools/ProMMFarmGroup/index.tsx
+#: src/components/YieldPools/ProMMFarmGroup/Row.tsx
 msgid "My Deposit"
 msgstr "My Deposit"
 
@@ -2549,12 +2553,12 @@ msgstr "My Positions"
 
 #: src/components/NftPools/index.tsx
 #: src/components/YieldPools/HarvestAll.tsx
-#: src/components/YieldPools/ListItem.tsx
-#: src/components/YieldPools/ListItem.tsx
-#: src/components/YieldPools/ProMMFarmGroup/Row.tsx
-#: src/components/YieldPools/ProMMFarmGroup/index.tsx
-#: src/components/YieldPools/ProMMFarmModals/HarvestModal.tsx
 #: src/components/YieldPools/index.tsx
+#: src/components/YieldPools/ListItem.tsx
+#: src/components/YieldPools/ListItem.tsx
+#: src/components/YieldPools/ProMMFarmGroup/index.tsx
+#: src/components/YieldPools/ProMMFarmGroup/Row.tsx
+#: src/components/YieldPools/ProMMFarmModals/HarvestModal.tsx
 msgid "My Rewards"
 msgstr "My Rewards"
 
@@ -2589,11 +2593,11 @@ msgstr "NFT Collection Address <0>*</0>"
 msgid "NFT Staking"
 msgstr "NFT Staking"
 
+#: src/pages/TrueSight/components/TrendingLayout/index.tsx
+#: src/pages/TrueSight/components/TrendingLayout/index.tsx
 #: src/pages/TrueSight/components/TrendingLayout/TrendingTokenItemMobileOnly.tsx
-#: src/pages/TrueSight/components/TrendingLayout/index.tsx
-#: src/pages/TrueSight/components/TrendingLayout/index.tsx
-#: src/pages/TrueSight/components/TrendingSoonLayout/TrendingSoonTokenItemDetailsOnMobile.tsx
 #: src/pages/TrueSight/components/TrendingSoonLayout/index.tsx
+#: src/pages/TrueSight/components/TrendingSoonLayout/TrendingSoonTokenItemDetailsOnMobile.tsx
 msgid "Name"
 msgstr "Name"
 
@@ -2607,8 +2611,8 @@ msgstr "Navigating My Pools Tutorial"
 msgid "Navigating Pools Tutorial"
 msgstr "Navigating Pools Tutorial"
 
-#: src/components/UpcomingFarms/ListItem.tsx
 #: src/components/UpcomingFarms/index.tsx
+#: src/components/UpcomingFarms/ListItem.tsx
 msgid "Network"
 msgstr "Network"
 
@@ -2626,8 +2630,8 @@ msgid "Next"
 msgstr "Next"
 
 #: src/components/NftPools/index.tsx
-#: src/components/YieldPools/ProMMFarms.tsx
 #: src/components/YieldPools/index.tsx
+#: src/components/YieldPools/ProMMFarms.tsx
 msgid "No Farms found"
 msgstr "No Farms found"
 
@@ -2690,8 +2694,8 @@ msgstr "No token found"
 msgid "No token found. Try turn off truesight."
 msgstr "No token found. Try turn off truesight."
 
-#: src/components/Vesting/ProMMVesting.tsx
 #: src/components/Vesting/index.tsx
+#: src/components/Vesting/ProMMVesting.tsx
 msgid "No vesting schedule!"
 msgstr "No vesting schedule!"
 
@@ -2752,8 +2756,8 @@ msgstr "On"
 msgid "On-chain & Open Source"
 msgstr "On-chain & Open Source"
 
-#: src/components/YieldPools/ProMMFarmGroup/Row.tsx
 #: src/components/YieldPools/ProMMFarmGroup/index.tsx
+#: src/components/YieldPools/ProMMFarmGroup/Row.tsx
 msgid "Once a farm has ended, you will continue to receive returns through LP Fees"
 msgstr "Once a farm has ended, you will continue to receive returns through LP Fees"
 
@@ -2925,8 +2929,8 @@ msgstr "Pool | Fee"
 msgid "Pooled {0}"
 msgstr "Pooled {0}"
 
-#: src/components/UpcomingFarms/ListItem.tsx
 #: src/components/UpcomingFarms/index.tsx
+#: src/components/UpcomingFarms/ListItem.tsx
 msgid "Pools"
 msgstr "Pools"
 
@@ -2968,8 +2972,8 @@ msgstr "Preview"
 
 #: src/components/swapv2/TokenInfoV2/SingleTokenInfo.tsx
 #: src/pages/TrueSight/components/Chart.tsx
-#: src/pages/TrueSight/components/TrendingLayout/TrendingTokenItemMobileOnly.tsx
 #: src/pages/TrueSight/components/TrendingLayout/index.tsx
+#: src/pages/TrueSight/components/TrendingLayout/TrendingTokenItemMobileOnly.tsx
 #: src/pages/TrueSight/components/TrendingSoonLayout/TrendingSoonTokenDetail.tsx
 #: src/pages/TrueSight/components/TrendingSoonLayout/TrendingSoonTokenItemDetailsOnMobile.tsx
 msgid "Price"
@@ -3214,11 +3218,11 @@ msgstr "Reward Tokens"
 msgid "Reward Tokens <0>*</0>"
 msgstr "Reward Tokens <0>*</0>"
 
-#: src/components/UpcomingFarms/ListItem.tsx
 #: src/components/UpcomingFarms/index.tsx
+#: src/components/UpcomingFarms/ListItem.tsx
+#: src/pages/Campaign/index.tsx
+#: src/pages/Campaign/index.tsx
 #: src/pages/Campaign/LeaderboardLayout.tsx
-#: src/pages/Campaign/index.tsx
-#: src/pages/Campaign/index.tsx
 msgid "Rewards"
 msgstr "Rewards"
 
@@ -3280,8 +3284,8 @@ msgid "Search by pool address"
 msgstr "Search by pool address"
 
 #: src/components/NftPools/index.tsx
-#: src/components/YieldPools/ProMMFarms.tsx
 #: src/components/YieldPools/index.tsx
+#: src/components/YieldPools/ProMMFarms.tsx
 #: src/pages/Pool/index.tsx
 #: src/pages/Pools/index.tsx
 #: src/pages/Pools/index.tsx
@@ -3292,8 +3296,8 @@ msgstr "Search by token name or pool address"
 msgid "Search by token name or tag"
 msgstr "Search by token name or tag"
 
-#: src/components/SearchModal/CurrencySearch.tsx
 #: src/components/SearchModal/bridge/CurrencySearchBridge.tsx
+#: src/components/SearchModal/CurrencySearch.tsx
 msgid "Search by token name, token symbol or address"
 msgstr "Search by token name, token symbol or address"
 
@@ -3355,8 +3359,8 @@ msgstr "Select a network"
 
 #: src/components/CurrencyInputPanel/CurrencyInputPanelBridge.tsx
 #: src/components/CurrencyInputPanel/index.tsx
-#: src/components/SearchModal/CurrencySearch.tsx
 #: src/components/SearchModal/bridge/CurrencySearchBridge.tsx
+#: src/components/SearchModal/CurrencySearch.tsx
 #: src/pages/CreateReferral/TokensSelect.tsx
 #: src/state/swap/hooks.ts
 #: src/state/swap/proamm/hooks.tsx
@@ -3570,8 +3574,8 @@ msgid "Staked NFTs"
 msgstr "Staked NFTs"
 
 #: src/components/NftPools/index.tsx
-#: src/components/YieldPools/ProMMFarms.tsx
 #: src/components/YieldPools/index.tsx
+#: src/components/YieldPools/ProMMFarms.tsx
 msgid "Staked Only"
 msgstr "Staked Only"
 
@@ -3584,10 +3588,10 @@ msgid "Staked Positions"
 msgstr "Staked Positions"
 
 #: src/components/NftPools/index.tsx
-#: src/components/YieldPools/ListItem.tsx
-#: src/components/YieldPools/ProMMFarmGroup/Row.tsx
-#: src/components/YieldPools/ProMMFarmGroup/index.tsx
 #: src/components/YieldPools/index.tsx
+#: src/components/YieldPools/ListItem.tsx
+#: src/components/YieldPools/ProMMFarmGroup/index.tsx
+#: src/components/YieldPools/ProMMFarmGroup/Row.tsx
 msgid "Staked TVL"
 msgstr "Staked TVL"
 
@@ -3620,11 +3624,15 @@ msgid "Start Earning"
 msgstr "Start Earning"
 
 #: src/pages/AddFarmV2/index.tsx
-msgid "Start Time"
-msgstr "Start Time"
+#~ msgid "Start Time"
+#~ msgstr "Start Time"
 
-#: src/components/UpcomingFarms/ListItem.tsx
+#: src/pages/AddFarmV2/index.tsx
+msgid "Start Time <0>*</0>"
+msgstr "Start Time <0>*</0>"
+
 #: src/components/UpcomingFarms/index.tsx
+#: src/components/UpcomingFarms/ListItem.tsx
 #: src/pages/Campaign/index.tsx
 msgid "Starting In"
 msgstr "Starting In"
@@ -3985,9 +3993,9 @@ msgstr "Token"
 msgid "Token Amount"
 msgstr "Token Amount"
 
-#: src/components/TransactionSettings/index.tsx
 #: src/components/swapv2/MobileTokenInfo.tsx
 #: src/components/swapv2/SwapSettingsPanel/index.tsx
+#: src/components/TransactionSettings/index.tsx
 msgid "Token Info"
 msgstr "Token Info"
 
@@ -4134,8 +4142,8 @@ msgstr "Trade at your own risk!"
 msgid "Trading Volume"
 msgstr "Trading Volume"
 
-#: src/pages/TrueSight/components/TrendingLayout/TrendingTokenItemMobileOnly.tsx
 #: src/pages/TrueSight/components/TrendingLayout/index.tsx
+#: src/pages/TrueSight/components/TrendingLayout/TrendingTokenItemMobileOnly.tsx
 #: src/pages/TrueSight/components/TrendingSoonLayout/TrendingSoonTokenDetail.tsx
 #: src/pages/TrueSight/components/TrendingSoonLayout/TrendingSoonTokenItemDetailsOnMobile.tsx
 msgid "Trading Volume (24H)"
@@ -4150,18 +4158,18 @@ msgstr "Transaction Fee"
 msgid "Transaction Submitted"
 msgstr "Transaction Submitted"
 
-#: src/components/TransactionSettings/index.tsx
 #: src/components/swapv2/SwapSettingsPanel/TransactionTimeLimitSetting.tsx
+#: src/components/TransactionSettings/index.tsx
 msgid "Transaction time limit"
 msgstr "Transaction time limit"
 
-#: src/components/TransactionSettings/index.tsx
 #: src/components/swapv2/SwapSettingsPanel/TransactionTimeLimitSetting.tsx
+#: src/components/TransactionSettings/index.tsx
 msgid "Transaction will revert if it is pending for longer than the indicated time"
 msgstr "Transaction will revert if it is pending for longer than the indicated time"
 
-#: src/components/TransactionSettings/index.tsx
 #: src/components/swapv2/SwapSettingsPanel/SlippageSetting.tsx
+#: src/components/TransactionSettings/index.tsx
 msgid "Transaction will revert if there is an adverse rate change that is higher than this %"
 msgstr "Transaction will revert if there is an adverse rate change that is higher than this %"
 
@@ -4204,18 +4212,18 @@ msgstr "Turn on Advanced Mode from settings to execute trades with high price im
 msgid "Turn on Advanced Mode to trade"
 msgstr "Turn on Advanced Mode to trade"
 
-#: src/components/TransactionSettings/index.tsx
 #: src/components/swapv2/SwapSettingsPanel/index.tsx
+#: src/components/TransactionSettings/index.tsx
 msgid "Turn on to display live chart"
 msgstr "Turn on to display live chart"
 
-#: src/components/TransactionSettings/index.tsx
 #: src/components/swapv2/SwapSettingsPanel/index.tsx
+#: src/components/TransactionSettings/index.tsx
 msgid "Turn on to display token info"
 msgstr "Turn on to display token info"
 
-#: src/components/TransactionSettings/index.tsx
 #: src/components/swapv2/SwapSettingsPanel/index.tsx
+#: src/components/TransactionSettings/index.tsx
 msgid "Turn on to display tokens that could be trending soon"
 msgstr "Turn on to display tokens that could be trending soon"
 
@@ -4398,9 +4406,9 @@ msgid "VOLUME (24H)"
 msgstr "VOLUME (24H)"
 
 #: src/components/NftPools/index.tsx
+#: src/components/YieldPools/index.tsx
 #: src/components/YieldPools/ListItem.tsx
 #: src/components/YieldPools/ProMMFarmGroup/Row.tsx
-#: src/components/YieldPools/index.tsx
 #: src/pages/Yield/index.tsx
 msgid "Vesting"
 msgstr "Vesting"
@@ -4409,8 +4417,8 @@ msgstr "Vesting"
 msgid "Vesting Duration"
 msgstr "Vesting Duration"
 
-#: src/components/Vesting/ProMMVesting.tsx
 #: src/components/Vesting/index.tsx
+#: src/components/Vesting/ProMMVesting.tsx
 msgid "Vesting Schedules"
 msgstr "Vesting Schedules"
 
@@ -4577,8 +4585,8 @@ msgstr "We will automatically remove your liquidity and convert it into your des
 msgid "Website"
 msgstr "Website"
 
-#: src/components/Tutorial/TutorialSwap/TutorialMobile.tsx
 #: src/components/Tutorial/TutorialSwap/index.tsx
+#: src/components/Tutorial/TutorialSwap/TutorialMobile.tsx
 msgid "Welcome to VoxelSwap!"
 msgstr "Welcome to VoxelSwap!"
 
@@ -4997,13 +5005,13 @@ msgstr "Your trade is routed through one or more of these liquidity sources"
 #~ msgid "Your trade route"
 #~ msgstr "Your trade route"
 
-#: src/components/TransactionSettings/index.tsx
 #: src/components/swapv2/SwapSettingsPanel/SlippageSetting.tsx
+#: src/components/TransactionSettings/index.tsx
 msgid "Your transaction may be frontrun"
 msgstr "Your transaction may be frontrun"
 
-#: src/components/TransactionSettings/index.tsx
 #: src/components/swapv2/SwapSettingsPanel/SlippageSetting.tsx
+#: src/components/TransactionSettings/index.tsx
 msgid "Your transaction may fail"
 msgstr "Your transaction may fail"
 
@@ -5110,14 +5118,14 @@ msgstr "your wallet"
 #: src/components/RateToggle/index.tsx
 #: src/components/RateToggle/index.tsx
 #: src/components/StakeModal/StakeModal.tsx
-#: src/components/UnStakeModal/UnStakeModal.tsx
-#: src/components/Web3Status/index.tsx
 #: src/components/swapv2/TokenInfo.tsx
 #: src/components/swapv2/TokenInfoV2/SingleTokenInfo.tsx
+#: src/components/UnStakeModal/UnStakeModal.tsx
+#: src/components/Web3Status/index.tsx
 #: src/pages/Bridge/PoolInfo.tsx
-#: src/pages/NftStaking/NftStakingButton.tsx
-#: src/pages/NftStaking/NftStakingButton.tsx
 #: src/pages/NftStaking/details.tsx
+#: src/pages/NftStaking/NftStakingButton.tsx
+#: src/pages/NftStaking/NftStakingButton.tsx
 #: src/pages/TokenAmmPool/PositionListItem.tsx
 #: src/pages/TokenAmmPool/PositionListItem.tsx
 #: src/pages/TrueSight/components/FilterBar/NetworkSelect.tsx
@@ -5221,6 +5229,14 @@ msgstr "{addRewardTokenErr}"
 msgid "{addRewardTokenValueErr}"
 msgstr "{addRewardTokenValueErr}"
 
+#: src/pages/AddTokenStaking/index.tsx
+msgid "{apyErr}"
+msgstr "{apyErr}"
+
+#: src/pages/AddTokenStaking/index.tsx
+msgid "{closingTimeErr}"
+msgstr "{closingTimeErr}"
+
 #: src/pages/AddNftStaking/index.tsx
 msgid "{collectionLogoErr}"
 msgstr "{collectionLogoErr}"
@@ -5228,6 +5244,10 @@ msgstr "{collectionLogoErr}"
 #: src/pages/AddNftStaking/index.tsx
 msgid "{collectionNameErr}"
 msgstr "{collectionNameErr}"
+
+#: src/pages/AddFarmV2/index.tsx
+msgid "{endTimeError}"
+msgstr "{endTimeError}"
 
 #: src/pages/AddTokenStaking/index.tsx
 msgid "{lockPeriodErr}"
@@ -5261,9 +5281,25 @@ msgstr "{rewardErr}"
 msgid "{rewardTokenAddressErr}"
 msgstr "{rewardTokenAddressErr}"
 
+#: src/pages/AddTokenStaking/index.tsx
+msgid "{rewardTokenErr}"
+msgstr "{rewardTokenErr}"
+
+#: src/pages/AddFarmV2/index.tsx
+msgid "{startTimeError}"
+msgstr "{startTimeError}"
+
 #: src/components/InputStepCounter/InputStepCounter.tsx
 msgid "{tokenB} per {tokenA}"
 msgstr "{tokenB} per {tokenA}"
+
+#: src/pages/AddTokenStaking/index.tsx
+msgid "{tokenStakeErr}"
+msgstr "{tokenStakeErr}"
+
+#: src/pages/AddFarmV2/index.tsx
+msgid "{vestingDurationError}"
+msgstr "{vestingDurationError}"
 
 #: src/components/SearchModal/CurrencyList.tsx
 #~ msgid "• Added by user"

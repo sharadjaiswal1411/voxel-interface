@@ -190,13 +190,26 @@ export default function AddFarmV2({
   const [closingTimeErr, setClosingTimeErr] = useState('')
   const above1000 = useMedia('(min-width: 1000px)')
 
-  const { createTokenStake } = useTokenStakingAction();
+  const { createTokenStake, checkRole } = useTokenStakingAction();
+
+  const [roleCheck, setRoleCheck] = useState(false);
+  const checkAuth = async () => {
+    const response = await checkRole()
+    setRoleCheck(response)
+
+    if (!response) {
+      routeHistory.push('/token-staking')
+    }
+  }
+
+  useEffect(() => {
+    checkAuth()
+  }, [])
 
   // const isValidAddress = isAddress(tokenStake)
 
 
   const handleSubmit = async () => {
-
 
     /* ------------------------------ For Date Picker - return number of days,hours,minutes,seconds between two dates------------------*/
 
@@ -231,6 +244,7 @@ export default function AddFarmV2({
     }
 
     if (
+      roleCheck &&
       !err.lockPeriod &&
       !err.mintStake &&
       !err.tokenStake &&
@@ -264,8 +278,6 @@ export default function AddFarmV2({
 
   // Input Fields Validations
   const validate = (valu: any) => {
-
-    console.log({ valu })
 
     type obj = {
       lockPeriod?: string;
@@ -307,6 +319,38 @@ export default function AddFarmV2({
     return errors;
   };
 
+
+  // Prevent minus, plus and e from input type number
+  const onKeyDownDecimal = (event: any) => {
+    if (
+      event.keyCode === 189 || // (-)
+      event.keyCode === 187 || // (+)
+      event.keyCode === 69     // (e)
+    ) {
+      event.preventDefault()
+    }
+  }
+
+  const numberInputFilter = (val: any, maxValue = 0) => {
+    const format = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/;
+
+    if (Number(maxValue) === 0) {
+      if (Number(val) >= 0 || !format.test(String(val))) {
+        return (val);
+      }
+    }
+    else if (Number(maxValue) > 0) {
+
+      if (Number(val) < Number(maxValue)) {
+        if (Number(val) >= 0 || !format.test(String(val))) {
+          return (val);
+        }
+      }
+      else if (Number(val) > Number(maxValue)) {
+        return (maxValue);
+      }
+    }
+  }
 
   const feeAmount: FeeAmount | undefined = feeAmountFromUrl && Object.values(FeeAmount).includes(parseFloat(feeAmountFromUrl)) ? parseFloat(feeAmountFromUrl) : FeeAmount.MEDIUM
   const baseCurrency = useCurrency(currencyIdA)
@@ -1007,8 +1051,11 @@ export default function AddFarmV2({
                       </Text>
                       <Text fontSize={20} lineHeight={'24px'} color={theme.text}>
                         <AddressInput
-                          type="text"
-                          value={lockPeriod}
+                          type="number"
+                          style={{ padding: "0px", borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px" }}
+                          onKeyDown={onKeyDownDecimal}
+                          min={0}
+                          value={numberInputFilter(lockPeriod)}
                           onChange={(e: any) => {
                             setLockPeriod(e.target.value)
                           }}
@@ -1036,8 +1083,11 @@ export default function AddFarmV2({
                       </Text>
                       <Text fontSize={20} lineHeight={'24px'} color={theme.text}>
                         <AddressInput
-                          type="text"
-                          value={apy}
+                          type="number"
+                          style={{ padding: "0px", borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px" }}
+                          onKeyDown={onKeyDownDecimal}
+                          min={0}
+                          value={numberInputFilter(apy)}
                           onChange={(e: any) => {
                             setApy(e.target.value)
                           }} />
@@ -1100,10 +1150,22 @@ export default function AddFarmV2({
                   marginBottom: !above1000 ? '24px' : '',
                   border: mintStakeErr && touched ? `1px solid ${theme.red}` : undefined,
                 }}>
-                  <Text /*tyle={{ paddingBottom: lockPeriodErr ? '20px' : '' }}*/ fontSize={12} color={theme.subText} >
+                  <Text /*style={{ paddingBottom: lockPeriodErr ? '20px' : '' }}*/ fontSize={12} color={theme.subText} marginBottom="9px">
                     <Trans>Min to Stake <Span>*</Span></Trans>
                   </Text>
-                  <CustomSelect mint={(val: any) => { setMintStake(val) }} />
+                  {/* <CustomSelect mint={(val: any) => { setMintStake(val) }} /> */}
+                  <Text fontSize={20} lineHeight={'24px'} color={theme.text}>
+                    <AddressInput
+                      type="number"
+                      style={{ padding: "0px", borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px" }}
+                      onKeyDown={onKeyDownDecimal}
+                      min={0}
+                      value={numberInputFilter(mintStake)}
+                      onChange={(e: any) => {
+                        setMintStake(e.target.value)
+                      }}
+                    />
+                  </Text>
                   {mintStakeErr && touched && (
                     <ErrorMessage>
                       <Trans>{mintStakeErr}</Trans>
@@ -1121,7 +1183,7 @@ export default function AddFarmV2({
                     border: closingTimeErr && touched ? `1px solid ${theme.red}` : undefined,
                   }}
                 >
-                  <Text fontSize={12} color={theme.subText} >
+                  <Text fontSize={12} color={theme.subText} marginBottom="10px">
                     <Trans>Closing In</Trans>
                   </Text>
                   <CustomDatePicker dateTime={(val: any) => { setClosingInDateTime(val) }} />

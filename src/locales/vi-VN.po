@@ -38,6 +38,10 @@ msgstr ""
 #: src/pages/AddNftStaking/index.tsx
 #: src/pages/AddTokenStaking/index.tsx
 #: src/pages/AddTokenStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
+#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/CreateReferral/index.tsx
 msgid "*Required"
 msgstr ""
@@ -100,10 +104,6 @@ msgstr ""
 #: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddFarmV2/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
 msgid "<0/>"
 msgstr ""
 
@@ -220,11 +220,11 @@ msgid "AMP factor x Liquidity in the pool. Amplified pools have higher capital e
 msgstr "Yếu tố AMP x Tính thanh khoản trong pool. Các pool khuếch đại có hiệu quả sử dụng vốn và tính thanh khoản cao hơn."
 
 #: src/components/NftPools/index.tsx
-#: src/components/PoolList/ItemCard/TabInfoItems.tsx
 #: src/components/PoolList/index.tsx
+#: src/components/PoolList/ItemCard/TabInfoItems.tsx
 #: src/components/ProAmm/ProStakeFee.tsx
-#: src/components/YieldPools/ListItem.tsx
 #: src/components/YieldPools/index.tsx
+#: src/components/YieldPools/ListItem.tsx
 #: src/pages/ProAmmPools/index.tsx
 #: src/pages/TokenAmmPool/PositionListItem.tsx
 msgid "APR"
@@ -239,8 +239,8 @@ msgstr ""
 #~ msgid "AVAILABLE BALANCE:"
 #~ msgstr ""
 
-#: src/components/YieldPools/ProMMFarmGroup/Row.tsx
 #: src/components/YieldPools/ProMMFarmGroup/index.tsx
+#: src/components/YieldPools/ProMMFarmGroup/Row.tsx
 msgid "AVG APR"
 msgstr ""
 
@@ -254,9 +254,9 @@ msgstr ""
 msgid "About"
 msgstr "Giới thiệu"
 
-#: src/components/WalletModal/index.tsx
 #: src/components/swap/SwapModalHeader.tsx
 #: src/components/swapv2/SwapModalHeader.tsx
+#: src/components/WalletModal/index.tsx
 msgid "Accept"
 msgstr "Chấp nhận"
 
@@ -369,13 +369,13 @@ msgstr ""
 msgid "Adjust the advanced settings for your trades like the max slippage."
 msgstr ""
 
-#: src/components/TransactionSettings/index.tsx
 #: src/components/swapv2/SwapSettingsPanel/AdvancedModeSetting.tsx
+#: src/components/TransactionSettings/index.tsx
 msgid "Advanced Mode"
 msgstr "Chế Độ Nâng Cao"
 
-#: src/components/TransactionSettings/index.tsx
 #: src/components/swapv2/SwapSettingsPanel/index.tsx
+#: src/components/TransactionSettings/index.tsx
 msgid "Advanced Settings"
 msgstr "Tuỳ Chỉnh Nâng Cao"
 
@@ -393,9 +393,9 @@ msgid "After harvesting, your rewards will begin vesting linearly (only if the f
 msgstr ""
 
 #: src/components/NftPools/index.tsx
+#: src/components/YieldPools/index.tsx
 #: src/components/YieldPools/ListItem.tsx
 #: src/components/YieldPools/ProMMFarmGroup/Row.tsx
-#: src/components/YieldPools/index.tsx
 msgid "After harvesting, your rewards will unlock linearly over the indicated time period"
 msgstr ""
 
@@ -1135,6 +1135,10 @@ msgstr "Tạo một Pool mới hoặc chọn một cặp token khác để xem c
 msgid "Create an issue on GitHub"
 msgstr ""
 
+#: src/pages/AddTokenStaking/index.tsx
+msgid "Create <0/>"
+msgstr ""
+
 #: src/components/swapv2/AdvancedSwapDetails.tsx
 msgid "Crosschain amount larger than {0} {1} could take up to 12 hours"
 msgstr ""
@@ -1168,8 +1172,8 @@ msgid "Current {0} Price"
 msgstr ""
 
 #: src/components/NftPools/index.tsx
-#: src/components/YieldPools/ProMMFarms.tsx
 #: src/components/YieldPools/index.tsx
+#: src/components/YieldPools/ProMMFarms.tsx
 msgid "Currently there are no Farms."
 msgstr "Hiện tại không có Farm nào cả."
 
@@ -1317,8 +1321,8 @@ msgstr ""
 msgid "Dismiss"
 msgstr "Bỏ qua"
 
-#: src/components/TransactionSettings/index.tsx
 #: src/components/swapv2/SwapSettingsPanel/index.tsx
+#: src/components/TransactionSettings/index.tsx
 msgid "Display Settings"
 msgstr ""
 
@@ -1479,8 +1483,8 @@ msgstr "Đã kết thúc"
 msgid "Ended On"
 msgstr ""
 
-#: src/components/YieldPools/ProMMFarmGroup/Row.tsx
 #: src/components/YieldPools/ProMMFarmGroup/index.tsx
+#: src/components/YieldPools/ProMMFarmGroup/Row.tsx
 #: src/pages/Campaign/index.tsx
 msgid "Ending In"
 msgstr "Kết thúc trong"
@@ -1499,10 +1503,10 @@ msgstr "Nhập người nhận"
 msgid "Enter a smaller slippage percentage"
 msgstr ""
 
+#: src/components/swapv2/SwapSettingsPanel/SlippageSetting.tsx
+#: src/components/swapv2/SwapSettingsPanel/SlippageSetting.tsx
+#: src/components/swapv2/SwapSettingsPanel/SlippageSetting.tsx
 #: src/components/TransactionSettings/index.tsx
-#: src/components/swapv2/SwapSettingsPanel/SlippageSetting.tsx
-#: src/components/swapv2/SwapSettingsPanel/SlippageSetting.tsx
-#: src/components/swapv2/SwapSettingsPanel/SlippageSetting.tsx
 msgid "Enter a valid slippage percentage"
 msgstr "Nhập phần trăm trượt giá hợp lệ"
 
@@ -1563,8 +1567,8 @@ msgid "Estimated network fee for your transaction"
 msgstr "Phí mạng được ước tính cho giao dịch của bạn"
 
 #: src/components/NftPools/index.tsx
-#: src/components/PoolList/ItemCard/TabInfoItems.tsx
 #: src/components/PoolList/index.tsx
+#: src/components/PoolList/ItemCard/TabInfoItems.tsx
 #: src/components/YieldPools/index.tsx
 msgid "Estimated return based on yearly fees of the pool"
 msgstr "Lợi nhuận ước tính dựa trên các phí hàng năm của Pool"
@@ -1900,8 +1904,8 @@ msgstr ""
 msgid "History"
 msgstr "Lịch sử"
 
-#: src/pages/TrueSight/components/TrendingLayout/TrendingTokenItemMobileOnly.tsx
 #: src/pages/TrueSight/components/TrendingLayout/index.tsx
+#: src/pages/TrueSight/components/TrendingLayout/TrendingTokenItemMobileOnly.tsx
 #: src/pages/TrueSight/components/TrendingSoonLayout/TrendingSoonTokenDetail.tsx
 #: src/pages/TrueSight/components/TrendingSoonLayout/TrendingSoonTokenItemDetailsOnMobile.tsx
 msgid "Holders"
@@ -2075,8 +2079,8 @@ msgstr "Tăng thanh khoản"
 msgid "Info"
 msgstr ""
 
-#: src/components/UpcomingFarms/ListItem.tsx
 #: src/components/UpcomingFarms/index.tsx
+#: src/components/UpcomingFarms/ListItem.tsx
 msgid "Information"
 msgstr "Thông tin"
 
@@ -2453,8 +2457,8 @@ msgstr "Quản lý"
 msgid "Manage your pools."
 msgstr "Quản lý các Pool của bạn."
 
-#: src/pages/TrueSight/components/TrendingLayout/TrendingTokenItemMobileOnly.tsx
 #: src/pages/TrueSight/components/TrendingLayout/index.tsx
+#: src/pages/TrueSight/components/TrendingLayout/TrendingTokenItemMobileOnly.tsx
 #: src/pages/TrueSight/components/TrendingSoonLayout/TrendingSoonTokenDetail.tsx
 #: src/pages/TrueSight/components/TrendingSoonLayout/TrendingSoonTokenItemDetailsOnMobile.tsx
 msgid "Market Cap"
@@ -2486,8 +2490,8 @@ msgstr ""
 msgid "Max Price"
 msgstr ""
 
-#: src/components/TransactionSettings/index.tsx
 #: src/components/swapv2/SwapSettingsPanel/SlippageSetting.tsx
+#: src/components/TransactionSettings/index.tsx
 msgid "Max Slippage"
 msgstr "Trượt giá Tối đa"
 
@@ -2578,10 +2582,10 @@ msgid "More information about KNC is available on:"
 msgstr ""
 
 #: src/components/NftPools/index.tsx
-#: src/components/YieldPools/ListItem.tsx
-#: src/components/YieldPools/ProMMFarmGroup/Row.tsx
-#: src/components/YieldPools/ProMMFarmGroup/index.tsx
 #: src/components/YieldPools/index.tsx
+#: src/components/YieldPools/ListItem.tsx
+#: src/components/YieldPools/ProMMFarmGroup/index.tsx
+#: src/components/YieldPools/ProMMFarmGroup/Row.tsx
 msgid "My Deposit"
 msgstr "Tiền gửi của tôi"
 
@@ -2598,12 +2602,12 @@ msgstr ""
 
 #: src/components/NftPools/index.tsx
 #: src/components/YieldPools/HarvestAll.tsx
-#: src/components/YieldPools/ListItem.tsx
-#: src/components/YieldPools/ListItem.tsx
-#: src/components/YieldPools/ProMMFarmGroup/Row.tsx
-#: src/components/YieldPools/ProMMFarmGroup/index.tsx
-#: src/components/YieldPools/ProMMFarmModals/HarvestModal.tsx
 #: src/components/YieldPools/index.tsx
+#: src/components/YieldPools/ListItem.tsx
+#: src/components/YieldPools/ListItem.tsx
+#: src/components/YieldPools/ProMMFarmGroup/index.tsx
+#: src/components/YieldPools/ProMMFarmGroup/Row.tsx
+#: src/components/YieldPools/ProMMFarmModals/HarvestModal.tsx
 msgid "My Rewards"
 msgstr "Các Phần thưởng của tôi"
 
@@ -2638,11 +2642,11 @@ msgstr ""
 msgid "NFT Staking"
 msgstr ""
 
+#: src/pages/TrueSight/components/TrendingLayout/index.tsx
+#: src/pages/TrueSight/components/TrendingLayout/index.tsx
 #: src/pages/TrueSight/components/TrendingLayout/TrendingTokenItemMobileOnly.tsx
-#: src/pages/TrueSight/components/TrendingLayout/index.tsx
-#: src/pages/TrueSight/components/TrendingLayout/index.tsx
-#: src/pages/TrueSight/components/TrendingSoonLayout/TrendingSoonTokenItemDetailsOnMobile.tsx
 #: src/pages/TrueSight/components/TrendingSoonLayout/index.tsx
+#: src/pages/TrueSight/components/TrendingSoonLayout/TrendingSoonTokenItemDetailsOnMobile.tsx
 msgid "Name"
 msgstr ""
 
@@ -2656,8 +2660,8 @@ msgstr ""
 msgid "Navigating Pools Tutorial"
 msgstr ""
 
-#: src/components/UpcomingFarms/ListItem.tsx
 #: src/components/UpcomingFarms/index.tsx
+#: src/components/UpcomingFarms/ListItem.tsx
 msgid "Network"
 msgstr "Mạng"
 
@@ -2675,8 +2679,8 @@ msgid "Next"
 msgstr ""
 
 #: src/components/NftPools/index.tsx
-#: src/components/YieldPools/ProMMFarms.tsx
 #: src/components/YieldPools/index.tsx
+#: src/components/YieldPools/ProMMFarms.tsx
 msgid "No Farms found"
 msgstr "Không tìm thấy kết quả"
 
@@ -2739,8 +2743,8 @@ msgstr ""
 msgid "No token found. Try turn off truesight."
 msgstr ""
 
-#: src/components/Vesting/ProMMVesting.tsx
 #: src/components/Vesting/index.tsx
+#: src/components/Vesting/ProMMVesting.tsx
 msgid "No vesting schedule!"
 msgstr "Không có lịch vesting!"
 
@@ -2797,8 +2801,8 @@ msgstr "On"
 msgid "On-chain & Open Source"
 msgstr ""
 
-#: src/components/YieldPools/ProMMFarmGroup/Row.tsx
 #: src/components/YieldPools/ProMMFarmGroup/index.tsx
+#: src/components/YieldPools/ProMMFarmGroup/Row.tsx
 msgid "Once a farm has ended, you will continue to receive returns through LP Fees"
 msgstr "Sau khi farm đã kết thúc, bạn sẽ tiếp tục nhận được lợi nhuận thông qua Phí LP"
 
@@ -2974,8 +2978,8 @@ msgstr ""
 msgid "Pooled {0}"
 msgstr "Số lượng {0}"
 
-#: src/components/UpcomingFarms/ListItem.tsx
 #: src/components/UpcomingFarms/index.tsx
+#: src/components/UpcomingFarms/ListItem.tsx
 msgid "Pools"
 msgstr "Pool"
 
@@ -3017,8 +3021,8 @@ msgstr ""
 
 #: src/components/swapv2/TokenInfoV2/SingleTokenInfo.tsx
 #: src/pages/TrueSight/components/Chart.tsx
-#: src/pages/TrueSight/components/TrendingLayout/TrendingTokenItemMobileOnly.tsx
 #: src/pages/TrueSight/components/TrendingLayout/index.tsx
+#: src/pages/TrueSight/components/TrendingLayout/TrendingTokenItemMobileOnly.tsx
 #: src/pages/TrueSight/components/TrendingSoonLayout/TrendingSoonTokenDetail.tsx
 #: src/pages/TrueSight/components/TrendingSoonLayout/TrendingSoonTokenItemDetailsOnMobile.tsx
 msgid "Price"
@@ -3267,11 +3271,11 @@ msgstr ""
 msgid "Reward Tokens <0>*</0>"
 msgstr ""
 
-#: src/components/UpcomingFarms/ListItem.tsx
 #: src/components/UpcomingFarms/index.tsx
+#: src/components/UpcomingFarms/ListItem.tsx
+#: src/pages/Campaign/index.tsx
+#: src/pages/Campaign/index.tsx
 #: src/pages/Campaign/LeaderboardLayout.tsx
-#: src/pages/Campaign/index.tsx
-#: src/pages/Campaign/index.tsx
 msgid "Rewards"
 msgstr "Phần thưởng"
 
@@ -3333,8 +3337,8 @@ msgid "Search by pool address"
 msgstr "Tìm kiếm theo địa chỉ Pool"
 
 #: src/components/NftPools/index.tsx
-#: src/components/YieldPools/ProMMFarms.tsx
 #: src/components/YieldPools/index.tsx
+#: src/components/YieldPools/ProMMFarms.tsx
 #: src/pages/Pool/index.tsx
 #: src/pages/Pools/index.tsx
 #: src/pages/Pools/index.tsx
@@ -3345,8 +3349,8 @@ msgstr ""
 msgid "Search by token name or tag"
 msgstr ""
 
-#: src/components/SearchModal/CurrencySearch.tsx
 #: src/components/SearchModal/bridge/CurrencySearchBridge.tsx
+#: src/components/SearchModal/CurrencySearch.tsx
 msgid "Search by token name, token symbol or address"
 msgstr ""
 
@@ -3408,8 +3412,8 @@ msgstr ""
 
 #: src/components/CurrencyInputPanel/CurrencyInputPanelBridge.tsx
 #: src/components/CurrencyInputPanel/index.tsx
-#: src/components/SearchModal/CurrencySearch.tsx
 #: src/components/SearchModal/bridge/CurrencySearchBridge.tsx
+#: src/components/SearchModal/CurrencySearch.tsx
 #: src/pages/CreateReferral/TokensSelect.tsx
 #: src/state/swap/hooks.ts
 #: src/state/swap/proamm/hooks.tsx
@@ -3623,8 +3627,8 @@ msgid "Staked NFTs"
 msgstr ""
 
 #: src/components/NftPools/index.tsx
-#: src/components/YieldPools/ProMMFarms.tsx
 #: src/components/YieldPools/index.tsx
+#: src/components/YieldPools/ProMMFarms.tsx
 msgid "Staked Only"
 msgstr "Bạn đã Stake"
 
@@ -3637,10 +3641,10 @@ msgid "Staked Positions"
 msgstr ""
 
 #: src/components/NftPools/index.tsx
-#: src/components/YieldPools/ListItem.tsx
-#: src/components/YieldPools/ProMMFarmGroup/Row.tsx
-#: src/components/YieldPools/ProMMFarmGroup/index.tsx
 #: src/components/YieldPools/index.tsx
+#: src/components/YieldPools/ListItem.tsx
+#: src/components/YieldPools/ProMMFarmGroup/index.tsx
+#: src/components/YieldPools/ProMMFarmGroup/Row.tsx
 msgid "Staked TVL"
 msgstr "TVL đã Stake"
 
@@ -3673,11 +3677,15 @@ msgid "Start Earning"
 msgstr ""
 
 #: src/pages/AddFarmV2/index.tsx
-msgid "Start Time"
+#~ msgid "Start Time"
+#~ msgstr ""
+
+#: src/pages/AddFarmV2/index.tsx
+msgid "Start Time <0>*</0>"
 msgstr ""
 
-#: src/components/UpcomingFarms/ListItem.tsx
 #: src/components/UpcomingFarms/index.tsx
+#: src/components/UpcomingFarms/ListItem.tsx
 #: src/pages/Campaign/index.tsx
 msgid "Starting In"
 msgstr "Bắt đầu trong"
@@ -4038,9 +4046,9 @@ msgstr "Token"
 msgid "Token Amount"
 msgstr "Số lượng Token"
 
-#: src/components/TransactionSettings/index.tsx
 #: src/components/swapv2/MobileTokenInfo.tsx
 #: src/components/swapv2/SwapSettingsPanel/index.tsx
+#: src/components/TransactionSettings/index.tsx
 msgid "Token Info"
 msgstr "Thông tin token"
 
@@ -4187,8 +4195,8 @@ msgstr ""
 msgid "Trading Volume"
 msgstr ""
 
-#: src/pages/TrueSight/components/TrendingLayout/TrendingTokenItemMobileOnly.tsx
 #: src/pages/TrueSight/components/TrendingLayout/index.tsx
+#: src/pages/TrueSight/components/TrendingLayout/TrendingTokenItemMobileOnly.tsx
 #: src/pages/TrueSight/components/TrendingSoonLayout/TrendingSoonTokenDetail.tsx
 #: src/pages/TrueSight/components/TrendingSoonLayout/TrendingSoonTokenItemDetailsOnMobile.tsx
 msgid "Trading Volume (24H)"
@@ -4203,18 +4211,18 @@ msgstr ""
 msgid "Transaction Submitted"
 msgstr "Giao dịch đã được gửi"
 
-#: src/components/TransactionSettings/index.tsx
 #: src/components/swapv2/SwapSettingsPanel/TransactionTimeLimitSetting.tsx
+#: src/components/TransactionSettings/index.tsx
 msgid "Transaction time limit"
 msgstr "Thời hạn giao dịch"
 
-#: src/components/TransactionSettings/index.tsx
 #: src/components/swapv2/SwapSettingsPanel/TransactionTimeLimitSetting.tsx
+#: src/components/TransactionSettings/index.tsx
 msgid "Transaction will revert if it is pending for longer than the indicated time"
 msgstr "Giao dịch sẽ hoàn nguyên nếu nó đang chờ xử lý lâu hơn thời gian đã chỉ định"
 
-#: src/components/TransactionSettings/index.tsx
 #: src/components/swapv2/SwapSettingsPanel/SlippageSetting.tsx
+#: src/components/TransactionSettings/index.tsx
 msgid "Transaction will revert if there is an adverse rate change that is higher than this %"
 msgstr "Giao dịch sẽ hoàn nguyên nếu có sự thay đổi tỷ giá bất lợi cao hơn % này"
 
@@ -4257,18 +4265,18 @@ msgstr ""
 msgid "Turn on Advanced Mode to trade"
 msgstr ""
 
-#: src/components/TransactionSettings/index.tsx
 #: src/components/swapv2/SwapSettingsPanel/index.tsx
+#: src/components/TransactionSettings/index.tsx
 msgid "Turn on to display live chart"
 msgstr "Bật để hiển thị live chart"
 
-#: src/components/TransactionSettings/index.tsx
 #: src/components/swapv2/SwapSettingsPanel/index.tsx
+#: src/components/TransactionSettings/index.tsx
 msgid "Turn on to display token info"
 msgstr "Bật để hiển thị token info"
 
-#: src/components/TransactionSettings/index.tsx
 #: src/components/swapv2/SwapSettingsPanel/index.tsx
+#: src/components/TransactionSettings/index.tsx
 msgid "Turn on to display tokens that could be trending soon"
 msgstr "Bật để hiển thị các token có thể sẽ trending"
 
@@ -4455,9 +4463,9 @@ msgid "VOLUME (24H)"
 msgstr ""
 
 #: src/components/NftPools/index.tsx
+#: src/components/YieldPools/index.tsx
 #: src/components/YieldPools/ListItem.tsx
 #: src/components/YieldPools/ProMMFarmGroup/Row.tsx
-#: src/components/YieldPools/index.tsx
 #: src/pages/Yield/index.tsx
 msgid "Vesting"
 msgstr ""
@@ -4466,8 +4474,8 @@ msgstr ""
 msgid "Vesting Duration"
 msgstr ""
 
-#: src/components/Vesting/ProMMVesting.tsx
 #: src/components/Vesting/index.tsx
+#: src/components/Vesting/ProMMVesting.tsx
 msgid "Vesting Schedules"
 msgstr ""
 
@@ -4634,8 +4642,8 @@ msgstr ""
 msgid "Website"
 msgstr ""
 
-#: src/components/Tutorial/TutorialSwap/TutorialMobile.tsx
 #: src/components/Tutorial/TutorialSwap/index.tsx
+#: src/components/Tutorial/TutorialSwap/TutorialMobile.tsx
 msgid "Welcome to VoxelSwap!"
 msgstr ""
 
@@ -5063,13 +5071,13 @@ msgstr ""
 #~ msgid "Your trade route"
 #~ msgstr "Trade Route của bạn"
 
-#: src/components/TransactionSettings/index.tsx
 #: src/components/swapv2/SwapSettingsPanel/SlippageSetting.tsx
+#: src/components/TransactionSettings/index.tsx
 msgid "Your transaction may be frontrun"
 msgstr "Giao dịch của bạn có thể bị frontrun"
 
-#: src/components/TransactionSettings/index.tsx
 #: src/components/swapv2/SwapSettingsPanel/SlippageSetting.tsx
+#: src/components/TransactionSettings/index.tsx
 msgid "Your transaction may fail"
 msgstr "Giao dịch của bạn có thể thất bại"
 
@@ -5176,14 +5184,14 @@ msgstr ""
 #: src/components/RateToggle/index.tsx
 #: src/components/RateToggle/index.tsx
 #: src/components/StakeModal/StakeModal.tsx
-#: src/components/UnStakeModal/UnStakeModal.tsx
-#: src/components/Web3Status/index.tsx
 #: src/components/swapv2/TokenInfo.tsx
 #: src/components/swapv2/TokenInfoV2/SingleTokenInfo.tsx
+#: src/components/UnStakeModal/UnStakeModal.tsx
+#: src/components/Web3Status/index.tsx
 #: src/pages/Bridge/PoolInfo.tsx
-#: src/pages/NftStaking/NftStakingButton.tsx
-#: src/pages/NftStaking/NftStakingButton.tsx
 #: src/pages/NftStaking/details.tsx
+#: src/pages/NftStaking/NftStakingButton.tsx
+#: src/pages/NftStaking/NftStakingButton.tsx
 #: src/pages/TokenAmmPool/PositionListItem.tsx
 #: src/pages/TokenAmmPool/PositionListItem.tsx
 #: src/pages/TrueSight/components/FilterBar/NetworkSelect.tsx
@@ -5287,12 +5295,24 @@ msgstr ""
 msgid "{addRewardTokenValueErr}"
 msgstr ""
 
+#: src/pages/AddTokenStaking/index.tsx
+msgid "{apyErr}"
+msgstr ""
+
+#: src/pages/AddTokenStaking/index.tsx
+msgid "{closingTimeErr}"
+msgstr ""
+
 #: src/pages/AddNftStaking/index.tsx
 msgid "{collectionLogoErr}"
 msgstr ""
 
 #: src/pages/AddNftStaking/index.tsx
 msgid "{collectionNameErr}"
+msgstr ""
+
+#: src/pages/AddFarmV2/index.tsx
+msgid "{endTimeError}"
 msgstr ""
 
 #: src/pages/AddTokenStaking/index.tsx
@@ -5327,8 +5347,24 @@ msgstr ""
 msgid "{rewardTokenAddressErr}"
 msgstr ""
 
+#: src/pages/AddTokenStaking/index.tsx
+msgid "{rewardTokenErr}"
+msgstr ""
+
+#: src/pages/AddFarmV2/index.tsx
+msgid "{startTimeError}"
+msgstr ""
+
 #: src/components/InputStepCounter/InputStepCounter.tsx
 msgid "{tokenB} per {tokenA}"
+msgstr ""
+
+#: src/pages/AddTokenStaking/index.tsx
+msgid "{tokenStakeErr}"
+msgstr ""
+
+#: src/pages/AddFarmV2/index.tsx
+msgid "{vestingDurationError}"
 msgstr ""
 
 #: src/components/SearchModal/CurrencyList.tsx

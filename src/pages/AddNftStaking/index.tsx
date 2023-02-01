@@ -6,7 +6,7 @@ import { Trans, t } from '@lingui/macro'
 import JSBI from 'jsbi'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { AlertTriangle } from 'react-feather'
-import { RouteComponentProps } from 'react-router-dom'
+import { RouteComponentProps, useHistory } from 'react-router-dom'
 import { Flex, Text } from 'rebass'
 import styled from 'styled-components'
 
@@ -67,6 +67,9 @@ import {
 import { useMedia } from 'react-use'
 import { HeaderTabs } from './HeaderTabs'
 import CurrencyInputPanel from 'components/CurrencyInputPanel'
+import { useStakingAction } from 'state/nfts/promm/hooks'
+import Loader from 'components/Loader'
+import { ethers } from 'ethers'
 
 
 
@@ -150,12 +153,14 @@ export default function AddFarmV2({
   history,
 }: RouteComponentProps<{ currencyIdA?: string; currencyIdB?: string; feeAmount?: string; tokenId?: string }>) {
   const [rotate, setRotate] = useState(false)
+  const routeHistory = useHistory();
   const { account, chainId, library } = useActiveWeb3React()
   const theme = useTheme()
   const toggleWalletModal = useWalletModalToggle() // toggle wallet when disconnected
   const expertMode = useIsExpertMode()
   const addTransactionWithType = useTransactionAdder()
   const positionManager = useProAmmNFTPositionManagerContract()
+  const { createNftStake, checkRole } = useStakingAction();
 
 
   const [reward, setReward] = useState('')
@@ -171,19 +176,32 @@ export default function AddFarmV2({
   const [rewardTokenAddressErr, setRewardTokenAddressErr] = useState('')
   const [lockTimeErr, setLockTimeErr] = useState('')
   const [collectionLogoErr, setCollectionLogoErr] = useState('')
+  const [isLoading, setIsLoading] = useState(false);
 
   const [touched, setTouched] = useState(false)
   const above1000 = useMedia('(min-width: 1000px)')
 
+  // const isValidAddress = isAddress(reward)
 
-  const isValidAddress = isAddress(reward)
+  const [roleCheck, setRoleCheck] = useState(false);
+  const checkAuth = async () => {
+    const response = await checkRole()
+    setRoleCheck(response)
+
+    if (!response) {
+      routeHistory.push('/nft-staking')
+    }
+  }
+
+  useEffect(() => {
+    checkAuth()
+  }, [])
 
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const data = { reward, nftAddress, collectionName, rewardTokenAddress, lockTime, collectionLogo };
     const err = validate(data);
 
-    setRewardTokenAddress(currencyIdA);
     setRewardErr(err.reward!);
     setNftAddressErr(err.nftAddress!);
     setCollectionNameErr(err.collectionName!);
@@ -191,24 +209,39 @@ export default function AddFarmV2({
     setLockTimeErr(err.lockTime!);
     setCollectionLogoErr(err.collectionLogo!);
 
-
     if (!touched) {
       setTouched(true)
     }
 
-    if (data) {
-      console.log({ data });
-    }
+    if (
+      roleCheck &&
+      !err.reward &&
+      !err.nftAddress &&
+      !err.collectionName &&
+      !err.rewardTokenAddress &&
+      !err.lockTime &&
+      !err.collectionLogo
+    ) {
+      if (data) {
+        setIsLoading(true);
 
-    // if (isValidAddress && (!isShowTokens || (isShowTokens && currencyA && currencyB))) {
-    //   mixpanelHandler(MIXPANEL_TYPE.CREATE_REFERRAL_CLICKED, {
-    //     referral_commission: commission,
-    //     input_token: currencyA && currencyA.symbol,
-    //     output_token: currencyB && currencyB.symbol,
-    //   })
-    //   setIsShowShareLinkModal(true)
-    //   setTouched(false)
-    // }
+        const _data = {
+          nftCollectionAddress: nftAddress,
+          rewardToken: rewardTokenAddress,
+          rewardPerDay: ethers.utils.parseUnits(String(reward), "ether").toString(),
+          lockTime: lockTime,
+          name: collectionName,
+          logoURI: collectionLogo,
+        }
+
+        const res = await createNftStake(_data).catch((e) => { console.log(e); setIsLoading(false); })
+
+        if (res) {
+          setIsLoading(false);
+          routeHistory.push('/nft-staking')
+        }
+      }
+    }
   }
 
   // Input Fields Validations
@@ -256,6 +289,37 @@ export default function AddFarmV2({
     return errors;
   };
 
+  // Prevent minus, plus and e from input type number
+  const onKeyDownDecimal = (event: any) => {
+    if (
+      event.keyCode === 189 || // (-)
+      event.keyCode === 187 || // (+)
+      event.keyCode === 69     // (e)
+    ) {
+      event.preventDefault()
+    }
+  }
+
+  const numberInputFilter = (val: any, maxValue = 0) => {
+    const format = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/;
+
+    if (Number(maxValue) === 0) {
+      if (Number(val) >= 0 || !format.test(String(val))) {
+        return (val);
+      }
+    }
+    else if (Number(maxValue) > 0) {
+
+      if (Number(val) < Number(maxValue)) {
+        if (Number(val) >= 0 || !format.test(String(val))) {
+          return (val);
+        }
+      }
+      else if (Number(val) > Number(maxValue)) {
+        return (maxValue);
+      }
+    }
+  }
 
   // check for existing position if tokenId in url
   // const { position: existingPositionDetails, loading: positionLoading } = useProAmmPositionsFromTokenId(
@@ -531,6 +595,7 @@ export default function AddFarmV2({
   const handleCurrencyASelect = useCallback(
     (currencyANew: Currency) => {
       const [idA, idB] = handleCurrencySelect(currencyANew, currencyIdB)
+      setRewardTokenAddress(idA);
       if (idB === undefined) {
         history.push(`/nft-staking/add/${idA}`)
       } else {
@@ -987,8 +1052,11 @@ export default function AddFarmV2({
                       </Text>
                       <Text fontSize={20} lineHeight={'24px'} color={theme.text}>
                         <AddressInput
-                          type="text"
-                          value={reward}
+                          type="number"
+                          style={{ padding: "0px", borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px" }}
+                          onKeyDown={onKeyDownDecimal}
+                          min={0}
+                          value={numberInputFilter(reward)}
                           onChange={(e: any) => {
                             setReward(e.target.value)
                           }}
@@ -1103,12 +1171,15 @@ export default function AddFarmV2({
                   border: lockTimeErr && touched ? `1px solid ${theme.red}` : undefined,
                 }}>
                   <Text fontSize={12} color={theme.subText} marginBottom="8px">
-                    <Trans>Min Lock Time <Span>*</Span></Trans>
+                    <Trans>Min Lock Time In Seconds <Span>*</Span></Trans>
                   </Text>
                   <Text fontSize={20} lineHeight={'24px'} color={theme.text}>
                     <AddressInput
-                      type="text"
-                      value={lockTime}
+                      style={{ padding: "0px", borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px" }}
+                      type="number"
+                      onKeyDown={onKeyDownDecimal}
+                      min={0}
+                      value={numberInputFilter(lockTime)}
                       onChange={(e: any) => {
                         setLockTime(e.target.value)
                       }}
@@ -1151,8 +1222,13 @@ export default function AddFarmV2({
 
             </ResponsiveTwoColumns>
 
-            <ButtonPrimary onClick={handleSubmit} style={{ marginTop: 'auto' }}>
-              <Trans>Create</Trans>
+            <ButtonPrimary disabled={isLoading} onClick={handleSubmit} style={{ marginTop: 'auto' }}>
+              {isLoading
+                ?
+                <Trans>Create&nbsp;<Loader /></Trans>
+                :
+                <Trans>Create</Trans>
+              }
             </ButtonPrimary>
 
 

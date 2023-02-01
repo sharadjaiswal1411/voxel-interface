@@ -36,19 +36,21 @@ export const CreateTokenStakingBtn = () => {
   const theme = useTheme()
   return (
     <ToolbarWrapper style={{ marginBottom: '0px' }}>
-      <ButtonPrimaryWithHighlight
-        // onClick={handleClickCreatePoolButton}
-        // data-highlight={shouldHighlightCreatePoolButton}
-        style={{
-          height: '38px',
-          padding: '0px 12px',
-        }}
-      >
-        <Plus width="22" height="22" />
-        <Text as="span" sx={{ marginLeft: '4px' }}>
-          <NavLink to="/token-staking/add" style={{ textDecoration: "none", color: "white" }}><Trans>Create Token Staking</Trans></NavLink>
-        </Text>
-      </ButtonPrimaryWithHighlight>
+      <NavLink to="/token-staking/add" style={{ textDecoration: "none", color: "white" }}>
+        <ButtonPrimaryWithHighlight
+          // onClick={handleClickCreatePoolButton}
+          // data-highlight={shouldHighlightCreatePoolButton}
+          style={{
+            height: '38px',
+            padding: '0px 12px',
+          }}
+        >
+          <Plus width="22" height="22" />
+          <Text as="span" sx={{ marginLeft: '4px' }}>
+            <Trans>Create Token Staking</Trans>
+          </Text>
+        </ButtonPrimaryWithHighlight>
+      </NavLink>
     </ToolbarWrapper>
   )
 }

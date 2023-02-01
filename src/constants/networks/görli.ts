@@ -88,7 +88,7 @@ const görliInfo: NetworkInfo = {
     // sha1:"0x8Af882BDcfC7cbF19E0930E609dc9D16663841e1"
   },
   // elastic: {
-  //AntiSnipAttackPositionManager:      0xF5a98977213B3CF67A041A45b29E8ED389D7B0D2
+  //AntiSnipAttackPositionManager: 0xF5a98977213B3CF67A041A45b29E8ED389D7B0D2
   //   coreFactory: '0x32ff4D05236E95FF60299E9b7BaB351179138389',
   //   nonfungiblePositionManager: '0xCf6c82016F1781aa26C60e9432c1E8f2A192c6b0',
   //   tickReader: '0x777fd0C0a99bFEa20b3066B5Ab74ecD47aE141aa',
