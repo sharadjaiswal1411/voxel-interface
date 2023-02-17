@@ -490,7 +490,7 @@ export function usePoolDatas(poolAddresses: string[]): {
 
   const { block24, block48 } = usePoolBlocks()
 
-  console.log("block24, block48block24, block48",block24, block48)
+  // console.log("block24, block48block24, block48",block24, block48)
 
   const { loading, error, data } = useQuery<PoolDataResponse>(PROMM_POOLS_BULK(undefined, poolAddresses), {
     client: dataClient,

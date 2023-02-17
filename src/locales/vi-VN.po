@@ -30,6 +30,11 @@ msgid "${totalRewardAmountString} in {tokenSymbol}"
 msgstr ""
 
 #: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddNftStaking/index.tsx
 #: src/pages/AddNftStaking/index.tsx
 #: src/pages/AddNftStaking/index.tsx
@@ -104,8 +109,8 @@ msgstr ""
 #: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddFarmV2/index.tsx
-msgid "<0/>"
-msgstr ""
+#~ msgid "<0/>"
+#~ msgstr ""
 
 #: src/components/NftPools/NftStakingGuide.tsx
 #: src/components/YieldPools/FarmGuide.tsx
@@ -1135,6 +1140,7 @@ msgstr "Tạo một Pool mới hoặc chọn một cặp token khác để xem c
 msgid "Create an issue on GitHub"
 msgstr ""
 
+#: src/pages/AddNftStaking/index.tsx
 #: src/pages/AddTokenStaking/index.tsx
 msgid "Create <0/>"
 msgstr ""
@@ -2387,6 +2393,10 @@ msgstr "Đang tải"
 msgid "Loading tokens"
 msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
+msgid "Loading..."
+msgstr ""
+
 #: src/components/YourCampaignTransactionsModal/index.tsx
 msgid "Local Time"
 msgstr "Giờ địa phương"
@@ -2537,7 +2547,11 @@ msgid "Min Lock Duration:"
 msgstr ""
 
 #: src/pages/AddNftStaking/index.tsx
-msgid "Min Lock Time <0>*</0>"
+#~ msgid "Min Lock Time <0>*</0>"
+#~ msgstr ""
+
+#: src/pages/AddNftStaking/index.tsx
+msgid "Min Lock Time In Seconds <0>*</0>"
 msgstr ""
 
 #: src/components/PositionPreview/index.tsx
@@ -4471,7 +4485,11 @@ msgid "Vesting"
 msgstr ""
 
 #: src/pages/AddFarmV2/index.tsx
-msgid "Vesting Duration"
+#~ msgid "Vesting Duration"
+#~ msgstr ""
+
+#: src/pages/AddFarmV2/index.tsx
+msgid "Vesting Duration in Seconds"
 msgstr ""
 
 #: src/components/Vesting/index.tsx

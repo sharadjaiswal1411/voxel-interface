@@ -49,7 +49,7 @@ import {
 import { useTransactionAdder } from 'state/transactions/hooks'
 import { useIsExpertMode } from 'state/user/hooks'
 import { TYPE } from 'theme'
-import { basisPointsToPercent, calculateGasMargin, formattedNum, isAddress } from 'utils'
+import { basisPointsToPercent, calculateGasMargin, formattedNum } from 'utils'
 import { currencyId } from 'utils/currencyId'
 import { maxAmountSpend } from 'utils/maxAmountSpend'
 import { unwrappedToken } from 'utils/wrappedCurrency'
@@ -185,6 +185,11 @@ export default function AddFarmV2({
 
   const [roleCheck, setRoleCheck] = useState(false);
   const checkAuth = async () => {
+
+    if (!account) {
+      routeHistory.push('/nft-staking')
+    }
+
     const response = await checkRole()
     setRoleCheck(response)
 

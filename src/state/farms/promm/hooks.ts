@@ -209,6 +209,7 @@ export const useProMMFarmsFetchOnlyOne = () => {
 
 export const useFarmAction = (address: string) => {
   const addTransactionWithType = useTransactionAdder()
+  const { chainId, account } = useActiveWeb3React()
   const contract = useProMMFarmContract(address)
   const posManager = useProAmmNFTPositionManagerContract()
 
@@ -224,6 +225,40 @@ export const useFarmAction = (address: string) => {
 
     return tx.hash
   }, [addTransactionWithType, address, posManager])
+
+  const createFarm = useCallback(async (data: any) => {
+    alert('function called')
+    if (!contract) {
+      throw new Error(CONTRACT_NOT_FOUND_MSG)
+    }
+
+    const response = await contract.addPool(
+      data.poolAddress,
+      data.startTime,
+      data.endTime,
+      data.vestingDuration,
+      [data.rewardTokens],
+      [data.rewardAmounts],
+      data.feeTarget,
+    );
+
+    if (response) {
+      return response;
+    }
+
+  }, [contract])
+
+  const checkRole = useCallback(async () => {
+    if (!contract) {
+      // throw new Error(CONTRACT_NOT_FOUND_MSG);
+      return;
+    }
+    const response = await contract.hasRole(
+      "0x523a704056dcd17bcf83bed8b68c59416dac1119be77755efe3bde0a64e46e0c",
+      account
+    );
+    return response;
+  }, [contract, chainId]);
 
   // Deposit
   const deposit = useCallback(
@@ -333,7 +368,7 @@ export const useFarmAction = (address: string) => {
     [addTransactionWithType, contract],
   )
 
-  return { deposit, withdraw, approve, stake, unstake, harvest, emergencyWithdraw }
+  return { deposit, withdraw, approve, stake, unstake, harvest, emergencyWithdraw, createFarm, checkRole }
 }
 
 export const usePostionFilter = (positions: PositionDetails[], validPools: string[]) => {
@@ -545,9 +580,9 @@ export const useProMMFarmTVL = (fairlaunchAddress: string, pid: number) => {
     const poolAPY =
       Number(data?.farmingPool?.pool?.totalValueLockedUSD || 0) !== 0
         ? ((Number(data?.farmingPool?.pool.feesUSD || 0) - Number(data?.farmingPools?.[0]?.pool?.feesUSD || 0)) *
-            365 *
-            100) /
-          Number(data?.farmingPool.pool.totalValueLockedUSD)
+          365 *
+          100) /
+        Number(data?.farmingPool.pool.totalValueLockedUSD)
         : 0
     const totalRewardValue = data?.farmingPool?.rewardTokens.reduce((acc, token, index) => {
       const t = TokenAmount.fromRawAmount(
@@ -562,8 +597,8 @@ export const useProMMFarmTVL = (fairlaunchAddress: string, pid: number) => {
     const farmAPR =
       Number(data?.farmingPool?.pool?.totalValueLockedUSD || 0) !== 0 && farmDuration !== 0
         ? (365 * 100 * (totalRewardValue || 0)) /
-          farmDuration /
-          Number(data?.farmingPool?.pool?.totalValueLockedUSD || 1)
+        farmDuration /
+        Number(data?.farmingPool?.pool?.totalValueLockedUSD || 1)
         : 0
 
     setData({ tvl, farmAPR, poolAPY })

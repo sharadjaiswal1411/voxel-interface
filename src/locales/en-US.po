@@ -22,6 +22,11 @@ msgid "${totalRewardAmountString} in {tokenSymbol}"
 msgstr "${totalRewardAmountString} in {tokenSymbol}"
 
 #: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddNftStaking/index.tsx
 #: src/pages/AddNftStaking/index.tsx
 #: src/pages/AddNftStaking/index.tsx
@@ -96,8 +101,8 @@ msgstr "7D"
 #: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddFarmV2/index.tsx
-msgid "<0/>"
-msgstr "<0/>"
+#~ msgid "<0/>"
+#~ msgstr "<0/>"
 
 #: src/components/NftPools/NftStakingGuide.tsx
 #: src/components/YieldPools/FarmGuide.tsx
@@ -1086,6 +1091,7 @@ msgstr "Create a new pool or select another pair of tokens to view the available
 msgid "Create an issue on GitHub"
 msgstr "Create an issue on GitHub"
 
+#: src/pages/AddNftStaking/index.tsx
 #: src/pages/AddTokenStaking/index.tsx
 msgid "Create <0/>"
 msgstr "Create <0/>"
@@ -2338,6 +2344,10 @@ msgstr "Loading"
 msgid "Loading tokens"
 msgstr "Loading tokens"
 
+#: src/pages/AddFarmV2/index.tsx
+msgid "Loading..."
+msgstr "Loading..."
+
 #: src/components/YourCampaignTransactionsModal/index.tsx
 msgid "Local Time"
 msgstr "Local Time"
@@ -2488,8 +2498,12 @@ msgid "Min Lock Duration:"
 msgstr "Min Lock Duration:"
 
 #: src/pages/AddNftStaking/index.tsx
-msgid "Min Lock Time <0>*</0>"
-msgstr "Min Lock Time <0>*</0>"
+#~ msgid "Min Lock Time <0>*</0>"
+#~ msgstr "Min Lock Time <0>*</0>"
+
+#: src/pages/AddNftStaking/index.tsx
+msgid "Min Lock Time In Seconds <0>*</0>"
+msgstr "Min Lock Time In Seconds <0>*</0>"
 
 #: src/components/PositionPreview/index.tsx
 #: src/components/RangeSelector/index.tsx
@@ -4414,8 +4428,12 @@ msgid "Vesting"
 msgstr "Vesting"
 
 #: src/pages/AddFarmV2/index.tsx
-msgid "Vesting Duration"
-msgstr "Vesting Duration"
+#~ msgid "Vesting Duration"
+#~ msgstr "Vesting Duration"
+
+#: src/pages/AddFarmV2/index.tsx
+msgid "Vesting Duration in Seconds"
+msgstr "Vesting Duration in Seconds"
 
 #: src/components/Vesting/index.tsx
 #: src/components/Vesting/ProMMVesting.tsx

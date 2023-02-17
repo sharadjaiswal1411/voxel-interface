@@ -10,14 +10,14 @@ import LocalLoader from 'components/LocalLoader'
 import ShareModal from 'components/ShareModal'
 import Toggle from 'components/Toggle'
 import { NETWORKS_INFO } from 'constants/networks'
-import { VERSION } from 'constants/v2'
+import { VERSION, FARM_CONTRACTS as PROMM_FARM_CONTRACTS } from 'constants/v2'
 import { useActiveWeb3React } from 'hooks'
 import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import useParsedQueryString from 'hooks/useParsedQueryString'
 import useTheme from 'hooks/useTheme'
 import { ApplicationModal } from 'state/application/actions'
 import { useBlockNumber, useModalOpen, useOpenModal } from 'state/application/hooks'
-import { useFailedNFTs, useGetProMMFarms, useProMMFarms } from 'state/farms/promm/hooks'
+import { useFailedNFTs, useFarmAction, useGetProMMFarms, useProMMFarms } from 'state/farms/promm/hooks'
 import { ProMMFarm } from 'state/farms/promm/types'
 import { StyledInternalLink } from 'theme'
 
@@ -43,7 +43,7 @@ const affectedFairlaunchAddress = '0x5C503D4b7DE0633f031229bbAA6A5e4A31cc35d8'
 
 function ProMMFarms({ active }: { active: boolean }) {
   const theme = useTheme()
-  const { chainId } = useActiveWeb3React()
+  const { chainId, account } = useActiveWeb3React()
   const [stakedOnly, setStakedOnly] = useState({
     active: false,
     ended: false,
@@ -165,7 +165,20 @@ function ProMMFarms({ active }: { active: boolean }) {
 
       return addr
     })
+    checkAuth()
   }, [isShareModalOpen, setSharePoolAddress])
+
+  const addr: any = PROMM_FARM_CONTRACTS[chainId ? chainId : 1];
+
+  const { checkRole } = useFarmAction(addr[0])
+
+  const [roleCheck, setRoleCheck] = useState(false);
+  const checkAuth = async () => {
+
+    const response = await checkRole()
+    setRoleCheck((response && account))
+
+  }
 
   return (
     <SharePoolContext.Provider value={setSharePoolAddress}>
@@ -217,7 +230,7 @@ function ProMMFarms({ active }: { active: boolean }) {
             <Search color={theme.subText} />
           </SearchContainer>
           {/* Create Farms Button */}
-          <CreateFarmsBtn />
+          {roleCheck && <CreateFarmsBtn />}
 
         </HeadingRight>
       </HeadingContainer>

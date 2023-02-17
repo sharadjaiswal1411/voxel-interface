@@ -6,10 +6,9 @@ import { Trans, t } from '@lingui/macro'
 import JSBI from 'jsbi'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { AlertTriangle } from 'react-feather'
-import { RouteComponentProps } from 'react-router-dom'
+import { RouteComponentProps, useHistory } from 'react-router-dom'
 import { Flex, Text } from 'rebass'
 import styled from 'styled-components'
-
 import { ButtonError, ButtonLight, ButtonPrimary, ButtonWarning } from 'components/Button'
 import { OutlineCard, WarningCard } from 'components/Card'
 import { AutoColumn } from 'components/Column'
@@ -30,7 +29,7 @@ import { TutorialType } from 'components/Tutorial'
 import { ArrowWrapper as ArrowWrapperVertical, Dots } from 'components/swapv2/styleds'
 import { NETWORKS_INFO } from 'constants/networks'
 import { nativeOnChain } from 'constants/tokens'
-import { VERSION } from 'constants/v2'
+import { VERSION, FARM_CONTRACTS as PROMM_FARM_CONTRACTS } from 'constants/v2'
 import { useActiveWeb3React } from 'hooks'
 import { useCurrency } from 'hooks/Tokens'
 import { ApprovalState, useApproveCallback } from 'hooks/useApproveCallback'
@@ -69,6 +68,9 @@ import CustomSelect from './CustomSelect'
 import CustomDatePicker from './CustomDatePicker'
 import { useMedia } from 'react-use'
 import { HeaderTabs } from './HeaderTabs'
+import { usePoolDatas, useTopPoolAddresses } from 'state/prommPools/hooks'
+import { useFarmAction } from 'state/farms/promm/hooks'
+import { ethers } from 'ethers'
 
 
 export const Container = styled.div`
@@ -170,20 +172,22 @@ export default function AddFarmV2({
   },
   history,
 }: RouteComponentProps<{ currencyIdA?: string; currencyIdB?: string; feeAmount?: string; tokenId?: string }>) {
-  const [rotate, setRotate] = useState(false)
+  const routeHistory = useHistory();
   const { account, chainId, library } = useActiveWeb3React()
   const theme = useTheme()
   const toggleWalletModal = useWalletModalToggle() // toggle wallet when disconnected
   const expertMode = useIsExpertMode()
   const addTransactionWithType = useTransactionAdder()
   const positionManager = useProAmmNFTPositionManagerContract()
+  const addr: any = PROMM_FARM_CONTRACTS[chainId ? chainId : 1];
 
+  const { createFarm, checkRole } = useFarmAction(addr[0])
 
   const [vestingDuration, setVestingDuration] = useState('')
   const [startDateTime, setStartDateTime] = useState('')
   const [endDateTime, setEndDateTime] = useState('')
   const [selectPool, setSelectPool] = useState('')
-  const [feeTraget, setFeeTraget] = useState('300')
+  const [feeTraget, setFeeTraget] = useState('')
   const [touched, setTouched] = useState(false)
   const [poolErr, setPoolErr] = useState('')
   const [addRewardTokenValue, setAddRewardTokenValue] = useState('')
@@ -193,56 +197,106 @@ export default function AddFarmV2({
   const [startTimeError, setStartTimeError] = useState('')
   const [endTimeError, setEndTimeError] = useState('')
   const [currentTime, setCurrentTime] = useState('')
-  // const [formErrors, setFormErrors] = useState({});
   const above1000 = useMedia('(min-width: 1000px)')
-
-
-  // const [addInputField, setAddInputField] = useState([{ rewardToken: '', addRewardToken: '', rewardTokenErrs: '', addRewardTokenErrs: '' }])
 
   const isValidAddress = isAddress(vestingDuration)
 
-  const handleSubmit = () => {
+  const { loading, addresses } = useTopPoolAddresses()
+  const { loading: poolDataLoading, data: poolDatas } = usePoolDatas(addresses || [])
 
-    /* ------------------------------ For Date Picker - return number of days,hours,minutes,seconds between two dates------------------*/
-    const diffTime = Math.abs(new Date().valueOf() - new Date(startDateTime).valueOf());
-    let days = diffTime / (24 * 60 * 60 * 1000);
-    let hours = (days % 1) * 24;
-    let minutes = (hours % 1) * 60;
-    let secs = (minutes % 1) * 60;
-    [days, hours, minutes, secs] = [Math.floor(days), Math.floor(hours), Math.floor(minutes), Math.floor(secs)]
+  const pairDatas: any = useMemo(() => {
+    const searchValue = "";
 
-    const differenceStartDate = String(days + 'd,' + hours + 'h,' + minutes + 'm,' + secs + 's');
+    const filteredPools = Object.values(poolDatas || []).filter(
+      pool =>
+        pool.address.toLowerCase() === searchValue ||
+        pool.token0.name.toLowerCase().includes(searchValue) ||
+        pool.token0.symbol.toLowerCase().includes(searchValue) ||
+        pool.token1.name.toLowerCase().includes(searchValue) ||
+        pool.token1.symbol.toLowerCase().includes(searchValue),
+    )
 
+    return Object.values(filteredPools)
+  }, [
+    poolDatas,
+  ])
 
-    const diffTimes = Math.abs(new Date().valueOf() - new Date(endDateTime).valueOf());
-    let day = diffTimes / (24 * 60 * 60 * 1000);
-    let hour = (days % 1) * 24;
-    let minute = (hours % 1) * 60;
-    let sec = (minutes % 1) * 60;
-    [day, hour, minute, sec] = [Math.floor(day), Math.floor(hour), Math.floor(minute), Math.floor(sec)]
+  const [roleCheck, setRoleCheck] = useState(false);
+  const checkAuth = async () => {
 
-    const differenceEndDate = String(day + 'd,' + hour + 'h,' + minute + 'm,' + sec + 's');
-
-
-
-    const data = { vestingDuration, selectPool, feeTraget, differenceStartDate, differenceEndDate, currencyIdA, addRewardTokenValue };
-
-    const err = validate(data);
-    // setFormErrors(err);
-
-    setPoolErr(err.pool!);
-    setAddRewardTokenErr(err.addRewardToken!);
-    setAddRewardTokenValueErr(err.addRewardTokenValue!);
-    setVestingDurationError(err.addVestingDuration!);
-    setStartTimeError(err.addStartDate!);
-    setEndTimeError(err.addEndDate!);
-
-    if (!touched) {
-      setTouched(true)
+    if (!account) {
+      routeHistory.push('/farms')
     }
 
-    if (data) {
-      console.log({ data });
+    const response = await checkRole()
+    setRoleCheck(response)
+
+    if (!response) {
+      routeHistory.push('/farms')
+    }
+  }
+
+  useEffect(() => {
+    checkAuth()
+  }, [])
+
+  const handleSubmit = async () => {
+    try {
+
+      const startDate: any = new Date(startDateTime);
+      const epochStartDate = (startDate.getTime() / 1000.0);
+
+      const endDate: any = new Date(endDateTime);
+      const epochEndDate = (endDate.getTime() / 1000.0);
+
+      const data = { vestingDuration, selectPool, epochStartDate, epochEndDate, currencyIdA, addRewardTokenValue };
+
+      const err = validate(data);
+      setPoolErr(err.pool!);
+      setAddRewardTokenErr(err.addRewardToken!);
+      setAddRewardTokenValueErr(err.addRewardTokenValue!);
+      setVestingDurationError(err.addVestingDuration!);
+      setStartTimeError(err.addStartDate!);
+      setEndTimeError(err.addEndDate!);
+
+      if (!touched) {
+        setTouched(true)
+      }
+
+      if (
+        roleCheck &&
+        !err.addVestingDuration &&
+        !err.addStartDate &&
+        !err.addEndDate &&
+        !err.pool &&
+        !err.addRewardToken &&
+        !err.addRewardTokenValue
+      ) {
+
+        if (data) {
+
+          const reqData = {
+            poolAddress: selectPool,
+            startTime: epochStartDate,
+            endTime: epochEndDate,
+            vestingDuration: vestingDuration,
+            rewardTokens: currencyIdA,
+            rewardAmounts: ethers.utils.parseUnits(String(addRewardTokenValue), "ether").toString(),
+            feeTarget: (selectPool != "" ? ((pairDatas.find((o: any) => o.address == selectPool))?.feeTier) : 0)
+          }
+
+          await createFarm(reqData)
+            .then(res => {
+              routeHistory.push('/farms')
+            })
+            .catch(e => {
+              console.log(e)
+            })
+        }
+      }
+    }
+    catch (e) {
+      console.log(e)
     }
   }
 
@@ -259,7 +313,6 @@ export default function AddFarmV2({
 
     const errors: obj = {};
 
-    const regex = /[A-Za-z0-9]{2,5}$/i;
     if (!valu.selectPool) {
       errors.pool = "Selecting pool is required !";
     }
@@ -279,29 +332,40 @@ export default function AddFarmV2({
       errors.addEndDate = "Selecting end time is required !";
     }
 
-
-
-    // This is For Form Validation for Dynamic Input Fields e.g. Reward Token and Reward Token Value--------------
-    // const tokensData = [...addInputField]
-    // for (let index = 0; index < tokensData.length; index++) {
-    //   // const element = index;
-    //   if (tokensData[index].rewardToken == '') {
-    //     tokensData[index].rewardTokenErrs = "Selecting Reward is required !";
-    //   } else {
-    //     tokensData[index].rewardTokenErrs = "";
-    //   }
-    //   if (tokensData[index].addRewardToken == '') {
-    //     tokensData[index].addRewardTokenErrs = "Reward Token Value is required !";
-    //   } else {
-    //     tokensData[index].addRewardTokenErrs = "";
-    //   }
-
-    // }
-
-
-
     return errors;
   };
+
+  // Prevent minus, plus and e from input type number
+  const onKeyDownDecimal = (event: any) => {
+    if (
+      event.keyCode === 189 || // (-)
+      event.keyCode === 187 || // (+)
+      event.keyCode === 69     // (e)
+    ) {
+      event.preventDefault()
+    }
+  }
+
+  const numberInputFilter = (val: any, maxValue = 0) => {
+    const format = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/;
+
+    if (Number(maxValue) === 0) {
+      if (Number(val) >= 0 || !format.test(String(val))) {
+        return (val);
+      }
+    }
+    else if (Number(maxValue) > 0) {
+
+      if (Number(val) < Number(maxValue)) {
+        if (Number(val) >= 0 || !format.test(String(val))) {
+          return (val);
+        }
+      }
+      else if (Number(val) > Number(maxValue)) {
+        return (maxValue);
+      }
+    }
+  }
 
 
   // For Add Multiple dynamic inputs for token
@@ -1025,17 +1089,26 @@ export default function AddFarmV2({
               <FlexLeft>
                 <RowBetween style={{ gap: '12px' }}>
                   <BlockDiv >
-                    <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
+                    <Text fontSize={12} color={"#bfbfbf" /*theme.disableText*/} textAlign="right" marginBottom="2px" fontStyle="italic">
                       <Trans>*Required</Trans>
                     </Text>
                     <AddressBoxFull style={{
                       marginBottom: !above1000 ? '24px' : '',
                       border: poolErr && touched ? `1px solid ${theme.red}` : undefined,
                     }}>
-                      <Text fontSize={12} color={theme.subText} >
+                      <Text fontSize={12} color={theme.subText} marginBottom="3px">
                         <Trans>Select Pool <Span>*</Span></Trans>
                       </Text>
-                      <CustomSelect pool={(val: any) => { setSelectPool(val) }} />
+
+                      {(loading || poolDataLoading)
+                        ?
+                        <Text fontSize={18} color={"#FFF"} marginBottom="6px" marginTop="10px">
+                          <Trans>Loading...</Trans>
+                        </Text>
+                        :
+                        <CustomSelect data={pairDatas} selectedValue={selectPool} pool={(val: any) => { setSelectPool(val) }} />
+                      }
+
                       {poolErr && touched && (
                         <ErrorMessage>
                           <Trans>{poolErr}</Trans>
@@ -1044,8 +1117,8 @@ export default function AddFarmV2({
                     </AddressBoxFull>
 
 
-                    <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="5px" fontStyle="italic">
-                      <Trans><pre></pre></Trans>
+                    <Text fontSize={12} color={"#bfbfbf" /*theme.disableText*/} textAlign="right" marginBottom="2px" marginTop="5px" fontStyle="italic">
+                      <Trans>*Required</Trans>
                     </Text>
                     <AddressBoxFull
                       style={{
@@ -1065,8 +1138,8 @@ export default function AddFarmV2({
                       )}
                     </AddressBoxFull>
 
-                    <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="25px" fontStyle="italic">
-                      <Trans><pre></pre></Trans>
+                    <Text fontSize={12} color={"#bfbfbf" /*theme.disableText*/} textAlign="right" marginTop="5px" marginBottom="2px" fontStyle="italic">
+                      <Trans>*Required</Trans>
                     </Text>
                     <AddressBox style={{
                       marginBottom: !above1000 ? '24px' : '',
@@ -1128,8 +1201,8 @@ export default function AddFarmV2({
                 </RowBetween>
               </FlexLeft>
               <RightContainer >
-                <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
-                  <Trans><pre></pre></Trans>
+                <Text fontSize={12} color={"#bfbfbf" /*theme.disableText*/} textAlign="right" marginBottom="2px" fontStyle="italic">
+                  <Trans>*Required</Trans>
                 </Text>
                 <AddressBox
                   style={{
@@ -1137,13 +1210,16 @@ export default function AddFarmV2({
                     border: vestingDurationError && touched ? `1px solid ${theme.red}` : undefined,
                   }}
                 >
-                  <Text /*style={{ paddingBottom: poolErr ? '20px' : '' }}*/ fontSize={12} color={theme.subText} marginBottom="8px">
-                    <Trans >Vesting Duration</Trans> <Span>*</Span>
+                  <Text /*style={{ paddingBottom: poolErr ? '20px' : '' }}*/ fontSize={12} color={theme.subText} marginBottom="2px">
+                    <Trans >Vesting Duration in Seconds</Trans> <Span>*</Span>
                   </Text>
                   <Text fontSize={20} lineHeight={'24px'} color={theme.text}>
                     <AddressInput
-                      type="text"
-                      value={vestingDuration}
+                      type="number"
+                      style={{ padding: "0px", borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px" }}
+                      onKeyDown={onKeyDownDecimal}
+                      min={0}
+                      value={numberInputFilter(vestingDuration)}
                       onChange={(e: any) => {
                         setVestingDuration(e.target.value)
                       }}
@@ -1156,8 +1232,8 @@ export default function AddFarmV2({
                   )}
                 </AddressBox>
 
-                <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="0px" fontStyle="italic">
-                  <Trans><pre></pre></Trans>
+                <Text fontSize={12} color={"#bfbfbf" /*theme.disableText*/} textAlign="right" marginBottom="2px" fontStyle="italic">
+                  <Trans>*Required</Trans>
                 </Text>
                 <AddressBoxFull
                   style={{
@@ -1176,23 +1252,26 @@ export default function AddFarmV2({
                   )}
                 </AddressBoxFull>
 
-                <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="12px" fontStyle="italic">
-                  <Trans><pre></pre></Trans>
+                <Text fontSize={12} color={"#bfbfbf" /*theme.disableText*/} textAlign="right" marginTop="5px" marginBottom="2px" fontStyle="italic">
+                  <Trans>*Required</Trans>
                 </Text>
                 <AddressBox style={{
                   marginBottom: !above1000 ? '24px' : '',
                   border: addRewardTokenValueErr && touched ? `1px solid ${theme.red}` : undefined,
                 }}>
 
-                  <Text fontSize={12} color={theme.subText} marginBottom="20px">
+                  <Text fontSize={12} color={theme.subText} marginBottom="11px">
                     <Trans>Add Reward Tokens Value <Span>*</Span></Trans>
                   </Text>
 
                   <Text fontSize={20} lineHeight={'24px'} color={theme.text}>
                     <AddressInput
-                      type="text"
+                      type="number"
+                      style={{ padding: "0px", borderTop: "none", borderLeft: "none", borderRight: "none", borderRadius: "0px" }}
+                      onKeyDown={onKeyDownDecimal}
+                      min={0}
+                      value={numberInputFilter(addRewardTokenValue)}
                       name="addRewardToken"
-                      value={addRewardTokenValue}
                       onChange={(e: any) => {
                         setAddRewardTokenValue(e.target.value)
                       }}
@@ -1249,16 +1328,13 @@ export default function AddFarmV2({
                   </>
                 ))} */}
 
-
-
-
-
-                <AddressInput
+                {/* <AddressInput
                   type="hidden"
                   value={feeTraget}
                   onChange={(e: any) => {
                     setFeeTraget(e.target.value)
-                  }} />
+                  }} /> */}
+
               </RightContainer>
             </ResponsiveTwoColumns>
             <ButtonPrimary onClick={handleSubmit} style={{ marginTop: 'auto' }}>

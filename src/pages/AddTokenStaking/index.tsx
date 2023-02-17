@@ -68,7 +68,6 @@ import {
   StackedItem,
   StyledInput,
 } from './styled'
-import { CustomSelect } from './CustomSelect'
 import CustomDatePicker from './CustomDatePicker'
 import { useMedia } from 'react-use'
 import { HeaderTabs } from './HeaderTabs'
@@ -194,6 +193,11 @@ export default function AddFarmV2({
 
   const [roleCheck, setRoleCheck] = useState(false);
   const checkAuth = async () => {
+    
+    if (!account) {
+      routeHistory.push('/token-staking')
+    }
+
     const response = await checkRole()
     setRoleCheck(response)
 

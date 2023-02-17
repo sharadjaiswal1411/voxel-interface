@@ -1,4 +1,8 @@
-
+import { useAllTokens } from "hooks/Tokens"
+import { isAddressString } from "utils"
+import { ChainId, Token, WETH } from '@kyberswap/ks-sdk-core'
+import { useActiveWeb3React } from "hooks"
+import { nativeOnChain } from "constants/tokens"
 
 
 const selectBox = {
@@ -11,29 +15,44 @@ const selectBox = {
 
 }
 
-
-
 const CustomSelect = (params: any) => {
+    const { chainId } = useActiveWeb3React()
+    const allTokens = useAllTokens()
 
     const selectedPool = (val: any) => {
         params.pool(val)
     }
 
+    const CustomOption = (props: any) => {
+
+        const token0 = allTokens[isAddressString(props?.pair?.token0?.address)] || new Token(chainId as ChainId, props?.pair?.token0?.address, props?.pair?.token0?.decimals, props?.pair?.token0?.symbol)
+        const token1 = allTokens[isAddressString(props?.pair?.token1?.address)] || new Token(chainId as ChainId, props?.pair?.token1?.address, props?.pair?.token1?.decimals, props?.pair?.token1?.symbol)
+
+        const isToken0WETH = props?.pair?.token0?.address === WETH[chainId as ChainId]?.address?.toLowerCase()
+        const isToken1WETH = props?.pair?.token1?.address === WETH[chainId as ChainId]?.address?.toLowerCase()
+
+        const nativeToken = nativeOnChain(chainId as ChainId)
+
+        const token0Symbol = isToken0WETH ? nativeToken.symbol : token0.symbol
+        const token1Symbol = isToken1WETH ? nativeToken.symbol : token1.symbol
+
+        return (
+            <option value={props?.pair?.address}>{token0Symbol} - {token1Symbol}</option>
+        )
+    }
+
     return (
-        // <Select options={options} />
         <>
-            {/* <div style={{ display: "block" }}> */}
-            {/* <label >Select Pool</label> */}
-
-            <select name="pools" style={selectBox} onChange={(e) => { selectedPool(e.target.value) }}>
-                <option value="select-pool" selected>--- Select---</option>
-                <option value="0x952ffc4c47d66b454a8181f5c68b6248e18b66ec">USDC - USDT</option>
-                <option value="0xebfe63ba0264ad639b3c41d2bfe1ad708f683bc8">wstETH - ETH</option>
-                <option value="0xe6bcb55f45af6a2895fadbd644ced981bfa825cb">wstETH - USDC</option>
-                <option value="0xa38a0165e82b7a5e8650109e9e54087a34c93020">ETH - KNC</option>
+            <select value={params?.selectedValue} name="pools" style={selectBox} onChange={(e) => { selectedPool(e.target.value) }}>
+                <option value="" >---Select---</option>
+                {
+                    (params?.data?.length > 0)
+                    &&
+                    params?.data?.map((item: any, index: any) => (
+                        <CustomOption key={index} pair={item} />
+                    ))
+                }
             </select>
-
-            {/* </div> */}
         </>
     );
 };

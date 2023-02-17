@@ -35,19 +35,19 @@ export const CreateFarmsBtn = () => {
   const theme = useTheme()
   return (
     <ToolbarWrapper style={{ marginBottom: '5px' }}>
-      <ButtonPrimaryWithHighlight
-        // onClick={handleClickCreatePoolButton}
-        // data-highlight={shouldHighlightCreatePoolButton}
-        style={{
-          height: '38px',
-          padding: '0px 12px',
-        }}
-      >
-        <Plus width="22" height="22" />
-        <Text as="span" sx={{ marginLeft: '4px' }}>
-          <NavLink to="/farms/add" style={{ textDecoration: "none", color: "white" }}><Trans>Create Farm</Trans></NavLink>
-        </Text>
-      </ButtonPrimaryWithHighlight>
+      <NavLink to="/farms/add" style={{ textDecoration: "none", color: "white" }}>
+        <ButtonPrimaryWithHighlight
+          style={{
+            height: '38px',
+            padding: '0px 12px',
+          }}
+        >
+          <Plus width="22" height="22" />
+          <Text as="span" sx={{ marginLeft: '4px' }}>
+            <Trans>Create Farm</Trans>
+          </Text>
+        </ButtonPrimaryWithHighlight>
+      </NavLink>
     </ToolbarWrapper>
   )
 }
