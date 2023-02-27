@@ -227,7 +227,7 @@ export const useFarmAction = (address: string) => {
   }, [addTransactionWithType, address, posManager])
 
   const createFarm = useCallback(async (data: any) => {
-    alert('function called')
+    
     if (!contract) {
       throw new Error(CONTRACT_NOT_FOUND_MSG)
     }

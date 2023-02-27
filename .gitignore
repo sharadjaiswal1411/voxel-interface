@@ -40,3 +40,5 @@ cypress/fixtures/example.json
 
 public/1.json
 public/5.json
+
+/tokens

@@ -71,6 +71,7 @@ import { HeaderTabs } from './HeaderTabs'
 import { usePoolDatas, useTopPoolAddresses } from 'state/prommPools/hooks'
 import { useFarmAction } from 'state/farms/promm/hooks'
 import { ethers } from 'ethers'
+import Loader from 'components/Loader'
 
 
 export const Container = styled.div`
@@ -198,6 +199,7 @@ export default function AddFarmV2({
   const [endTimeError, setEndTimeError] = useState('')
   const [currentTime, setCurrentTime] = useState('')
   const above1000 = useMedia('(min-width: 1000px)')
+  const [isLoading, setIsLoading] = useState(false);
 
   const isValidAddress = isAddress(vestingDuration)
 
@@ -274,6 +276,7 @@ export default function AddFarmV2({
       ) {
 
         if (data) {
+          setIsLoading(true);
 
           const reqData = {
             poolAddress: selectPool,
@@ -288,15 +291,18 @@ export default function AddFarmV2({
           await createFarm(reqData)
             .then(res => {
               routeHistory.push('/farms')
+              setIsLoading(false);
             })
             .catch(e => {
               console.log(e)
+              setIsLoading(false);
             })
         }
       }
     }
     catch (e) {
       console.log(e)
+      setIsLoading(false);
     }
   }
 
@@ -1337,8 +1343,13 @@ export default function AddFarmV2({
 
               </RightContainer>
             </ResponsiveTwoColumns>
-            <ButtonPrimary onClick={handleSubmit} style={{ marginTop: 'auto' }}>
-              <Trans>Create</Trans>
+            <ButtonPrimary disabled={isLoading} onClick={handleSubmit} style={{ marginTop: 'auto' }}>
+              {isLoading
+                ?
+                <Trans>Create&nbsp;<Loader /></Trans>
+                :
+                <Trans>Create</Trans>
+              }
             </ButtonPrimary>
           </Container>
         </BodyWrapper>
