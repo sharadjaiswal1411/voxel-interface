@@ -1,4 +1,4 @@
-# KyberSwap Interface
+# VoxelSwap Interface
 
 An open source interface for KyberSwap -- a protocol for decentralized exchange.
 Forked from [Uniswap/uniswap-interface](https://github.com/Uniswap/uniswap-interface)
@@ -6,7 +6,7 @@ Forked from [Uniswap/uniswap-interface](https://github.com/Uniswap/uniswap-inter
 
 ## Accessing the Voxelswap Interface
 
-To access the Voxelswap Interface, visit [kyberswap.com](https://test.voxdex.io/)
+To access the Voxelswap Interface, visit [test.voxdex.io](https://test.voxdex.io/)
 
 ## Development
 
