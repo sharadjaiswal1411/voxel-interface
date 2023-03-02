@@ -1,6 +1,6 @@
 {
-  "name": "@KyberSwap/interface",
-  "description": "KyberSwap Interface",
+  "name": "@VoxelSwap/interface",
+  "description": "VoxelSwap Interface",
   "homepage": "/",
   "private": true,
   "devDependencies": {
