@@ -1,6 +1,6 @@
 # VoxelSwap Interface
 
-An open source interface for KyberSwap -- a protocol for decentralized exchange.
+An open source interface for VoxelSwap -- a protocol for decentralized exchange.
 Forked from [Uniswap/uniswap-interface](https://github.com/Uniswap/uniswap-interface)
 
 
