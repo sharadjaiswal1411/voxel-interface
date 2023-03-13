@@ -1091,6 +1091,7 @@ msgstr "Create a new pool or select another pair of tokens to view the available
 msgid "Create an issue on GitHub"
 msgstr "Create an issue on GitHub"
 
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddNftStaking/index.tsx
 #: src/pages/AddTokenStaking/index.tsx
 msgid "Create <0/>"

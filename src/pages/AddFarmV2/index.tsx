@@ -230,7 +230,9 @@ export default function AddFarmV2({
       routeHistory.push('/farms')
     }
 
-    const response = await checkRole()
+    const response = await checkRole(
+      { role: "0x523a704056dcd17bcf83bed8b68c59416dac1119be77755efe3bde0a64e46e0c" }
+    )
     setRoleCheck(response)
 
     if (!response) {

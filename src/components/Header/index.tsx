@@ -613,6 +613,18 @@ export default function Header() {
               </Flex>
             </StyledNavLink>
           </AnalyticsWrapper>
+
+          {/* <AnalyticsWrapper>
+            <StyledNavLink
+              id={`manageAuth`}
+              to={'/manage-auth'}
+              isActive={match => Boolean(match)}
+            >
+              <Flex alignItems="center" sx={{ gap: '8px' }}>
+                <Trans>Manage Auth</Trans>
+              </Flex>
+            </StyledNavLink>
+          </AnalyticsWrapper> */}
         </HeaderLinks>
       </HeaderRow>
       <HeaderControls>

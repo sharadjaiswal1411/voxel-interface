@@ -1132,6 +1132,7 @@ msgstr "새 풀을 생성하거나 다른 토큰 쌍을 선택하시면 현재 �
 msgid "Create an issue on GitHub"
 msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddNftStaking/index.tsx
 #: src/pages/AddTokenStaking/index.tsx
 msgid "Create <0/>"

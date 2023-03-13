@@ -1138,6 +1138,7 @@ msgstr "Mevcut havuzları görüntülemek için yeni bir havuz oluşturun veya b
 msgid "Create an issue on GitHub"
 msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddNftStaking/index.tsx
 #: src/pages/AddTokenStaking/index.tsx
 msgid "Create <0/>"

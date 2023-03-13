@@ -1,7 +1,7 @@
 import { BigNumber, utils } from "ethers";
 import moment from 'moment';
 import { useCallback } from "react";
-import { CONTRACT_NOT_FOUND_MSG } from "constants/messages";
+import { CONTRACT_NOT_FOUND_MSG, USER_ALREADY_HAVE_ROLE, USER_DONT_HAVE_ROLE } from "constants/messages";
 import { useActiveWeb3React } from "hooks";
 import {
   useNFTStakingContract,
@@ -52,22 +52,63 @@ export const useStakingAction = () => {
 
   }, [stakingFactory, chainId]);
 
-  const checkRole = useCallback(async () => {
+  const manageRole = useCallback(async (data: any) => {
+
+    if (!stakingFactory) {
+      throw new Error(CONTRACT_NOT_FOUND_MSG);
+    }
+
+    const roleCheckRes = await checkRole({ role: data.role, account: data.account })
+
+    if (String(data.type).toLowerCase() == "add") {
+
+      if (roleCheckRes) {
+        throw new Error(USER_ALREADY_HAVE_ROLE)
+      }
+
+      const response = await stakingFactory.grantRole(
+        data.role,
+        data.account,
+      );
+
+      if (response) {
+        return response;
+      }
+    }
+    else if (String(data.type).toLowerCase() == "remove") {
+
+      if (!roleCheckRes) {
+        throw new Error(USER_DONT_HAVE_ROLE)
+      }
+
+      const response = await stakingFactory.revokeRole(
+        data.role,
+        data.account,
+      );
+
+      if (response) {
+        return response;
+      }
+    }
+
+  }, [stakingFactory, chainId])
+
+  const checkRole = useCallback(async (data: any) => {
 
     if (!stakingFactory) {
       throw new Error(CONTRACT_NOT_FOUND_MSG);
     }
 
     const response = await stakingFactory.hasRole(
-      "0x523a704056dcd17bcf83bed8b68c59416dac1119be77755efe3bde0a64e46e0c",
-      account
+      data.role,
+      (data.account ? data.account : account)
     );
 
     return response;
 
   }, [stakingFactory, chainId]);
 
-  return { fetchPools, createNftStake, checkRole };
+  return { fetchPools, createNftStake, checkRole, manageRole };
 };
 
 export const useTokenStakingAction = () => {
@@ -102,23 +143,63 @@ export const useTokenStakingAction = () => {
 
   }, [stakingFactory, chainId]);
 
+  const manageRole = useCallback(async (data: any) => {
 
-  const checkRole = useCallback(async () => {
+    if (!stakingFactory) {
+      throw new Error(CONTRACT_NOT_FOUND_MSG);
+    }
+
+    const roleCheckRes = await checkRole({ role: data.role, account: data.account })
+
+    if (String(data.type).toLowerCase() == "add") {
+
+      if (roleCheckRes) {
+        throw new Error(USER_ALREADY_HAVE_ROLE)
+      }
+
+      const response = await stakingFactory.grantRole(
+        data.role,
+        data.account,
+      );
+
+      if (response) {
+        return response;
+      }
+    }
+    else if (String(data.type).toLowerCase() == "remove") {
+
+      if (!roleCheckRes) {
+        throw new Error(USER_DONT_HAVE_ROLE)
+      }
+
+      const response = await stakingFactory.revokeRole(
+        data.role,
+        data.account,
+      );
+
+      if (response) {
+        return response;
+      }
+    }
+
+  }, [stakingFactory, chainId])
+
+  const checkRole = useCallback(async (data: any) => {
 
     if (!stakingFactory) {
       throw new Error(CONTRACT_NOT_FOUND_MSG);
     }
 
     const response = await stakingFactory.hasRole(
-      "0x523a704056dcd17bcf83bed8b68c59416dac1119be77755efe3bde0a64e46e0c",
-      account
+      data.role,
+      (data.account ? data.account : account)
     );
 
     return response;
 
   }, [stakingFactory, chainId]);
 
-  return { fetchPools, createTokenStake, checkRole };
+  return { fetchPools, createTokenStake, checkRole, manageRole };
 };
 
 

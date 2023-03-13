@@ -1138,6 +1138,7 @@ msgstr "创建新的池或选择另一个代币对已查看可用池。"
 msgid "Create an issue on GitHub"
 msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddNftStaking/index.tsx
 #: src/pages/AddTokenStaking/index.tsx
 msgid "Create <0/>"

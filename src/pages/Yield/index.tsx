@@ -38,6 +38,7 @@ import { useBlockNumber } from 'state/application/hooks'
 import { useFarmsData } from 'state/farms/hooks'
 import { useProMMFarms } from 'state/farms/promm/hooks'
 import { isInEnum } from 'utils/string'
+import ManageAuth from './ManageAuth'
 
 const Farms = () => {
   const { loading } = useFarmsData()
@@ -113,7 +114,7 @@ const Farms = () => {
     return Object.values(tokenMap)
   }, [farmsByFairLaunch, blockNumber, prommTokenMap])
 
- 
+
   const rewardPriceAndTutorial = !!rewardTokens.length && (
     <Flex
       flex={1}
@@ -136,6 +137,7 @@ const Farms = () => {
           <ClassicElasticTab />
 
           {!below768 && rewardPriceAndTutorial}
+          <ManageAuth />
         </TopBar>
 
         <FarmGuide farmType={farmType} />

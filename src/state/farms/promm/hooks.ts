@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux'
 import { PROMM_JOINED_POSITION } from 'apollo/queries/promm'
 import PROMM_POOL_ABI from 'constants/abis/v2/pool.json'
 import { ZERO_ADDRESS } from 'constants/index'
-import { CONTRACT_NOT_FOUND_MSG } from 'constants/messages'
+import { CONTRACT_NOT_FOUND_MSG, USER_ALREADY_HAVE_ROLE, USER_DONT_HAVE_ROLE } from 'constants/messages'
 import { NETWORKS_INFO } from 'constants/networks'
 import { FARM_CONTRACTS, VERSION } from 'constants/v2'
 import { providers, useActiveWeb3React } from 'hooks'
@@ -227,7 +227,7 @@ export const useFarmAction = (address: string) => {
   }, [addTransactionWithType, address, posManager])
 
   const createFarm = useCallback(async (data: any) => {
-    
+
     if (!contract) {
       throw new Error(CONTRACT_NOT_FOUND_MSG)
     }
@@ -248,14 +248,55 @@ export const useFarmAction = (address: string) => {
 
   }, [contract])
 
-  const checkRole = useCallback(async () => {
+  const manageRole = useCallback(async (data: any) => {
+
+    if (!contract) {
+      throw new Error(CONTRACT_NOT_FOUND_MSG)
+    }
+
+    const roleCheckRes = await checkRole({ role: data.role, account: data.account })
+
+    if (String(data.type).toLowerCase() == "add") {
+
+      if (roleCheckRes) {
+        throw new Error(USER_ALREADY_HAVE_ROLE)
+      }
+
+      const response = await contract.grantRole(
+        data.role,
+        data.account,
+      );
+
+      if (response) {
+        return response;
+      }
+    }
+    else if (String(data.type).toLowerCase() == "remove") {
+
+      if (!roleCheckRes) {
+        throw new Error(USER_DONT_HAVE_ROLE)
+      }
+
+      const response = await contract.revokeRole(
+        data.role,
+        data.account,
+      );
+
+      if (response) {
+        return response;
+      }
+    }
+
+  }, [contract])
+
+  const checkRole = useCallback(async (data: any) => {
     if (!contract) {
       // throw new Error(CONTRACT_NOT_FOUND_MSG);
       return;
     }
     const response = await contract.hasRole(
-      "0x523a704056dcd17bcf83bed8b68c59416dac1119be77755efe3bde0a64e46e0c",
-      account
+      data.role,
+      (data.account ? data.account : account)
     );
     return response;
   }, [contract, chainId]);
@@ -368,7 +409,7 @@ export const useFarmAction = (address: string) => {
     [addTransactionWithType, contract],
   )
 
-  return { deposit, withdraw, approve, stake, unstake, harvest, emergencyWithdraw, createFarm, checkRole }
+  return { deposit, withdraw, approve, stake, unstake, harvest, emergencyWithdraw, createFarm, checkRole, manageRole }
 }
 
 export const usePostionFilter = (positions: PositionDetails[], validPools: string[]) => {
