@@ -2,7 +2,7 @@ import { CurrencyAmount, Token } from '@kyberswap/ks-sdk-core'
 import { Trans, t } from '@lingui/macro'
 import { BigNumber } from 'ethers'
 import { rgba } from 'polished'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Info } from 'react-feather'
 import { useMedia } from 'react-use'
 import { Flex, Text } from 'rebass'
@@ -42,6 +42,7 @@ import {
   HarvestAllButton,
   WithdrawButton,
 } from './buttons'
+import RenewModal from './RenewFarm'
 
 const FarmContent = styled.div`
   background: ${({ theme }) => theme.background};
@@ -172,8 +173,24 @@ const ProMMFarmGroup: React.FC<Props> = ({ address, onOpenModal, farms }) => {
   const res = useSingleCallResult(posManager, 'isApprovedForAll', [account || ZERO_ADDRESS, address])
   const isApprovedForAll = res?.result?.[0]
 
-  const { approve } = useFarmAction(address)
+  const { approve, checkRole } = useFarmAction(address)
   const [approvalTx, setApprovalTx] = useState('')
+
+
+  const [roleCheck, setRoleCheck] = useState(false);
+  const checkAuth = async () => {
+
+    const response = await checkRole(
+      { role: "0x0000000000000000000000000000000000000000000000000000000000000000" }
+    )
+    setRoleCheck(response)
+
+  }
+
+  useEffect(() => {
+    checkAuth()
+  }, [])
+
 
   const isApprovalTxPending = useIsTransactionPending(approvalTx)
 
@@ -182,6 +199,17 @@ const ProMMFarmGroup: React.FC<Props> = ({ address, onOpenModal, farms }) => {
       const tx = await approve()
       setApprovalTx(tx)
     }
+  }
+
+  const [showRenewModal, setShowRenewModal] = useState(false);
+  const [farmData, setFarmData] = useState({});
+  const openRenewModal = (farm: any) => {
+    setFarmData(farm)
+    setShowRenewModal(true)
+  }
+
+  const closeRenewModal = () => {
+    setShowRenewModal(false)
   }
 
   const aggregateDepositedInfo = useCallback(
@@ -777,9 +805,17 @@ const ProMMFarmGroup: React.FC<Props> = ({ address, onOpenModal, farms }) => {
             onHarvest={() => {
               onOpenModal('harvest', farm.pid)
             }}
+
+            onOpenRenewModal={(farm: any) => {
+              openRenewModal(farm)
+            }}
+
+            isAdmin={roleCheck}
           />
         )
       })}
+
+      {showRenewModal && <RenewModal isOpen={showRenewModal} setIsOpen={closeRenewModal} farm={farmData} />}
     </FarmContent>
   )
 }

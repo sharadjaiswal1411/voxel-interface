@@ -69,7 +69,7 @@ function NftCards({ stakingAddress, nftAddress }: { stakingAddress: string, nftA
 
   const [nfts, setNfts] = useState<any[]>([])
   const getProMMFarms = async () => {
-    setApprovedForAll(await isApprovedContract());
+    // setApprovedForAll(await isApprovedContract());
     const options = {
       method: 'GET',
       url: `https://deep-index.moralis.io/api/v2/${account}/nft`,
@@ -130,9 +130,18 @@ function NftCards({ stakingAddress, nftAddress }: { stakingAddress: string, nftA
 
   const blockNumber = useBlockNumber()
 
+  const checkAuth = async () => {
+    try {
+      setApprovedForAll(await isApprovedContract());
+    }
+    catch (e) {
+      console.log(e)
+    }
+  }
+
   useEffect(() => {
     getProMMFarms()
-
+    checkAuth()
     if (!isApprovalTxPending) {
       setIsStaking(false);
     }

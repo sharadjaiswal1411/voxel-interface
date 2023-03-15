@@ -1105,7 +1105,7 @@ export default function AddFarmV2({
                       border: poolErr && touched ? `1px solid ${theme.red}` : undefined,
                     }}>
                       <Text fontSize={12} color={theme.subText} marginBottom="3px">
-                        <Trans>Select Pool <Span>*</Span></Trans>
+                        <Trans>Select Pool<Span>*</Span></Trans>
                       </Text>
 
                       {(loading || poolDataLoading)
@@ -1135,7 +1135,7 @@ export default function AddFarmV2({
                       }}
                     >
                       <Text fontSize={12} color={theme.subText} >
-                        <Trans>Start Time <Span>*</Span></Trans>
+                        <Trans>Start Time<Span>*</Span></Trans>
                       </Text>
                       <CustomDatePicker min={currentTime} max={endDateTime} dateTime={(val: any) => { setStartDateTime(val) }} />
 
@@ -1269,7 +1269,7 @@ export default function AddFarmV2({
                 }}>
 
                   <Text fontSize={12} color={theme.subText} marginBottom="11px">
-                    <Trans>Add Reward Tokens Value <Span>*</Span></Trans>
+                    <Trans>Add Reward Amount<Span>*</Span></Trans>
                   </Text>
 
                   <Text fontSize={20} lineHeight={'24px'} color={theme.text}>

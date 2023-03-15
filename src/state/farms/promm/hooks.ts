@@ -301,6 +301,23 @@ export const useFarmAction = (address: string) => {
     return response;
   }, [contract, chainId]);
 
+  const renewPool = useCallback(async (data: any) => {
+    if (!contract) {
+      throw new Error(CONTRACT_NOT_FOUND_MSG);
+    }
+
+    const response = await contract.renewPool(
+      data.pid,
+      data.startTime,
+      data.endTime,
+      data.vestingDuration,
+      [data.rewardAmounts],
+      data.feeTarget,
+    );
+
+    return response;
+  }, [contract, chainId]);
+
   // Deposit
   const deposit = useCallback(
     async (nftIds: BigNumber[]) => {
@@ -409,7 +426,7 @@ export const useFarmAction = (address: string) => {
     [addTransactionWithType, contract],
   )
 
-  return { deposit, withdraw, approve, stake, unstake, harvest, emergencyWithdraw, createFarm, checkRole, manageRole }
+  return { deposit, withdraw, approve, stake, unstake, harvest, emergencyWithdraw, createFarm, checkRole, manageRole, renewPool }
 }
 
 export const usePostionFilter = (positions: PositionDetails[], validPools: string[]) => {

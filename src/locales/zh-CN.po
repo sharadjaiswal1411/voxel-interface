@@ -104,13 +104,11 @@ msgstr ""
 msgid "7D"
 msgstr ""
 
-#: src/pages/AddFarmV2/index.tsx
-#: src/pages/AddFarmV2/index.tsx
-#: src/pages/AddFarmV2/index.tsx
-#: src/pages/AddFarmV2/index.tsx
-#: src/pages/AddFarmV2/index.tsx
-#~ msgid "<0/>"
-#~ msgstr ""
+#: src/pages/ManageAuth/TableFarming.tsx
+#: src/pages/ManageAuth/TableNFTStaking.tsx
+#: src/pages/ManageAuth/TableTokenStaking.tsx
+msgid "<0/>"
+msgstr ""
 
 #: src/components/NftPools/NftStakingGuide.tsx
 #: src/components/YieldPools/FarmGuide.tsx
@@ -305,6 +303,17 @@ msgstr "活跃"
 msgid "Active Price Range"
 msgstr "活跃的价格范围"
 
+#: src/pages/NftStaking/ManageAuth.tsx
+#: src/pages/TokenStaking/ManageAuth.tsx
+#: src/pages/Yield/ManageAuth.tsx
+msgid "Add"
+msgstr ""
+
+#: src/pages/ManageAuth/index.tsx
+#: src/pages/ManageAuth/ModalAddAuth.tsx
+msgid "Add Auth"
+msgstr ""
+
 #: src/pages/AddFarmV2/HeaderTabs.tsx
 msgid "Add Farms"
 msgstr ""
@@ -382,6 +391,12 @@ msgstr ""
 
 #: src/components/TransactionConfirmationModal/index.tsx
 msgid "Add {0} to {1}"
+msgstr ""
+
+#: src/pages/NftStaking/ManageAuth.tsx
+#: src/pages/TokenStaking/ManageAuth.tsx
+#: src/pages/Yield/ManageAuth.tsx
+msgid "Adding <0/>"
 msgstr ""
 
 #: src/components/SearchModal/ImportToken.tsx
@@ -605,6 +620,18 @@ msgstr ""
 #: src/components/Footer/Footer.tsx
 #~ msgid "Audited By"
 #~ msgstr ""
+
+#: src/pages/ManageAuth/TableFarming.tsx
+#: src/pages/ManageAuth/TableNFTStaking.tsx
+#: src/pages/ManageAuth/TableTokenStaking.tsx
+msgid "Auth Type"
+msgstr ""
+
+#: src/pages/NftStaking/ManageAuth.tsx
+#: src/pages/TokenStaking/ManageAuth.tsx
+#: src/pages/Yield/ManageAuth.tsx
+msgid "Authorization Type"
+msgstr ""
 
 #: src/components/YieldPools/ProMMFarmGroup/index.tsx
 #: src/components/YieldPools/ProMMFarmGroup/index.tsx
@@ -882,6 +909,10 @@ msgstr ""
 msgid "Clear all"
 msgstr "全部清除"
 
+#: src/components/YieldPools/ProMMFarmGroup/Row.tsx
+msgid "Click here to renew your ended farms."
+msgstr ""
+
 #: src/components/WalletModal/WarningBox.tsx
 msgid "Click on the Settings icon"
 msgstr ""
@@ -895,6 +926,7 @@ msgstr "关闭"
 msgid "Closed"
 msgstr ""
 
+#: src/components/YieldPools/ProMMFarmGroup/RenewFarm.tsx
 #: src/pages/AddTokenStaking/index.tsx
 msgid "Closing In"
 msgstr ""
@@ -1647,6 +1679,10 @@ msgstr ""
 msgid "Farm has not started"
 msgstr ""
 
+#: src/pages/ManageAuth/TableFarming.tsx
+msgid "Farming Auth"
+msgstr ""
+
 #: src/components/YieldPools/ProMMFarmGroup/index.tsx
 msgid "Farming Contract"
 msgstr ""
@@ -1889,6 +1925,10 @@ msgstr "收成全部"
 #: src/components/NftPools/NftStakingGuide.tsx
 #: src/components/YieldPools/FarmGuide.tsx
 msgid "Harvest your farming rewards whenever you want"
+msgstr ""
+
+#: src/pages/ManageAuth/index.tsx
+msgid "Here you can manage user's authentication."
 msgstr ""
 
 #: src/pages/TokenAmmPool/index.tsx
@@ -2484,6 +2524,19 @@ msgstr "更多的信息"
 msgid "Manage"
 msgstr "管理"
 
+#: src/pages/ManageAuth/index.tsx
+msgid "Manage Auth"
+msgstr ""
+
+#: src/pages/NftStaking/ManageAuth.tsx
+#: src/pages/NftStaking/ManageAuth.tsx
+#: src/pages/TokenStaking/ManageAuth.tsx
+#: src/pages/TokenStaking/ManageAuth.tsx
+#: src/pages/Yield/ManageAuth.tsx
+#: src/pages/Yield/ManageAuth.tsx
+msgid "Manage Authorization"
+msgstr ""
+
 #: 
 #: 
 #~ msgid "Manage Liquidity in Rewards Pool"
@@ -2714,6 +2767,10 @@ msgstr ""
 msgid "NFT Staking"
 msgstr ""
 
+#: src/pages/ManageAuth/TableNFTStaking.tsx
+msgid "NFT Staking Auth"
+msgstr ""
+
 #: src/pages/TrueSight/components/TrendingLayout/index.tsx
 #: src/pages/TrueSight/components/TrendingLayout/index.tsx
 #: src/pages/TrueSight/components/TrendingLayout/TrendingTokenItemMobileOnly.tsx
@@ -2782,6 +2839,12 @@ msgstr ""
 
 #: src/components/History/Transactions.tsx
 msgid "No Trading History Available."
+msgstr ""
+
+#: src/pages/ManageAuth/TableFarming.tsx
+#: src/pages/ManageAuth/TableNFTStaking.tsx
+#: src/pages/ManageAuth/TableTokenStaking.tsx
+msgid "No User Found."
 msgstr ""
 
 #: src/pages/About/AboutKyberSwap.tsx
@@ -2981,6 +3044,12 @@ msgstr ""
 
 #: src/components/Tutorial/TutorialSwap/index.tsx
 msgid "Personalize your trading interface in the display settings"
+msgstr ""
+
+#: src/pages/NftStaking/ManageAuth.tsx
+#: src/pages/TokenStaking/ManageAuth.tsx
+#: src/pages/Yield/ManageAuth.tsx
+msgid "Please Select Authorization Type."
 msgstr ""
 
 #: src/components/UpcomingFarms/NoFarms.tsx
@@ -3275,10 +3344,16 @@ msgid "Refresh the page then try to connect to Metamask again"
 msgstr ""
 
 #: src/components/PositionCard/V1.tsx
+#: src/pages/ManageAuth/TableFarming.tsx
+#: src/pages/ManageAuth/TableNFTStaking.tsx
+#: src/pages/ManageAuth/TableTokenStaking.tsx
+#: src/pages/NftStaking/ManageAuth.tsx
 #: src/pages/RemoveLiquidity/TokenPair.tsx
 #: src/pages/RemoveLiquidity/ZapOut.tsx
 #: src/pages/RemoveLiquidity/ZapOut.tsx
 #: src/pages/RemoveLiquidityProAmm/index.tsx
+#: src/pages/TokenStaking/ManageAuth.tsx
+#: src/pages/Yield/ManageAuth.tsx
 msgid "Remove"
 msgstr "删除"
 
@@ -3324,6 +3399,16 @@ msgstr ""
 
 #: src/pages/RemoveLiquidityProAmm/index.tsx
 msgid "Removing {0} {1} and {2} {3}{4}{5}"
+msgstr ""
+
+#: src/pages/NftStaking/ManageAuth.tsx
+#: src/pages/TokenStaking/ManageAuth.tsx
+#: src/pages/Yield/ManageAuth.tsx
+msgid "Removing <0/>"
+msgstr ""
+
+#: src/components/YieldPools/ProMMFarmGroup/RenewFarm.tsx
+msgid "Renew Farm"
 msgstr ""
 
 #: src/components/ProAmm/ProAmmPriceRange.tsx
@@ -4200,6 +4285,10 @@ msgstr "代币对"
 msgid "Token Staking"
 msgstr ""
 
+#: src/pages/ManageAuth/TableTokenStaking.tsx
+msgid "Token Staking Auth"
+msgstr ""
+
 #: src/pages/TrueSight/components/FilterBar/index.tsx
 msgid "Token name or tag"
 msgstr ""
@@ -4607,6 +4696,14 @@ msgstr ""
 #~ msgid "Use this tool to find pairs that don't automatically appear in the interface."
 #~ msgstr "使用此工具查找不会自动出现在界面中的交易对。"
 
+#: src/constants/messages.ts
+msgid "User already has the role."
+msgstr ""
+
+#: src/constants/messages.ts
+msgid "User doesn't have the role."
+msgstr ""
+
 #: src/components/PositionCard/V1.tsx
 msgid "V1"
 msgstr "V1"
@@ -4738,6 +4835,15 @@ msgstr "等待确认"
 
 #: src/pages/Campaign/LeaderboardLayout.tsx
 msgid "Wallet"
+msgstr ""
+
+#: src/pages/ManageAuth/TableFarming.tsx
+#: src/pages/ManageAuth/TableNFTStaking.tsx
+#: src/pages/ManageAuth/TableTokenStaking.tsx
+#: src/pages/NftStaking/ManageAuth.tsx
+#: src/pages/TokenStaking/ManageAuth.tsx
+#: src/pages/Yield/ManageAuth.tsx
+msgid "Wallet Address"
 msgstr ""
 
 #: src/components/AddressInputPanel/index.tsx
@@ -5363,6 +5469,13 @@ msgstr ""
 #: src/components/UnStakeModal/UnStakeModal.tsx
 #: src/components/Web3Status/index.tsx
 #: src/pages/Bridge/PoolInfo.tsx
+#: src/pages/ManageAuth/index.tsx
+#: src/pages/ManageAuth/TableFarming.tsx
+#: src/pages/ManageAuth/TableFarming.tsx
+#: src/pages/ManageAuth/TableNFTStaking.tsx
+#: src/pages/ManageAuth/TableNFTStaking.tsx
+#: src/pages/ManageAuth/TableTokenStaking.tsx
+#: src/pages/ManageAuth/TableTokenStaking.tsx
 #: src/pages/NftStaking/details.tsx
 #: src/pages/NftStaking/NftStakingButton.tsx
 #: src/pages/NftStaking/NftStakingButton.tsx
@@ -5461,12 +5574,24 @@ msgstr ""
 msgid "{TOTAL_STEP} easy ways to get started with VoxelSwap"
 msgstr ""
 
+#: src/pages/NftStaking/ManageAuth.tsx
+#: src/pages/TokenStaking/ManageAuth.tsx
+#: src/pages/Yield/ManageAuth.tsx
+msgid "{accountMsg}"
+msgstr ""
+
 #: src/pages/AddFarmV2/index.tsx
 msgid "{addRewardTokenErr}"
 msgstr ""
 
 #: src/pages/AddFarmV2/index.tsx
 msgid "{addRewardTokenValueErr}"
+msgstr ""
+
+#: src/pages/NftStaking/ManageAuth.tsx
+#: src/pages/TokenStaking/ManageAuth.tsx
+#: src/pages/Yield/ManageAuth.tsx
+msgid "{addressError}"
 msgstr ""
 
 #: src/pages/AddTokenStaking/index.tsx

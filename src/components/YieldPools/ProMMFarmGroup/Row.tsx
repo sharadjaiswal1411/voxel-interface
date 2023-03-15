@@ -3,7 +3,7 @@ import { Pool, Position } from '@kyberswap/ks-sdk-elastic'
 import { Trans, t } from '@lingui/macro'
 import { BigNumber } from 'ethers'
 import React, { useEffect, useMemo, useState } from 'react'
-import { Minus, Plus, Share2 } from 'react-feather'
+import { Minus, Plus, Share2, RefreshCw } from 'react-feather'
 import { Link } from 'react-router-dom'
 import { useMedia } from 'react-use'
 import { Flex, Text } from 'rebass'
@@ -68,6 +68,8 @@ const Row = ({
   isApprovedForAll,
   fairlaunchAddress,
   farm,
+  isAdmin,
+  onOpenRenewModal,
   onOpenModal,
   onHarvest,
   onUpdateDepositedInfo,
@@ -75,8 +77,10 @@ const Row = ({
 }: {
   isUserAffectedByFarmIssue: boolean
   isApprovedForAll: boolean
+  isAdmin: boolean
   fairlaunchAddress: string
   farm: ProMMFarm
+  onOpenRenewModal: (farm?: any) => void
   onOpenModal: (modalType: 'deposit' | 'withdraw' | 'stake' | 'unstake', pid?: number) => void
   onHarvest: () => void
   onUpdateDepositedInfo: (input: {
@@ -487,6 +491,27 @@ const Row = ({
     )
   }
 
+  const renewButton = () => {
+
+    return (
+      <>
+        {(tab === 'ended' && isAdmin)
+          &&
+          <MouseoverTooltipDesktopOnly
+            text={t`Click here to renew your ended farms.`}
+            placement="top"
+            width="200px"
+          >
+            <MinimalActionButton onClick={() => onOpenRenewModal(farm)}>
+              <RefreshCw size={16} />
+            </MinimalActionButton>
+          </MouseoverTooltipDesktopOnly>
+        }
+      </>
+    )
+
+  }
+
   const renderUnstakeButton = () => {
     if (!canUnstake) {
       return (
@@ -659,6 +684,7 @@ const Row = ({
         ))}
       </Flex>
       <Flex justifyContent="flex-end" sx={{ gap: '4px' }}>
+        {renewButton()}
         {renderStakeButton()}
         {renderUnstakeButton()}
         {renderHarvestButton()}
