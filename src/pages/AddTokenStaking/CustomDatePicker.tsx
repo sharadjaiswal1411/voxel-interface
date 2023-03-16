@@ -30,10 +30,16 @@ const CustomDatePicker = (params: any) => {
     }
 
     return (
-        // <Select options={options} />
         <>
-            {/* <label >Start Time:</label> */}
-            <input type="datetime-local" id="birthdaytime" name="birthdaytime" min={formattedDate} style={dateInput} onChange={(e) => { selectedDateTimePicker(e.target.value) }} />
+            <input
+                type="datetime-local"
+                id="birthdaytime"
+                name="birthdaytime"
+                min={formattedDate}
+                style={dateInput}
+                onChange={(e) => { selectedDateTimePicker(e.target.value) }}
+                disabled={params?.disabled}
+            />
         </>
     );
 };
