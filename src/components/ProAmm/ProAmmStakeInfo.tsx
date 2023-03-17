@@ -4,7 +4,6 @@ import { AutoColumn } from 'components/Column'
 import DoubleCurrencyLogo from 'components/DoubleLogo'
 import useTheme from 'hooks/useTheme'
 import { MEDIA_WIDTHS } from 'theme'
-import { unwrappedToken } from 'utils/wrappedCurrency'
 
 export default function ProAmmStakeInfo({
   stakedToken,
@@ -15,8 +14,8 @@ export default function ProAmmStakeInfo({
 }) {
   const upToSmall = useMedia(`(max-width: ${MEDIA_WIDTHS.upToSmall}px)`)
   const theme = useTheme()
-  const token0Shown = unwrappedToken(stakedToken)
-  const token1Shown = unwrappedToken(rewardToken)
+  const token0Shown = stakedToken
+  const token1Shown = rewardToken
 
 
   return (
@@ -30,18 +29,18 @@ export default function ProAmmStakeInfo({
                 {token0Shown.symbol} - {token1Shown.symbol}
               </Text>
             </Flex>
-         
+
           </Flex>
           <Flex alignItems="center" justifyContent="space-between">
             <Flex>
-              
+
               <Text fontSize="12px" fontWeight="400" marginTop={'6px'} marginLeft={'6px'}>
-               Stake {token0Shown.symbol} to Earn {token1Shown.symbol}
+                Stake {token0Shown.symbol} to Earn {token1Shown.symbol}
               </Text>
             </Flex>
           </Flex>
 
-     
+
         </AutoColumn>
       )}
     </>

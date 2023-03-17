@@ -43,7 +43,7 @@ const CustomSelect = (params: any) => {
 
     return (
         <>
-            <select value={params?.selectedValue} name="pools" style={selectBox} onChange={(e) => { selectedPool(e.target.value) }}>
+            <select value={params?.selectedValue} name="pools" style={selectBox} onChange={(e) => { selectedPool(e.target.value) }} disabled={params?.disabled}>
                 <option value="" >---Select---</option>
                 {
                     (params?.data?.length > 0)

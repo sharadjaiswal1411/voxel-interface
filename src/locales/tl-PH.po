@@ -320,17 +320,27 @@ msgstr ""
 
 #: src/components/NavigationTabs/index.tsx
 #: src/components/PositionCard/index.tsx
-#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
 #: src/pages/AddNftStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/ProAmmPools/CardItem.tsx
 msgid "Add Liquidity"
 msgstr ""
 
-#: src/pages/AddFarmV2/index.tsx
-msgid "Add Reward Tokens Value <0>*</0>"
+#: src/components/YieldPools/ProMMFarmGroup/RenewFarm.tsx
+msgid "Add Reward Amount"
 msgstr ""
+
+#: src/pages/AddFarmV2/index.tsx
+msgid "Add Reward Amount <0>*</0>"
+msgstr ""
+
+#: src/pages/AddFarmV2/index.tsx
+#~ msgid "Add Reward Amount<0>*</0>"
+#~ msgstr ""
+
+#: src/pages/AddFarmV2/index.tsx
+#~ msgid "Add Reward Tokens Value <0>*</0>"
+#~ msgstr ""
 
 #: src/pages/PoolFinder/index.tsx
 #: src/pages/ProAmmPools/ListItem.tsx
@@ -554,14 +564,8 @@ msgstr ""
 msgid "Approve Farming Contract"
 msgstr ""
 
-#: src/pages/AddFarmV2/index.tsx
-#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddNftStaking/index.tsx
-#: src/pages/AddNftStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/Bridge/SwapForm.tsx
 #: src/pages/IncreaseLiquidity/index.tsx
 #: src/pages/IncreaseLiquidity/index.tsx
@@ -592,14 +596,8 @@ msgstr ""
 msgid "Approving"
 msgstr ""
 
-#: src/pages/AddFarmV2/index.tsx
-#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddNftStaking/index.tsx
-#: src/pages/AddNftStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/IncreaseLiquidity/index.tsx
 #: src/pages/IncreaseLiquidity/index.tsx
 msgid "Approving {0}"
@@ -926,7 +924,6 @@ msgstr ""
 msgid "Closed"
 msgstr ""
 
-#: src/components/YieldPools/ProMMFarmGroup/RenewFarm.tsx
 #: src/pages/AddTokenStaking/index.tsx
 msgid "Closing In"
 msgstr ""
@@ -1005,12 +1002,9 @@ msgstr ""
 #: src/components/Menu/FaucetModal.tsx
 #: src/components/YieldPools/ListItem.tsx
 #: src/components/YieldPools/ProMMFarmGroup/buttons.tsx
-#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidity/TokenPair.tsx
 #: src/pages/AddLiquidity/ZapIn.tsx
 #: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddNftStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/Bridge/SwapForm.tsx
 #: src/pages/Campaign/index.tsx
 #: src/pages/CreatePool/index.tsx
@@ -1152,12 +1146,10 @@ msgstr ""
 
 #: src/components/NavigationTabs/index.tsx
 #: src/pages/AddFarmV2/HeaderTabs.tsx
-#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
 #: src/pages/AddNftStaking/HeaderTabs.tsx
 #: src/pages/AddNftStaking/index.tsx
 #: src/pages/AddTokenStaking/HeaderTabs.tsx
-#: src/pages/AddTokenStaking/index.tsx
 msgid "Create a new pool"
 msgstr ""
 
@@ -1182,16 +1174,10 @@ msgstr ""
 
 #: src/components/ConfirmAddModalBottom/index.tsx
 #: src/components/swapv2/SwapModalFooter.tsx
-#: src/pages/AddFarmV2/index.tsx
-#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidity/TokenPair.tsx
 #: src/pages/AddLiquidity/ZapIn.tsx
 #: src/pages/AddLiquidityV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddNftStaking/index.tsx
-#: src/pages/AddNftStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/RemoveLiquidity/TokenPair.tsx
 #: src/pages/RemoveLiquidity/TokenPair.tsx
 #: src/pages/RemoveLiquidity/ZapOut.tsx
@@ -1472,10 +1458,7 @@ msgstr ""
 msgid "Easily transfer tokens from one chain to another"
 msgstr ""
 
-#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddNftStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
 msgid "Efficiency Comparison"
 msgstr ""
 
@@ -1511,6 +1494,10 @@ msgstr ""
 #: 
 #~ msgid "Enables high slippage trades. Use at your own risk."
 #~ msgstr ""
+
+#: src/components/YieldPools/ProMMFarmGroup/RenewFarm.tsx
+msgid "End Date"
+msgstr ""
 
 #: src/pages/AddFarmV2/index.tsx
 msgid "End Time"
@@ -1818,10 +1805,7 @@ msgstr ""
 msgid "Full Price Range"
 msgstr ""
 
-#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddNftStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
 msgid "Full range positions may earn less fees than concentrated positions."
 msgstr ""
 
@@ -1993,10 +1977,7 @@ msgstr ""
 
 #: src/components/SearchModal/ImportList.tsx
 #: src/components/SearchModal/ImportToken.tsx
-#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddNftStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
 msgid "I understand"
 msgstr ""
 
@@ -2253,10 +2234,7 @@ msgstr ""
 msgid "Invalid price input"
 msgstr ""
 
-#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddNftStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
 msgid "Invalid range selected. The min price must be lower than the max price."
 msgstr ""
 
@@ -3046,6 +3024,18 @@ msgstr ""
 msgid "Personalize your trading interface in the display settings"
 msgstr ""
 
+#: src/components/YieldPools/ProMMFarmGroup/RenewFarm.tsx
+msgid "Please Add Reward Amount."
+msgstr ""
+
+#: src/components/YieldPools/ProMMFarmGroup/RenewFarm.tsx
+msgid "Please Pick End Date."
+msgstr ""
+
+#: src/components/YieldPools/ProMMFarmGroup/RenewFarm.tsx
+msgid "Please Pick Start Date."
+msgstr ""
+
 #: src/pages/NftStaking/ManageAuth.tsx
 #: src/pages/TokenStaking/ManageAuth.tsx
 #: src/pages/Yield/ManageAuth.tsx
@@ -3177,10 +3167,7 @@ msgstr ""
 msgid "Preferences"
 msgstr ""
 
-#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddNftStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/IncreaseLiquidity/index.tsx
 #: src/pages/RemoveLiquidityProAmm/index.tsx
 msgid "Preview"
@@ -3408,18 +3395,20 @@ msgid "Removing <0/>"
 msgstr ""
 
 #: src/components/YieldPools/ProMMFarmGroup/RenewFarm.tsx
+msgid "Renew"
+msgstr ""
+
+#: src/components/YieldPools/ProMMFarmGroup/RenewFarm.tsx
 msgid "Renew Farm"
 msgstr ""
 
+#: src/components/YieldPools/ProMMFarmGroup/RenewFarm.tsx
+msgid "Renewing <0/>"
+msgstr ""
+
 #: src/components/ProAmm/ProAmmPriceRange.tsx
-#: src/pages/AddFarmV2/index.tsx
-#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddNftStaking/index.tsx
-#: src/pages/AddNftStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
 msgid "Represents the range where all your liquidity is concentrated. When market price of your token pair is no longer between your selected price range, your liquidity becomes inactive and you stop earning fees"
 msgstr ""
 
@@ -3451,13 +3440,17 @@ msgstr ""
 msgid "Review your transfer"
 msgstr ""
 
+#: src/pages/AddTokenStaking/index.tsx
+msgid "Reward Token"
+msgstr ""
+
 #: src/pages/AddNftStaking/index.tsx
 msgid "Reward Token Address <0>*</0>"
 msgstr ""
 
 #: src/pages/AddTokenStaking/index.tsx
-msgid "Reward Tokens"
-msgstr ""
+#~ msgid "Reward Tokens"
+#~ msgstr ""
 
 #: src/pages/AddFarmV2/index.tsx
 msgid "Reward Tokens <0>*</0>"
@@ -3594,6 +3587,10 @@ msgstr ""
 msgid "Select Pool <0>*</0>"
 msgstr ""
 
+#: src/pages/AddFarmV2/index.tsx
+#~ msgid "Select Pool<0>*</0>"
+#~ msgstr ""
+
 #: src/components/NetworkModal/index.tsx
 msgid "Select a Network"
 msgstr ""
@@ -3615,6 +3612,7 @@ msgstr ""
 #: src/components/CurrencyInputPanel/index.tsx
 #: src/components/SearchModal/bridge/CurrencySearchBridge.tsx
 #: src/components/SearchModal/CurrencySearch.tsx
+#: src/pages/AddTokenStaking/CurrencySelector.tsx
 #: src/pages/CreateReferral/TokensSelect.tsx
 #: src/state/swap/hooks.ts
 #: src/state/swap/proamm/hooks.tsx
@@ -3642,21 +3640,12 @@ msgstr ""
 msgid "Select your network"
 msgstr ""
 
-#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddNftStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
 msgid "Set Starting Price"
 msgstr ""
 
-#: src/pages/AddFarmV2/index.tsx
-#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddNftStaking/index.tsx
-#: src/pages/AddNftStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
 msgid "Set Your Price Range"
 msgstr ""
 
@@ -3872,6 +3861,10 @@ msgstr ""
 msgid "Stands for amplification factor. Pools with a higher AMP provide higher capital efficiency within a particular price range. We recommend higher AMP for stable token pairs and lower AMP for volatile token pairs"
 msgstr ""
 
+#: src/components/YieldPools/ProMMFarmGroup/RenewFarm.tsx
+msgid "Start Date"
+msgstr ""
+
 #: src/pages/About/AboutKyberSwap.tsx
 #: src/pages/About/KyberSwapGeneralIntro.tsx
 msgid "Start Earning"
@@ -3884,6 +3877,10 @@ msgstr ""
 #: src/pages/AddFarmV2/index.tsx
 msgid "Start Time <0>*</0>"
 msgstr ""
+
+#: src/pages/AddFarmV2/index.tsx
+#~ msgid "Start Time<0>*</0>"
+#~ msgstr ""
 
 #: src/components/UpcomingFarms/index.tsx
 #: src/components/UpcomingFarms/ListItem.tsx
@@ -3935,13 +3932,11 @@ msgstr ""
 msgid "Summary"
 msgstr ""
 
-#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidity/TokenPair.tsx
 #: src/pages/AddLiquidity/ZapIn.tsx
 #: src/pages/AddLiquidity/ZapIn.tsx
 #: src/pages/AddLiquidityV2/index.tsx
 #: src/pages/AddNftStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/IncreaseLiquidity/index.tsx
 msgid "Supply"
 msgstr ""
@@ -4217,10 +4212,7 @@ msgstr ""
 msgid "To continue, check the box below to verify and proceed"
 msgstr ""
 
-#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddNftStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
 msgid "To initialize this pool, select a starting price for the pool then enter your liquidity price range. Gas fees will be higher than usual due to initialization of the pool."
 msgstr ""
 
@@ -4639,10 +4631,7 @@ msgstr ""
 #~ msgid "Unsubscribe to stop receiving notifications on latest tokens that could be trending soon!"
 #~ msgstr ""
 
-#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddNftStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
 #: src/pages/IncreaseLiquidity/index.tsx
 msgid "Unsupported Asset"
 msgstr ""
@@ -5318,10 +5307,7 @@ msgstr ""
 msgid "Your position will be 100% composed of {0} at this price"
 msgstr ""
 
-#: src/pages/AddFarmV2/index.tsx
 #: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddNftStaking/index.tsx
-#: src/pages/AddTokenStaking/index.tsx
 msgid "Your position will not earn fees until the market price of the pool moves into your price range."
 msgstr ""
 

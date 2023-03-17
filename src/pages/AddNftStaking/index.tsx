@@ -5,28 +5,18 @@ import { FeeAmount, NonfungiblePositionManager } from '@kyberswap/ks-sdk-elastic
 import { Trans, t } from '@lingui/macro'
 import JSBI from 'jsbi'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { AlertTriangle } from 'react-feather'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
-import { Flex, Text } from 'rebass'
+import { Text } from 'rebass'
 import styled from 'styled-components'
-
-import { ButtonError, ButtonLight, ButtonPrimary, ButtonWarning } from 'components/Button'
-import { OutlineCard, WarningCard } from 'components/Card'
-import { AutoColumn } from 'components/Column'
-//import FeeSelector from 'components/FeeSelector'
-import HoverInlineText from 'components/HoverInlineText'
-import InfoHelper from 'components/InfoHelper'
-import LiquidityChartRangeInput from 'components/LiquidityChartRangeInput'
+import { ButtonPrimary } from 'components/Button'
 import { LiquidityAction } from 'components/NavigationTabs'
 import ProAmmPoolInfo from 'components/ProAmm/ProAmmPoolInfo'
 import ProAmmPooledTokens from 'components/ProAmm/ProAmmPooledTokens'
 import ProAmmPriceRange from 'components/ProAmm/ProAmmPriceRange'
-import RangeSelector from 'components/RangeSelector'
-import PresetsButtons from 'components/RangeSelector/PresetsButtons'
-import Row, { RowBetween, RowFixed } from 'components/Row'
+import { RowBetween } from 'components/Row'
 import TransactionConfirmationModal, { ConfirmationModalContent } from 'components/TransactionConfirmationModal'
 import { TutorialType } from 'components/Tutorial'
-import { ArrowWrapper as ArrowWrapperVertical, Dots } from 'components/swapv2/styleds'
+import { ArrowWrapper as ArrowWrapperVertical } from 'components/swapv2/styleds'
 import { NETWORKS_INFO } from 'constants/networks'
 import { nativeOnChain } from 'constants/tokens'
 import { VERSION } from 'constants/v2'
@@ -48,30 +38,18 @@ import {
 } from 'state/mint/proamm/hooks'
 import { useTransactionAdder } from 'state/transactions/hooks'
 import { useIsExpertMode } from 'state/user/hooks'
-import { TYPE } from 'theme'
-import { basisPointsToPercent, calculateGasMargin, formattedNum } from 'utils'
+import { basisPointsToPercent, calculateGasMargin } from 'utils'
 import { currencyId } from 'utils/currencyId'
 import { maxAmountSpend } from 'utils/maxAmountSpend'
 import { unwrappedToken } from 'utils/wrappedCurrency'
-
 import { useUserSlippageTolerance } from '../../state/user/hooks'
-import {
-  DynamicSection,
-  FlexLeft,
-  ResponsiveTwoColumns,
-  RightContainer,
-  StackedContainer,
-  StackedItem,
-  StyledInput,
-} from './styled'
+import { FlexLeft, ResponsiveTwoColumns, RightContainer, } from './styled'
 import { useMedia } from 'react-use'
 import { HeaderTabs } from './HeaderTabs'
-import CurrencyInputPanel from 'components/CurrencyInputPanel'
 import { useStakingAction } from 'state/nfts/promm/hooks'
 import Loader from 'components/Loader'
 import { ethers } from 'ethers'
-
-
+import CurrencySelector from 'pages/AddTokenStaking/CurrencySelector'
 
 
 export const Container = styled.div`
@@ -133,14 +111,6 @@ const Span = styled.span`
 color: #f01d64;
 `
 
-
-
-
-
-
-
-// const DEFAULT_ADD_IN_RANGE_SLIPPAGE_TOLERANCE = new Percent(50, 10_000)
-
 export const ArrowWrapper = styled(ArrowWrapperVertical) <{ rotated?: boolean }>`
   transform: rotate(${({ rotated }) => (rotated ? '270deg' : '90deg')});
   width: 40px;
@@ -152,7 +122,7 @@ export default function AddFarmV2({
   },
   history,
 }: RouteComponentProps<{ currencyIdA?: string; currencyIdB?: string; feeAmount?: string; tokenId?: string }>) {
-  const [rotate, setRotate] = useState(false)
+
   const routeHistory = useHistory();
   const { account, chainId, library } = useActiveWeb3React()
   const theme = useTheme()
@@ -180,8 +150,6 @@ export default function AddFarmV2({
 
   const [touched, setTouched] = useState(false)
   const above1000 = useMedia('(min-width: 1000px)')
-
-  // const isValidAddress = isAddress(reward)
 
   const [roleCheck, setRoleCheck] = useState(false);
   const checkAuth = async () => {
@@ -328,11 +296,6 @@ export default function AddFarmV2({
     }
   }
 
-  // check for existing position if tokenId in url
-  // const { position: existingPositionDetails, loading: positionLoading } = useProAmmPositionsFromTokenId(
-  //   tokenId ? BigNumber.from(tokenId) : undefined
-  // )
-  // const hasExistingPosition = !!existingPositionDetails && !positionLoading
 
   // fee selection from url
   const feeAmount: FeeAmount | undefined =
@@ -344,11 +307,6 @@ export default function AddFarmV2({
   // prevent an error if they input ETH/WETH
   const quoteCurrency =
     baseCurrency && currencyB && baseCurrency.wrapped.equals(currencyB.wrapped) ? undefined : currencyB
-
-  const baseCurrencyIsETHER = !!(chainId && baseCurrency && baseCurrency.isNative)
-  const baseCurrencyIsWETH = !!(chainId && baseCurrency && baseCurrency.equals(WETH[chainId]))
-  const quoteCurrencyIsETHER = !!(chainId && quoteCurrency && quoteCurrency.isNative)
-  const quoteCurrencyIsWETH = !!(chainId && quoteCurrency && quoteCurrency.equals(WETH[chainId]))
 
   const tokenA = (baseCurrency ?? undefined)?.wrapped
   const tokenB = (quoteCurrency ?? undefined)?.wrapped
@@ -413,23 +371,6 @@ export default function AddFarmV2({
     [dependentField]: parsedAmounts[dependentField]?.toExact() ?? '',
   }
 
-  // const [amount0Unlock, amount1Unlock] = useMemo(() => {
-  //   if (price && noLiquidity) {
-  //     return [
-  //       FullMath.mulDiv(
-  //         SqrtPriceMath.getAmount0Unlock(encodeSqrtRatioX96(price.numerator, price.denominator)),
-  //         JSBI.BigInt('105'),
-  //         JSBI.BigInt('100'),
-  //       ),
-  //       FullMath.mulDiv(
-  //         SqrtPriceMath.getAmount1Unlock(encodeSqrtRatioX96(price.numerator, price.denominator)),
-  //         JSBI.BigInt('105'),
-  //         JSBI.BigInt('100'),
-  //       ),
-  //     ]
-  //   }
-  //   return [JSBI.BigInt('0'), JSBI.BigInt('0')]
-  // }, [noLiquidity, price])
   // get the max amounts user can add
   const maxAmounts: { [field in Field]?: CurrencyAmount<Currency> } = [Field.CURRENCY_A, Field.CURRENCY_B].reduce(
     (accumulator, field) => {
@@ -499,8 +440,6 @@ export default function AddFarmV2({
     if (position && account && deadline) {
       const useNative = baseCurrency.isNative ? baseCurrency : quoteCurrency.isNative ? quoteCurrency : undefined
 
-
-
       const { calldata, value } = NonfungiblePositionManager.addCallParameters(position, previousTicks, {
         slippageTolerance: basisPointsToPercent(allowedSlippage[0]),
         recipient: account,
@@ -509,10 +448,6 @@ export default function AddFarmV2({
         createPool: noLiquidity,
       })
 
-      console.log("calldatacalldatacalldatacalldata", calldata);
-
-
-      //0.00283161
       const txn: { to: string; data: string; value: string } = {
         to: NETWORKS_INFO[chainId].elastic.nonfungiblePositionManager,
         data: calldata,
@@ -599,39 +534,22 @@ export default function AddFarmV2({
     [chainId],
   )
 
-  const handleCurrencyASelect = useCallback(
-    (currencyANew: Currency) => {
-      const [idA, idB] = handleCurrencySelect(currencyANew, currencyIdB)
-      setRewardTokenAddress(idA);
-      if (idB === undefined) {
-        history.push(`/nft-staking/add/${idA}`)
-      } else {
-        history.push(`/nft-staking/add/${idA}/${idB}`)
-      }
-    },
-    [handleCurrencySelect, currencyIdB, history],
-  )
+  const handleCurrencyASelect = (idA: any) => {
+    setRewardTokenAddress(idA)
+  }
 
-  const handleCurrencyBSelect = useCallback(
-    (currencyBNew: Currency) => {
-      const [idB, idA] = handleCurrencySelect(currencyBNew, currencyIdA)
-      if (idA === undefined) {
-        history.push(`/nft-staking/add/${idB}`)
-      } else {
-        history.push(`/nft-staking/add/${idA}/${idB}`)
-      }
-    },
-    [handleCurrencySelect, currencyIdA, history],
-  )
-
-  const handleFeePoolSelect = useCallback(
-    (newFeeAmount: FeeAmount) => {
-      onLeftRangeInput('')
-      onRightRangeInput('')
-      history.push(`/elastic/add/${currencyIdA}/${currencyIdB}/${newFeeAmount}`)
-    },
-    [currencyIdA, currencyIdB, history, onLeftRangeInput, onRightRangeInput],
-  )
+  // const handleCurrencyASelect = useCallback(
+  //   (currencyANew: Currency) => {
+  //     const [idA, idB] = handleCurrencySelect(currencyANew, currencyIdB)
+  //     setRewardTokenAddress(idA);
+  //     if (idB === undefined) {
+  //       history.push(`/nft-staking/add/${idA}`)
+  //     } else {
+  //       history.push(`/nft-staking/add/${idA}/${idB}`)
+  //     }
+  //   },
+  //   [handleCurrencySelect, currencyIdB, history],
+  // )
 
   const handleDismissConfirmation = useCallback(() => {
     setShowConfirm(false)
@@ -645,14 +563,6 @@ export default function AddFarmV2({
   }, [history, onFieldAInput, txHash])
 
   const addIsUnsupported = false
-
-  // const clearAll = useCallback(() => {
-  //   onFieldAInput('')
-  //   onFieldBInput('')
-  //   onLeftRangeInput('')
-  //   onRightRangeInput('')
-  //   history.push(`/add`)
-  // }, [history, onFieldAInput, onFieldBInput, onLeftRangeInput, onRightRangeInput])
 
   // get value and prices at ticks
   const { [Bound.LOWER]: tickLower, [Bound.UPPER]: tickUpper } = ticks
@@ -671,6 +581,7 @@ export default function AddFarmV2({
       pool,
       price,
     )
+
   // we need an existence check on parsed amounts for single-asset deposits
   const showApprovalA = approvalA !== ApprovalState.APPROVED && (noLiquidity ? true : !!parsedAmounts[Field.CURRENCY_A])
   const showApprovalB = approvalB !== ApprovalState.APPROVED && (noLiquidity ? true : !!parsedAmounts[Field.CURRENCY_B])
@@ -679,270 +590,8 @@ export default function AddFarmV2({
     } ${!depositADisabled && !depositBDisabled ? 'and' : ''} ${!depositBDisabled ? parsedAmounts[Field.CURRENCY_B]?.toSignificant(10) : ''
     } ${!depositBDisabled ? currencies[Field.CURRENCY_B]?.symbol : ''}`
 
-  const Buttons = () =>
-    addIsUnsupported ? (
-      <ButtonPrimary disabled={true}>
-        <Trans>Unsupported Asset</Trans>
-      </ButtonPrimary>
-    ) : !account ? (
-      <ButtonLight onClick={toggleWalletModal}>
-        <Trans>Connect Wallet</Trans>
-      </ButtonLight>
-    ) : (
-      <Flex sx={{ gap: '16px' }} flexDirection={isValid && showApprovalA && showApprovalB ? 'column' : 'row'}>
-        {(approvalA === ApprovalState.NOT_APPROVED ||
-          approvalA === ApprovalState.PENDING ||
-          approvalB === ApprovalState.NOT_APPROVED ||
-          approvalB === ApprovalState.PENDING) &&
-          isValid && (
-            <RowBetween>
-              {showApprovalA && (
-                <ButtonPrimary
-                  onClick={approveACallback}
-                  disabled={approvalA === ApprovalState.PENDING}
-                  width={showApprovalB ? '48%' : '100%'}
-                >
-                  {approvalA === ApprovalState.PENDING ? (
-                    <Dots>
-                      <Trans>Approving {currencies[Field.CURRENCY_A]?.symbol}</Trans>
-                    </Dots>
-                  ) : (
-                    <Trans>Approve {currencies[Field.CURRENCY_A]?.symbol}</Trans>
-                  )}
-                </ButtonPrimary>
-              )}
-              {showApprovalB && (
-                <ButtonPrimary
-                  onClick={approveBCallback}
-                  disabled={approvalB === ApprovalState.PENDING}
-                  width={showApprovalA ? '48%' : '100%'}
-                >
-                  {approvalB === ApprovalState.PENDING ? (
-                    <Dots>
-                      <Trans>Approving {currencies[Field.CURRENCY_B]?.symbol}</Trans>
-                    </Dots>
-                  ) : (
-                    <Trans>Approve {currencies[Field.CURRENCY_B]?.symbol}</Trans>
-                  )}
-                </ButtonPrimary>
-              )}
-            </RowBetween>
-          )}
-        <ButtonError
-          onClick={() => {
-            expertMode ? onAdd() : setShowConfirm(true)
-          }}
-          disabled={
-            !isValid ||
-            (approvalA !== ApprovalState.APPROVED && (!depositADisabled || noLiquidity)) ||
-            (approvalB !== ApprovalState.APPROVED && (!depositBDisabled || noLiquidity))
-          }
-          error={!isValid && !!parsedAmounts[Field.CURRENCY_A] && !!parsedAmounts[Field.CURRENCY_B] && false}
-        >
-          <Text fontWeight={500}>{errorMessage ? errorMessage : <Trans>Preview</Trans>}</Text>
-        </ButtonError>
-      </Flex>
-    )
 
-  const chart = (
-    <>
-      <DynamicSection gap="md" disabled={!feeAmount || invalidPool}>
-        {!noLiquidity ? (
-          <>
-            <Text fontWeight="500" style={{ display: 'flex' }}>
-              <Trans>Set Your Price Range</Trans>
-              <InfoHelper
-                size={14}
-                text={t`Represents the range where all your liquidity is concentrated. When market price of your token pair is no longer between your selected price range, your liquidity becomes inactive and you stop earning fees`}
-              />
-            </Text>
 
-            {price && baseCurrency && quoteCurrency && !noLiquidity && (
-              <Flex justifyContent="center" marginTop="0.5rem" sx={{ gap: '0.25rem' }}>
-                <Text fontWeight={500} textAlign="center" color={theme.subText} fontSize={12}>
-                  <Trans>Current Price</Trans>
-                </Text>
-                <Text fontWeight={500} textAlign="center" fontSize={12}>
-                  <HoverInlineText
-                    maxCharacters={20}
-                    text={invertPrice ? price.invert().toSignificant(6) : price.toSignificant(6)}
-                  />
-                </Text>
-                <Text fontSize={12}>
-                  {quoteCurrency?.symbol} per {baseCurrency.symbol}
-                </Text>
-              </Flex>
-            )}
-
-            <LiquidityChartRangeInput
-              currencyA={baseCurrency ?? undefined}
-              currencyB={quoteCurrency ?? undefined}
-              feeAmount={feeAmount}
-              ticksAtLimit={ticksAtLimit}
-              price={price ? parseFloat((invertPrice ? price.invert() : price).toSignificant(8)) : undefined}
-              priceLower={priceLower}
-              priceUpper={priceUpper}
-              onLeftRangeInput={onLeftRangeInput}
-              onRightRangeInput={onRightRangeInput}
-              interactive
-            />
-          </>
-        ) : (
-          <AutoColumn gap="1rem">
-            <RowBetween>
-              <Text fontWeight="500">
-                <Trans>Set Starting Price</Trans>
-              </Text>
-            </RowBetween>
-            {noLiquidity && (
-              <Flex
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  padding: '1rem 0',
-                  borderTop: `1px solid ${theme.border}`,
-                  borderBottom: `1px solid ${theme.border}`,
-                }}
-              >
-                <TYPE.body fontSize={12} textAlign="left" color={theme.subText} lineHeight="16px">
-                  <Trans>
-                    To initialize this pool, select a starting price for the pool then enter your liquidity price range.
-                    Gas fees will be higher than usual due to initialization of the pool.
-                  </Trans>
-                </TYPE.body>
-              </Flex>
-            )}
-            <OutlineCard
-              padding="12px 16px"
-              style={{ borderRadius: '999px', backgroundColor: theme.buttonBlack, border: 'none' }}
-            >
-              <StyledInput className="start-price-input" value={startPriceTypedValue} onUserInput={onStartPriceInput} />
-            </OutlineCard>
-            <RowBetween>
-              <Text fontWeight="500" color={theme.subText} style={{ textTransform: 'uppercase' }} fontSize="12px">
-                <Trans>Current Price</Trans>
-              </Text>
-              <TYPE.main>
-                {price ? (
-                  <TYPE.main>
-                    <RowFixed>
-                      <HoverInlineText
-                        maxCharacters={20}
-                        text={`1 ${baseCurrency?.symbol} = ${invertPrice ? price.invert().toSignificant(6) : price.toSignificant(6)
-                          } ${quoteCurrency?.symbol}`}
-                      />
-                    </RowFixed>
-                  </TYPE.main>
-                ) : (
-                  '-'
-                )}
-              </TYPE.main>
-            </RowBetween>
-          </AutoColumn>
-        )}
-        <DynamicSection gap="md" disabled={!feeAmount || invalidPool || (noLiquidity && !startPriceTypedValue)}>
-          <StackedContainer>
-            <StackedItem style={{ opacity: showCapitalEfficiencyWarning ? '0.05' : 1 }}>
-              <AutoColumn gap="md">
-                {noLiquidity && (
-                  <RowBetween>
-                    <Text fontWeight="500" style={{ display: 'flex' }}>
-                      <Trans>Set Your Price Range</Trans>
-                      <InfoHelper
-                        text={t`Represents the range where all your liquidity is concentrated. When market price of your token pair is no longer between your selected price range, your liquidity becomes inactive and you stop earning fees`}
-                        placement={'right'}
-                      />
-                    </Text>
-                  </RowBetween>
-                )}
-                <RangeSelector
-                  priceLower={priceLower}
-                  priceUpper={priceUpper}
-                  getDecrementLower={getDecrementLower}
-                  getIncrementLower={getIncrementLower}
-                  getDecrementUpper={getDecrementUpper}
-                  getIncrementUpper={getIncrementUpper}
-                  onLeftRangeInput={onLeftRangeInput}
-                  onRightRangeInput={onRightRangeInput}
-                  currencyA={baseCurrency}
-                  currencyB={quoteCurrency}
-                  feeAmount={feeAmount}
-                  ticksAtLimit={ticksAtLimit}
-                />
-                {!noLiquidity && (
-                  <PresetsButtons
-                    setFullRange={() => {
-                      setShowCapitalEfficiencyWarning(true)
-                    }}
-                  />
-                )}
-              </AutoColumn>
-            </StackedItem>
-
-            {showCapitalEfficiencyWarning && (
-              <StackedItem zIndex={1}>
-                <WarningCard padding="15px">
-                  <AutoColumn gap="8px" style={{ height: '100%' }}>
-                    <RowFixed>
-                      <AlertTriangle stroke={theme.warning} size="16px" />
-                      <TYPE.warning ml="12px" fontSize="15px">
-                        <Trans>Efficiency Comparison</Trans>
-                      </TYPE.warning>
-                    </RowFixed>
-                    <RowFixed>
-                      <TYPE.warning ml="12px" fontSize="13px" margin={0} fontWeight={400}>
-                        <Trans>Full range positions may earn less fees than concentrated positions.</Trans>
-                      </TYPE.warning>
-                    </RowFixed>
-                    <Row>
-                      <ButtonWarning
-                        padding="8px"
-                        marginRight="8px"
-                        width="100%"
-                        onClick={() => {
-                          setShowCapitalEfficiencyWarning(false)
-                          getSetFullRange()
-                        }}
-                      >
-                        <TYPE.black fontSize={13}>
-                          <Trans>I understand</Trans>
-                        </TYPE.black>
-                      </ButtonWarning>
-                    </Row>
-                  </AutoColumn>
-                </WarningCard>
-              </StackedItem>
-            )}
-          </StackedContainer>
-
-          {outOfRange ? (
-            <WarningCard padding="10px 16px">
-              <Flex alignItems="center">
-                <AlertTriangle stroke={theme.warning} size="16px" />
-                <TYPE.warning ml="12px" fontSize="12px" flex={1}>
-                  <Trans>
-                    Your position will not earn fees until the market price of the pool moves into your price range.
-                  </Trans>
-                </TYPE.warning>
-              </Flex>
-            </WarningCard>
-          ) : null}
-
-          {invalidRange ? (
-            <WarningCard padding="10px 16px">
-              <Flex alignItems="center">
-                <AlertTriangle stroke={theme.warning} size="16px" />
-                <TYPE.warning ml="12px" fontSize="12px" flex={1}>
-                  <Trans>Invalid range selected. The min price must be lower than the max price.</Trans>
-                </TYPE.warning>
-              </Flex>
-            </WarningCard>
-          ) : null}
-        </DynamicSection>
-      </DynamicSection>
-    </>
-  )
 
   return (
     <>
@@ -957,12 +606,6 @@ export default function AddFarmV2({
             onDismiss={handleDismissConfirmation}
             topContent={() =>
               position && (
-                // <PositionPreview
-                //   position={position}
-                //   title={<Trans>Selected Range</Trans>}
-                //   inRange={!outOfRange}
-                //   ticksAtLimit={ticksAtLimit}
-                // />
                 <div style={{ marginTop: '1rem' }}>
                   <ProAmmPoolInfo position={position} />
                   <ProAmmPooledTokens
@@ -1018,7 +661,7 @@ export default function AddFarmV2({
 
                   <BlockDiv >
 
-                    <Text fontSize={12} color={"#bfbfbf" /*theme.disableText*/} textAlign="right" marginBottom="2px" fontStyle="italic">
+                    <Text fontSize={12} color={"#bfbfbf"} textAlign="right" marginBottom="2px" fontStyle="italic">
                       <Trans>*Required</Trans>
                     </Text>
                     <AddressBox
@@ -1037,6 +680,7 @@ export default function AddFarmV2({
                           onChange={(e: any) => {
                             setNftAddress(e.target.value)
                           }}
+                          disabled={isLoading}
                         />
                       </Text>
                       {nftAddressErr && touched && (
@@ -1046,7 +690,7 @@ export default function AddFarmV2({
                       )}
                     </AddressBox>
 
-                    <Text fontSize={12} color={"#bfbfbf" /*theme.disableText*/} textAlign="right" marginBottom="2px" fontStyle="italic">
+                    <Text fontSize={12} color={"#bfbfbf"} textAlign="right" marginBottom="2px" fontStyle="italic">
                       <Trans>*Required</Trans>
                     </Text>
                     <AddressBox style={{
@@ -1067,6 +711,8 @@ export default function AddFarmV2({
                           onChange={(e: any) => {
                             setReward(e.target.value)
                           }}
+                          disabled={isLoading}
+                          onWheel={(e: any) => e.target.blur()}
                         />
                       </Text>
                       {rewardErr && touched && (
@@ -1076,7 +722,7 @@ export default function AddFarmV2({
                       )}
                     </AddressBox>
 
-                    <Text fontSize={12} color={"#bfbfbf" /*theme.disableText*/} textAlign="right" marginBottom="2px" fontStyle="italic">
+                    <Text fontSize={12} color={"#bfbfbf"} textAlign="right" marginBottom="2px" fontStyle="italic">
                       <Trans>*Required</Trans>
                     </Text>
                     <AddressBox style={{
@@ -1093,6 +739,7 @@ export default function AddFarmV2({
                           onChange={(e: any) => {
                             setCollectionName(e.target.value)
                           }}
+                          disabled={isLoading}
                         />
                       </Text>
                       {collectionNameErr && touched && (
@@ -1111,45 +758,25 @@ export default function AddFarmV2({
 
               <RightContainer >
 
-                {/* <Text fontSize={12} color={theme.disableText} textAlign="right" marginBottom="2px" fontStyle="italic">
+                <Text fontSize={12} color={"#bfbfbf"} textAlign="right" marginBottom="2px" fontStyle="italic">
                   <Trans>*Required</Trans>
                 </Text>
-                <AddressBox
-                  style={{
-                    marginBottom: !above1000 ? '24px' : '',
-                    border: rewardTokenAddressErr && touched ? `1px solid ${theme.red}` : undefined,
-                  }} >
-                  <Text fontSize={12} color={theme.subText} marginBottom="8px">
-                    <Trans>Reward Token Address <Span>*</Span></Trans>
-                  </Text>
-                  <Text fontSize={20} lineHeight={'24px'} color={theme.text}>
-                    <AddressInput
-                      type="text"
-                      value={rewardTokenAddress}
-                      onChange={(e: any) => {
-                        setRewardTokenAddress(e.target.value)
-                      }}
-                    />
-                  </Text>
-                  {rewardTokenAddressErr && touched && (
-                    <ErrorMessage>
-                      <Trans>{rewardTokenAddressErr}</Trans>
-                    </ErrorMessage>
-                  )}
-                </AddressBox> */}
 
-                <Text fontSize={12} color={"#bfbfbf" /*theme.disableText*/} textAlign="right" marginBottom="2px" fontStyle="italic">
-                  <Trans>*Required</Trans>
-                </Text>
                 <AddressBox style={{
                   marginBottom: !above1000 ? '24px' : '',
                   border: rewardTokenAddressErr && touched ? `1px solid ${theme.red}` : undefined,
                 }}>
+
                   <Text fontSize={12} color={theme.subText} marginBottom="8px">
                     <Trans>Reward Token Address <Span>*</Span></Trans>
                   </Text>
 
-                  <CurrencyInputPanel
+                  <CurrencySelector
+                    selectedCurrency={(val: any) => { handleCurrencyASelect(val) }}
+                    disabled={isLoading}
+                  />
+
+                  {/* <CurrencyInputPanel
                     hideBalance
                     value={formattedAmounts[Field.CURRENCY_A]}
                     onUserInput={onFieldAInput}
@@ -1161,7 +788,8 @@ export default function AddFarmV2({
                     showCommonBases
                     estimatedUsd={formattedNum(estimatedUsdCurrencyA.toString(), true) || undefined}
                     maxCurrencySymbolLength={6}
-                  />
+                  /> */}
+
                   {rewardTokenAddressErr && touched && (
                     <ErrorMessage>
                       <Trans>{rewardTokenAddressErr}</Trans>
@@ -1170,7 +798,7 @@ export default function AddFarmV2({
                 </AddressBox>
 
 
-                <Text fontSize={12} color={"#bfbfbf" /*theme.disableText*/} textAlign="right" marginBottom="2px" fontStyle="italic">
+                <Text fontSize={12} color={"#bfbfbf"} textAlign="right" marginBottom="2px" fontStyle="italic">
                   <Trans>*Required</Trans>
                 </Text>
                 <AddressBox style={{
@@ -1190,6 +818,8 @@ export default function AddFarmV2({
                       onChange={(e: any) => {
                         setLockTime(e.target.value)
                       }}
+                      disabled={isLoading}
+                      onWheel={(e: any) => e.target.blur()}
                     />
                   </Text>
                   {lockTimeErr && touched && (
@@ -1200,7 +830,7 @@ export default function AddFarmV2({
                 </AddressBox>
 
 
-                <Text fontSize={12} color={"#bfbfbf" /*theme.disableText*/} textAlign="right" marginBottom="2px" fontStyle="italic">
+                <Text fontSize={12} color={"#bfbfbf"} textAlign="right" marginBottom="2px" fontStyle="italic">
                   <Trans>*Required</Trans>
                 </Text>
                 <AddressBox style={{
@@ -1217,6 +847,7 @@ export default function AddFarmV2({
                       onChange={(e: any) => {
                         setCollectionLogo(e.target.value)
                       }}
+                      disabled={isLoading}
                     />
                   </Text>
                   {collectionLogoErr && touched && (

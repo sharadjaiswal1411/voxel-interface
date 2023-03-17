@@ -16,7 +16,6 @@ import { useToken } from 'hooks/Tokens'
 import useTheme from 'hooks/useTheme'
 import { useTokenStakingDetailsAction } from 'state/nfts/promm/hooks'
 import { formatBalance } from 'utils/formatBalance'
-import { unwrappedToken } from 'utils/wrappedCurrency'
 import ContentLoader from './ContentLoader'
 import StakeModal from 'components/StakeModal/StakeModal'
 import UnStakeModal from 'components/UnStakeModal/UnStakeModal'
@@ -134,8 +133,8 @@ function PositionListItem({
 
   const _stakedToken = useToken(stakedToken)
   const _rewardToken = useToken(rewardToken)
-  const currency0 = _stakedToken ? unwrappedToken(_stakedToken) : undefined
-  const currency1 = _rewardToken ? unwrappedToken(_rewardToken) : undefined
+  const currency0 = _stakedToken 
+  const currency1 = _rewardToken
   const [poolInfo, setPoolInfo] = useState<any>(null)
   const [approvalTx, setApprovalTx] = useState('')
   const isApprovalTxPending = useIsTransactionPending(approvalTx);
