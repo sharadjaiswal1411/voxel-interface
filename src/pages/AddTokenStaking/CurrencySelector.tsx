@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Aligner, CurrencySelect, StyledTokenName } from 'components/CurrencyInputPanel'
 import { RowFixed } from 'components/Row'
 import CurrencyLogo from 'components/CurrencyLogo'
@@ -24,6 +24,15 @@ const CurrencySelector = (props: any) => {
             console.log(e);
         }
     }
+
+    //For Clearing The Form.
+    useEffect(() => {
+        const reset = (token: any) => {
+            setCurrency(token)
+            props?.selectedCurrency("")
+        }
+        reset(null)
+    }, [props?.clear])
 
     return (
         <>

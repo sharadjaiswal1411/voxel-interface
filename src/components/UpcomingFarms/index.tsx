@@ -1,72 +1,106 @@
 import { Trans } from '@lingui/macro'
-import React from 'react'
-import { useMedia } from 'react-use'
-import { Flex } from 'rebass'
-
-import { ClickableText } from 'components/YieldPools/styleds'
-import { UPCOMING_POOLS } from 'constants/upcoming-pools'
-
-import ListItem from './ListItem'
-import NoFarms from './NoFarms'
-import { RowsWrapper, TableHeader, TableWrapper } from './styled'
+import { useMemo, useEffect } from 'react'
+import { Flex, Text } from 'rebass'
+import { useGetProMMFarms, useProMMFarms } from 'state/farms/promm/hooks'
+import { ProMMFarm } from 'state/farms/promm/types'
+import ProMMFarmGroup from 'components/YieldPools/ProMMFarmGroup'
+import useTheme from 'hooks/useTheme'
+import LocalLoader from 'components/LocalLoader'
 
 const UpcomingFarms = () => {
-  const lgBreakpoint = useMedia('(min-width: 1000px)')
+  const theme = useTheme()
+  const { data: farms, loading } = useProMMFarms()
 
-  const renderHeader = () => {
-    if (!lgBreakpoint) {
-      return null
-    }
+  const search = "";
 
-    return (
-      <TableHeader>
-        <Flex grid-area="pools" alignItems="center" justifyContent="flex-start">
-          <ClickableText>
-            <Trans>Pools</Trans>
-          </ClickableText>
-        </Flex>
+  const filteredFarms = useMemo(() => {
+    const now = (Date.now() / 1000)
+    return Object.keys(farms).reduce((acc: { [key: string]: ProMMFarm[] }, address) => {
 
-        <Flex grid-area="startingIn" alignItems="center" justifyContent="flex-start">
-          <ClickableText>
-            <Trans>Starting In</Trans>
-          </ClickableText>
-        </Flex>
+      const currentFarms = farms[address].filter((farm: any) => {
+        const filterActive = farm?.startTime > now;
 
-        <Flex grid-area="network" alignItems="center" justifyContent="flex-start">
-          <ClickableText>
-            <Trans>Network</Trans>
-          </ClickableText>
-        </Flex>
+        const filterSearchText = search
+          ? farm.token0.toLowerCase().includes(search) ||
+          farm.token1.toLowerCase().includes(search) ||
+          farm.poolAddress.toLowerCase() === search ||
+          farm?.token0Info?.symbol?.toLowerCase().includes(search) ||
+          farm?.token1Info?.symbol?.toLowerCase().includes(search) ||
+          farm?.token0Info?.name?.toLowerCase().includes(search) ||
+          farm?.token1Info?.name?.toLowerCase().includes(search)
+          : true
 
-        <Flex grid-area="rewards" alignItems="right" justifyContent="flex-end">
-          <ClickableText>
-            <Trans>Rewards</Trans>
-          </ClickableText>
-        </Flex>
+        const filterStaked = true
 
-        <Flex grid-area="information" alignItems="center" justifyContent="flex-end">
-          <ClickableText>
-            <Trans>Information</Trans>
-          </ClickableText>
-        </Flex>
-      </TableHeader>
-    )
-  }
+        return filterActive && filterSearchText && filterStaked
+      })
+
+      if (currentFarms.length) acc[address] = currentFarms
+      return acc
+    }, {})
+  }, [farms])
+
+  const noFarms = !Object.keys(filteredFarms).length
+
+  const getProMMFarms = useGetProMMFarms()
+
+  useEffect(() => {
+    getProMMFarms()
+  }, [getProMMFarms])
+
+
 
   return (
     <>
-      {UPCOMING_POOLS.length > 0 ? (
-        <TableWrapper>
-          {renderHeader()}
-          <RowsWrapper>
-            {UPCOMING_POOLS.map((pool, index) => (
-              <ListItem key={index} pool={pool} isLastItem={index === UPCOMING_POOLS.length - 1} />
-            ))}
-          </RowsWrapper>
-        </TableWrapper>
-      ) : (
-        <NoFarms />
-      )}
+      {(loading && noFarms)
+        ?
+        (
+          <Flex
+            sx={{
+              borderRadius: '16px',
+            }}
+            backgroundColor={theme.background}
+          >
+            <LocalLoader />
+          </Flex>
+        )
+        :
+        noFarms
+          ?
+          (
+            <Flex
+              backgroundColor={theme.background}
+              justifyContent="center"
+              padding="32px"
+              style={{ borderBottomLeftRadius: '20px', borderBottomRightRadius: '20px' }}
+            >
+              <Text color={theme.subText}>
+                <Trans>Currently there are no upcoming Farms.</Trans>
+              </Text>
+            </Flex>
+          )
+          :
+          (
+            <Flex
+              sx={{
+                flexDirection: 'column',
+                rowGap: '48px',
+              }}
+            >
+              {Object.keys(filteredFarms).map(fairLaunchAddress => {
+                return (
+                  <ProMMFarmGroup
+                    key={fairLaunchAddress}
+                    address={fairLaunchAddress}
+                    farms={filteredFarms[fairLaunchAddress]}
+                    onOpenModal={function (modalType: 'forcedWithdraw' | 'harvest' | 'deposit' | 'withdraw' | 'stake' | 'unstake', pid?: number | undefined): void {
+                      throw new Error('Function not implemented.')
+                    }}
+                  />
+                )
+              })}
+            </Flex>
+          )}
     </>
   )
 }

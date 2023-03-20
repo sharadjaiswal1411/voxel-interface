@@ -32,6 +32,7 @@ const CustomDatePicker = (params: any) => {
     return (
         <>
             <input
+                value={params?.value}
                 type="datetime-local"
                 id="birthdaytime"
                 name="birthdaytime"

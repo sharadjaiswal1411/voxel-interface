@@ -22,6 +22,7 @@ const CustomDatePicker = (params: any) => {
     return (
         <>
             <input
+                value={params?.value}
                 type="datetime-local"
                 min={params?.min}
                 max={params?.max}

@@ -568,18 +568,21 @@ const Row = ({
             </Text>
           </Link>
 
-          <Flex
-            onClick={() => {
-              setSharePoolAddress(farm.poolAddress)
-            }}
-            sx={{
-              marginLeft: '8px',
-              cursor: 'pointer',
-            }}
-            role="button"
-          >
-            <Share2 size="14px" color={theme.subText} />
-          </Flex>
+          {(tab !== 'coming')
+            &&
+            <Flex
+              onClick={() => {
+                setSharePoolAddress(farm.poolAddress)
+              }}
+              sx={{
+                marginLeft: '8px',
+                cursor: 'pointer',
+              }}
+              role="button"
+            >
+              <Share2 size="14px" color={theme.subText} />
+            </Flex>
+          }
         </Flex>
 
         <Flex

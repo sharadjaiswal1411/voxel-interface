@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro'
-import { ArrowLeft, Trash } from 'react-feather'
+import { ArrowLeft } from 'react-feather'
 import { useHistory } from 'react-router-dom'
 import { Flex } from 'rebass'
 import styled, { css } from 'styled-components'
@@ -11,8 +11,8 @@ import { TutorialType } from 'components/Tutorial'
 import useTheme from 'hooks/useTheme'
 import { useMedia } from 'react-use'
 import QuestionHelper from 'components/QuestionHelper'
-import TransactionSettings from 'components/TransactionSettings'
-import { ShareButtonWithModal } from 'components/ShareModal'
+// import TransactionSettings from 'components/TransactionSettings'
+// import { ShareButtonWithModal } from 'components/ShareModal'
 
 
 // For Add Farms Form Page Header
@@ -87,6 +87,7 @@ const StyledMenuButton = styled.button<{ active?: boolean }>`
 
 export function HeaderTabs({
     action,
+    customTitle = "",
     showTooltip = true,
     hideShare = false,
     onShared,
@@ -102,6 +103,7 @@ export function HeaderTabs({
     onCleared?: () => void
     onBack?: () => void
     tooltip?: string
+    customTitle?: string
     tutorialType?: TutorialType
 }) {
     const history = useHistory()
@@ -119,13 +121,20 @@ export function HeaderTabs({
     const title = (
         <Flex>
             <ActiveText>
-                {action === LiquidityAction.CREATE
-                    ? t`Create a new pool`
-                    : action === LiquidityAction.ADD
-                        ? t`Add Farms`
-                        : action === LiquidityAction.INCREASE
-                            ? t`Increase Liquidity`
-                            : t`Remove Liquidity`}
+                {customTitle
+                    ?
+                    customTitle
+                    :
+                    <>
+                        {action === LiquidityAction.CREATE
+                            ? t`Create a new pool`
+                            : action === LiquidityAction.ADD
+                                ? t`Add Farms`
+                                : action === LiquidityAction.INCREASE
+                                    ? t`Increase Liquidity`
+                                    : t`Remove Liquidity`}
+                    </>
+                }
             </ActiveText>
             {showTooltip && (
                 <QuestionHelper
@@ -158,13 +167,13 @@ export function HeaderTabs({
                 {!below768 && arrow}
                 {!below768 && title}
                 <Flex style={{ gap: '0px' }}>
-                    {onCleared && (
+                    {/* {onCleared && (
                         <StyledMenuButton active={false} onClick={onCleared}>
                             <Trash size={18} />
                         </StyledMenuButton>
                     )}
                     <TransactionSettings hoverBg={theme.buttonBlack} />
-                    {!hideShare && <ShareButtonWithModal onShared={onShared} />}
+                    {!hideShare && <ShareButtonWithModal onShared={onShared} />} */}
                 </Flex>
             </Wrapper>
         </Tabs>

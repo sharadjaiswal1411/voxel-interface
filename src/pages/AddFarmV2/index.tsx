@@ -137,9 +137,10 @@ export default function AddFarmV2({
   const [vestingDurationError, setVestingDurationError] = useState('')
   const [startTimeError, setStartTimeError] = useState('')
   const [endTimeError, setEndTimeError] = useState('')
-  const above1000 = useMedia('(min-width: 1000px)')
   const [isLoading, setIsLoading] = useState(false);
   const [rewardTokenAddress, setRewardTokenAddress] = useState(currencyIdA)
+  const [clearCurrency, setClearCurrency] = useState(false);
+  const above1000 = useMedia('(min-width: 1000px)')
 
   const { loading, addresses } = useTopPoolAddresses()
   const { loading: poolDataLoading, data: poolDatas } = usePoolDatas(addresses || [])
@@ -267,7 +268,7 @@ export default function AddFarmV2({
     if (valu.rewardTokenAddress == undefined) {
       errors.addRewardToken = "Selecting token is required !";
     }
-    if (!valu.addRewardTokenValue) {
+    if (!Number(valu.addRewardTokenValue)) {
       errors.addRewardTokenValue = "Selecting token value is required !";
     }
     if ((valu.vestingDuration).length === 0) {
@@ -282,6 +283,25 @@ export default function AddFarmV2({
 
     return errors;
   };
+
+  const clearForm = () => {
+    if (!isLoading) {
+      setVestingDuration('')
+      setStartDateTime('')
+      setEndDateTime('')
+      setSelectPool('')
+      setTouched(false)
+      setPoolErr('')
+      setAddRewardTokenValue('')
+      setAddRewardTokenErr('')
+      setAddRewardTokenValueErr('')
+      setVestingDurationError('')
+      setStartTimeError('')
+      setEndTimeError('')
+      setIsLoading(false)
+      setClearCurrency(!clearCurrency)
+    }
+  }
 
   const handleCurrencyASelect = (idA: any) => {
     setRewardTokenAddress(idA)
@@ -327,14 +347,11 @@ export default function AddFarmV2({
           <Container>
             <HeaderTabs
               hideShare
+              customTitle={"Create A New Farm"}
               action={LiquidityAction.CREATE}
               showTooltip={true}
-              onCleared={() => {
-                history.push('/farms/add')
-              }}
-              onBack={() => {
-                history.replace('/farms')
-              }}
+              onCleared={() => { clearForm() }}
+              onBack={() => { history.replace('/farms') }}
               tutorialType={TutorialType.ELASTIC_ADD_LIQUIDITY}
             />
             <ResponsiveTwoColumns>
@@ -391,6 +408,7 @@ export default function AddFarmV2({
                       </Text>
 
                       <CustomDatePicker
+                        value={startDateTime}
                         min={currentTime}
                         max={endDateTime}
                         dateTime={(val: any) => { setStartDateTime(val) }}
@@ -416,6 +434,7 @@ export default function AddFarmV2({
                       </Text>
 
                       <CurrencySelector
+                        clear={clearCurrency}
                         selectedCurrency={(val: any) => { handleCurrencyASelect(val) }}
                         disabled={isLoading}
                       />
@@ -480,6 +499,7 @@ export default function AddFarmV2({
                   </Text>
 
                   <CustomDatePicker
+                    value={endDateTime}
                     min={startDateTime ? startDateTime : currentTime}
                     dateTime={(val: any) => { setEndDateTime(val) }}
                     disabled={isLoading}

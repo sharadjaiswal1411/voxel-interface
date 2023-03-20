@@ -732,7 +732,7 @@ export default function Swap({ history }: RouteComponentProps) {
   }, [isStableCoinSwap, setRawSlippage])
 
   const shareUrl = useMemo(() => {
-    return `${window.location.origin}/swap?networkId=${chainId}${
+    return `${window.location.origin}/#/swap?networkId=${chainId}${
       currencyIn && currencyOut
         ? `&${stringify({
             inputCurrency: currencyId(currencyIn, chainId),

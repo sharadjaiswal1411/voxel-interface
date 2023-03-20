@@ -83,7 +83,7 @@ function ProMMFarms({ active }: { active: boolean }) {
     const now = Date.now() / 1000
     return Object.keys(farms).reduce((acc: { [key: string]: ProMMFarm[] }, address) => {
       const currentFarms = farms[address].filter(farm => {
-        const filterActive = active ? farm.endTime >= now : farm.endTime < now
+        const filterActive = active ? (farm.startTime < now && farm.endTime >= now) : farm.endTime < now
         const filterSearchText = search
           ? farm.token0.toLowerCase().includes(search) ||
           farm.token1.toLowerCase().includes(search) ||
@@ -118,7 +118,7 @@ function ProMMFarms({ active }: { active: boolean }) {
   const [sharePoolAddress, setSharePoolAddress] = useState('')
   const networkRoute = chainId ? NETWORKS_INFO[chainId].route : undefined
   const shareUrl = sharePoolAddress
-    ? `${window.location.origin}/farms?search=${sharePoolAddress}&type=${activeTab}&networkId=${networkRoute}`
+    ? `${window.location.origin}/#/farms?search=${sharePoolAddress}&type=${activeTab}&networkId=${networkRoute}`
     : undefined
 
   const onDismiss = () => {

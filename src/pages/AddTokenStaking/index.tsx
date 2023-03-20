@@ -121,6 +121,7 @@ export default function AddFarmV2({
   const [apyErr, setApyErr] = useState('')
   const [closingTimeErr, setClosingTimeErr] = useState('')
   const above1000 = useMedia('(min-width: 1000px)')
+  const [clearCurrency, setClearCurrency] = useState(false);
 
   const { createTokenStake, checkRole } = useTokenStakingAction();
 
@@ -194,7 +195,7 @@ export default function AddFarmV2({
           apy: String(Math.round(Number(apy) * 100)),
           differenceDate: String(differenceDate),
         }
- 
+
         const res = await createTokenStake(_data).catch((e) => { console.log(e); setIsLoading(false); })
 
         if (res) {
@@ -224,7 +225,7 @@ export default function AddFarmV2({
       errors.lockPeriod = "Lock Period is Required!";
     }
 
-    if (!valu.mintStake) {
+    if (!Number(valu.mintStake)) {
       errors.mintStake = "Minimum Stake is Required!";
     }
 
@@ -247,6 +248,25 @@ export default function AddFarmV2({
     return errors;
   };
 
+  const clearForm = () => {
+    if (!isLoading) {
+      setRewardToken('')
+      setTokenStake('')
+      setApy('')
+      setLockPeriod('')
+      setMintStake('')
+      setTouched(false)
+      setClosingInDateTime('')
+      setLockPeriodErr('')
+      setMintStakeErr('')
+      setSetTokenStakeErr('')
+      setRewardTokenErr('')
+      setApyErr('')
+      setClosingTimeErr('')
+      setIsLoading(false)
+      setClearCurrency(!clearCurrency)
+    }
+  }
 
   // Prevent minus, plus and e from input type number
   const onKeyDownDecimal = (event: any) => {
@@ -289,10 +309,11 @@ export default function AddFarmV2({
 
             <HeaderTabs
               hideShare
+              customTitle={"Create Token Staking"}
               action={LiquidityAction.CREATE}
               showTooltip={true}
               onCleared={() => {
-                history.push('/token-staking/add')
+                clearForm();
               }}
               onBack={() => {
                 history.replace('/token-staking')
@@ -320,6 +341,7 @@ export default function AddFarmV2({
                       </Text>
 
                       <CurrencySelector
+                        clear={clearCurrency}
                         selectedCurrency={(val: any) => { handleCurrencyASelect(val) }}
                         disabled={isLoading}
                       />
@@ -426,6 +448,7 @@ export default function AddFarmV2({
                   </Text>
 
                   <CurrencySelector
+                    clear={clearCurrency}
                     selectedCurrency={(val: any) => { handleCurrencyBSelect(val) }}
                     disabled={isLoading}
                   />
@@ -484,6 +507,7 @@ export default function AddFarmV2({
                   </Text>
 
                   <CustomDatePicker
+                    value={closingInDateTime}
                     dateTime={(val: any) => { setClosingInDateTime(val) }}
                     disabled={isLoading}
                   />

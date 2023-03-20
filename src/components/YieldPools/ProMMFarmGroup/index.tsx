@@ -334,86 +334,91 @@ const ProMMFarmGroup: React.FC<Props> = ({ address, onOpenModal, farms }) => {
 
   const renderFarmGroupHeaderOnDesktop = () => {
     return (
-      <Flex
-        sx={{
-          alignItems: 'center',
-          padding: '0 1rem',
-          justifyContent: 'space-between',
-          height: '72px',
-        }}
-      >
-        <Text
-          sx={{
-            fontWeight: 500,
-            fontSize: '16px',
-            lineHeight: '20px',
-            color: theme.subText,
-          }}
-        >
-          <Trans>Farming Contract</Trans>
-        </Text>
-        <Flex
-          sx={{
-            alignItems: 'center',
-            gap: '16px',
-          }}
-        >
+      <>
+        {(tab !== 'coming')
+          &&
           <Flex
-            alignItems="center"
             sx={{
-              gap: '12px',
+              alignItems: 'center',
+              padding: '0 1rem',
+              justifyContent: 'space-between',
+              height: '72px',
             }}
           >
-            <Text fontSize="12px" color={theme.subText}>
-              <Trans>Deposited Liquidity</Trans>
-              <InfoHelper
-                text={t`Total value of liquidity positions (i.e. NFT tokens) you've deposited into the farming contract`}
-                placement="top"
-              />
+            <Text
+              sx={{
+                fontWeight: 500,
+                fontSize: '16px',
+                lineHeight: '20px',
+                color: theme.subText,
+              }}
+            >
+              <Trans>Farming Contract</Trans>
             </Text>
+            <Flex
+              sx={{
+                alignItems: 'center',
+                gap: '16px',
+              }}
+            >
+              <Flex
+                alignItems="center"
+                sx={{
+                  gap: '12px',
+                }}
+              >
+                <Text fontSize="12px" color={theme.subText}>
+                  <Trans>Deposited Liquidity</Trans>
+                  <InfoHelper
+                    text={t`Total value of liquidity positions (i.e. NFT tokens) you've deposited into the farming contract`}
+                    placement="top"
+                  />
+                </Text>
 
-            <HoverDropdown
-              style={{ padding: '8px 0' }}
-              content={
-                account ? (
-                  <Text
-                    as="span"
-                    sx={{
-                      fontSize: '16px',
-                      fontWeight: 500,
-                    }}
-                  >
-                    {formatDollarAmount(depositedUsd)}
-                  </Text>
-                ) : (
-                  '--'
-                )
-              }
-              hideIcon={!account}
-              dropdownContent={
-                Object.values(userDepositedTokenAmounts).some(amount => amount.greaterThan(0)) ? (
-                  <AutoColumn gap="sm">
-                    {Object.values(userDepositedTokenAmounts).map(
-                      amount =>
-                        amount.greaterThan(0) && (
-                          <Flex alignItems="center" key={amount.currency.address}>
-                            <CurrencyLogo currency={amount.currency} size="16px" />
-                            <Text fontSize="12px" marginLeft="4px">
-                              {amount.toSignificant(8)}
-                            </Text>
-                          </Flex>
-                        ),
-                    )}
-                  </AutoColumn>
-                ) : (
-                  ''
-                )
-              }
-            />
+                <HoverDropdown
+                  style={{ padding: '8px 0' }}
+                  content={
+                    account ? (
+                      <Text
+                        as="span"
+                        sx={{
+                          fontSize: '16px',
+                          fontWeight: 500,
+                        }}
+                      >
+                        {formatDollarAmount(depositedUsd)}
+                      </Text>
+                    ) : (
+                      '--'
+                    )
+                  }
+                  hideIcon={!account}
+                  dropdownContent={
+                    Object.values(userDepositedTokenAmounts).some(amount => amount.greaterThan(0)) ? (
+                      <AutoColumn gap="sm">
+                        {Object.values(userDepositedTokenAmounts).map(
+                          amount =>
+                            amount.greaterThan(0) && (
+                              <Flex alignItems="center" key={amount.currency.address}>
+                                <CurrencyLogo currency={amount.currency} size="16px" />
+                                <Text fontSize="12px" marginLeft="4px">
+                                  {amount.toSignificant(8)}
+                                </Text>
+                              </Flex>
+                            ),
+                        )}
+                      </AutoColumn>
+                    ) : (
+                      ''
+                    )
+                  }
+                />
+              </Flex>
+              {renderTopButtonsOnDesktop()}
+            </Flex>
           </Flex>
-          {renderTopButtonsOnDesktop()}
-        </Flex>
-      </Flex>
+        }
+      </>
     )
   }
 
@@ -599,7 +604,7 @@ const ProMMFarmGroup: React.FC<Props> = ({ address, onOpenModal, farms }) => {
 
         <Flex grid-area="end" alignItems="center" justifyContent="flex-end">
           <ClickableText>
-            <Trans>Ending In</Trans>
+            <Trans>{tab === 'coming' ? "Starting In" : "Ending In"}</Trans>
           </ClickableText>
           <InfoHelper text={t`Once a farm has ended, you will continue to receive returns through LP Fees`} />
         </Flex>
@@ -627,144 +632,154 @@ const ProMMFarmGroup: React.FC<Props> = ({ address, onOpenModal, farms }) => {
 
   const renderRewardRowOnDesktop = () => {
     return (
-      <FarmRow>
-        <Flex
-          alignItems="center"
-          sx={{ gap: '24px' }}
-          justifyContent={above768 ? 'flex-end' : 'space-between'}
-          width={above768 ? undefined : '100%'}
-        >
-          <Flex
-            alignItems="center"
-            sx={{
-              gap: '8px',
-            }}
-          >
-            <Text fontSize="12px" color={theme.subText}>
-              <Trans>Total Rewards</Trans>
-            </Text>
+      <>
+        {(tab !== 'coming')
+          &&
+          <FarmRow>
+            <Flex
+              alignItems="center"
+              sx={{ gap: '24px' }}
+              justifyContent={above768 ? 'flex-end' : 'space-between'}
+              width={above768 ? undefined : '100%'}
+            >
+              <Flex
+                alignItems="center"
+                sx={{
+                  gap: '8px',
+                }}
+              >
+                <Text fontSize="12px" color={theme.subText}>
+                  <Trans>Total Rewards</Trans>
+                </Text>
 
-            <HoverDropdown
-              style={{ padding: '8px 0' }}
-              content={
-                account ? (
-                  <Text
-                    as="span"
-                    sx={{
-                      fontSize: '16px',
-                      fontWeight: 500,
-                    }}
-                  >
-                    {formatDollarAmount(totalUserReward.totalUsdValue)}
-                  </Text>
-                ) : (
-                  '--'
-                )
-              }
-              hideIcon={!account}
-              dropdownContent={
-                totalUserReward.amounts.length ? (
-                  <AutoColumn gap="sm">
-                    {totalUserReward.amounts.map(
-                      amount =>
-                        amount.greaterThan(0) && (
-                          <Flex alignItems="center" key={amount.currency.address}>
-                            <CurrencyLogo currency={amount.currency} size="16px" />
-                            <Text fontSize="12px" marginLeft="4px">
-                              {amount.toSignificant(8)}
-                            </Text>
-                          </Flex>
-                        ),
-                    )}
-                  </AutoColumn>
-                ) : (
-                  ''
-                )
-              }
-            />
-          </Flex>
+                <HoverDropdown
+                  style={{ padding: '8px 0' }}
+                  content={
+                    account ? (
+                      <Text
+                        as="span"
+                        sx={{
+                          fontSize: '16px',
+                          fontWeight: 500,
+                        }}
+                      >
+                        {formatDollarAmount(totalUserReward.totalUsdValue)}
+                      </Text>
+                    ) : (
+                      '--'
+                    )
+                  }
+                  hideIcon={!account}
+                  dropdownContent={
+                    totalUserReward.amounts.length ? (
+                      <AutoColumn gap="sm">
+                        {totalUserReward.amounts.map(
+                          amount =>
+                            amount.greaterThan(0) && (
+                              <Flex alignItems="center" key={amount.currency.address}>
+                                <CurrencyLogo currency={amount.currency} size="16px" />
+                                <Text fontSize="12px" marginLeft="4px">
+                                  {amount.toSignificant(8)}
+                                </Text>
+                              </Flex>
+                            ),
+                        )}
+                      </AutoColumn>
+                    ) : (
+                      ''
+                    )
+                  }
+                />
+              </Flex>
 
-          <HarvestAllButton onClick={() => onOpenModal('harvest')} disabled={!account || !canHarvest} />
-        </Flex>
+              <HarvestAllButton onClick={() => onOpenModal('harvest')} disabled={!account || !canHarvest} />
+            </Flex>
 
-        {hasAffectedByFarmIssue && !above768 && (
-          <BtnPrimary
-            style={{ color: theme.red, border: `1px solid ${theme.red}`, background: theme.red + '33' }}
-            padding={'12px'}
-            onClick={() => onOpenModal('forcedWithdraw')}
-          >
-            <Withdraw width={20} height={20} />
-            <Text fontSize="14px" marginLeft="4px">
-              <Trans>Force Withdraw</Trans>
-            </Text>
-          </BtnPrimary>
-        )}
-      </FarmRow>
+            {hasAffectedByFarmIssue && !above768 && (
+              <BtnPrimary
+                style={{ color: theme.red, border: `1px solid ${theme.red}`, background: theme.red + '33' }}
+                padding={'12px'}
+                onClick={() => onOpenModal('forcedWithdraw')}
+              >
+                <Withdraw width={20} height={20} />
+                <Text fontSize="14px" marginLeft="4px">
+                  <Trans>Force Withdraw</Trans>
+                </Text>
+              </BtnPrimary>
+            )}
+          </FarmRow>
+        }
+      </>
     )
   }
 
   const renderRewardRowOnMobile = () => {
     return (
-      <Flex
-        sx={{
-          height: '68px',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
-        <Flex
-          flexDirection="column"
-          justifyContent={'center'}
-          sx={{
-            gap: '4px',
-          }}
-        >
-          <Text fontSize="12px" color={theme.subText}>
-            <Trans>Total Rewards</Trans>
-          </Text>
+      <>
+        {(tab !== 'coming')
+          &&
+          <Flex
+            sx={{
+              height: '68px',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Flex
+              flexDirection="column"
+              justifyContent={'center'}
+              sx={{
+                gap: '4px',
+              }}
+            >
+              <Text fontSize="12px" color={theme.subText}>
+                <Trans>Total Rewards</Trans>
+              </Text>
 
-          <HoverDropdown
-            style={{ padding: '0' }}
-            content={
-              account ? (
-                <Text
-                  as="span"
-                  sx={{
-                    fontSize: '16px',
-                    fontWeight: 500,
-                  }}
-                >
-                  {formatDollarAmount(totalUserReward.totalUsdValue)}
-                </Text>
-              ) : (
-                '--'
-              )
-            }
-            hideIcon={!account}
-            dropdownContent={
-              totalUserReward.amounts.length ? (
-                <AutoColumn gap="sm">
-                  {totalUserReward.amounts.map(
-                    amount =>
-                      amount.greaterThan(0) && (
-                        <Flex alignItems="center" key={amount.currency.address}>
-                          <CurrencyLogo currency={amount.currency} size="16px" />
-                          <Text fontSize="12px" marginLeft="4px">
-                            {amount.toSignificant(8)}
-                          </Text>
-                        </Flex>
-                      ),
-                  )}
-                </AutoColumn>
-              ) : (
-                ''
-              )
-            }
-          />
-        </Flex>
+              <HoverDropdown
+                style={{ padding: '0' }}
+                content={
+                  account ? (
+                    <Text
+                      as="span"
+                      sx={{
+                        fontSize: '16px',
+                        fontWeight: 500,
+                      }}
+                    >
+                      {formatDollarAmount(totalUserReward.totalUsdValue)}
+                    </Text>
+                  ) : (
+                    '--'
+                  )
+                }
+                hideIcon={!account}
+                dropdownContent={
+                  totalUserReward.amounts.length ? (
+                    <AutoColumn gap="sm">
+                      {totalUserReward.amounts.map(
+                        amount =>
+                          amount.greaterThan(0) && (
+                            <Flex alignItems="center" key={amount.currency.address}>
+                              <CurrencyLogo currency={amount.currency} size="16px" />
+                              <Text fontSize="12px" marginLeft="4px">
+                                {amount.toSignificant(8)}
+                              </Text>
+                            </Flex>
+                          ),
+                      )}
+                    </AutoColumn>
+                  ) : (
+                    ''
+                  )
+                }
+              />
+            </Flex>
 
-        <HarvestAllButton onClick={() => onOpenModal('harvest')} disabled={!account || !canHarvest} />
-      </Flex>
+            <HarvestAllButton onClick={() => onOpenModal('harvest')} disabled={!account || !canHarvest} />
+          </Flex>
+        }
+      </>
     )
   }
 

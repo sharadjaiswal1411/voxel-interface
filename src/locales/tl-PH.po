@@ -1113,6 +1113,10 @@ msgstr ""
 msgid "Create Farm"
 msgstr ""
 
+#: src/pages/AddNftStaking/HeaderTabs.tsx
+msgid "Create NFT Staking"
+msgstr ""
+
 #: src/pages/About/AboutKyberSwap.tsx
 msgid "Create New Pool"
 msgstr ""
@@ -1203,6 +1207,10 @@ msgstr ""
 #: src/components/YieldPools/index.tsx
 #: src/components/YieldPools/ProMMFarms.tsx
 msgid "Currently there are no Farms."
+msgstr ""
+
+#: src/components/UpcomingFarms/index.tsx
+msgid "Currently there are no upcoming Farms."
 msgstr ""
 
 #: src/pages/Campaign/index.tsx
@@ -1516,7 +1524,6 @@ msgstr ""
 msgid "Ended On"
 msgstr ""
 
-#: src/components/YieldPools/ProMMFarmGroup/index.tsx
 #: src/components/YieldPools/ProMMFarmGroup/Row.tsx
 #: src/pages/Campaign/index.tsx
 msgid "Ending In"
@@ -2127,7 +2134,6 @@ msgstr ""
 msgid "Info"
 msgstr ""
 
-#: src/components/UpcomingFarms/index.tsx
 #: src/components/UpcomingFarms/ListItem.tsx
 msgid "Information"
 msgstr ""
@@ -2741,7 +2747,6 @@ msgstr ""
 
 #: src/components/Header/index.tsx
 #: src/components/Header/index.tsx
-#: src/pages/AddNftStaking/HeaderTabs.tsx
 msgid "NFT Staking"
 msgstr ""
 
@@ -2767,7 +2772,6 @@ msgstr ""
 msgid "Navigating Pools Tutorial"
 msgstr ""
 
-#: src/components/UpcomingFarms/index.tsx
 #: src/components/UpcomingFarms/ListItem.tsx
 msgid "Network"
 msgstr ""
@@ -3135,7 +3139,6 @@ msgstr ""
 #~ msgid "Pooled {0}:"
 #~ msgstr ""
 
-#: src/components/UpcomingFarms/index.tsx
 #: src/components/UpcomingFarms/ListItem.tsx
 msgid "Pools"
 msgstr ""
@@ -3456,7 +3459,6 @@ msgstr ""
 msgid "Reward Tokens <0>*</0>"
 msgstr ""
 
-#: src/components/UpcomingFarms/index.tsx
 #: src/components/UpcomingFarms/ListItem.tsx
 #: src/pages/Campaign/index.tsx
 #: src/pages/Campaign/index.tsx
@@ -3882,7 +3884,6 @@ msgstr ""
 #~ msgid "Start Time<0>*</0>"
 #~ msgstr ""
 
-#: src/components/UpcomingFarms/index.tsx
 #: src/components/UpcomingFarms/ListItem.tsx
 #: src/pages/Campaign/index.tsx
 msgid "Starting In"
@@ -5454,6 +5455,7 @@ msgstr ""
 #: src/components/swapv2/TokenInfoV2/SingleTokenInfo.tsx
 #: src/components/UnStakeModal/UnStakeModal.tsx
 #: src/components/Web3Status/index.tsx
+#: src/components/YieldPools/ProMMFarmGroup/index.tsx
 #: src/pages/Bridge/PoolInfo.tsx
 #: src/pages/ManageAuth/index.tsx
 #: src/pages/ManageAuth/TableFarming.tsx

@@ -147,7 +147,7 @@ export default function AddFarmV2({
   const [lockTimeErr, setLockTimeErr] = useState('')
   const [collectionLogoErr, setCollectionLogoErr] = useState('')
   const [isLoading, setIsLoading] = useState(false);
-
+  const [clearCurrency, setClearCurrency] = useState(false);
   const [touched, setTouched] = useState(false)
   const above1000 = useMedia('(min-width: 1000px)')
 
@@ -233,8 +233,8 @@ export default function AddFarmV2({
     const errors: obj = {};
 
     const regex = /[A-Za-z0-9]{2,5}$/i;
-    if (!valu.reward) {
-      errors.reward = "This Field is Required !";
+    if (!Number(valu.reward)) {
+      errors.reward = "Reward is Required !";
     }
 
     if (!valu.nftAddress) {
@@ -272,6 +272,26 @@ export default function AddFarmV2({
       event.keyCode === 69     // (e)
     ) {
       event.preventDefault()
+    }
+  }
+
+  const clearForm = () => {
+    if (!isLoading) {
+      setReward('')
+      setNftAddress('')
+      setCollectionName('')
+      setRewardTokenAddress('')
+      setLockTime('')
+      setCollectionLogo('')
+      setRewardErr('')
+      setNftAddressErr('')
+      setCollectionNameErr('')
+      setRewardTokenAddressErr('')
+      setLockTimeErr('')
+      setCollectionLogoErr('')
+      setTouched(false)
+      setIsLoading(false)
+      setClearCurrency(!clearCurrency)
     }
   }
 
@@ -346,8 +366,7 @@ export default function AddFarmV2({
   const previousTicks =
     // : number[] = []
     useProAmmPreviousTicks(pool, position)
-  const { onFieldAInput, onFieldBInput, onLeftRangeInput, onRightRangeInput, onStartPriceInput } =
-    useProAmmMintActionHandlers(noLiquidity)
+  const { onFieldAInput, onFieldBInput, onLeftRangeInput, onRightRangeInput, onStartPriceInput } = useProAmmMintActionHandlers(noLiquidity)
 
   const isValid = !errorMessage && !invalidRange
 
@@ -643,9 +662,7 @@ export default function AddFarmV2({
               action={!!noLiquidity ? LiquidityAction.CREATE : LiquidityAction.ADD}
               showTooltip={true}
               onCleared={() => {
-                onFieldAInput('0')
-                onFieldBInput('0')
-                history.push('/nft-staking/add')
+                clearForm()
               }}
               onBack={() => {
                 history.replace('/nft-staking')
@@ -772,6 +789,7 @@ export default function AddFarmV2({
                   </Text>
 
                   <CurrencySelector
+                    clear={clearCurrency}
                     selectedCurrency={(val: any) => { handleCurrencyASelect(val) }}
                     disabled={isLoading}
                   />
